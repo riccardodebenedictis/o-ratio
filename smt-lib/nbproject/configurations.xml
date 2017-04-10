@@ -4,11 +4,20 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
+        <itemPath>assertion.h</itemPath>
+        <itemPath>interval.h</itemPath>
+        <itemPath>la_constr.h</itemPath>
+        <itemPath>la_theory.h</itemPath>
+        <itemPath>lin.h</itemPath>
+        <itemPath>t_row.h</itemPath>
+      </logicalFolder>
       <itemPath>clause.h</itemPath>
       <itemPath>constr.h</itemPath>
       <itemPath>lit.h</itemPath>
       <itemPath>sat_core.h</itemPath>
       <itemPath>theory.h</itemPath>
+      <itemPath>utils.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -17,6 +26,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
+        <itemPath>assertion.cpp</itemPath>
+        <itemPath>interval.cpp</itemPath>
+        <itemPath>la_constr.cpp</itemPath>
+        <itemPath>la_theory.cpp</itemPath>
+        <itemPath>lin.cpp</itemPath>
+        <itemPath>t_row.cpp</itemPath>
+      </logicalFolder>
       <itemPath>clause.cpp</itemPath>
       <itemPath>lit.cpp</itemPath>
       <itemPath>sat_core.cpp</itemPath>
@@ -53,6 +70,10 @@
           <warningLevel>2</warningLevel>
         </ccTool>
       </compileType>
+      <item path="assertion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="assertion.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="clause.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="clause.h" ex="false" tool="3" flavor2="0">
@@ -74,6 +95,22 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="interval.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="interval.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_constr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_constr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lin.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lin.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="lit.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="lit.h" ex="false" tool="3" flavor2="0">
@@ -82,11 +119,17 @@
       </item>
       <item path="sat_core.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="t_row.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="t_row.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="theory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -110,6 +153,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="assertion.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="assertion.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="clause.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="clause.h" ex="false" tool="3" flavor2="0">
@@ -131,6 +178,22 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="interval.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="interval.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_constr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_constr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lin.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lin.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="lit.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="lit.h" ex="false" tool="3" flavor2="0">
@@ -139,11 +202,17 @@
       </item>
       <item path="sat_core.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="t_row.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="t_row.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="theory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
