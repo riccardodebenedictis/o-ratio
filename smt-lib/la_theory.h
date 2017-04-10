@@ -83,8 +83,8 @@ namespace smt {
         void push() override;
         void pop() override;
 
-        bool assert_lower(var x_i, double val);
-        bool assert_upper(var x_i, double val);
+        constr* assert_lower(var x_i, double val, const lit& p);
+        constr* assert_upper(var x_i, double val, const lit& p);
         void update(var x_i, double v);
         void pivot_and_update(var x_i, var x_j, double v);
         void pivot(var x_i, var x_j);
@@ -93,7 +93,7 @@ namespace smt {
         // collection of problem constraints..
         std::vector<la_constr*> constrs;
         // for each variable v, a list of constraints watching v..
-        std::vector<std::vector<la_constr*>> watches;
+        std::vector<std::set<la_constr*>> watches;
         // the current assignments..
         std::vector<interval> assigns;
         // the current values..
@@ -104,7 +104,7 @@ namespace smt {
         std::unordered_map<std::string, var> exprs;
         // the assertions (string to boolean variable) used both for reducing the number of boolean variables and for generating explanations..
         std::unordered_map<std::string, var> s_asrts;
-        // the assertions (boolean variable to assertions) used for enforcing (negating) assertions..
+        // the assertions (boolean variable to assertion) used for enforcing (negating) assertions..
         std::unordered_map<var, assertion*> i_asrts;
     };
 }

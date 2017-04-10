@@ -34,7 +34,7 @@ namespace smt {
 
     var la_theory::new_var() {
         var id = assigns.size();
-        watches.push_back(std::vector<la_constr*>());
+        watches.push_back(std::set<la_constr*>());
         assigns.push_back(interval());
         vals.push_back(0);
         exprs.insert({"x" + std::to_string(id), id});
@@ -148,7 +148,33 @@ namespace smt {
         return slack;
     }
 
-    constr* la_theory::propagate(const lit& p) { }
+    constr* la_theory::propagate(const lit& p) {
+        assertion* a = i_asrts[p.v];
+        constr* cnfl = nullptr;
+        switch (a->o) {
+            case op::leq:
+                if (p.sign) {
+                    cnfl = assert_upper(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                } else {
+                    cnfl = assert_lower(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                }
+                break;
+            case op::geq:
+                if (p.sign) {
+                    cnfl = assert_lower(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                } else {
+                    cnfl = assert_upper(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                }
+                break;
+            default:
+                break;
+        }
+        return cnfl;
+    }
 
     constr* la_theory::check() { }
 
@@ -156,9 +182,51 @@ namespace smt {
 
     void la_theory::pop() { }
 
-    bool la_theory::assert_lower(var x_i, double val) { }
+    constr* la_theory::assert_lower(var x_i, double val, const lit& p) {
+        if (val <= assigns[x_i].lb) {
+            return nullptr;
+        } else if (val > assigns[x_i].ub) {
+            return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)], false)});
+        } else {
+            assigns[x_i].lb = val;
+            if (vals[x_i] < val) {
+                if (tableau.find(x_i) == tableau.end()) {
+                    update(x_i, val);
+                }
+            }
 
-    bool la_theory::assert_upper(var x_i, double val) { }
+            constr* cnfl = nullptr;
+            for (const auto& c : watches[x_i]) {
+                cnfl = c->propagate_lb(x_i);
+                if (cnfl) return cnfl;
+            }
+
+            return cnfl;
+        }
+    }
+
+    constr* la_theory::assert_upper(var x_i, double val, const lit& p) {
+        if (val >= assigns[x_i].ub) {
+            return nullptr;
+        } else if (val < assigns[x_i].lb) {
+            return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)], false)});
+        } else {
+            assigns[x_i].ub = std::min(assigns[x_i].ub, val);
+            if (vals[x_i] > val) {
+                if (tableau.find(x_i) == tableau.end()) {
+                    update(x_i, val);
+                }
+            }
+
+            constr* cnfl = nullptr;
+            for (const auto& c : watches[x_i]) {
+                cnfl = c->propagate_ub(x_i);
+                if (cnfl) return cnfl;
+            }
+
+            return cnfl;
+        }
+    }
 
     void la_theory::update(var x_i, double v) { }
 

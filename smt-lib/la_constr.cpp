@@ -29,7 +29,7 @@ namespace smt {
 
     la_constr::la_constr(la_theory& th, std::vector<var> vars) : th(th), vars(vars) {
         for (const auto& v : vars) {
-            th.watches[v].push_back(this);
+            th.watches[v].insert(this);
         }
     }
 
