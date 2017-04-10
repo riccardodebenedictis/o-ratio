@@ -170,7 +170,7 @@ namespace smt {
                     if (level[q.v] == trail_lim.size()) {
                         counter++;
                     } else if (level[q.v] > 0) {
-                        out_learnt.push_back(!q);
+                        out_learnt.push_back(q);
                         out_btlevel = std::max(out_btlevel, level[q.v]);
                     }
                 }
@@ -239,7 +239,7 @@ namespace smt {
             return value(p) == False; });
         assert(undefs == 1);
         assert(falses == lits.size() - 1);
-        assert(value(lits[0]) != Undefined);
+        assert(value(lits[0]) == Undefined);
 #endif
         if (lits.size() == 1) {
             assert(root_level());
