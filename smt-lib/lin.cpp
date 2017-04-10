@@ -30,8 +30,8 @@ namespace smt {
 
     lin::lin(double known_term) : known_term(known_term) { }
 
-    lin::lin(size_t var, double c) : known_term(0) {
-        vars.insert({var, c});
+    lin::lin(var v, double c) : known_term(0) {
+        vars.insert({v, c});
     }
 
     lin lin::operator+(const lin& right) const {
@@ -144,7 +144,7 @@ namespace smt {
         return *this;
     }
 
-    lin lin::operator+=(const std::pair<size_t, double>& term) {
+    lin lin::operator+=(const std::pair<var, double>& term) {
         if (vars.find(term.first) == vars.end()) {
             vars.insert({term.first, -term.second});
         } else {
@@ -180,7 +180,7 @@ namespace smt {
         return *this;
     }
 
-    lin lin::operator-=(const std::pair<size_t, double>& term) {
+    lin lin::operator-=(const std::pair<var, double>& term) {
         if (vars.find(term.first) == vars.end()) {
             vars.insert({term.first, -term.second});
         } else {
@@ -242,7 +242,7 @@ namespace smt {
             return os;
         }
 
-        for (std::map<size_t, double>::const_iterator it = obj.vars.begin(); it != obj.vars.end(); ++it) {
+        for (std::map<var, double>::const_iterator it = obj.vars.begin(); it != obj.vars.end(); ++it) {
             if (it == obj.vars.begin()) {
                 if (it->second == 1) {
                     os << "x" << std::to_string(it->first);

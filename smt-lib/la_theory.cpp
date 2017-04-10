@@ -24,6 +24,7 @@
 
 #include "la_theory.h"
 #include "sat_core.h"
+#include <cassert>
 #include <sstream>
 
 namespace smt {
@@ -228,9 +229,56 @@ namespace smt {
         }
     }
 
-    void la_theory::update(var x_i, double v) { }
+    void la_theory::update(var x_i, double v) {
+        assert(tableau.find(x_i) == tableau.end() && "x_i should be a non-basic variable..");
+        for (const auto& c : watches[x_i]) {
+            if (t_row * row = dynamic_cast<t_row*> (c)) {
+                // x_j = x_j + a_ji(v - x_i)..
+                vals[row->v] += row->l.vars[x_i] * (v - vals[x_i]);
+            }
+        }
+        // x_i = v..
+        vals[x_i] = v;
+    }
 
-    void la_theory::pivot_and_update(var x_i, var x_j, double v) { }
+    void la_theory::pivot_and_update(var x_i, var x_j, double v) {
+        assert(tableau.find(x_i) != tableau.end() && "x_i should be a basic variable..");
+        assert(tableau.find(x_j) == tableau.end() && "x_j should be a non-basic variable..");
+        assert(tableau[x_i]->l.vars.find(x_j) != tableau[x_i]->l.vars.end());
 
-    void la_theory::pivot(var x_i, var x_j) { }
+        double theta = (v - vals[x_i]) / tableau.at(x_i)->l.vars.at(x_j);
+        // x_i = v
+        vals[x_i] = v;
+        // x_j = x_j + theta
+        vals[x_j] += theta;
+        for (const auto& c : watches[x_i]) {
+            if (t_row * row = dynamic_cast<t_row*> (c)) {
+                // x_k = x_k + a_kj * theta..
+                vals[row->v] += row->l.vars[x_j] * theta;
+            }
+        }
+
+        pivot(x_i, x_j);
+    }
+
+    void la_theory::pivot(var x_i, var x_j) {
+        lin r = tableau.at(x_i)->l;
+        tableau.erase(x_i);
+
+        double c = r.vars.at(x_j);
+        r.vars.erase(x_j);
+        r /= -c;
+        r.vars.insert({x_i, 1 / c});
+        for (const auto& c : watches[x_j]) {
+            if (t_row * row = dynamic_cast<t_row*> (c)) {
+                double cc = row->l.vars.at(x_j);
+                row->l.vars.erase(x_j);
+                row->l += r*cc;
+                watches[x_j].erase(row);
+                for (const auto& x : row->l.vars) {
+                    watches[x.first].insert(row);
+                }
+            }
+        }
+    }
 }

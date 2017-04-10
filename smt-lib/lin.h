@@ -30,12 +30,14 @@
 
 namespace smt {
 
+    typedef size_t var;
+
     class lin {
     public:
 
         lin();
         lin(double known_term);
-        lin(size_t var, double c);
+        lin(var v, double c);
 
     public:
         lin operator+(const lin& right) const;
@@ -52,11 +54,11 @@ namespace smt {
         lin operator/(const double& right) const;
 
         lin operator+=(const lin& right);
-        lin operator+=(const std::pair<size_t, double>& term);
+        lin operator+=(const std::pair<var, double>& term);
         lin operator+=(const double& right);
 
         lin operator-=(const lin& right);
-        lin operator-=(const std::pair<size_t, double>& term);
+        lin operator-=(const std::pair<var, double>& term);
         lin operator-=(const double& right);
 
         lin operator*=(const double& right);
@@ -68,7 +70,7 @@ namespace smt {
         friend std::ostream& operator<<(std::ostream& os, const lin& obj);
 
     public:
-        std::map<size_t, double> vars;
+        std::map<var, double> vars;
         double known_term;
     };
 }
