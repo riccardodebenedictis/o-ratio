@@ -357,6 +357,21 @@ namespace smt {
         }
     }
 
+    std::ostream& operator<<(std::ostream& os, const la_theory& obj) {
+        os << "**********[la_theory]***********" << std::endl;
+        for (size_t i = 0; i < obj.assigns.size(); i++) {
+            os << "x" << std::to_string(i) << ": " << obj.assigns[i] << "(" << std::to_string(obj.vals[i]) << ")" << std::endl;
+        }
+        for (const auto& asrt : obj.v_asrts) {
+            os << *asrt.second << std::endl;
+        }
+        for (const auto& row : obj.tableau) {
+            os << *row.second << std::endl;
+        }
+        os << "********************************" << std::endl;
+        return os;
+    }
+
     assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) { }
 
     assertion::~assertion() { }
@@ -451,6 +466,36 @@ namespace smt {
             }
         }
         return nullptr;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const assertion& obj) {
+        os << "b" << std::to_string(obj.b);
+        switch (obj.th.get_core().value(obj.b)) {
+            case True:
+                os << "(T)";
+                break;
+            case False:
+                os << "(F)";
+                break;
+            case Undefined:
+                os << "(U)";
+                break;
+            default:
+                break;
+        }
+        os << "x" << std::to_string(obj.x);
+        switch (obj.o) {
+            case leq:
+                os << " <= ";
+                break;
+            case geq:
+                os << " >= ";
+                break;
+            default:
+                break;
+        }
+        os << std::to_string(obj.v);
+        return os;
     }
 
     t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) { }
@@ -749,5 +794,10 @@ namespace smt {
             }
         }
         return nullptr;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const t_row& obj) {
+        os << "x" << std::to_string(obj.x) << " = " << obj.l;
+        return os;
     }
 }

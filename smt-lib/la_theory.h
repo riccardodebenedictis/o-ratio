@@ -86,6 +86,9 @@ namespace smt {
         void pivot_and_update(var x_i, var x_j, double v);
         void pivot(var x_i, var x_j);
 
+    public:
+        friend std::ostream& operator<<(std::ostream& os, const la_theory& obj);
+
     private:
         // the current assignments..
         std::vector<interval> assigns;
@@ -121,6 +124,9 @@ namespace smt {
         constr* propagate_lb(var x, const lit& p);
         constr* propagate_ub(var x, const lit& p);
 
+    public:
+        friend std::ostream& operator<<(std::ostream& os, const assertion& obj);
+
     private:
         la_theory& th;
         op o;
@@ -139,6 +145,9 @@ namespace smt {
     private:
         constr* propagate_lb(var x);
         constr* propagate_ub(var x);
+
+    public:
+        friend std::ostream& operator<<(std::ostream& os, const t_row& obj);
 
     private:
         la_theory& th;

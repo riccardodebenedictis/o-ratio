@@ -40,6 +40,10 @@ namespace smt {
         theory(const theory& that) = delete;
         virtual ~theory();
 
+        sat_core& get_core() const {
+            return c;
+        }
+
     protected:
         void bind(var v);
         void unbind(var v);
