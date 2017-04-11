@@ -43,7 +43,7 @@ namespace smt {
     protected:
         void bind(var v);
         void unbind(var v);
-        bool enqueue(const lit& p, constr * const cstr);
+        void record(const std::vector<lit>& clause);
 
     private:
         /**

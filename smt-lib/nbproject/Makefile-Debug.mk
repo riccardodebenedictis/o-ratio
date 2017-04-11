@@ -35,15 +35,11 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/assertion.o \
 	${OBJECTDIR}/clause.o \
 	${OBJECTDIR}/interval.o \
-	${OBJECTDIR}/la_constr.o \
-	${OBJECTDIR}/la_theory.o \
 	${OBJECTDIR}/lin.o \
 	${OBJECTDIR}/lit.o \
 	${OBJECTDIR}/sat_core.o \
-	${OBJECTDIR}/t_row.o \
 	${OBJECTDIR}/theory.o
 
 # Test Directory
@@ -81,11 +77,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}: ${OBJECTF
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
-${OBJECTDIR}/assertion.o: assertion.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/assertion.o assertion.cpp
-
 ${OBJECTDIR}/clause.o: clause.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -95,16 +86,6 @@ ${OBJECTDIR}/interval.o: interval.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/interval.o interval.cpp
-
-${OBJECTDIR}/la_constr.o: la_constr.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/la_constr.o la_constr.cpp
-
-${OBJECTDIR}/la_theory.o: la_theory.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/la_theory.o la_theory.cpp
 
 ${OBJECTDIR}/lin.o: lin.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -120,11 +101,6 @@ ${OBJECTDIR}/sat_core.o: sat_core.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sat_core.o sat_core.cpp
-
-${OBJECTDIR}/t_row.o: t_row.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/t_row.o t_row.cpp
 
 ${OBJECTDIR}/theory.o: theory.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -148,19 +124,6 @@ ${TESTDIR}/tests/sat_core_test.o: tests/sat_core_test.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/sat_core_test.o tests/sat_core_test.cpp
 
-
-${OBJECTDIR}/assertion_nomain.o: ${OBJECTDIR}/assertion.o assertion.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/assertion.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/assertion_nomain.o assertion.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/assertion.o ${OBJECTDIR}/assertion_nomain.o;\
-	fi
 
 ${OBJECTDIR}/clause_nomain.o: ${OBJECTDIR}/clause.o clause.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -186,32 +149,6 @@ ${OBJECTDIR}/interval_nomain.o: ${OBJECTDIR}/interval.o interval.cpp
 	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/interval_nomain.o interval.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/interval.o ${OBJECTDIR}/interval_nomain.o;\
-	fi
-
-${OBJECTDIR}/la_constr_nomain.o: ${OBJECTDIR}/la_constr.o la_constr.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/la_constr.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/la_constr_nomain.o la_constr.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/la_constr.o ${OBJECTDIR}/la_constr_nomain.o;\
-	fi
-
-${OBJECTDIR}/la_theory_nomain.o: ${OBJECTDIR}/la_theory.o la_theory.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/la_theory.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/la_theory_nomain.o la_theory.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/la_theory.o ${OBJECTDIR}/la_theory_nomain.o;\
 	fi
 
 ${OBJECTDIR}/lin_nomain.o: ${OBJECTDIR}/lin.o lin.cpp 
@@ -251,19 +188,6 @@ ${OBJECTDIR}/sat_core_nomain.o: ${OBJECTDIR}/sat_core.o sat_core.cpp
 	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sat_core_nomain.o sat_core.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/sat_core.o ${OBJECTDIR}/sat_core_nomain.o;\
-	fi
-
-${OBJECTDIR}/t_row_nomain.o: ${OBJECTDIR}/t_row.o t_row.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/t_row.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/t_row_nomain.o t_row.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/t_row.o ${OBJECTDIR}/t_row_nomain.o;\
 	fi
 
 ${OBJECTDIR}/theory_nomain.o: ${OBJECTDIR}/theory.o theory.cpp 

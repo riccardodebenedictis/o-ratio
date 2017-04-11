@@ -34,8 +34,8 @@
 
 namespace smt {
 
-    static const size_t FALSE = 0;
-    static const size_t TRUE = 1;
+    static const var FALSE = 0;
+    static const var TRUE = 1;
 
     class theory;
 
@@ -59,7 +59,7 @@ namespace smt {
         bool new_clause(const std::vector<lit>& lits);
         bool assume(const lit& p);
 
-        lbool value(size_t x) const {
+        lbool value(var x) const {
             return assigns[x];
         }
 

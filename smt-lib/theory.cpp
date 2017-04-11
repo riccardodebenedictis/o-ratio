@@ -40,20 +40,20 @@ namespace smt {
         c.remove_theory(*this);
     }
 
-    void theory::bind(size_t var) {
+    void theory::bind(var var) {
         if (listening_on.find(var) == listening_on.end()) {
             listening_on.insert(var);
             c.bind(var, *this);
         }
     }
 
-    void theory::unbind(size_t var) {
+    void theory::unbind(var var) {
         assert(listening_on.find(var) != listening_on.end());
         listening_on.erase(var);
         c.unbind(var, *this);
     }
 
-    bool theory::enqueue(const lit& p, constr * const cstr) {
-        return c.enqueue(p, cstr);
+    void theory::record(const std::vector<lit>& clause) {
+        c.record(clause);
     }
 }
