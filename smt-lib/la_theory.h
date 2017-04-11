@@ -90,6 +90,19 @@ namespace smt {
         friend std::ostream& operator<<(std::ostream& os, const la_theory& obj);
 
     private:
+
+        class layer {
+        public:
+
+            layer() { }
+
+        public:
+            // the old lower bounds (for backtracking)..
+            std::unordered_map<size_t, double> lbs;
+            // the old upper bounds (for backtracking)..
+            std::unordered_map<size_t, double> ubs;
+        };
+
         // the current assignments..
         std::vector<interval> assigns;
         // the current values..
@@ -106,6 +119,8 @@ namespace smt {
         std::vector<std::vector<assertion*>> a_watches;
         // for each variable v, a list of tableau rows watching v..
         std::vector<std::set<t_row*>> t_watches;
+        // we store the updated bounds..
+        std::vector<layer> layers;
     };
 
     enum op {

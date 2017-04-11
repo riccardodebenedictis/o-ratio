@@ -228,9 +228,20 @@ namespace smt {
         }
     }
 
-    void la_theory::push() { }
+    void la_theory::push() {
+        layers.push_back(layer());
+    }
 
-    void la_theory::pop() { }
+    void la_theory::pop() {
+        // we restore the variables' bounds..
+        for (const auto& lb : layers.back().lbs) {
+            assigns[lb.first].lb = lb.second;
+        }
+        for (const auto& ub : layers.back().ubs) {
+            assigns[ub.first].ub = ub.second;
+        }
+        layers.pop_back();
+    }
 
     constr* la_theory::assert_lower(var x_i, double val, const lit& p) {
         if (val <= assigns[x_i].lb) {
@@ -238,6 +249,11 @@ namespace smt {
         } else if (val > assigns[x_i].ub) {
             return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)], false)});
         } else {
+            if (!layers.empty()) {
+                if (layers.back().lbs.find(x_i) == layers.back().lbs.end()) {
+                    layers.back().lbs.insert({x_i, assigns[x_i].lb});
+                }
+            }
             assigns[x_i].lb = val;
             if (vals[x_i] < val) {
                 if (tableau.find(x_i) == tableau.end()) {
@@ -267,6 +283,11 @@ namespace smt {
         } else if (val < assigns[x_i].lb) {
             return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)], false)});
         } else {
+            if (!layers.empty()) {
+                if (layers.back().ubs.find(x_i) == layers.back().ubs.end()) {
+                    layers.back().ubs.insert({x_i, assigns[x_i].ub});
+                }
+            }
             assigns[x_i].ub = val;
             if (vals[x_i] > val) {
                 if (tableau.find(x_i) == tableau.end()) {
