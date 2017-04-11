@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/clause.o \
 	${OBJECTDIR}/interval.o \
+	${OBJECTDIR}/la_theory.o \
 	${OBJECTDIR}/lin.o \
 	${OBJECTDIR}/lit.o \
 	${OBJECTDIR}/sat_core.o \
@@ -86,6 +87,11 @@ ${OBJECTDIR}/interval.o: interval.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/interval.o interval.cpp
+
+${OBJECTDIR}/la_theory.o: la_theory.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/la_theory.o la_theory.cpp
 
 ${OBJECTDIR}/lin.o: lin.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -149,6 +155,19 @@ ${OBJECTDIR}/interval_nomain.o: ${OBJECTDIR}/interval.o interval.cpp
 	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/interval_nomain.o interval.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/interval.o ${OBJECTDIR}/interval_nomain.o;\
+	fi
+
+${OBJECTDIR}/la_theory_nomain.o: ${OBJECTDIR}/la_theory.o la_theory.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/la_theory.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/la_theory_nomain.o la_theory.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/la_theory.o ${OBJECTDIR}/la_theory_nomain.o;\
 	fi
 
 ${OBJECTDIR}/lin_nomain.o: ${OBJECTDIR}/lin.o lin.cpp 

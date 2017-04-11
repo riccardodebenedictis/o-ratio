@@ -6,6 +6,7 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
         <itemPath>interval.h</itemPath>
+        <itemPath>la_theory.h</itemPath>
         <itemPath>lin.h</itemPath>
       </logicalFolder>
       <itemPath>clause.h</itemPath>
@@ -24,6 +25,7 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
         <itemPath>interval.cpp</itemPath>
+        <itemPath>la_theory.cpp</itemPath>
         <itemPath>lin.cpp</itemPath>
       </logicalFolder>
       <itemPath>clause.cpp</itemPath>
@@ -86,6 +88,10 @@
       <item path="interval.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="interval.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_theory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lin.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -153,6 +159,10 @@
       <item path="interval.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="interval.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_theory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="lin.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -117,9 +117,10 @@ namespace smt {
 
             // we perform theory propagation..
             for (const auto& th : theories) {
-                constr* conflict = th->propagate(prop_q.front());
-                if (conflict) {
-                    return conflict;
+                constr* cnfl = th->propagate(prop_q.front());
+                if (cnfl) {
+                    constrs.push_back(cnfl);
+                    return cnfl;
                 }
             }
 
@@ -129,9 +130,10 @@ namespace smt {
 
         // we check theories..
         for (const auto& th : theories) {
-            constr* conflict = th->check();
-            if (conflict) {
-                return conflict;
+            constr* cnfl = th->check();
+            if (cnfl) {
+                constrs.push_back(cnfl);
+                return cnfl;
             }
         }
 

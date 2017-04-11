@@ -50,7 +50,7 @@ namespace smt {
          * Asks the theory to perform propagation after the given literal has been assigned. Returns nullptr if propagation succedes or the conflicting constraint if an inconsistency is found.
          * 
          * @param p the literal that has been assigned.
-         * @return nullptr if propagation succedes or the conflicting constraint if an inconsistency is found.
+         * @return nullptr if propagation succeeds or the conflicting constraint if an inconsistency is found.
          */
         virtual constr* propagate(const lit& p) = 0;
         /**
