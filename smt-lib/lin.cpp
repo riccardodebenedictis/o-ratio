@@ -45,7 +45,7 @@ namespace smt {
         }
         for (auto it = res.vars.begin(); it != res.vars.end();) {
             if (it->second == 0) {
-                res.vars.erase(it++);
+                it = res.vars.erase(it);
             } else {
                 ++it;
             }
@@ -77,7 +77,7 @@ namespace smt {
         }
         for (auto it = res.vars.begin(); it != res.vars.end();) {
             if (it->second == 0) {
-                res.vars.erase(it++);
+                it = res.vars.erase(it);
             } else {
                 ++it;
             }
@@ -135,7 +135,7 @@ namespace smt {
         }
         for (auto it = vars.begin(); it != vars.end();) {
             if (it->second == 0) {
-                vars.erase(it++);
+                it = vars.erase(it);
             } else {
                 ++it;
             }
@@ -171,7 +171,7 @@ namespace smt {
         }
         for (auto it = vars.begin(); it != vars.end();) {
             if (it->second == 0) {
-                vars.erase(it++);
+                it = vars.erase(it);
             } else {
                 ++it;
             }
@@ -204,7 +204,7 @@ namespace smt {
         known_term *= right;
         for (auto it = vars.begin(); it != vars.end();) {
             if (it->second == 0) {
-                vars.erase(it++);
+                it = vars.erase(it);
             } else {
                 ++it;
             }
@@ -219,7 +219,7 @@ namespace smt {
         known_term /= right;
         for (auto it = vars.begin(); it != vars.end();) {
             if (it->second == 0) {
-                vars.erase(it++);
+                it = vars.erase(it);
             } else {
                 ++it;
             }
