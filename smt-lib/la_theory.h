@@ -36,6 +36,8 @@ namespace smt {
     class t_row;
 
     class la_theory : public theory {
+        friend class assertion;
+        friend class t_row;
     public:
         la_theory(sat_core& c);
         la_theory(const la_theory& orig);
@@ -115,8 +117,8 @@ namespace smt {
         virtual ~assertion();
 
     private:
-        constr* propagate_lb(var x);
-        constr* propagate_ub(var x);
+        constr* propagate_lb(var x, const lit& p);
+        constr* propagate_ub(var x, const lit& p);
 
     private:
         la_theory& th;
@@ -134,8 +136,8 @@ namespace smt {
         virtual ~t_row();
 
     private:
-        constr* propagate_lb(var x);
-        constr* propagate_ub(var x);
+        constr* propagate_lb(var x, const lit& p);
+        constr* propagate_ub(var x, const lit& p);
 
     private:
         la_theory& th;

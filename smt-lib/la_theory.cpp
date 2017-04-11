@@ -249,12 +249,12 @@ namespace smt {
             constr* cnfl = nullptr;
             // unate propagation..
             for (const auto& c : a_watches[x_i]) {
-                cnfl = c->propagate_lb(x_i);
+                cnfl = c->propagate_lb(x_i, p);
                 if (cnfl) return cnfl;
             }
             // bound propagation..
             for (const auto& c : t_watches[x_i]) {
-                cnfl = c->propagate_lb(x_i);
+                cnfl = c->propagate_lb(x_i, p);
                 if (cnfl) return cnfl;
             }
 
@@ -278,12 +278,12 @@ namespace smt {
             constr* cnfl = nullptr;
             // unate propagation..
             for (const auto& c : a_watches[x_i]) {
-                cnfl = c->propagate_ub(x_i);
+                cnfl = c->propagate_ub(x_i, p);
                 if (cnfl) return cnfl;
             }
             // bound propagation..
             for (const auto& c : t_watches[x_i]) {
-                cnfl = c->propagate_ub(x_i);
+                cnfl = c->propagate_ub(x_i, p);
                 if (cnfl) return cnfl;
             }
 
@@ -352,15 +352,105 @@ namespace smt {
 
     assertion::~assertion() { }
 
-    constr* assertion::propagate_lb(var x) { }
+    constr* assertion::propagate_lb(var x, const lit& p) {
+        switch (o) {
+            case leq:
+                if (th.assigns[x].ub < v) {
+                    // the assertion is unsatisfable..
+                    switch (th.c.value(b)) {
+                        case True:
+                            // we have a propositional inconsistency..
+                            return new constr(th.c,{!p, lit(b, false)});
+                            break;
+                        case False:
+                            // nothing to propagate..
+                            break;
+                        case Undefined:
+                            // we propagate information to the sat core..
+                            th.record({lit(b, false), !p});
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            case geq:
+                if (th.assigns[x].ub > v) {
+                    // the assertion is satisfied..
+                    switch (th.c.value(b)) {
+                        case True:
+                            // nothing to propagate..
+                            break;
+                        case False:
+                            // we have a propositional inconsistency..
+                            return new constr(th.c,{!p, lit(b, true)});
+                            break;
+                        case Undefined:
+                            // we propagate information to the sat core..
+                            th.record({lit(b, true), !p});
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-    constr* assertion::propagate_ub(var x) { }
+    constr* assertion::propagate_ub(var x, const lit& p) {
+        switch (o) {
+            case leq:
+                if (th.assigns[x].ub > v) {
+                    // the assertion is satisfied..
+                    switch (th.c.value(b)) {
+                        case True:
+                            // nothing to propagate..
+                            break;
+                        case False:
+                            // we have a propositional inconsistency..
+                            return new constr(th.c,{!p, lit(b, true)});
+                            break;
+                        case Undefined:
+                            // we propagate information to the sat core..
+                            th.record({lit(b, true), !p});
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            case geq:
+                if (th.assigns[x].ub < v) {
+                    // the assertion is unsatisfable..
+                    switch (th.c.value(b)) {
+                        case True:
+                            // we have a propositional inconsistency..
+                            return new constr(th.c,{!p, lit(b, false)});
+                            break;
+                        case False:
+                            // nothing to propagate..
+                            break;
+                        case Undefined:
+                            // we propagate information to the sat core..
+                            th.record({lit(b, false), !p});
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) { }
 
     t_row::~t_row() { }
 
-    constr* t_row::propagate_lb(var x) { }
+    constr* t_row::propagate_lb(var x, const lit& p) { }
 
-    constr* t_row::propagate_ub(var x) { }
+    constr* t_row::propagate_ub(var x, const lit& p) { }
 }
