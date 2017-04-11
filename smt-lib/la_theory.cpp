@@ -39,6 +39,8 @@ namespace smt {
         assigns.push_back(interval());
         vals.push_back(0);
         exprs.insert({"x" + std::to_string(id), id});
+        a_watches.push_back(std::vector<assertion*>());
+        t_watches.push_back(std::set<t_row*>());
         return id;
     }
 

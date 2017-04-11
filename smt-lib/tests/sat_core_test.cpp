@@ -33,7 +33,7 @@
 
 using namespace smt;
 
-void TestSAT0() {
+void testSAT0() {
     sat_core c;
 
     var b0 = c.new_var();
@@ -75,9 +75,9 @@ int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% sat_core_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
 
-    std::cout << "%TEST_STARTED% TestSAT0 (sat_core_test)" << std::endl;
-    TestSAT0();
-    std::cout << "%TEST_FINISHED% time=0 TestSAT0 (sat_core_test)" << std::endl;
+    std::cout << "%TEST_STARTED% testSAT0 (sat_core_test)" << std::endl;
+    testSAT0();
+    std::cout << "%TEST_FINISHED% time=0 testSAT0 (sat_core_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
