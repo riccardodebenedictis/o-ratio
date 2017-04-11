@@ -111,6 +111,7 @@ namespace smt {
 
     class assertion {
         friend class la_theory;
+        friend class t_row;
     public:
         assertion(la_theory& th, op o, var b, var x, double v);
         assertion(const assertion& orig) = delete;
@@ -136,8 +137,8 @@ namespace smt {
         virtual ~t_row();
 
     private:
-        constr* propagate_lb(var x, const lit& p);
-        constr* propagate_ub(var x, const lit& p);
+        constr* propagate_lb(var x);
+        constr* propagate_ub(var x);
 
     private:
         la_theory& th;

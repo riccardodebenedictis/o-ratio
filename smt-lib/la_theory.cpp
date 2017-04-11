@@ -254,7 +254,7 @@ namespace smt {
             }
             // bound propagation..
             for (const auto& c : t_watches[x_i]) {
-                cnfl = c->propagate_lb(x_i, p);
+                cnfl = c->propagate_lb(x_i);
                 if (cnfl) return cnfl;
             }
 
@@ -283,7 +283,7 @@ namespace smt {
             }
             // bound propagation..
             for (const auto& c : t_watches[x_i]) {
-                cnfl = c->propagate_ub(x_i, p);
+                cnfl = c->propagate_ub(x_i);
                 if (cnfl) return cnfl;
             }
 
@@ -441,13 +441,304 @@ namespace smt {
                     break;
             }
         }
+        return nullptr;
     }
 
     t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) { }
 
     t_row::~t_row() { }
 
-    constr* t_row::propagate_lb(var x, const lit& p) { }
+    constr* t_row::propagate_lb(var x) {
+        if (l.vars.at(x) > 0) {
+            double lb;
+            std::vector<lit> expl;
+            for (const auto& term : l.vars) {
+                if (term.second > 0) {
+                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        lb += term.second * th.bounds(term.first).lb;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                    }
+                } else if (term.second < 0) {
+                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        lb += term.second * th.bounds(term.first).ub;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                    }
+                }
+            }
+            if (lb > th.bounds(x).lb) {
+                for (const auto& c : th.a_watches[x]) {
+                    if (lb > c->v) {
+                        std::vector<lit> c_expl = expl;
+                        switch (c->o) {
+                            case leq:
+                                c_expl.push_back(lit(c->b, false));
+                                // the assertion is unsatisfable..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case False:
+                                        // nothing to propagate..
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case geq:
+                                c_expl.push_back(lit(c->b, true));
+                                // the assertion is satisfied..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // nothing to propagate..
+                                        break;
+                                    case False:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        } else {
+            double ub;
+            std::vector<lit> expl;
+            for (const auto& term : l.vars) {
+                if (term.second > 0) {
+                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        ub += term.second * th.bounds(term.first).ub;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                    }
+                } else if (term.second < 0) {
+                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        ub += term.second * th.bounds(term.first).lb;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                    }
+                }
+            }
+            if (ub < th.bounds(x).ub) {
+                for (const auto& c : th.a_watches[x]) {
+                    if (ub > c->v) {
+                        std::vector<lit> c_expl = expl;
+                        switch (c->o) {
+                            case leq:
+                                c_expl.push_back(lit(c->b, false));
+                                // the assertion is unsatisfable..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case False:
+                                        // nothing to propagate..
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case geq:
+                                c_expl.push_back(lit(c->b, true));
+                                // the assertion is satisfied..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // nothing to propagate..
+                                        break;
+                                    case False:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        return nullptr;
+    }
 
-    constr* t_row::propagate_ub(var x, const lit& p) { }
+    constr* t_row::propagate_ub(var x) {
+        if (l.vars.at(x) > 0) {
+            double ub;
+            std::vector<lit> expl;
+            for (const auto& term : l.vars) {
+                if (term.second > 0) {
+                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        ub += term.second * th.bounds(term.first).ub;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                    }
+                } else if (term.second < 0) {
+                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        ub += term.second * th.bounds(term.first).lb;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                    }
+                }
+            }
+            if (ub < th.bounds(x).ub) {
+                for (const auto& c : th.a_watches[x]) {
+                    if (ub > c->v) {
+                        std::vector<lit> c_expl = expl;
+                        switch (c->o) {
+                            case leq:
+                                c_expl.push_back(lit(c->b, false));
+                                // the assertion is unsatisfable..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case False:
+                                        // nothing to propagate..
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case geq:
+                                c_expl.push_back(lit(c->b, true));
+                                // the assertion is satisfied..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // nothing to propagate..
+                                        break;
+                                    case False:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        } else {
+            double lb;
+            std::vector<lit> expl;
+            for (const auto& term : l.vars) {
+                if (term.second > 0) {
+                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        lb += term.second * th.bounds(term.first).lb;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                    }
+                } else if (term.second < 0) {
+                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                        // nothing to propagate..
+                        return nullptr;
+                    } else {
+                        lb += term.second * th.bounds(term.first).ub;
+                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                    }
+                }
+            }
+            if (lb > th.bounds(x).lb) {
+                for (const auto& c : th.a_watches[x]) {
+                    if (lb > c->v) {
+                        std::vector<lit> c_expl = expl;
+                        switch (c->o) {
+                            case leq:
+                                c_expl.push_back(lit(c->b, false));
+                                // the assertion is unsatisfable..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case False:
+                                        // nothing to propagate..
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case geq:
+                                c_expl.push_back(lit(c->b, true));
+                                // the assertion is satisfied..
+                                switch (th.c.value(c->b)) {
+                                    case True:
+                                        // nothing to propagate..
+                                        break;
+                                    case False:
+                                        // we have a propositional inconsistency..
+                                        return new constr(th.c, c_expl);
+                                        break;
+                                    case Undefined:
+                                        // we propagate information to the sat core..
+                                        th.record(c_expl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        return nullptr;
+    }
 }
