@@ -29,9 +29,11 @@
 
 namespace smt {
 
-    la_theory::la_theory(sat_core& c) : theory(c) { }
+    la_theory::la_theory(sat_core& c) : theory(c) {
+    }
 
-    la_theory::~la_theory() { }
+    la_theory::~la_theory() {
+    }
 
     var la_theory::new_var() {
         var id = assigns.size();
@@ -148,7 +150,7 @@ namespace smt {
     }
 
     constr* la_theory::propagate(const lit& p) {
-        assertion* a = v_asrts[p.v];
+        assertion* a = v_asrts.at(p.v);
         constr* cnfl = nullptr;
         switch (a->o) {
             case op::leq:
@@ -228,9 +230,11 @@ namespace smt {
         }
     }
 
-    void la_theory::push() { }
+    void la_theory::push() {
+    }
 
-    void la_theory::pop() { }
+    void la_theory::pop() {
+    }
 
     constr* la_theory::assert_lower(var x_i, double val, const lit& p) {
         if (val <= assigns[x_i].lb) {
@@ -332,24 +336,30 @@ namespace smt {
         expr /= -c;
         expr.vars.insert({x_i, 1 / c});
 
+        std::vector<t_row*> rows;
         for (const auto& c : t_watches[x_j]) {
-            for (const auto& r : c->l.vars) {
-                t_watches[r.first].erase(c);
+            rows.push_back(c);
+        }
+        for (const auto& r : rows) {
+            for (const auto& term : r->l.vars) {
+                t_watches[term.first].erase(r);
             }
-            double cc = c->l.vars.at(x_j);
-            c->l.vars.erase(x_j);
-            c->l += expr*cc;
-            for (const auto& r : c->l.vars) {
-                t_watches[r.first].insert(c);
+            double cc = r->l.vars.at(x_j);
+            r->l.vars.erase(x_j);
+            r->l += expr*cc;
+            for (const auto& term : r->l.vars) {
+                t_watches[term.first].insert(r);
             }
         }
 
         delete ex_row;
     }
 
-    assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) { }
+    assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) {
+    }
 
-    assertion::~assertion() { }
+    assertion::~assertion() {
+    }
 
     constr* assertion::propagate_lb(var x, const lit& p) {
         if (th.assigns[x].lb > v) {
@@ -443,9 +453,11 @@ namespace smt {
         return nullptr;
     }
 
-    t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) { }
+    t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) {
+    }
 
-    t_row::~t_row() { }
+    t_row::~t_row() {
+    }
 
     constr* t_row::propagate_lb(var x) {
         if (l.vars.at(x) > 0) {
