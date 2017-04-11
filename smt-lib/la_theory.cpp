@@ -181,15 +181,120 @@ namespace smt {
 
     void la_theory::pop() { }
 
-    constr* la_theory::assert_lower(var x_i, double val, const lit& p) { }
+    constr* la_theory::assert_lower(var x_i, double val, const lit& p) {
+        if (val <= assigns[x_i].lb) {
+            return nullptr;
+        } else if (val > assigns[x_i].ub) {
+            return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)], false)});
+        } else {
+            assigns[x_i].lb = val;
+            if (vals[x_i] < val) {
+                if (tableau.find(x_i) == tableau.end()) {
+                    update(x_i, val);
+                }
+            }
 
-    constr* la_theory::assert_upper(var x_i, double val, const lit& p) { }
+            constr* cnfl = nullptr;
+            // unate propagation..
+            for (const auto& c : a_watches[x_i]) {
+                cnfl = c->propagate_lb(x_i);
+                if (cnfl) return cnfl;
+            }
+            // bound propagation..
+            for (const auto& c : t_watches[x_i]) {
+                cnfl = c->propagate_lb(x_i);
+                if (cnfl) return cnfl;
+            }
 
-    void la_theory::update(var x_i, double v) { }
+            return cnfl;
+        }
+    }
 
-    void la_theory::pivot_and_update(var x_i, var x_j, double v) { }
+    constr* la_theory::assert_upper(var x_i, double val, const lit& p) {
+        if (val >= assigns[x_i].ub) {
+            return nullptr;
+        } else if (val < assigns[x_i].lb) {
+            return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)], false)});
+        } else {
+            assigns[x_i].ub = std::min(assigns[x_i].ub, val);
+            if (vals[x_i] > val) {
+                if (tableau.find(x_i) == tableau.end()) {
+                    update(x_i, val);
+                }
+            }
 
-    void la_theory::pivot(var x_i, var x_j) { }
+            constr* cnfl = nullptr;
+            // unate propagation..
+            for (const auto& c : a_watches[x_i]) {
+                cnfl = c->propagate_ub(x_i);
+                if (cnfl) return cnfl;
+            }
+            // bound propagation..
+            for (const auto& c : t_watches[x_i]) {
+                cnfl = c->propagate_ub(x_i);
+                if (cnfl) return cnfl;
+            }
+
+            return cnfl;
+        }
+    }
+
+    void la_theory::update(var x_i, double v) {
+        assert(tableau.find(x_i) == tableau.end() && "x_i should be a non-basic variable..");
+        for (const auto& c : t_watches[x_i]) {
+            // x_j = x_j + a_ji(v - x_i)..
+            vals[c->x] += c->l.vars[x_i] * (v - vals[x_i]);
+        }
+        // x_i = v..
+        vals[x_i] = v;
+    }
+
+    void la_theory::pivot_and_update(var x_i, var x_j, double v) {
+        assert(tableau.find(x_i) != tableau.end() && "x_i should be a basic variable..");
+        assert(tableau.find(x_j) == tableau.end() && "x_j should be a non-basic variable..");
+        assert(tableau[x_i]->l.vars.find(x_j) != tableau[x_i]->l.vars.end());
+
+        double theta = (v - vals[x_i]) / tableau.at(x_i)->l.vars.at(x_j);
+        // x_i = v
+        vals[x_i] = v;
+        // x_j = x_j + theta
+        vals[x_j] += theta;
+        for (const auto& c : t_watches[x_i]) {
+            // x_k = x_k + a_kj * theta..
+            vals[c->x] += c->l.vars[x_j] * theta;
+        }
+
+        pivot(x_i, x_j);
+    }
+
+    void la_theory::pivot(var x_i, var x_j) {
+        // the exiting row..
+        t_row* ex_row = tableau.at(x_i);
+        for (const auto& c : ex_row->l.vars) {
+            t_watches[c.first].erase(ex_row);
+        }
+        tableau.erase(x_i);
+
+        lin expr = ex_row->l;
+        double c = expr.vars.at(x_j);
+        expr.vars.erase(x_j);
+        expr /= -c;
+        expr.vars.insert({x_i, 1 / c});
+
+        for (const auto& c : t_watches[x_j]) {
+            for (const auto& r : c->l.vars) {
+                t_watches[r.first].erase(c);
+            }
+            double cc = c->l.vars.at(x_j);
+            c->l.vars.erase(x_j);
+            c->l += expr*cc;
+            for (const auto& r : c->l.vars) {
+                t_watches[r.first].insert(c);
+            }
+        }
+
+        delete ex_row;
+    }
 
     assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) { }
 
