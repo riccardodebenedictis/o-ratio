@@ -26,6 +26,7 @@
 #include "sat_core.h"
 #include <cassert>
 #include <sstream>
+#include <algorithm>
 
 namespace smt {
 
@@ -175,7 +176,58 @@ namespace smt {
         return cnfl;
     }
 
-    constr* la_theory::check() { }
+    constr* la_theory::check() {
+        while (true) {
+            auto x_i_it = std::find_if(tableau.begin(), tableau.end(), [&](const std::pair<var, t_row*>& v) {
+                return vals[v.first] < assigns[v.first].lb || vals[v.first] > assigns[v.first].ub; });
+            if (x_i_it == tableau.end()) {
+                return nullptr;
+            }
+            // the current value of the x_i variable is out of its bounds..
+            var x_i = (*x_i_it).first;
+            // the flawed row..
+            t_row* f_row = (*x_i_it).second;
+            if (vals[x_i] < assigns[x_i].lb) {
+                auto x_j_it = std::find_if(f_row->l.vars.begin(), f_row->l.vars.end(), [&](const std::pair<var, double>& v) {
+                    return (f_row->l.vars.at(v.first) > 0 && vals[v.first] < assigns[v.first].ub) || (f_row->l.vars.at(v.first) < 0 && vals[v.first] > assigns[v.first].lb); });
+                if (x_j_it != f_row->l.vars.end()) {
+                    // var x_j can be used to increase the value of x_i..
+                    pivot_and_update(x_i, (*x_j_it).first, assigns[x_i].lb);
+                } else {
+                    // we generate an explanation for the conflict..
+                    std::vector<lit> expl;
+                    for (auto& term : f_row->l.vars) {
+                        if (term.second > 0) {
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), true));
+                        } else if (term.second < 0) {
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), true));
+                        }
+                    }
+                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)), true));
+                    return new constr(c, expl);
+                }
+            } else if (vals[x_i] > assigns[x_i].ub) {
+                auto x_j_it = std::find_if(f_row->l.vars.begin(), f_row->l.vars.end(), [&](const std::pair<size_t, double>& v) {
+                    return (f_row->l.vars[v.first] < 0 && vals[v.first] < assigns[v.first].ub) || (f_row->l.vars[v.first] > 0 && vals[v.first] > assigns[v.first].lb); });
+                if (x_j_it != f_row->l.vars.end()) {
+                    // var x_j can be used to decrease the value of x_i..
+                    pivot_and_update(x_i, (*x_j_it).first, assigns[x_i].ub);
+                } else {
+                    // we generate an explanation for the conflict..
+                    std::vector<lit> expl;
+                    for (auto& term : f_row->l.vars) {
+                        if (term.second > 0) {
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), true));
+                        } else if (term.second < 0) {
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), true));
+                        }
+                    }
+                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)), true));
+                    return new constr(c, expl);
+                }
+            }
+        }
+    }
 
     void la_theory::push() { }
 
