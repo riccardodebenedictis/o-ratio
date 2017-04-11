@@ -97,6 +97,10 @@ namespace smt {
         std::unordered_map<std::string, var> s_asrts;
         // the assertions (boolean variable to assertion) used for enforcing (negating) assertions..
         std::unordered_map<var, assertion*> v_asrts;
+        // for each variable v, a list of assertions watching v..
+        std::vector<std::vector<assertion*>> a_watches;
+        // for each variable v, a list of tableau rows watching v..
+        std::vector<std::set<t_row*>> t_watches;
     };
 
     enum op {

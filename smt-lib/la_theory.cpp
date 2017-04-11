@@ -113,7 +113,9 @@ namespace smt {
                 var ctr = c.new_var();
                 bind(ctr);
                 s_asrts.insert({s_assertion, ctr});
-                v_asrts.insert({ctr, new assertion(*this, op::leq, ctr, slack, c_right)});
+                assertion* a = new assertion(*this, op::leq, ctr, slack, c_right);
+                v_asrts.insert({ctr, a});
+                a_watches[slack].push_back(a);
                 return ctr;
             }
         }
@@ -135,11 +137,59 @@ namespace smt {
             assigns[slack] = bounds(l);
             // we set the initial value of the new slack variable..
             vals[slack] = value(l);
+            t_row* row = new t_row(*this, slack, l);
             // we add a new row into the tableau..
-            tableau.insert({slack, new t_row(*this, slack, l)});
+            tableau.insert({slack, row});
+            for (const auto& term : row->l.vars) {
+                t_watches[term.first].insert(row);
+            }
         }
         return slack;
     }
+
+    constr* la_theory::propagate(const lit& p) {
+        assertion* a = v_asrts[p.v];
+        constr* cnfl = nullptr;
+        switch (a->o) {
+            case op::leq:
+                if (p.sign) {
+                    cnfl = assert_upper(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                } else {
+                    cnfl = assert_lower(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                }
+                break;
+            case op::geq:
+                if (p.sign) {
+                    cnfl = assert_lower(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                } else {
+                    cnfl = assert_upper(a->x, a->v, p);
+                    if (cnfl) return cnfl;
+                }
+                break;
+            default:
+                break;
+        }
+        return cnfl;
+    }
+
+    constr* la_theory::check() { }
+
+    void la_theory::push() { }
+
+    void la_theory::pop() { }
+
+    constr* la_theory::assert_lower(var x_i, double val, const lit& p) { }
+
+    constr* la_theory::assert_upper(var x_i, double val, const lit& p) { }
+
+    void la_theory::update(var x_i, double v) { }
+
+    void la_theory::pivot_and_update(var x_i, var x_j, double v) { }
+
+    void la_theory::pivot(var x_i, var x_j) { }
 
     assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) { }
 
