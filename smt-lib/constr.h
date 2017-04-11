@@ -49,7 +49,12 @@ namespace smt {
             return lits;
         };
 
+        virtual std::string to_string() const {
+            return std::string();
+        }
+
         friend std::ostream& operator<<(std::ostream& os, const constr& obj) {
+            os << obj.to_string();
             return os;
         }
 

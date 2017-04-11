@@ -64,19 +64,20 @@ namespace smt {
         return s.enqueue(lits[0], this);
     }
 
-    std::ostream& operator<<(std::ostream& os, const clause& obj) {
-        os << "(";
-        for (std::vector<lit>::const_iterator it = obj.lits.begin(); it != obj.lits.end(); ++it) {
-            if (it != obj.lits.begin()) {
-                os << " | ";
+    std::string clause::to_string() const {
+        std::string c;
+        c += "(";
+        for (std::vector<lit>::const_iterator it = lits.begin(); it != lits.end(); ++it) {
+            if (it != lits.begin()) {
+                c += " | ";
             }
-            os << *it;
-            switch (obj.s.value(*it)) {
+            c += (*it).to_string();
+            switch (s.value(*it)) {
                 case True:
-                    os << "(T)";
+                    c += "(T)";
                     break;
                 case False:
-                    os << "(F)";
+                    c += "(F)";
                     break;
                 case Undefined:
                     break;
@@ -84,7 +85,7 @@ namespace smt {
                     break;
             }
         }
-        os << ")";
-        return os;
+        c += ")";
+        return c;
     }
 }

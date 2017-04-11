@@ -35,7 +35,7 @@ namespace smt {
         clause(const clause& orig) = delete;
         virtual ~clause();
 
-        friend std::ostream& operator<<(std::ostream& os, const clause& obj);
+        std::string to_string() const override;
 
     private:
         bool propagate(const lit& p) override;

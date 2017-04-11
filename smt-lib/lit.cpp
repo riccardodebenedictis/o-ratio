@@ -28,12 +28,16 @@ namespace smt {
 
     lit::lit(var v, bool sign) : v(v), sign(sign) { }
 
-    std::ostream& operator<<(std::ostream& os, const lit& obj) {
-        if (obj.sign) {
-            os << "b" + std::to_string(obj.v);
+    std::string lit::to_string() const {
+        if (sign) {
+            return "b" + std::to_string(v);
         } else {
-            os << "!b" + std::to_string(obj.v);
+            return"!b" + std::to_string(v);
         }
+    }
+
+    std::ostream& operator<<(std::ostream& os, const lit& obj) {
+        os << obj.to_string();
         return os;
     }
 }

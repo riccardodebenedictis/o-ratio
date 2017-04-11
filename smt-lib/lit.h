@@ -47,6 +47,8 @@ namespace smt {
             return !operator==(rhs);
         }
 
+        std::string to_string() const;
+
         friend std::ostream& operator<<(std::ostream& os, const lit& obj);
 
     public:
