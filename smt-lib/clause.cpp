@@ -68,15 +68,15 @@ namespace smt {
         os << "(";
         for (std::vector<lit>::const_iterator it = obj.lits.begin(); it != obj.lits.end(); ++it) {
             if (it != obj.lits.begin()) {
-                std::cout << " | ";
+                os << " | ";
             }
-            std::cout << *it;
+            os << *it;
             switch (obj.s.value(*it)) {
                 case True:
-                    std::cout << "(T)";
+                    os << "(T)";
                     break;
                 case False:
-                    std::cout << "(F)";
+                    os << "(F)";
                     break;
                 case Undefined:
                     break;

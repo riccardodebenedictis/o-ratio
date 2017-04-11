@@ -162,7 +162,7 @@ namespace smt {
         out_learnt.push_back(lit(0, false));
         out_btlevel = 0;
         std::set<var> seen;
-        size_t counter = 0;
+        int counter = 0;
         lit p = trail_lim.back();
         const constr* p_reason = &confl;
         do {
@@ -178,6 +178,9 @@ namespace smt {
                 }
             }
             do {
+                if (trail_lim.back() == trail.back()) {
+                    break;
+                }
                 p = trail.back();
                 p_reason = reason[p.v];
                 pop_one();

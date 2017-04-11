@@ -115,7 +115,7 @@ namespace smt {
                 var ctr = c.new_var();
                 bind(ctr);
                 s_asrts.insert({s_assertion, ctr});
-                assertion* a = new assertion(*this, op::leq, ctr, slack, c_right);
+                assertion* a = new assertion(*this, op::geq, ctr, slack, c_right);
                 v_asrts.insert({ctr, a});
                 a_watches[slack].push_back(a);
                 return ctr;
@@ -197,12 +197,12 @@ namespace smt {
                     std::vector<lit> expl;
                     for (auto& term : f_row->l.vars) {
                         if (term.second > 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), true));
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), false));
                         } else if (term.second < 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), true));
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), false));
                         }
                     }
-                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)), true));
+                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)), false));
                     return new constr(c, expl);
                 }
             } else if (vals[x_i] > assigns[x_i].ub) {
@@ -216,12 +216,12 @@ namespace smt {
                     std::vector<lit> expl;
                     for (auto& term : f_row->l.vars) {
                         if (term.second > 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), true));
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), false));
                         } else if (term.second < 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), true));
+                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), false));
                         }
                     }
-                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)), true));
+                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)), false));
                     return new constr(c, expl);
                 }
             }
@@ -360,7 +360,7 @@ namespace smt {
     std::ostream& operator<<(std::ostream& os, const la_theory& obj) {
         os << "**********[la_theory]***********" << std::endl;
         for (size_t i = 0; i < obj.assigns.size(); i++) {
-            os << "x" << std::to_string(i) << ": " << obj.assigns[i] << "(" << std::to_string(obj.vals[i]) << ")" << std::endl;
+            os << "x" << std::to_string(i) << ": " << obj.assigns[i] << " (" << std::to_string(obj.vals[i]) << ")" << std::endl;
         }
         for (const auto& asrt : obj.v_asrts) {
             os << *asrt.second << std::endl;
@@ -483,7 +483,7 @@ namespace smt {
             default:
                 break;
         }
-        os << "x" << std::to_string(obj.x);
+        os << " x" << std::to_string(obj.x);
         switch (obj.o) {
             case leq:
                 os << " <= ";

@@ -30,9 +30,9 @@ namespace smt {
 
     std::ostream& operator<<(std::ostream& os, const lit& obj) {
         if (obj.sign) {
-            std::cout << "b" + std::to_string(obj.v);
+            os << "b" + std::to_string(obj.v);
         } else {
-            std::cout << "!b" + std::to_string(obj.v);
+            os << "!b" + std::to_string(obj.v);
         }
         return os;
     }
