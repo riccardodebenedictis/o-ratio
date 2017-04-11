@@ -67,6 +67,7 @@ namespace smt {
 
         lin operator-() const;
 
+        std::string to_string() const;
         friend std::ostream& operator<<(std::ostream& os, const lin& obj);
 
     public:

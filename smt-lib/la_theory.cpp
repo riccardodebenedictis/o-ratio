@@ -25,7 +25,6 @@
 #include "la_theory.h"
 #include "sat_core.h"
 #include <cassert>
-#include <sstream>
 #include <algorithm>
 
 namespace smt {
@@ -125,9 +124,7 @@ namespace smt {
     }
 
     var la_theory::mk_slack(const lin& l) {
-        std::ostringstream os;
-        os << l;
-        std::string s_expr = os.str();
+        std::string s_expr = l.to_string();
         size_t slack;
         if (exprs.find(s_expr) != exprs.end()) {
             // the expression already exists..

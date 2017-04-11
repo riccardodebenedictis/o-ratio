@@ -236,40 +236,45 @@ namespace smt {
         return res;
     }
 
-    std::ostream& operator<<(std::ostream& os, const lin& obj) {
-        if (obj.vars.empty()) {
-            os << std::to_string(obj.known_term);
-            return os;
+    std::string lin::to_string() const {
+        if (vars.empty()) {
+            return std::to_string(known_term);
         }
 
-        for (std::map<var, double>::const_iterator it = obj.vars.begin(); it != obj.vars.end(); ++it) {
-            if (it == obj.vars.begin()) {
+        std::string s;
+        for (std::map<var, double>::const_iterator it = vars.begin(); it != vars.end(); ++it) {
+            if (it == vars.begin()) {
                 if (it->second == 1) {
-                    os << "x" << std::to_string(it->first);
+                    s += "x" + std::to_string(it->first);
                 } else if (it->second == -1) {
-                    os << "-x" << std::to_string(it->first);
+                    s += "-x" + std::to_string(it->first);
                 } else {
-                    os << std::to_string(it->second) << "*x" << std::to_string(it->first);
+                    s += std::to_string(it->second) + "*x" + std::to_string(it->first);
                 }
             } else {
                 if (it->second == 1) {
-                    os << " + x" << std::to_string(it->first);
+                    s += " + x" + std::to_string(it->first);
                 } else if (it->second == -1) {
-                    os << " - x" << std::to_string(it->first);
+                    s += " - x" + std::to_string(it->first);
                 } else if (it->second > 0) {
-                    os << " + " << std::to_string(it->second) << "*x" << std::to_string(it->first);
+                    s += " + " + std::to_string(it->second) + "*x" + std::to_string(it->first);
                 } else {
-                    os << " - " << std::to_string(-it->second) << "*x" << std::to_string(it->first);
+                    s += " - " + std::to_string(-it->second) + "*x" + std::to_string(it->first);
                 }
             }
         }
 
-        if (obj.known_term > 0) {
-            os << " + " << std::to_string(obj.known_term);
+        if (known_term > 0) {
+            s += " + " + std::to_string(known_term);
         }
-        if (obj.known_term < 0) {
-            os << " - " << std::to_string(-obj.known_term);
+        if (known_term < 0) {
+            s += " - " + std::to_string(-known_term);
         }
+        return s;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const lin& obj) {
+        os << obj.to_string();
         return os;
     }
 }
