@@ -351,8 +351,14 @@ namespace smt {
                 t_watches[term.first].insert(r);
             }
         }
-
         delete ex_row;
+
+        t_row* row = new t_row(*this, x_j, expr);
+        // we add a new row into the tableau..
+        tableau.insert({x_j, row});
+        for (const auto& term : row->l.vars) {
+            t_watches[term.first].insert(row);
+        }
     }
 
     assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) {
