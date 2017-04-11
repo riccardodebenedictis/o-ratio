@@ -353,9 +353,9 @@ namespace smt {
     assertion::~assertion() { }
 
     constr* assertion::propagate_lb(var x, const lit& p) {
-        switch (o) {
-            case leq:
-                if (th.assigns[x].ub < v) {
+        if (th.assigns[x].lb > v) {
+            switch (o) {
+                case leq:
                     // the assertion is unsatisfable..
                     switch (th.c.value(b)) {
                         case True:
@@ -372,10 +372,8 @@ namespace smt {
                         default:
                             break;
                     }
-                }
-                break;
-            case geq:
-                if (th.assigns[x].ub > v) {
+                    break;
+                case geq:
                     // the assertion is satisfied..
                     switch (th.c.value(b)) {
                         case True:
@@ -392,17 +390,18 @@ namespace smt {
                         default:
                             break;
                     }
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
         }
+        return nullptr;
     }
 
     constr* assertion::propagate_ub(var x, const lit& p) {
-        switch (o) {
-            case leq:
-                if (th.assigns[x].ub > v) {
+        if (th.assigns[x].ub < v) {
+            switch (o) {
+                case leq:
                     // the assertion is satisfied..
                     switch (th.c.value(b)) {
                         case True:
@@ -419,10 +418,8 @@ namespace smt {
                         default:
                             break;
                     }
-                }
-                break;
-            case geq:
-                if (th.assigns[x].ub < v) {
+                    break;
+                case geq:
                     // the assertion is unsatisfable..
                     switch (th.c.value(b)) {
                         case True:
@@ -439,10 +436,10 @@ namespace smt {
                         default:
                             break;
                     }
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
