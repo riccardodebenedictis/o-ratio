@@ -29,11 +29,9 @@
 
 namespace smt {
 
-    la_theory::la_theory(sat_core& c) : theory(c) {
-    }
+    la_theory::la_theory(sat_core& c) : theory(c) { }
 
-    la_theory::~la_theory() {
-    }
+    la_theory::~la_theory() { }
 
     var la_theory::new_var() {
         var id = assigns.size();
@@ -230,11 +228,9 @@ namespace smt {
         }
     }
 
-    void la_theory::push() {
-    }
+    void la_theory::push() { }
 
-    void la_theory::pop() {
-    }
+    void la_theory::pop() { }
 
     constr* la_theory::assert_lower(var x_i, double val, const lit& p) {
         if (val <= assigns[x_i].lb) {
@@ -271,7 +267,7 @@ namespace smt {
         } else if (val < assigns[x_i].lb) {
             return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)], false)});
         } else {
-            assigns[x_i].ub = std::min(assigns[x_i].ub, val);
+            assigns[x_i].ub = val;
             if (vals[x_i] > val) {
                 if (tableau.find(x_i) == tableau.end()) {
                     update(x_i, val);
@@ -361,11 +357,9 @@ namespace smt {
         }
     }
 
-    assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) {
-    }
+    assertion::assertion(la_theory& th, op o, var b, var x, double v) : th(th), o(o), b(b), x(x), v(v) { }
 
-    assertion::~assertion() {
-    }
+    assertion::~assertion() { }
 
     constr* assertion::propagate_lb(var x, const lit& p) {
         if (th.assigns[x].lb > v) {
@@ -459,11 +453,9 @@ namespace smt {
         return nullptr;
     }
 
-    t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) {
-    }
+    t_row::t_row(la_theory& th, var x, lin l) : th(th), x(x), l(l) { }
 
-    t_row::~t_row() {
-    }
+    t_row::~t_row() { }
 
     constr* t_row::propagate_lb(var x) {
         if (l.vars.at(x) > 0) {
