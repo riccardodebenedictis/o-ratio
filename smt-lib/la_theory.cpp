@@ -74,7 +74,7 @@ namespace smt {
                 var ctr = c.new_var();
                 bind(ctr);
                 s_asrts.insert({s_assertion, ctr});
-                i_asrts.insert({ctr, new assertion(*this, op::leq, ctr, slack, c_right)});
+                v_asrts.insert({ctr, new assertion(*this, op::leq, ctr, slack, c_right)});
                 return ctr;
             }
         }
@@ -113,7 +113,7 @@ namespace smt {
                 var ctr = c.new_var();
                 bind(ctr);
                 s_asrts.insert({s_assertion, ctr});
-                i_asrts.insert({ctr, new assertion(*this, op::leq, ctr, slack, c_right)});
+                v_asrts.insert({ctr, new assertion(*this, op::leq, ctr, slack, c_right)});
                 return ctr;
             }
         }

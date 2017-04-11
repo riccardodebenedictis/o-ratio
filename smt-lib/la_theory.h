@@ -96,7 +96,7 @@ namespace smt {
         // the assertions (string to boolean variable) used both for reducing the number of boolean variables and for generating explanations..
         std::unordered_map<std::string, var> s_asrts;
         // the assertions (boolean variable to assertion) used for enforcing (negating) assertions..
-        std::unordered_map<var, assertion*> i_asrts;
+        std::unordered_map<var, assertion*> v_asrts;
     };
 
     enum op {
