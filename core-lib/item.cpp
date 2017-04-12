@@ -24,6 +24,8 @@
 
 #include "item.h"
 #include "core.h"
+#include "type.h"
+#include "field.h"
 #include <cassert>
 
 namespace ratio {
@@ -56,7 +58,7 @@ namespace ratio {
             if (eqs.empty()) {
                 return smt::TRUE;
             } else if (eqs.size() == 1) {
-                return eqs.begin()->var;
+                return eqs.begin()->v;
             } else {
                 return _core.new_conj(eqs);
             }
@@ -114,8 +116,8 @@ namespace ratio {
         }
     }
 
-    arith_item::arith_item(core& c, const type& t, const smt::lin& l) : item(e, e, t), l(l) {
-        assert(&t == &e.get_type(INT_KEYWORD) || &t == &e.get_type(REAL_KEYWORD));
+    arith_item::arith_item(core& c, const type& t, const smt::lin& l) : item(c, c, t), l(l) {
+        assert(&t == &c.get_type(INT_KEYWORD) || &t == &c.get_type(REAL_KEYWORD));
     }
 
     arith_item::~arith_item() { }
@@ -174,7 +176,7 @@ namespace ratio {
 
     enum_item::~enum_item() { }
 
-    expr enum_item::get(const std::string& name) const noexcept {
+    expr enum_item::get(const std::string& name) const {
         if (items.find(name) == items.end()) {
             std::unordered_set<smt::set_item*> vs = _core.enum_value(ev);
             if (vs.size() == 1) {

@@ -28,12 +28,13 @@
 #include "env.h"
 #include "../smt-lib/sat_core.h"
 #include "../smt-lib/la_theory.h"
+#include "../smt-lib/set_theory.h"
 
 namespace ratio {
 
     class type;
 
-    class item : public env {
+    class item : public env, public smt::set_item {
     public:
         item(core& c, env& e, const type& t);
         item(const item& orig) = delete;
@@ -107,7 +108,7 @@ namespace ratio {
         friend std::ostream& operator<<(std::ostream& os, const enum_item& obj);
 
     public:
-        const size_t ev;
+        const smt::var ev;
     };
 }
 

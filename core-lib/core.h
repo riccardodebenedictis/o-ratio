@@ -29,6 +29,7 @@
 #include "env.h"
 #include "../smt-lib/sat_core.h"
 #include "../smt-lib/la_theory.h"
+#include "../smt-lib/set_theory.h"
 #include <unordered_set>
 
 #define BOOL_KEYWORD "bool"
@@ -105,14 +106,42 @@ namespace ratio {
 
         expr get(const std::string& name) const override;
 
+        smt::lbool bool_value(const smt::var& v) const {
+            return c.value(v);
+        }
+
+        smt::lbool bool_value(const smt::lit& l) const {
+            return c.value(l);
+        }
         smt::lbool bool_value(const bool_expr& var) const noexcept;
+
+        smt::interval arith_bounds(smt::var v) const {
+            return la.bounds(v);
+        }
+
+        smt::interval arith_bounds(const smt::lin& l) const {
+            return la.bounds(l);
+        }
         smt::interval arith_bounds(const arith_expr& var) const noexcept;
+
+        double arith_value(smt::var v) const {
+            return la.value(v);
+        }
+
+        double arith_value(const smt::lin& l) const {
+            return la.value(l);
+        }
         double arith_value(const arith_expr& var) const noexcept;
+
+        std::unordered_set<smt::set_item*> enum_value(smt::var v) const {
+            return set.value(v);
+        }
         std::unordered_set<smt::set_item*> enum_value(const enum_expr& var) const noexcept;
 
     private:
         smt::sat_core c;
         smt::la_theory la;
+        smt::set_theory set;
 
     protected:
         smt::var ctr_var = smt::TRUE;
