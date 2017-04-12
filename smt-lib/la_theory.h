@@ -98,9 +98,9 @@ namespace smt {
 
         public:
             // the old lower bounds (for backtracking)..
-            std::unordered_map<size_t, double> lbs;
+            std::unordered_map<var, double> lbs;
             // the old upper bounds (for backtracking)..
-            std::unordered_map<size_t, double> ubs;
+            std::unordered_map<var, double> ubs;
         };
 
         // the current assignments..

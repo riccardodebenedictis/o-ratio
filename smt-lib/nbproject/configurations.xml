@@ -9,6 +9,9 @@
         <itemPath>la_theory.h</itemPath>
         <itemPath>lin.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2" displayName="set_theory" projectFiles="true">
+        <itemPath>set_theory.h</itemPath>
+      </logicalFolder>
       <itemPath>clause.h</itemPath>
       <itemPath>constr.h</itemPath>
       <itemPath>lit.h</itemPath>
@@ -27,6 +30,9 @@
         <itemPath>interval.cpp</itemPath>
         <itemPath>la_theory.cpp</itemPath>
         <itemPath>lin.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="set_theory" projectFiles="true">
+        <itemPath>set_theory.cpp</itemPath>
       </logicalFolder>
       <itemPath>clause.cpp</itemPath>
       <itemPath>lit.cpp</itemPath>
@@ -126,6 +132,10 @@
       </item>
       <item path="sat_core.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="set_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="set_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/la_theory_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
@@ -213,6 +223,10 @@
       <item path="sat_core.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="sat_core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="set_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="set_theory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/la_theory_test.cpp" ex="false" tool="1" flavor2="0">
       </item>

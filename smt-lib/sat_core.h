@@ -57,6 +57,8 @@ namespace smt {
         }
 
         bool new_clause(const std::vector<lit>& lits);
+        bool exct_one(const std::vector<lit>& lits);
+
         bool assume(const lit& p);
 
         lbool value(var x) const {

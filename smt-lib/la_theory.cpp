@@ -45,7 +45,7 @@ namespace smt {
 
     var la_theory::leq(const lin& left, const lin& right) {
         lin expr = left - right;
-        std::vector<size_t> vars;
+        std::vector<var> vars;
         for (const auto& term : expr.vars) {
             vars.push_back(term.first);
         }
@@ -86,7 +86,7 @@ namespace smt {
 
     var la_theory::geq(const lin& left, const lin& right) {
         lin expr = left - right;
-        std::vector<size_t> vars;
+        std::vector<var> vars;
         for (const auto& term : expr.vars) {
             vars.push_back(term.first);
         }
@@ -127,7 +127,7 @@ namespace smt {
 
     var la_theory::mk_slack(const lin& l) {
         std::string s_expr = l.to_string();
-        size_t slack;
+        var slack;
         if (exprs.find(s_expr) != exprs.end()) {
             // the expression already exists..
             slack = exprs.at(s_expr);
@@ -208,7 +208,7 @@ namespace smt {
                     return new constr(c, expl);
                 }
             } else if (vals[x_i] > assigns[x_i].ub) {
-                auto x_j_it = std::find_if(f_row->l.vars.begin(), f_row->l.vars.end(), [&](const std::pair<size_t, double>& v) {
+                auto x_j_it = std::find_if(f_row->l.vars.begin(), f_row->l.vars.end(), [&](const std::pair<var, double>& v) {
                     return (f_row->l.vars[v.first] < 0 && vals[v.first] < assigns[v.first].ub) || (f_row->l.vars[v.first] > 0 && vals[v.first] > assigns[v.first].lb); });
                 if (x_j_it != f_row->l.vars.end()) {
                     // var x_j can be used to decrease the value of x_i..

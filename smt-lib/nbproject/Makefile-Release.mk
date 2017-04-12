@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/lin.o \
 	${OBJECTDIR}/lit.o \
 	${OBJECTDIR}/sat_core.o \
+	${OBJECTDIR}/set_theory.o \
 	${OBJECTDIR}/theory.o
 
 # Test Directory
@@ -109,6 +110,11 @@ ${OBJECTDIR}/sat_core.o: sat_core.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sat_core.o sat_core.cpp
+
+${OBJECTDIR}/set_theory.o: set_theory.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/set_theory.o set_theory.cpp
 
 ${OBJECTDIR}/theory.o: theory.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -219,6 +225,19 @@ ${OBJECTDIR}/sat_core_nomain.o: ${OBJECTDIR}/sat_core.o sat_core.cpp
 	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sat_core_nomain.o sat_core.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/sat_core.o ${OBJECTDIR}/sat_core_nomain.o;\
+	fi
+
+${OBJECTDIR}/set_theory_nomain.o: ${OBJECTDIR}/set_theory.o set_theory.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/set_theory.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/set_theory_nomain.o set_theory.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/set_theory.o ${OBJECTDIR}/set_theory_nomain.o;\
 	fi
 
 ${OBJECTDIR}/theory_nomain.o: ${OBJECTDIR}/theory.o theory.cpp 
