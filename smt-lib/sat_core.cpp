@@ -159,43 +159,28 @@ namespace smt {
     }
 
     void sat_core::analyze(const constr& confl, std::vector<lit>& out_learnt, size_t& out_btlevel) {
-        out_learnt.push_back(lit(0, false));
         out_btlevel = 0;
-        lit p = trail_lim.back();
-        if (trail_lim.back() == trail.back()) {
-            // a theory generated the conflict as a direct consequence of last decision..
-            for (const auto& q : confl.lits) {
-                if (p.v != q.v) {
-                    out_learnt.push_back(q);
-                    out_btlevel = std::max(out_btlevel, level[q.v]);
-                }
-            }
-            out_learnt[0] = !p;
-            return;
-        }
         std::set<var> seen;
-        int counter = 0;
-        const constr* p_reason = &confl;
-        do {
-            for (const auto& q : p_reason->lits) {
-                if (p.v != q.v && seen.find(q.v) == seen.end()) {
-                    seen.insert(q.v);
-                    if (level[q.v] == trail_lim.size()) {
-                        counter++;
-                    } else if (level[q.v] > 0) {
-                        out_learnt.push_back(q);
-                        out_btlevel = std::max(out_btlevel, level[q.v]);
+        std::queue<var> q;
+        for (const auto& lit : confl.lits) {
+            q.push(lit.v);
+        }
+        out_learnt.push_back(!trail_lim.back());
+        seen.insert(trail_lim.back());
+        while (!q.empty()) {
+            if (seen.find(q.front()) == seen.end()) {
+                seen.insert(q.front());
+                if (level[q.front()] == trail_lim.size() && reason[q.front()] != nullptr) {
+                    for (const auto& lit : reason[q.front()]->args()) {
+                        q.push(lit.var);
                     }
+                } else if (level[q.front()] > 0) {
+                    out_learnt.push_back(lit(q.front(), value(q.front()) == False));
+                    out_btlevel = std::max(out_btlevel, level[q.front()]);
                 }
             }
-            do {
-                p = trail.back();
-                p_reason = reason[p.v];
-                pop_one();
-            } while (seen.find(p.v) == seen.end());
-            counter--;
-        } while (counter > 0);
-        out_learnt[0] = !p;
+            q.pop();
+        }
     }
 
     bool sat_core::assume(const lit& p) {
