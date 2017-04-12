@@ -122,6 +122,9 @@ namespace smt {
                 constr* cnfl = th->propagate(prop_q.front());
                 if (cnfl) {
                     constrs.push_back(cnfl);
+                    while (!prop_q.empty()) {
+                        prop_q.pop();
+                    }
                     return cnfl;
                 }
             }
