@@ -408,7 +408,6 @@ namespace smt {
                         case True:
                             // we have a propositional inconsistency..
                             return new constr(th.c,{!p, lit(b, false)});
-                            break;
                         case False:
                             // nothing to propagate..
                             break;
@@ -429,7 +428,6 @@ namespace smt {
                         case False:
                             // we have a propositional inconsistency..
                             return new constr(th.c,{!p, lit(b, true)});
-                            break;
                         case Undefined:
                             // we propagate information to the sat core..
                             th.record({lit(b, true), !p});
