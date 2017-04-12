@@ -35,7 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/core.o
+	${OBJECTDIR}/core.o \
+	${OBJECTDIR}/env.o \
+	${OBJECTDIR}/scope.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -79,6 +81,16 @@ ${OBJECTDIR}/core.o: core.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core.o core.cpp
 
+${OBJECTDIR}/env.o: env.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env.o env.cpp
+
+${OBJECTDIR}/scope.o: scope.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope.o scope.cpp
+
 # Subprojects
 .build-subprojects:
 	cd ../smt-lib && ${MAKE}  -f Makefile CONF=Release
@@ -109,6 +121,32 @@ ${OBJECTDIR}/core_nomain.o: ${OBJECTDIR}/core.o core.cpp
 	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core_nomain.o core.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/core.o ${OBJECTDIR}/core_nomain.o;\
+	fi
+
+${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/env.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env_nomain.o env.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/env.o ${OBJECTDIR}/env_nomain.o;\
+	fi
+
+${OBJECTDIR}/scope_nomain.o: ${OBJECTDIR}/scope.o scope.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/scope.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope_nomain.o scope.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/scope.o ${OBJECTDIR}/scope_nomain.o;\
 	fi
 
 # Run Test Targets

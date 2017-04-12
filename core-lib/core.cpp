@@ -26,7 +26,7 @@
 
 namespace ratio {
 
-    core::core() : c(), la(c) { }
+    core::core() : scope(*this), env(*this), c(), la(c) { }
 
     core::~core() { }
 }

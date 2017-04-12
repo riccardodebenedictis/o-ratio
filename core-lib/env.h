@@ -16,33 +16,29 @@
  */
 
 /* 
- * File:   core.h
+ * File:   env.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 12, 2017, 4:28 PM
+ * Created on April 12, 2017, 4:38 PM
  */
 
-#ifndef CORE_H
-#define CORE_H
-
-#include "scope.h"
-#include "env.h"
-#include "../smt-lib/sat_core.h"
-#include "../smt-lib/la_theory.h"
+#ifndef ENV_H
+#define ENV_H
 
 namespace ratio {
 
-    class core : public scope, public env {
-    public:
-        core();
-        core(const core& orig) = delete;
-        virtual ~core();
+    class core;
 
-    private:
-        smt::sat_core c;
-        smt::la_theory la;
+    class env {
+    public:
+        env(core& c);
+        env(const env& orig) = delete;
+        virtual ~env();
+
+    protected:
+        core& c;
     };
 }
 
-#endif /* CORE_H */
+#endif /* ENV_H */
 
