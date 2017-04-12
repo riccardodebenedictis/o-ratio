@@ -29,6 +29,7 @@
 #include "env.h"
 #include "../smt-lib/sat_core.h"
 #include "../smt-lib/la_theory.h"
+#include <unordered_set>
 
 #define BOOL_KEYWORD "bool"
 #define INT_KEYWORD "int"
@@ -37,15 +38,87 @@
 
 namespace ratio {
 
+    class atom;
+    class disjunction;
+
     class core : public scope, public env {
     public:
         core();
         core(const core& orig) = delete;
         virtual ~core();
 
+        bool read(const std::string& script);
+        bool read(const std::vector<std::string>& files);
+
+        bool_expr new_bool();
+        bool_expr new_bool(const bool& val);
+        arith_expr new_int();
+        arith_expr new_int(const long& val);
+        arith_expr new_real();
+        arith_expr new_real(const double& val);
+        string_expr new_string();
+        string_expr new_string(const std::string& val);
+
+        bool_expr negate(bool_expr var);
+        bool_expr eq(bool_expr left, bool_expr right);
+        bool_expr conj(const std::vector<bool_expr>& exprs);
+        bool_expr disj(const std::vector<bool_expr>& exprs);
+        bool_expr exct_one(const std::vector<bool_expr>& exprs);
+
+        arith_expr add(const std::vector<arith_expr>& exprs);
+        arith_expr sub(const std::vector<arith_expr>& exprs);
+        arith_expr mult(const std::vector<arith_expr>& exprs);
+        arith_expr div(arith_expr left, arith_expr right);
+        arith_expr minus(arith_expr ex);
+
+        bool_expr lt(arith_expr left, arith_expr right);
+        bool_expr leq(arith_expr left, arith_expr right);
+        bool_expr eq(arith_expr left, arith_expr right);
+        bool_expr geq(arith_expr left, arith_expr right);
+        bool_expr gt(arith_expr left, arith_expr right);
+
+        bool_expr eq(expr i0, expr i1);
+
+        bool assert_facts(const std::vector<smt::lit>& facts);
+
+        virtual enum_expr new_enum(const type& t, const std::unordered_set<item*>& allowed_vals);
+
+        virtual bool new_fact(atom& a);
+        virtual bool new_goal(atom& a);
+
+        virtual void new_disjunction(env& e, disjunction& d) { }
+
+        virtual bool solve() {
+            return true;
+        }
+
+        field & get_field(const std::string& name) const override;
+
+        method & get_method(const std::string& name, const std::vector<const type*>& ts) const override;
+        std::vector<method*> get_methods() const noexcept override;
+
+        predicate & get_predicate(const std::string& name) const override;
+        std::unordered_map<std::string, predicate*> get_predicates() const noexcept override;
+
+        type & get_type(const std::string& name) const override;
+        std::unordered_map<std::string, type*> get_types() const noexcept override;
+
+        expr get(const std::string& name) const override;
+
+        smt::lbool bool_value(const bool_expr& var) const noexcept;
+        smt::interval arith_bounds(const arith_expr& var) const noexcept;
+        double arith_value(const arith_expr& var) const noexcept;
+        std::unordered_set<smt::set_item*> enum_value(const enum_expr& var) const noexcept;
+
     private:
         smt::sat_core c;
         smt::la_theory la;
+
+    protected:
+        smt::var ctr_var = smt::TRUE;
+        std::unordered_map<std::string, std::vector<method*>> methods;
+        std::unordered_map<std::string, type*> types;
+        std::unordered_map<std::string, predicate*> predicates;
     };
 }
 

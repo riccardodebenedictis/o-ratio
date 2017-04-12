@@ -7,6 +7,7 @@
       <itemPath>atom.h</itemPath>
       <itemPath>constructor.h</itemPath>
       <itemPath>core.h</itemPath>
+      <itemPath>disjunction.h</itemPath>
       <itemPath>env.h</itemPath>
       <itemPath>env_ptr.h</itemPath>
       <itemPath>field.h</itemPath>
@@ -26,6 +27,7 @@
       <itemPath>atom.cpp</itemPath>
       <itemPath>constructor.cpp</itemPath>
       <itemPath>core.cpp</itemPath>
+      <itemPath>disjunction.cpp</itemPath>
       <itemPath>env.cpp</itemPath>
       <itemPath>field.cpp</itemPath>
       <itemPath>item.cpp</itemPath>
@@ -92,6 +94,10 @@
       <item path="core.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="disjunction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="disjunction.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="env.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -189,6 +195,10 @@
       <item path="core.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="disjunction.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="disjunction.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="env.cpp" ex="false" tool="1" flavor2="0">
       </item>

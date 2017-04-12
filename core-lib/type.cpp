@@ -74,7 +74,7 @@ namespace ratio {
     }
 
     expr type::new_instance(env& e) {
-        expr i = new item_impl(c, *e, *this);
+        expr i = new item(_core, e, *this);
         std::queue<type*> q;
         q.push(this);
         while (!q.empty()) {

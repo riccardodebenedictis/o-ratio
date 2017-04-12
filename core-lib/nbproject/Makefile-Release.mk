@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/atom.o \
 	${OBJECTDIR}/constructor.o \
 	${OBJECTDIR}/core.o \
+	${OBJECTDIR}/disjunction.o \
 	${OBJECTDIR}/env.o \
 	${OBJECTDIR}/field.o \
 	${OBJECTDIR}/item.o \
@@ -97,6 +98,11 @@ ${OBJECTDIR}/core.o: core.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core.o core.cpp
+
+${OBJECTDIR}/disjunction.o: disjunction.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction.o disjunction.cpp
 
 ${OBJECTDIR}/env.o: env.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -189,6 +195,19 @@ ${OBJECTDIR}/core_nomain.o: ${OBJECTDIR}/core.o core.cpp
 	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core_nomain.o core.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/core.o ${OBJECTDIR}/core_nomain.o;\
+	fi
+
+${OBJECTDIR}/disjunction_nomain.o: ${OBJECTDIR}/disjunction.o disjunction.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/disjunction.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_nomain.o disjunction.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/disjunction.o ${OBJECTDIR}/disjunction_nomain.o;\
 	fi
 
 ${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp 

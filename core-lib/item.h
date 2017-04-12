@@ -27,6 +27,7 @@
 
 #include "env.h"
 #include "../smt-lib/sat_core.h"
+#include "../smt-lib/la_theory.h"
 
 namespace ratio {
 
@@ -38,11 +39,75 @@ namespace ratio {
         item(const item& orig) = delete;
         virtual ~item();
 
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
+        virtual smt::var eq(item& i) noexcept;
+        virtual bool equates(const item& i) const noexcept;
 
     public:
         const type& t;
+    };
+
+    class bool_item : public item {
+    public:
+        bool_item(core& c, const smt::lit& l);
+        bool_item(const bool_item& that) = delete;
+        virtual ~bool_item();
+
+        smt::var eq(item& i) noexcept override;
+        bool equates(const item& i) const noexcept override;
+
+        friend std::ostream& operator<<(std::ostream& os, const bool_item& obj);
+
+    public:
+        smt::lit l;
+    };
+
+    class arith_item : public item {
+    public:
+        arith_item(core& c, const type& t, const smt::lin& l);
+        arith_item(const arith_item& that) = delete;
+        virtual ~arith_item();
+
+        smt::var eq(item& i) noexcept override;
+        bool equates(const item& i) const noexcept override;
+
+        friend std::ostream& operator<<(std::ostream& os, const arith_item& obj);
+
+    public:
+        const smt::lin l;
+    };
+
+    class string_item : public item {
+    public:
+        string_item(core& c, const std::string& l);
+        string_item(const string_item& that) = delete;
+        virtual ~string_item();
+
+        std::string get_value();
+
+        smt::var eq(item& i) noexcept override;
+        bool equates(const item& i) const noexcept override;
+
+        friend std::ostream& operator<<(std::ostream& os, const string_item& obj);
+
+    private:
+        std::string l;
+    };
+
+    class enum_item : public virtual item {
+    public:
+        enum_item(core& c, const type& t, smt::var ev);
+        enum_item(const enum_item& that) = delete;
+        virtual ~enum_item();
+
+        expr get(const std::string& name) const override;
+
+        smt::var eq(item& i) noexcept override;
+        bool equates(const item& i) const noexcept override;
+
+        friend std::ostream& operator<<(std::ostream& os, const enum_item& obj);
+
+    public:
+        const size_t ev;
     };
 }
 
