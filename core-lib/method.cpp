@@ -16,35 +16,29 @@
  */
 
 /* 
- * File:   item.h
+ * File:   method.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- *
- * Created on April 12, 2017, 5:09 PM
+ * 
+ * Created on April 12, 2017, 5:43 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
-
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#include "method.h"
+#include "type.h"
+#include "field.h"
 
 namespace ratio {
 
-    class type;
+    method::method(core& c, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type) : scope(c, s), name(name), args(args), return_type(return_type) {
+        if (type * t = dynamic_cast<type*> (&s)) {
+            fields.insert({THIS_KEYWORD, new field(*t, THIS_KEYWORD, true)});
+        }
+        if (return_type) {
+            fields.insert({RETURN_KEYWORD, new field(*return_type, RETURN_KEYWORD, true)});
+        }
+        for (const auto& arg : args) {
+            fields.insert({arg->name, arg});
+        }
+    }
 
-    class item : public env {
-    public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
-
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
-
-    public:
-        const type& t;
-    };
+    method::~method() { }
 }
-
-#endif /* ITEM_H */
-

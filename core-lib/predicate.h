@@ -16,35 +16,26 @@
  */
 
 /* 
- * File:   item.h
+ * File:   predicate.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 12, 2017, 5:09 PM
+ * Created on April 12, 2017, 5:43 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
-
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#ifndef PREDICATE_H
+#define PREDICATE_H
 
 namespace ratio {
 
-    class type;
-
-    class item : public env {
+    class predicate {
     public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
+        predicate();
+        predicate(const predicate& orig);
+        virtual ~predicate();
+    private:
 
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
-
-    public:
-        const type& t;
     };
 }
 
-#endif /* ITEM_H */
+#endif /* PREDICATE_H */
 

@@ -16,35 +16,45 @@
  */
 
 /* 
- * File:   item.h
+ * File:   method.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 12, 2017, 5:09 PM
+ * Created on April 12, 2017, 5:43 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
+#ifndef METHOD_H
+#define METHOD_H
 
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#include "scope.h"
+#include "item.h"
+#include "env_ptr.h"
 
 namespace ratio {
 
-    class type;
-
-    class item : public env {
+    class method : scope {
+        friend class core;
+        friend class type;
     public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
+        method(core& c, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type = nullptr);
+        method(const method& orig) = delete;
+        virtual ~method();
 
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
+        const std::vector<field*> get_args() const {
+            return args;
+        }
+
+        virtual bool invoke(env& e, const std::vector<expr>& exprs) = 0;
 
     public:
-        const type& t;
+        const std::string name;
+
+    protected:
+        const std::vector<field*> args;
+
+    public:
+        const type * const return_type;
     };
 }
 
-#endif /* ITEM_H */
+#endif /* METHOD_H */
 

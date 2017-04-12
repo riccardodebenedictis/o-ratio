@@ -25,9 +25,19 @@
 #ifndef SCOPE_H
 #define SCOPE_H
 
+#include <unordered_map>
+#include <vector>
+
+#define THIS_KEYWORD "this"
+#define RETURN_KEYWORD "return"
+
 namespace ratio {
 
     class core;
+    class field;
+    class type;
+    class method;
+    class predicate;
 
     class scope {
     public:
@@ -35,9 +45,30 @@ namespace ratio {
         scope(const scope& orig) = delete;
         virtual ~scope();
 
+        core& get_core() const {
+            return _core;
+        }
+
+        scope& get_scope() const {
+            return _scope;
+        }
+
+        virtual field& get_field(const std::string& name) const;
+        std::unordered_map<std::string, field*> get_fields() const noexcept;
+
+        virtual method& get_method(const std::string& name, const std::vector<const type*>& ts) const;
+        virtual std::vector<method*> get_methods() const noexcept;
+
+        virtual type& get_type(const std::string& name) const;
+        virtual std::unordered_map<std::string, type*> get_types() const noexcept;
+
+        virtual predicate& get_predicate(const std::string& name) const;
+        virtual std::unordered_map<std::string, predicate*> get_predicates() const noexcept;
+
     protected:
         core& _core;
         scope& _scope;
+        std::unordered_map<std::string, field*> fields;
     };
 }
 

@@ -16,35 +16,35 @@
  */
 
 /* 
- * File:   item.h
+ * File:   constructor.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 12, 2017, 5:09 PM
+ * Created on April 12, 2017, 5:47 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
+#ifndef CONSTRUCTOR_H
+#define CONSTRUCTOR_H
 
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#include "scope.h"
+#include "item.h"
+#include "env_ptr.h"
 
 namespace ratio {
 
-    class type;
-
-    class item : public env {
+    class constructor : public scope {
+        friend class type;
     public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
+        constructor(core& c, scope& s, const std::vector<field*>& args);
+        constructor(const constructor& orig) = delete;
+        virtual ~constructor();
 
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
+        expr new_instance(env& e, const std::vector<expr>& exprs);
+        virtual bool invoke(item& i, const std::vector<expr>& exprs) = 0;
 
-    public:
-        const type& t;
+    protected:
+        const std::vector<field*> args;
     };
 }
 
-#endif /* ITEM_H */
+#endif /* CONSTRUCTOR_H */
 

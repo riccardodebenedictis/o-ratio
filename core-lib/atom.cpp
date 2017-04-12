@@ -16,35 +16,17 @@
  */
 
 /* 
- * File:   item.h
+ * File:   atom.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- *
- * Created on April 12, 2017, 5:09 PM
+ * 
+ * Created on April 12, 2017, 5:47 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
-
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#include "atom.h"
 
 namespace ratio {
 
-    class type;
+    atom::atom() { }
 
-    class item : public env {
-    public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
-
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
-
-    public:
-        const type& t;
-    };
+    atom::~atom() { }
 }
-
-#endif /* ITEM_H */
-

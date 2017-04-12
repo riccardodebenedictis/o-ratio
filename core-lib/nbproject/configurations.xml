@@ -4,9 +4,15 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>atom.h</itemPath>
+      <itemPath>constructor.h</itemPath>
       <itemPath>core.h</itemPath>
       <itemPath>env.h</itemPath>
+      <itemPath>env_ptr.h</itemPath>
+      <itemPath>field.h</itemPath>
       <itemPath>item.h</itemPath>
+      <itemPath>method.h</itemPath>
+      <itemPath>predicate.h</itemPath>
       <itemPath>scope.h</itemPath>
       <itemPath>type.h</itemPath>
     </logicalFolder>
@@ -17,9 +23,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>atom.cpp</itemPath>
+      <itemPath>constructor.cpp</itemPath>
       <itemPath>core.cpp</itemPath>
       <itemPath>env.cpp</itemPath>
+      <itemPath>field.cpp</itemPath>
       <itemPath>item.cpp</itemPath>
+      <itemPath>method.cpp</itemPath>
+      <itemPath>predicate.cpp</itemPath>
       <itemPath>scope.cpp</itemPath>
       <itemPath>type.cpp</itemPath>
     </logicalFolder>
@@ -70,6 +81,14 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="atom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="atom.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="constructor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="constructor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="core.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="core.h" ex="false" tool="3" flavor2="0">
@@ -77,6 +96,8 @@
       <item path="env.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="env.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="env_ptr.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -93,9 +114,21 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="field.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="field.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="item.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="item.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="method.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="predicate.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="predicate.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="scope.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -145,6 +178,14 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="atom.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="atom.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="constructor.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="constructor.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="core.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="core.h" ex="false" tool="3" flavor2="0">
@@ -152,6 +193,8 @@
       <item path="env.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="env.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="env_ptr.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -168,9 +211,21 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <item path="field.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="field.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="item.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="item.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="method.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="method.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="predicate.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="predicate.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="scope.cpp" ex="false" tool="1" flavor2="0">
       </item>

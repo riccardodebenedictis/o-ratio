@@ -26,16 +26,55 @@
 #define TYPE_H
 
 #include "scope.h"
+#include "item.h"
+#include "env_ptr.h"
 
 namespace ratio {
 
+    class constructor;
+    class atom;
+
     class type : public scope {
+        friend class core;
     public:
-        type(core& c, scope& s);
+        type(core& c, scope& s, const std::string& name, bool primitive = false);
         type(const type& orig) = delete;
         virtual ~type();
-    private:
 
+        std::vector<type*> get_supertypes() const noexcept;
+
+        bool is_assignable_from(const type& t) const noexcept;
+
+        virtual expr new_instance(env& e);
+        virtual expr new_existential();
+
+        std::vector<expr> get_instances() const noexcept;
+
+        constructor & get_constructor(const std::vector<const type*>& ts) const;
+        std::vector<constructor*> get_constructors() const noexcept;
+
+        field & get_field(const std::string& name) const override;
+
+        method & get_method(const std::string& name, const std::vector<const type*>& ts) const override;
+        std::vector<method*> get_methods() const noexcept override;
+
+        predicate & get_predicate(const std::string& name) const override;
+        std::unordered_map<std::string, predicate*> get_predicates() const noexcept override;
+
+        type & get_type(const std::string& name) const override;
+        std::unordered_map<std::string, type*> get_types() const noexcept override;
+
+    public:
+        const std::string name;
+        const bool primitive;
+
+    protected:
+        std::vector<type*> supertypes;
+        std::vector<constructor*> constructors;
+        std::unordered_map<std::string, std::vector<method*>> methods;
+        std::unordered_map<std::string, type*> types;
+        std::unordered_map<std::string, predicate*> predicates;
+        std::vector<expr> instances;
     };
 }
 

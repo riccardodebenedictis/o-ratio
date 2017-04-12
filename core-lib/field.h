@@ -16,35 +16,36 @@
  */
 
 /* 
- * File:   item.h
+ * File:   field.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 12, 2017, 5:09 PM
+ * Created on April 12, 2017, 5:33 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
+#ifndef FIELD_H
+#define FIELD_H
 
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#include "env_ptr.h"
+#include <string>
 
 namespace ratio {
 
     class type;
 
-    class item : public env {
+    class field {
     public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
+        field(const type& t, const std::string& name, bool synthetic = false);
+        field(const field& orig) = delete;
+        virtual ~field();
 
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
+        virtual expr new_instance(env& e);
 
     public:
         const type& t;
+        const std::string name;
+        const bool synthetic;
     };
 }
 
-#endif /* ITEM_H */
+#endif /* FIELD_H */
 

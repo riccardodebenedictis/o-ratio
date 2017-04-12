@@ -26,7 +26,7 @@
 
 namespace ratio {
 
-    item::item(core& c, env& e) : env(c, e) { }
+    item::item(core& c, env& e, const type& t) : env(c, e), t(t) { }
 
     item::~item() { }
 }

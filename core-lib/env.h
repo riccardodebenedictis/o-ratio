@@ -25,6 +25,7 @@
 #ifndef ENV_H
 #define ENV_H
 
+#include "env_ptr.h"
 #include <unordered_map>
 #include <string>
 
@@ -33,6 +34,8 @@ namespace ratio {
     class core;
 
     class env {
+        template<typename T>
+        friend class env_ptr;
     public:
         env(core& c, env& e);
         env(const env& orig) = delete;
@@ -46,9 +49,16 @@ namespace ratio {
             return _env;
         }
 
+        virtual expr get(const std::string& name) const;
+        std::unordered_map<std::string, expr> get_items() const noexcept;
+
+    private:
+        unsigned ref_count;
+
     protected:
         core& _core;
         env& _env;
+        std::unordered_map<std::string, expr> items;
     };
 }
 

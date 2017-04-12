@@ -35,9 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/atom.o \
+	${OBJECTDIR}/constructor.o \
 	${OBJECTDIR}/core.o \
 	${OBJECTDIR}/env.o \
+	${OBJECTDIR}/field.o \
 	${OBJECTDIR}/item.o \
+	${OBJECTDIR}/method.o \
+	${OBJECTDIR}/predicate.o \
 	${OBJECTDIR}/scope.o \
 	${OBJECTDIR}/type.o
 
@@ -78,6 +83,16 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
+${OBJECTDIR}/atom.o: atom.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom.o atom.cpp
+
+${OBJECTDIR}/constructor.o: constructor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/constructor.o constructor.cpp
+
 ${OBJECTDIR}/core.o: core.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -88,10 +103,25 @@ ${OBJECTDIR}/env.o: env.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env.o env.cpp
 
+${OBJECTDIR}/field.o: field.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field.o field.cpp
+
 ${OBJECTDIR}/item.o: item.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item.o item.cpp
+
+${OBJECTDIR}/method.o: method.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method.o method.cpp
+
+${OBJECTDIR}/predicate.o: predicate.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/predicate.o predicate.cpp
 
 ${OBJECTDIR}/scope.o: scope.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -122,6 +152,32 @@ ${TESTDIR}/tests/core_test.o: tests/core_test.cpp
 	$(COMPILE.cc) -g -Wall -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/core_test.o tests/core_test.cpp
 
 
+${OBJECTDIR}/atom_nomain.o: ${OBJECTDIR}/atom.o atom.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/atom.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_nomain.o atom.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/atom.o ${OBJECTDIR}/atom_nomain.o;\
+	fi
+
+${OBJECTDIR}/constructor_nomain.o: ${OBJECTDIR}/constructor.o constructor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/constructor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/constructor_nomain.o constructor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/constructor.o ${OBJECTDIR}/constructor_nomain.o;\
+	fi
+
 ${OBJECTDIR}/core_nomain.o: ${OBJECTDIR}/core.o core.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/core.o`; \
@@ -148,6 +204,19 @@ ${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp
 	    ${CP} ${OBJECTDIR}/env.o ${OBJECTDIR}/env_nomain.o;\
 	fi
 
+${OBJECTDIR}/field_nomain.o: ${OBJECTDIR}/field.o field.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/field.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field_nomain.o field.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/field.o ${OBJECTDIR}/field_nomain.o;\
+	fi
+
 ${OBJECTDIR}/item_nomain.o: ${OBJECTDIR}/item.o item.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/item.o`; \
@@ -159,6 +228,32 @@ ${OBJECTDIR}/item_nomain.o: ${OBJECTDIR}/item.o item.cpp
 	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item_nomain.o item.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/item.o ${OBJECTDIR}/item_nomain.o;\
+	fi
+
+${OBJECTDIR}/method_nomain.o: ${OBJECTDIR}/method.o method.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/method.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method_nomain.o method.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/method.o ${OBJECTDIR}/method_nomain.o;\
+	fi
+
+${OBJECTDIR}/predicate_nomain.o: ${OBJECTDIR}/predicate.o predicate.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/predicate.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/predicate_nomain.o predicate.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/predicate.o ${OBJECTDIR}/predicate_nomain.o;\
 	fi
 
 ${OBJECTDIR}/scope_nomain.o: ${OBJECTDIR}/scope.o scope.cpp 

@@ -16,35 +16,36 @@
  */
 
 /* 
- * File:   item.h
+ * File:   constructor.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- *
- * Created on April 12, 2017, 5:09 PM
+ * 
+ * Created on April 12, 2017, 5:47 PM
  */
 
-#ifndef ITEM_H
-#define ITEM_H
-
-#include "env.h"
-#include "../smt-lib/sat_core.h"
+#include "constructor.h"
+#include "field.h"
+#include "type.h"
+#include <cassert>
 
 namespace ratio {
 
-    class type;
+    constructor::constructor(core& c, scope& s, const std::vector<field*>& args) : scope(c, s), args(args) {
+        fields.insert({THIS_KEYWORD, new field(static_cast<type&> (s), THIS_KEYWORD, true)});
+        for (const auto& arg : args) {
+            fields.insert({arg->name, new field(arg->t, arg->name)});
+        }
+    }
 
-    class item : public env {
-    public:
-        item(core& c, env& e, const type& t);
-        item(const item& orig) = delete;
-        virtual ~item();
+    constructor::~constructor() { }
 
-        virtual smt::var eq(item& item) = 0;
-        virtual bool equates(const item& item) const = 0;
+    expr constructor::new_instance(env& e, const std::vector<expr>& exprs) {
+        assert(args.size() == exprs.size());
 
-    public:
-        const type& t;
-    };
+        type& t = static_cast<type&> (_scope);
+        expr i = t.new_instance(e);
+
+        invoke(*i, exprs);
+
+        return i;
+    }
 }
-
-#endif /* ITEM_H */
-
