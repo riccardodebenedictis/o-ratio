@@ -16,17 +16,17 @@
  */
 
 /* 
- * File:   env.cpp
+ * File:   item.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  * 
- * Created on April 12, 2017, 4:38 PM
+ * Created on April 12, 2017, 5:09 PM
  */
 
-#include "env.h"
+#include "item.h"
 
 namespace ratio {
 
-    env::env(core& c, env& e) : _core(c), _env(e) { }
+    item::item(core& c, env& e) : env(c, e) { }
 
-    env::~env() { }
+    item::~item() { }
 }

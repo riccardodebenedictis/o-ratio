@@ -25,18 +25,30 @@
 #ifndef ENV_H
 #define ENV_H
 
+#include <unordered_map>
+#include <string>
+
 namespace ratio {
 
     class core;
 
     class env {
     public:
-        env(core& c);
+        env(core& c, env& e);
         env(const env& orig) = delete;
         virtual ~env();
 
+        core& get_core() const {
+            return _core;
+        }
+
+        env& get_env() const {
+            return _env;
+        }
+
     protected:
-        core& c;
+        core& _core;
+        env& _env;
     };
 }
 

@@ -31,12 +31,13 @@ namespace ratio {
 
     class scope {
     public:
-        scope(core& c);
+        scope(core& c, scope& s);
         scope(const scope& orig) = delete;
         virtual ~scope();
 
     protected:
-        core& c;
+        core& _core;
+        scope& _scope;
     };
 }
 

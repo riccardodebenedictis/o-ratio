@@ -26,7 +26,7 @@
 
 namespace ratio {
 
-    scope::scope(core& c) : c(c) { }
+    scope::scope(core& c, scope& s) : _core(c), _scope(s) { }
 
     scope::~scope() { }
 }

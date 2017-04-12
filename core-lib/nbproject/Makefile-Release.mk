@@ -37,7 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/core.o \
 	${OBJECTDIR}/env.o \
-	${OBJECTDIR}/scope.o
+	${OBJECTDIR}/item.o \
+	${OBJECTDIR}/scope.o \
+	${OBJECTDIR}/type.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -86,10 +88,20 @@ ${OBJECTDIR}/env.o: env.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env.o env.cpp
 
+${OBJECTDIR}/item.o: item.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item.o item.cpp
+
 ${OBJECTDIR}/scope.o: scope.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope.o scope.cpp
+
+${OBJECTDIR}/type.o: type.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type.o type.cpp
 
 # Subprojects
 .build-subprojects:
@@ -136,6 +148,19 @@ ${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp
 	    ${CP} ${OBJECTDIR}/env.o ${OBJECTDIR}/env_nomain.o;\
 	fi
 
+${OBJECTDIR}/item_nomain.o: ${OBJECTDIR}/item.o item.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/item.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item_nomain.o item.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/item.o ${OBJECTDIR}/item_nomain.o;\
+	fi
+
 ${OBJECTDIR}/scope_nomain.o: ${OBJECTDIR}/scope.o scope.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/scope.o`; \
@@ -147,6 +172,19 @@ ${OBJECTDIR}/scope_nomain.o: ${OBJECTDIR}/scope.o scope.cpp
 	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope_nomain.o scope.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/scope.o ${OBJECTDIR}/scope_nomain.o;\
+	fi
+
+${OBJECTDIR}/type_nomain.o: ${OBJECTDIR}/type.o type.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/type.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_nomain.o type.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/type.o ${OBJECTDIR}/type_nomain.o;\
 	fi
 
 # Run Test Targets

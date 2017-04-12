@@ -16,17 +16,28 @@
  */
 
 /* 
- * File:   env.cpp
+ * File:   type.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- * 
- * Created on April 12, 2017, 4:38 PM
+ *
+ * Created on April 12, 2017, 5:09 PM
  */
 
-#include "env.h"
+#ifndef TYPE_H
+#define TYPE_H
+
+#include "scope.h"
 
 namespace ratio {
 
-    env::env(core& c, env& e) : _core(c), _env(e) { }
+    class type : public scope {
+    public:
+        type(core& c, scope& s);
+        type(const type& orig) = delete;
+        virtual ~type();
+    private:
 
-    env::~env() { }
+    };
 }
+
+#endif /* TYPE_H */
+

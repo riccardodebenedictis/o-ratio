@@ -30,6 +30,11 @@
 #include "../smt-lib/sat_core.h"
 #include "../smt-lib/la_theory.h"
 
+#define BOOL_KEYWORD "bool"
+#define INT_KEYWORD "int"
+#define REAL_KEYWORD "real"
+#define STRING_KEYWORD "string"
+
 namespace ratio {
 
     class core : public scope, public env {
