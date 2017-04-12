@@ -16,31 +16,35 @@
  */
 
 /* 
- * File:   core.h
+ * File:   newsimpletest.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 12, 2017, 4:28 PM
+ * Created on April 12, 2017, 4:32 PM
  */
 
-#ifndef CORE_H
-#define CORE_H
+#include "../core.h"
+#include <stdlib.h>
+#include <iostream>
 
-#include "../smt-lib/sat_core.h"
-#include "../smt-lib/la_theory.h"
+/*
+ * Simple C++ Test Suite
+ */
 
-namespace ratio {
+using namespace ratio;
 
-    class core {
-    public:
-        core();
-        core(const core& orig) = delete;
-        virtual ~core();
-
-    private:
-        smt::sat_core c;
-        smt::la_theory la;
-    };
+void testCore0() {
+    core c;
 }
 
-#endif /* CORE_H */
+int main(int argc, char** argv) {
+    std::cout << "%SUITE_STARTING% newsimpletest" << std::endl;
+    std::cout << "%SUITE_STARTED%" << std::endl;
 
+    std::cout << "%TEST_STARTED% testCore0 (newsimpletest)" << std::endl;
+    testCore0();
+    std::cout << "%TEST_FINISHED% time=0 testCore0 (newsimpletest)" << std::endl;
+
+    std::cout << "%SUITE_FINISHED% time=0" << std::endl;
+
+    return (EXIT_SUCCESS);
+}
