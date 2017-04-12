@@ -81,6 +81,32 @@ void testLA1() {
     assert(a);
 }
 
+void testTheoryPropagation() {
+    sat_core c;
+    la_theory la(c);
+
+    var x0 = la.new_var();
+    var b2 = la.geq(lin(x0, 1), lin(1));
+    var b3 = la.geq(lin(x0, 1), lin(0));
+    var b4 = la.leq(lin(x0, 1), lin(-1));
+
+    bool a;
+    a = c.assume(lit(b2, true)) && c.check();
+    assert(a);
+    assert(c.value(b3) == True);
+    assert(c.value(b4) == False);
+
+    var x1 = la.new_var();
+    var b5 = la.leq(lin(x1, 1), lin(-1));
+    var b6 = la.leq(lin(x1, 1), lin(0));
+    var b7 = la.geq(lin(x1, 1), lin(1));
+
+    a = c.assume(lit(b5, true)) && c.check();
+    assert(a);
+    assert(c.value(b6) == True);
+    assert(c.value(b7) == False);
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% la_theory_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -92,6 +118,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testLA1 (la_theory_test)" << std::endl;
     testLA1();
     std::cout << "%TEST_FINISHED% time=0 testLA1 (la_theory_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testTheoryPropagation (la_theory_test)" << std::endl;
+    testTheoryPropagation();
+    std::cout << "%TEST_FINISHED% time=0 testTheoryPropagation (la_theory_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
