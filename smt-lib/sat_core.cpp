@@ -166,13 +166,13 @@ namespace smt {
             q.push(lit.v);
         }
         out_learnt.push_back(!trail_lim.back());
-        seen.insert(trail_lim.back());
+        seen.insert(trail_lim.back().v);
         while (!q.empty()) {
             if (seen.find(q.front()) == seen.end()) {
                 seen.insert(q.front());
                 if (level[q.front()] == trail_lim.size() && reason[q.front()] != nullptr) {
                     for (const auto& lit : reason[q.front()]->args()) {
-                        q.push(lit.var);
+                        q.push(lit.v);
                     }
                 } else if (level[q.front()] > 0) {
                     out_learnt.push_back(lit(q.front(), value(q.front()) == False));
