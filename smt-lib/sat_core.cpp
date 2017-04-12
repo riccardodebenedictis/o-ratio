@@ -116,7 +116,7 @@ namespace smt {
             }
 
             // we perform theory propagation..
-            for (const auto& th : theories) {
+            for (const auto& th : bounds[prop_q.front().v]) {
                 constr* cnfl = th->propagate(prop_q.front());
                 if (cnfl) {
                     constrs.push_back(cnfl);
