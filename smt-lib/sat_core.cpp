@@ -28,6 +28,8 @@
 #include <cassert>
 #include <algorithm>
 
+#define FirstUIP
+
 namespace smt {
 
     sat_core::sat_core() {
@@ -159,6 +161,45 @@ namespace smt {
     }
 
     void sat_core::analyze(const constr& confl, std::vector<lit>& out_learnt, size_t& out_btlevel) {
+#ifdef FirstUIP
+        out_learnt.push_back(lit(0, false));
+        out_btlevel = 0;
+        lit p = trail_lim.back();
+        if (trail_lim.back() == trail.back()) {
+            // a theory generated the conflict as a direct consequence of last decision..
+            for (const auto& q : confl.lits) {
+                if (p.v != q.v) {
+                    out_learnt.push_back(q);
+                    out_btlevel = std::max(out_btlevel, level[q.v]);
+                }
+            }
+            out_learnt[0] = !p;
+            return;
+        }
+        std::set<var> seen;
+        int counter = 0;
+        const constr* p_reason = &confl;
+        do {
+            for (const auto& q : p_reason->lits) {
+                if (p.v != q.v && seen.find(q.v) == seen.end()) {
+                    seen.insert(q.v);
+                    if (level[q.v] == trail_lim.size()) {
+                        counter++;
+                    } else if (level[q.v] > 0) {
+                        out_learnt.push_back(q);
+                        out_btlevel = std::max(out_btlevel, level[q.v]);
+                    }
+                }
+            }
+            do {
+                p = trail.back();
+                p_reason = reason[p.v];
+                pop_one();
+            } while (seen.find(p.v) == seen.end());
+            counter--;
+        } while (counter > 0);
+        out_learnt[0] = !p;
+#else
         out_btlevel = 0;
         std::set<var> seen;
         std::queue<var> q;
@@ -181,6 +222,7 @@ namespace smt {
             }
             q.pop();
         }
+#endif
     }
 
     bool sat_core::assume(const lit& p) {
