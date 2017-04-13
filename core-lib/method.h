@@ -34,6 +34,7 @@ namespace ratio {
     class method : public scope {
         friend class core;
         friend class type;
+        friend class expression_visitor;
     public:
         method(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type = nullptr);
         method(const method& orig) = delete;

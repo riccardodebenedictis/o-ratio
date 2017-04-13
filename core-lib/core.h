@@ -50,6 +50,7 @@ namespace ratio {
         friend class type_refinement_listener;
         friend class type_visitor;
         friend class statement_visitor;
+        friend class expression_visitor;
     public:
         core(solver& slv);
         core(const core& orig) = delete;
