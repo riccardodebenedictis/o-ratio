@@ -26,7 +26,21 @@
 
 namespace ratio {
 
-    type_visitor::type_visitor() { }
+    type_visitor::type_visitor(core& c) : _core(c) { }
 
     type_visitor::~type_visitor() { }
+
+    antlrcpp::Any type_visitor::visitLiteral_expression(ratioParser::Literal_expressionContext* ctx) { }
+
+    antlrcpp::Any type_visitor::visitCast_expression(ratioParser::Cast_expressionContext* ctx) { }
+
+    antlrcpp::Any type_visitor::visitPrimitive_type(ratioParser::Primitive_typeContext* ctx) { }
+
+    antlrcpp::Any type_visitor::visitClass_type(ratioParser::Class_typeContext* ctx) { }
+
+    antlrcpp::Any type_visitor::visitQualified_id(ratioParser::Qualified_idContext* ctx) { }
+
+    antlrcpp::Any type_visitor::visitQualified_id_expression(ratioParser::Qualified_id_expressionContext* ctx) { }
+
+    antlrcpp::Any type_visitor::visitConstructor_expression(ratioParser::Constructor_expressionContext* ctx) { }
 }

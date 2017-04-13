@@ -38,11 +38,11 @@ namespace ratio {
 
     constructor::~constructor() { }
 
-    expr constructor::new_instance(env& e, const std::vector<expr>& exprs) {
+    expr constructor::new_instance(context& ctx, const std::vector<expr>& exprs) {
         assert(args.size() == exprs.size());
 
         type& t = static_cast<type&> (_scope);
-        expr i = t.new_instance(e);
+        expr i = t.new_instance(ctx);
 
         invoke(*i, exprs);
 

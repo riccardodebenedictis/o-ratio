@@ -38,7 +38,7 @@ namespace ratio {
         field(const field& orig) = delete;
         virtual ~field();
 
-        virtual expr new_instance(env& e);
+        virtual expr new_instance(context& ctx);
 
     public:
         const type& t;

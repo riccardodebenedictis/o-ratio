@@ -23,6 +23,9 @@
  */
 
 #include "type_declaration_listener.h"
+#include "core.h"
+#include "typedef_type.h"
+#include "type_visitor.h"
 
 namespace ratio {
 
@@ -30,9 +33,20 @@ namespace ratio {
 
     type_declaration_listener::~type_declaration_listener() { }
 
-    void type_declaration_listener::enterCompilation_unit(ratioParser::Compilation_unitContext* ctx) { }
+    void type_declaration_listener::enterCompilation_unit(ratioParser::Compilation_unitContext* ctx) {
+        _core.scopes.insert({ctx, &_core});
+        _scope = &_core;
+    }
 
-    void type_declaration_listener::enterTypedef_declaration(ratioParser::Typedef_declarationContext* ctx) { }
+    void type_declaration_listener::enterTypedef_declaration(ratioParser::Typedef_declarationContext* ctx) {
+        // A new typedef type has been declared..
+        typedef_type* td = new typedef_type(_core, *_scope, ctx->name->getText(), *type_visitor(_core).visit(ctx->primitive_type()).as<type*>(), *ctx->expr());
+        if (core * rc = dynamic_cast<core*> (_scope)) {
+            rc->types.insert({ctx->name->getText(), td});
+        } else if (type * t = dynamic_cast<type*> (_scope)) {
+            t->types.insert({ctx->name->getText(), td});
+        }
+    }
 
     void type_declaration_listener::enterEnum_declaration(ratioParser::Enum_declarationContext* ctx) { }
 

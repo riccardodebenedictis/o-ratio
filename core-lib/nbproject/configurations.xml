@@ -10,6 +10,9 @@
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h</itemPath>
         <itemPath>parser/ratioBaseListener.h</itemPath>
         <itemPath>parser/ratioBaseVisitor.h</itemPath>
         <itemPath>parser/ratioLexer.h</itemPath>
@@ -26,12 +29,9 @@
       <itemPath>constructor.h</itemPath>
       <itemPath>core.h</itemPath>
       <itemPath>disjunction.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h</itemPath>
       <itemPath>env.h</itemPath>
       <itemPath>env_ptr.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h</itemPath>
       <itemPath>field.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h</itemPath>
       <itemPath>item.h</itemPath>
       <itemPath>method.h</itemPath>
       <itemPath>predicate.h</itemPath>
@@ -53,6 +53,9 @@
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp</itemPath>
         <itemPath>parser/ratioBaseListener.cpp</itemPath>
         <itemPath>parser/ratioBaseVisitor.cpp</itemPath>
         <itemPath>parser/ratioLexer.cpp</itemPath>
@@ -69,11 +72,8 @@
       <itemPath>constructor.cpp</itemPath>
       <itemPath>core.cpp</itemPath>
       <itemPath>disjunction.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp</itemPath>
       <itemPath>env.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp</itemPath>
       <itemPath>field.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp</itemPath>
       <itemPath>item.cpp</itemPath>
       <itemPath>method.cpp</itemPath>
       <itemPath>predicate.cpp</itemPath>

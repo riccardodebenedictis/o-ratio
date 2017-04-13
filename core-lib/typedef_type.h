@@ -25,15 +25,22 @@
 #ifndef TYPEDEF_TYPE_H
 #define TYPEDEF_TYPE_H
 
+#include "type.h"
+#include "parser/ratioParser.h"
+
 namespace ratio {
 
-    class typedef_type {
+    class typedef_type : public type {
     public:
-        typedef_type();
+        typedef_type(core& c, scope& s, std::string name, type& base_type, ratioParser::ExprContext& expr_c);
         typedef_type(const typedef_type& orig) = delete;
         virtual ~typedef_type();
-    private:
 
+        expr new_instance(context& e) override;
+
+    private:
+        type& base_type;
+        ratioParser::ExprContext& expr_c;
     };
 }
 

@@ -45,6 +45,7 @@ namespace ratio {
     class disjunction;
 
     class core : public scope, public env {
+        friend class type_declaration_listener;
     public:
         core();
         core(const core& orig) = delete;

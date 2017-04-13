@@ -26,7 +26,53 @@
 
 namespace ratio {
 
-    expression_visitor::expression_visitor() { }
+    expression_visitor::expression_visitor(core& c, context& ctx) : _core(c), ctx(ctx) { }
 
     expression_visitor::~expression_visitor() { }
+
+    antlrcpp::Any expression_visitor::visitLiteral_expression(ratioParser::Literal_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitParentheses_expression(ratioParser::Parentheses_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitMultiplication_expression(ratioParser::Multiplication_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitDivision_expression(ratioParser::Division_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitAddition_expression(ratioParser::Addition_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitSubtraction_expression(ratioParser::Subtraction_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitMinus_expression(ratioParser::Minus_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitNot_expression(ratioParser::Not_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitQualified_id(ratioParser::Qualified_idContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitQualified_id_expression(ratioParser::Qualified_id_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitFunction_expression(ratioParser::Function_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitRange_expression(ratioParser::Range_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitConstructor_expression(ratioParser::Constructor_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitEq_expression(ratioParser::Eq_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitLt_expression(ratioParser::Lt_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitLeq_expression(ratioParser::Leq_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitGeq_expression(ratioParser::Geq_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitGt_expression(ratioParser::Gt_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitNeq_expression(ratioParser::Neq_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitImplication_expression(ratioParser::Implication_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitConjunction_expression(ratioParser::Conjunction_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitExtc_one_expression(ratioParser::Extc_one_expressionContext* ctx) { }
+
+    antlrcpp::Any expression_visitor::visitDisjunction_expression(ratioParser::Disjunction_expressionContext* ctx) { }
 }

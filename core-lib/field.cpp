@@ -33,10 +33,10 @@ namespace ratio {
 
     field::~field() { }
 
-    expr field::new_instance(env& e) {
+    expr field::new_instance(context& ctx) {
         assert(!synthetic);
         if (t.primitive) {
-            return const_cast<type&> (t).new_instance(e);
+            return const_cast<type&> (t).new_instance(ctx);
         } else {
             return const_cast<type&> (t).new_existential();
         }

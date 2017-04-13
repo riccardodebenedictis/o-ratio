@@ -73,8 +73,8 @@ namespace ratio {
         return false;
     }
 
-    expr type::new_instance(env& e) {
-        expr i = new item(_core, e, *this);
+    expr type::new_instance(context& ctx) {
+        expr i = new item(_core, *ctx, *this);
         std::queue<type*> q;
         q.push(this);
         while (!q.empty()) {
@@ -252,7 +252,7 @@ namespace ratio {
 
     bool_type::~bool_type() { }
 
-    expr bool_type::new_instance(env& e) {
+    expr bool_type::new_instance(context& ctx) {
         return _core.new_bool();
     }
 
@@ -260,7 +260,7 @@ namespace ratio {
 
     int_type::~int_type() { }
 
-    expr int_type::new_instance(env& e) {
+    expr int_type::new_instance(context& ctx) {
         return _core.new_int();
     }
 
@@ -268,7 +268,7 @@ namespace ratio {
 
     real_type::~real_type() { }
 
-    expr real_type::new_instance(env& e) {
+    expr real_type::new_instance(context& ctx) {
         return _core.new_real();
     }
 
@@ -276,7 +276,7 @@ namespace ratio {
 
     string_type::~string_type() { }
 
-    expr string_type::new_instance(env& e) {
+    expr string_type::new_instance(context& ctx) {
         return _core.new_string();
     }
 }

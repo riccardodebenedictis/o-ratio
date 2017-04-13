@@ -36,6 +36,7 @@ namespace ratio {
 
     class type : public scope {
         friend class core;
+        friend class type_declaration_listener;
     public:
         type(core& c, scope& s, const std::string& name, bool primitive = false);
         type(const type& orig) = delete;
@@ -45,7 +46,7 @@ namespace ratio {
 
         bool is_assignable_from(const type& t) const noexcept;
 
-        virtual expr new_instance(env& e);
+        virtual expr new_instance(context& ctx);
         virtual expr new_existential();
 
         std::vector<expr> get_instances() const noexcept;
@@ -83,7 +84,7 @@ namespace ratio {
         bool_type(const bool_type& that) = delete;
         virtual ~bool_type();
 
-        expr new_instance(env& e) override;
+        expr new_instance(context& ctx) override;
     };
 
     class int_type : public type {
@@ -92,7 +93,7 @@ namespace ratio {
         int_type(const int_type& that) = delete;
         virtual ~int_type();
 
-        expr new_instance(env& e) override;
+        expr new_instance(context& ctx) override;
     };
 
     class real_type : public type {
@@ -101,7 +102,7 @@ namespace ratio {
         real_type(const real_type& that) = delete;
         virtual ~real_type();
 
-        expr new_instance(env& e) override;
+        expr new_instance(context& ctx) override;
     };
 
     class string_type : public type {
@@ -110,7 +111,7 @@ namespace ratio {
         string_type(const string_type& that) = delete;
         virtual ~string_type();
 
-        expr new_instance(env& e) override;
+        expr new_instance(context& ctx) override;
     };
 }
 
