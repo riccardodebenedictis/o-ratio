@@ -59,6 +59,11 @@ namespace smt {
         bool new_clause(const std::vector<lit>& lits);
         bool exct_one(const std::vector<lit>& lits);
 
+        var new_eq(const lit& left, const lit& right);
+        var new_conj(const std::vector<lit>& ls);
+        var new_disj(const std::vector<lit>& ls);
+        var new_exct_one(const std::vector<lit>& ls);
+
         bool assume(const lit& p);
 
         lbool value(var x) const {
@@ -125,6 +130,8 @@ namespace smt {
         std::vector<constr*> reason;
         // for each variable, the decision level it was assigned..
         std::vector<size_t> level;
+        // the already existing expressions (string to bool variable)..
+        std::unordered_map<std::string, var> exprs;
 
         std::vector<theory*> theories;
         std::unordered_map<var, std::list<theory*>> bounds;
