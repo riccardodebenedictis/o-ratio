@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o \
+	${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o \
+	${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o \
 	${OBJECTDIR}/atom.o \
 	${OBJECTDIR}/constructor.o \
 	${OBJECTDIR}/core.o \
@@ -90,6 +93,21 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}: ../smt-l
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
+
+${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp
+
+${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp
+
+${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp
 
 ${OBJECTDIR}/atom.o: atom.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -199,6 +217,45 @@ ${TESTDIR}/tests/core_test.o: tests/core_test.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/core_test.o tests/core_test.cpp
 
+
+${OBJECTDIR}/_ext/f1d707eb/statement_visitor_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/statement_visitor_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o ${OBJECTDIR}/_ext/f1d707eb/statement_visitor_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener_nomain.o;\
+	fi
 
 ${OBJECTDIR}/atom_nomain.o: ${OBJECTDIR}/atom.o atom.cpp 
 	${MKDIR} -p ${OBJECTDIR}

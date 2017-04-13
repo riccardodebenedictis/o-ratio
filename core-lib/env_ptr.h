@@ -37,7 +37,7 @@ namespace ratio {
     template<typename T>
     class env_ptr;
 
-    typedef env_ptr<env> cntx;
+    typedef env_ptr<env> context;
     typedef env_ptr<item> expr;
     typedef env_ptr<bool_item> bool_expr;
     typedef env_ptr<arith_item> arith_expr;
@@ -71,8 +71,8 @@ namespace ratio {
             return ptr;
         }
 
-        operator cntx() {
-            return cntx(ptr);
+        operator context() {
+            return context(ptr);
         }
 
         operator expr() {

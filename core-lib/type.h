@@ -76,6 +76,42 @@ namespace ratio {
         std::unordered_map<std::string, predicate*> predicates;
         std::vector<expr> instances;
     };
+
+    class bool_type : public type {
+    public:
+        bool_type(core& c);
+        bool_type(const bool_type& that) = delete;
+        virtual ~bool_type();
+
+        expr new_instance(env& e) override;
+    };
+
+    class int_type : public type {
+    public:
+        int_type(core& c);
+        int_type(const int_type& that) = delete;
+        virtual ~int_type();
+
+        expr new_instance(env& e) override;
+    };
+
+    class real_type : public type {
+    public:
+        real_type(core& c);
+        real_type(const real_type& that) = delete;
+        virtual ~real_type();
+
+        expr new_instance(env& e) override;
+    };
+
+    class string_type : public type {
+    public:
+        string_type(core& c);
+        string_type(const string_type& that) = delete;
+        virtual ~string_type();
+
+        expr new_instance(env& e) override;
+    };
 }
 
 #endif /* TYPE_H */

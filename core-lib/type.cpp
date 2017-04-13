@@ -247,4 +247,36 @@ namespace ratio {
     std::unordered_map<std::string, type*> type::get_types() const noexcept {
         return types;
     }
+
+    bool_type::bool_type(core& c) : type(c, c, BOOL_KEYWORD, true) { }
+
+    bool_type::~bool_type() { }
+
+    expr bool_type::new_instance(env& e) {
+        return _core.new_bool();
+    }
+
+    int_type::int_type(core& c) : type(c, c, INT_KEYWORD, true) { }
+
+    int_type::~int_type() { }
+
+    expr int_type::new_instance(env& e) {
+        return _core.new_int();
+    }
+
+    real_type::real_type(core& c) : type(c, c, REAL_KEYWORD, true) { }
+
+    real_type::~real_type() { }
+
+    expr real_type::new_instance(env& e) {
+        return _core.new_real();
+    }
+
+    string_type::string_type(core& c) : type(c, c, STRING_KEYWORD, true) { }
+
+    string_type::~string_type() { }
+
+    expr string_type::new_instance(env& e) {
+        return _core.new_string();
+    }
 }
