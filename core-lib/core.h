@@ -47,6 +47,7 @@ namespace ratio {
     class core : public scope, public env {
         friend class type_declaration_listener;
         friend class type_refinement_listener;
+        friend class type_visitor;
     public:
         core();
         core(const core& orig) = delete;
