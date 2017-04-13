@@ -45,6 +45,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/method.o \
 	${OBJECTDIR}/predicate.o \
 	${OBJECTDIR}/scope.o \
+	${OBJECTDIR}/solver.o \
 	${OBJECTDIR}/type.o
 
 # Test Directory
@@ -133,6 +134,11 @@ ${OBJECTDIR}/scope.o: scope.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope.o scope.cpp
+
+${OBJECTDIR}/solver.o: solver.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver.o solver.cpp
 
 ${OBJECTDIR}/type.o: type.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -286,6 +292,19 @@ ${OBJECTDIR}/scope_nomain.o: ${OBJECTDIR}/scope.o scope.cpp
 	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope_nomain.o scope.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/scope.o ${OBJECTDIR}/scope_nomain.o;\
+	fi
+
+${OBJECTDIR}/solver_nomain.o: ${OBJECTDIR}/solver.o solver.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/solver.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver_nomain.o solver.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/solver.o ${OBJECTDIR}/solver_nomain.o;\
 	fi
 
 ${OBJECTDIR}/type_nomain.o: ${OBJECTDIR}/type.o type.cpp 

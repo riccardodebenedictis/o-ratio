@@ -60,7 +60,7 @@ namespace ratio {
             } else if (eqs.size() == 1) {
                 return eqs.begin()->v;
             } else {
-                return _core.new_conj(eqs);
+                return _core.sat.new_conj(eqs);
             }
         }
     }
@@ -98,7 +98,7 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (bool_item * be = dynamic_cast<bool_item*> (&i)) {
-            return _core.new_eq(l, be->l);
+            return _core.sat.new_eq(l, be->l);
         } else {
             return smt::FALSE;
         }
@@ -108,8 +108,8 @@ namespace ratio {
         if (this == &i) {
             return true;
         } else if (const bool_item * be = dynamic_cast<const bool_item*> (&i)) {
-            smt::lbool c_val = _core.bool_value(l);
-            smt::lbool i_val = _core.bool_value(be->l);
+            smt::lbool c_val = _core.sat.value(l);
+            smt::lbool i_val = _core.sat.value(be->l);
             return c_val == i_val || c_val == smt::Undefined || i_val == smt::Undefined;
         } else {
             return false;
@@ -126,7 +126,7 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (arith_item * ae = dynamic_cast<arith_item*> (&i)) {
-            return _core.new_conj({smt::lit(_core.new_leq(l, ae->l), true), smt::lit(_core.new_geq(l, ae->l), true)});
+            return _core.sat.new_conj({smt::lit(_core.la.leq(l, ae->l), true), smt::lit(_core.la.geq(l, ae->l), true)});
         } else {
             return smt::FALSE;
         }
@@ -136,8 +136,8 @@ namespace ratio {
         if (this == &i) {
             return true;
         } else if (const arith_item * ae = dynamic_cast<const arith_item*> (&i)) {
-            smt::interval c_val = _core.arith_bounds(l);
-            smt::interval i_val = _core.arith_bounds(ae->l);
+            smt::interval c_val = _core.la.bounds(l);
+            smt::interval i_val = _core.la.bounds(ae->l);
             return c_val.intersecting(i_val);
         } else {
             return false;
@@ -178,7 +178,7 @@ namespace ratio {
 
     expr enum_item::get(const std::string& name) const {
         if (items.find(name) == items.end()) {
-            std::unordered_set<smt::set_item*> vs = _core.enum_value(ev);
+            std::unordered_set<smt::set_item*> vs = _core.set.value(ev);
             if (vs.size() == 1) {
                 return (static_cast<item*> (*vs.begin()))->get(name);
             } else {
@@ -199,7 +199,7 @@ namespace ratio {
                 enum_expr e = _core.new_enum(t.get_field(name).t, vals);
 
                 for (unsigned int i = 0; i < c_vals.size(); i++) {
-                    bool af = _core.new_eq(smt::lit(_core.allows(ev, *c_vals[i]), true), smt::lit(_core.allows(e->ev, *f_vals[i]), true));
+                    bool af = _core.sat.eq(smt::lit(_core.set.allows(ev, *c_vals[i]), true), smt::lit(_core.set.allows(e->ev, *f_vals[i]), true));
                     assert(af);
                 }
 
@@ -214,9 +214,9 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (enum_item * ee = dynamic_cast<enum_item*> (&i)) {
-            return _core.new_eq(ev, ee->ev);
+            return _core.set.eq(ev, ee->ev);
         } else {
-            return _core.allows(ev, i);
+            return _core.set.allows(ev, i);
         }
     }
 
@@ -224,8 +224,8 @@ namespace ratio {
         if (this == &i) {
             return true;
         } else if (const enum_item * ei = dynamic_cast<const enum_item*> (&i)) {
-            std::unordered_set<smt::set_item*> c_vals = _core.enum_value(ev);
-            std::unordered_set<smt::set_item*> i_vals = _core.enum_value(ei->ev);
+            std::unordered_set<smt::set_item*> c_vals = _core.set.value(ev);
+            std::unordered_set<smt::set_item*> i_vals = _core.set.value(ei->ev);
             for (const auto& c_v : c_vals) {
                 if (i_vals.find(c_v) != i_vals.end()) {
                     return true;
@@ -233,7 +233,7 @@ namespace ratio {
             }
             return false;
         } else {
-            std::unordered_set<smt::set_item*> c_vals = _core.enum_value(ev);
+            std::unordered_set<smt::set_item*> c_vals = _core.set.value(ev);
             return c_vals.find(const_cast<smt::set_item*> (static_cast<const smt::set_item*> (&i))) != c_vals.end();
         }
     }

@@ -26,7 +26,87 @@
 
 namespace ratio {
 
-    core::core() : scope(*this, *this), env(*this, *this), c(), la(c), set(c) { }
+    core::core() : scope(*this, *this), env(*this, *this), sat(), la(sat), set(sat) { }
 
     core::~core() { }
+
+    bool core::read(const std::string& script) { }
+
+    bool core::read(const std::vector<std::string>& files) { }
+
+    bool_expr core::new_bool() { }
+
+    bool_expr core::new_bool(const bool& val) { }
+
+    arith_expr core::new_int() { }
+
+    arith_expr core::new_int(const long& val) { }
+
+    arith_expr core::new_real() { }
+
+    arith_expr core::new_real(const double& val) { }
+
+    string_expr core::new_string() { }
+
+    string_expr core::new_string(const std::string& val) { }
+
+    enum_expr core::new_enum(const type& t, const std::unordered_set<item*>& allowed_vals) { }
+
+    bool_expr core::negate(bool_expr var) { }
+
+    bool_expr core::eq(bool_expr left, bool_expr right) { }
+
+    bool_expr core::conj(const std::vector<bool_expr>& exprs) { }
+
+    bool_expr core::disj(const std::vector<bool_expr>& exprs) { }
+
+    bool_expr core::exct_one(const std::vector<bool_expr>& exprs) { }
+
+    arith_expr core::add(const std::vector<arith_expr>& exprs) { }
+
+    arith_expr core::sub(const std::vector<arith_expr>& exprs) { }
+
+    arith_expr core::mult(const std::vector<arith_expr>& exprs) { }
+
+    arith_expr core::div(arith_expr left, arith_expr right) { }
+
+    arith_expr core::minus(arith_expr ex) { }
+
+    bool_expr core::lt(arith_expr left, arith_expr right) { }
+
+    bool_expr core::leq(arith_expr left, arith_expr right) { }
+
+    bool_expr core::eq(arith_expr left, arith_expr right) { }
+
+    bool_expr core::geq(arith_expr left, arith_expr right) { }
+
+    bool_expr core::gt(arith_expr left, arith_expr right) { }
+
+    bool_expr core::eq(expr left, expr right) { }
+
+    bool core::assert_facts(const std::vector<smt::lit>& facts) { }
+
+    field& core::get_field(const std::string& name) const { }
+
+    method& core::get_method(const std::string& name, const std::vector<const type*>& ts) const { }
+
+    std::vector<method*> core::get_methods() const noexcept { }
+
+    predicate& core::get_predicate(const std::string& name) const { }
+
+    std::unordered_map<std::string, predicate*> core::get_predicates() const noexcept { }
+
+    type& core::get_type(const std::string& name) const { }
+
+    std::unordered_map<std::string, type*> core::get_types() const noexcept { }
+
+    expr core::get(const std::string& name) const { }
+
+    smt::lbool core::bool_value(const bool_expr& var) const noexcept { }
+
+    smt::interval core::arith_bounds(const arith_expr& var) const noexcept { }
+
+    double core::arith_value(const arith_expr& var) const noexcept { }
+
+    std::unordered_set<smt::set_item*> core::enum_value(const enum_expr& var) const noexcept { }
 }

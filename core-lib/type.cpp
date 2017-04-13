@@ -243,4 +243,8 @@ namespace ratio {
         // not found
         throw std::out_of_range(name);
     }
+
+    std::unordered_map<std::string, type*> type::get_types() const noexcept {
+        return types;
+    }
 }
