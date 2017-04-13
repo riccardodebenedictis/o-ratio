@@ -33,7 +33,7 @@ namespace ratio {
 
     class predicate : public type {
     public:
-        predicate(core& c, scope& s, const std::string& name, const std::vector<field*>& args);
+        predicate(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args);
         predicate(const predicate& orig);
         virtual ~predicate();
 

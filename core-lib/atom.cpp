@@ -24,7 +24,7 @@
 
 #include "atom.h"
 #include "predicate.h"
-#include "core.h"
+#include "solver.h"
 
 namespace ratio {
 
@@ -32,7 +32,7 @@ namespace ratio {
     atom_state * const atom::inactive = new atom_state();
     atom_state * const atom::unified = new atom_state();
 
-    atom::atom(core& c, env& e, predicate& p) : item(c, e, p), state(c.set.new_var({atom::active, atom::inactive, atom::unified})) { }
+    atom::atom(solver& slv, env& e, predicate& p) : item(slv, e, p), state(slv.set.new_var({atom::active, atom::inactive, atom::unified})) { }
 
     atom::~atom() { }
 }

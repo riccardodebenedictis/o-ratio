@@ -27,7 +27,7 @@
 
 namespace ratio {
 
-    scope::scope(core& c, scope& s) : _core(c), _scope(s) { }
+    scope::scope(solver& slv, scope& s) : _solver(slv), _scope(s) { }
 
     scope::~scope() {
         for (const auto& f : fields) {

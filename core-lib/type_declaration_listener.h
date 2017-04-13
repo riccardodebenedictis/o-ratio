@@ -29,12 +29,12 @@
 
 namespace ratio {
 
-    class core;
+    class solver;
     class scope;
 
     class type_declaration_listener : public ratioBaseListener {
     public:
-        type_declaration_listener(core& c);
+        type_declaration_listener(solver& slv);
         type_declaration_listener(const type_declaration_listener& orig) = delete;
         virtual ~type_declaration_listener();
 
@@ -47,7 +47,7 @@ namespace ratio {
         void enterClass_type(ratioParser::Class_typeContext* ctx) override;
 
     private:
-        core& _core;
+        solver& _solver;
         scope* _scope;
     };
 }

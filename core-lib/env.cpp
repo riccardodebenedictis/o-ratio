@@ -23,13 +23,13 @@
  */
 
 #include "env.h"
-#include "core.h"
+#include "solver.h"
 #include "item.h"
 #include <cassert>
 
 namespace ratio {
 
-    env::env(core& c, env& e) : ref_count(this == &c), _core(c), _env(e) { }
+    env::env(solver& slv, env& e) : ref_count(this == &slv), _solver(slv), _env(e) { }
 
     env::~env() {
         assert(!ref_count || (this == &_env && ref_count));

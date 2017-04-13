@@ -23,14 +23,14 @@
  */
 
 #include "item.h"
-#include "core.h"
+#include "solver.h"
 #include "type.h"
 #include "field.h"
 #include <cassert>
 
 namespace ratio {
 
-    item::item(core& c, env& e, const type& t) : env(c, e), t(t) { }
+    item::item(solver& slv, env& e, const type& t) : env(slv, e), t(t) { }
 
     item::~item() { }
 
@@ -60,7 +60,7 @@ namespace ratio {
             } else if (eqs.size() == 1) {
                 return eqs.begin()->v;
             } else {
-                return _core.sat.new_conj(eqs);
+                return _solver.sat.new_conj(eqs);
             }
         }
     }
@@ -90,7 +90,7 @@ namespace ratio {
         }
     }
 
-    bool_item::bool_item(core& c, const smt::lit& l) : item(c, c, c.get_type(BOOL_KEYWORD)), l(l) { }
+    bool_item::bool_item(solver& slv, const smt::lit& l) : item(slv, slv, slv.get_type(BOOL_KEYWORD)), l(l) { }
 
     bool_item::~bool_item() { }
 
@@ -98,7 +98,7 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (bool_item * be = dynamic_cast<bool_item*> (&i)) {
-            return _core.sat.new_eq(l, be->l);
+            return _solver.sat.new_eq(l, be->l);
         } else {
             return smt::FALSE;
         }
@@ -108,16 +108,16 @@ namespace ratio {
         if (this == &i) {
             return true;
         } else if (const bool_item * be = dynamic_cast<const bool_item*> (&i)) {
-            smt::lbool c_val = _core.sat.value(l);
-            smt::lbool i_val = _core.sat.value(be->l);
+            smt::lbool c_val = _solver.sat.value(l);
+            smt::lbool i_val = _solver.sat.value(be->l);
             return c_val == i_val || c_val == smt::Undefined || i_val == smt::Undefined;
         } else {
             return false;
         }
     }
 
-    arith_item::arith_item(core& c, const type& t, const smt::lin& l) : item(c, c, t), l(l) {
-        assert(&t == &c.get_type(INT_KEYWORD) || &t == &c.get_type(REAL_KEYWORD));
+    arith_item::arith_item(solver& slv, const type& t, const smt::lin& l) : item(slv, slv, t), l(l) {
+        assert(&t == &slv.get_type(INT_KEYWORD) || &t == &slv.get_type(REAL_KEYWORD));
     }
 
     arith_item::~arith_item() { }
@@ -126,7 +126,7 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (arith_item * ae = dynamic_cast<arith_item*> (&i)) {
-            return _core.sat.new_conj({smt::lit(_core.la.leq(l, ae->l), true), smt::lit(_core.la.geq(l, ae->l), true)});
+            return _solver.sat.new_conj({smt::lit(_solver.la.leq(l, ae->l), true), smt::lit(_solver.la.geq(l, ae->l), true)});
         } else {
             return smt::FALSE;
         }
@@ -136,15 +136,15 @@ namespace ratio {
         if (this == &i) {
             return true;
         } else if (const arith_item * ae = dynamic_cast<const arith_item*> (&i)) {
-            smt::interval c_val = _core.la.bounds(l);
-            smt::interval i_val = _core.la.bounds(ae->l);
+            smt::interval c_val = _solver.la.bounds(l);
+            smt::interval i_val = _solver.la.bounds(ae->l);
             return c_val.intersecting(i_val);
         } else {
             return false;
         }
     }
 
-    string_item::string_item(core& c, const std::string& l) : item(c, c, c.get_type(STRING_KEYWORD)), l(l) { }
+    string_item::string_item(solver& slv, const std::string& l) : item(slv, slv, slv.get_type(STRING_KEYWORD)), l(l) { }
 
     string_item::~string_item() { }
 
@@ -172,13 +172,13 @@ namespace ratio {
         }
     }
 
-    enum_item::enum_item(core& c, const type& t, smt::var ev) : item(c, c, t), ev(ev) { }
+    enum_item::enum_item(solver& slv, const type& t, smt::var ev) : item(slv, slv, t), ev(ev) { }
 
     enum_item::~enum_item() { }
 
     expr enum_item::get(const std::string& name) const {
         if (items.find(name) == items.end()) {
-            std::unordered_set<smt::set_item*> vs = _core.set.value(ev);
+            std::unordered_set<smt::set_item*> vs = _solver.set.value(ev);
             if (vs.size() == 1) {
                 return (static_cast<item*> (*vs.begin()))->get(name);
             } else {
@@ -196,10 +196,10 @@ namespace ratio {
                 for (unsigned int i = 0; i < c_vals.size(); i++) {
                     vals.insert(f_vals[i]);
                 }
-                enum_expr e = _core.new_enum(t.get_field(name).t, vals);
+                enum_expr e = _solver.new_enum(t.get_field(name).t, vals);
 
                 for (unsigned int i = 0; i < c_vals.size(); i++) {
-                    bool af = _core.sat.eq(smt::lit(_core.set.allows(ev, *c_vals[i]), true), smt::lit(_core.set.allows(e->ev, *f_vals[i]), true));
+                    bool af = _solver.sat.eq(smt::lit(_solver.set.allows(ev, *c_vals[i]), true), smt::lit(_solver.set.allows(e->ev, *f_vals[i]), true));
                     assert(af);
                 }
 
@@ -214,9 +214,9 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (enum_item * ee = dynamic_cast<enum_item*> (&i)) {
-            return _core.set.eq(ev, ee->ev);
+            return _solver.set.eq(ev, ee->ev);
         } else {
-            return _core.set.allows(ev, i);
+            return _solver.set.allows(ev, i);
         }
     }
 
@@ -224,8 +224,8 @@ namespace ratio {
         if (this == &i) {
             return true;
         } else if (const enum_item * ei = dynamic_cast<const enum_item*> (&i)) {
-            std::unordered_set<smt::set_item*> c_vals = _core.set.value(ev);
-            std::unordered_set<smt::set_item*> i_vals = _core.set.value(ei->ev);
+            std::unordered_set<smt::set_item*> c_vals = _solver.set.value(ev);
+            std::unordered_set<smt::set_item*> i_vals = _solver.set.value(ei->ev);
             for (const auto& c_v : c_vals) {
                 if (i_vals.find(c_v) != i_vals.end()) {
                     return true;
@@ -233,7 +233,7 @@ namespace ratio {
             }
             return false;
         } else {
-            std::unordered_set<smt::set_item*> c_vals = _core.set.value(ev);
+            std::unordered_set<smt::set_item*> c_vals = _solver.set.value(ev);
             return c_vals.find(const_cast<smt::set_item*> (static_cast<const smt::set_item*> (&i))) != c_vals.end();
         }
     }

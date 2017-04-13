@@ -31,7 +31,7 @@
 
 namespace ratio {
 
-    defined_constructor::defined_constructor(core& c, scope& s, const std::vector<field*>& args, std::vector<ratioParser::Initializer_elementContext*> init_els, ratioParser::BlockContext& b) : constructor(c, s, args), init_els(init_els), block(b) { }
+    defined_constructor::defined_constructor(solver& slv, scope& s, const std::vector<field*>& args, std::vector<ratioParser::Initializer_elementContext*> init_els, ratioParser::BlockContext& b) : constructor(slv, s, args), init_els(init_els), block(b) { }
 
     defined_constructor::~defined_constructor() { }
 
@@ -39,24 +39,24 @@ namespace ratio {
         for (const auto& f : _scope.get_fields()) {
             if (instantiated_field * inst_f = dynamic_cast<instantiated_field*> (f.second)) {
                 context ctx(&i);
-                i.items.insert({f.second->name, expression_visitor(_core, ctx).visit(&inst_f->expr_c).as<expr>()});
+                i.items.insert({f.second->name, expression_visitor(_solver, ctx).visit(&inst_f->expr_c).as<expr>()});
             }
         }
 
-        context ctx(new env(_core, i));
+        context ctx(new env(_solver, i));
         ctx->items.insert({THIS_KEYWORD, expr(&i)});
         for (unsigned int j = 0; j < args.size(); j++) {
             ctx->items.insert({args[j]->name, exprs[j]});
         }
         for (const auto& el : init_els) {
             if (fields.find(el->name->getText()) != fields.end()) {
-                i.items.insert({el->name->getText(), expression_visitor(_core, ctx).visit(el->expr_list()->expr(0)).as<expr>()});
+                i.items.insert({el->name->getText(), expression_visitor(_solver, ctx).visit(el->expr_list()->expr(0)).as<expr>()});
             } else {
                 std::vector<expr> exprs;
                 std::vector<const type*> par_types;
                 if (el->expr_list()) {
                     for (const auto& ex : el->expr_list()->expr()) {
-                        expr i = expression_visitor(_core, ctx).visit(ex).as<expr>();
+                        expr i = expression_visitor(_solver, ctx).visit(ex).as<expr>();
                         exprs.push_back(i);
                         par_types.push_back(&i->t);
                     }
@@ -74,6 +74,6 @@ namespace ratio {
             }
         }
 
-        return statement_visitor(_core, ctx).visit(&block).as<bool>();
+        return statement_visitor(_solver, ctx).visit(&block).as<bool>();
     }
 }

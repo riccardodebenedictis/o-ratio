@@ -35,7 +35,7 @@ namespace ratio {
         friend class core;
         friend class type;
     public:
-        method(core& c, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type = nullptr);
+        method(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type = nullptr);
         method(const method& orig) = delete;
         virtual ~method();
 

@@ -26,7 +26,7 @@
 
 namespace ratio {
 
-    disjunction::disjunction(core& c, scope& s) : scope(c, s) { }
+    disjunction::disjunction(solver& slv, scope& s) : scope(slv, s) { }
 
     disjunction::~disjunction() {
         for (const auto& c : conjunctions) {
@@ -34,7 +34,7 @@ namespace ratio {
         }
     }
 
-    conjunction::conjunction(core& c, scope& s, arith_expr& cst) : scope(c, s), cost(cst) { }
+    conjunction::conjunction(solver& slv, scope& s, arith_expr& cst) : scope(slv, s), cost(cst) { }
 
     conjunction::~conjunction() { }
 }

@@ -38,7 +38,7 @@ namespace ratio {
     class disjunction : public scope {
         friend class type_refinement_listener;
     public:
-        disjunction(core& c, scope& s);
+        disjunction(solver& slv, scope& s);
         disjunction(const disjunction& orig) = delete;
         virtual ~disjunction();
 
@@ -50,7 +50,7 @@ namespace ratio {
 
     class conjunction : public scope {
     public:
-        conjunction(core& c, scope& s, arith_expr& cst);
+        conjunction(solver& slv, scope& s, arith_expr& cst);
         conjunction(const conjunction& that) = delete;
         virtual ~conjunction();
 

@@ -26,7 +26,7 @@
 
 namespace ratio {
 
-    expression_visitor::expression_visitor(core& c, context& ctx) : _core(c), ctx(ctx) { }
+    expression_visitor::expression_visitor(solver& slv, context& ctx) : _solver(slv), ctx(ctx) { }
 
     expression_visitor::~expression_visitor() { }
 

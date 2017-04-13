@@ -30,11 +30,11 @@
 
 namespace ratio {
 
-    class core;
+    class solver;
 
     class statement_visitor : public ratioBaseVisitor {
     public:
-        statement_visitor(core& c, context& ctx);
+        statement_visitor(solver& s, context& ctx);
         statement_visitor(const statement_visitor& orig) = delete;
         virtual ~statement_visitor();
 
@@ -50,7 +50,7 @@ namespace ratio {
         antlrcpp::Any visitDisjunction_statement(ratioParser::Disjunction_statementContext* ctx) override;
 
     private:
-        core& _core;
+        solver& _solver;
         context& ctx;
     };
 }

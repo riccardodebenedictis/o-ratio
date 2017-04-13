@@ -27,11 +27,11 @@
 
 namespace ratio {
 
-    defined_method::defined_method(core& c, scope& s, const std::string & name, const std::vector<field*>& args, ratioParser::BlockContext& b, const type * const return_type) : method(c, s, name, args, return_type), block(b) { }
+    defined_method::defined_method(solver& slv, scope& s, const std::string & name, const std::vector<field*>& args, ratioParser::BlockContext& b, const type * const return_type) : method(slv, s, name, args, return_type), block(b) { }
 
     defined_method::~defined_method() { }
 
     bool defined_method::invoke(context& ctx, const std::vector<expr>& exprs) {
-        return statement_visitor(_core, ctx).visit(&block).as<bool>();
+        return statement_visitor(_solver, ctx).visit(&block).as<bool>();
     }
 }

@@ -29,11 +29,12 @@
 #include "env_ptr.h"
 
 namespace ratio {
-    class core;
+
+    class solver;
 
     class expression_visitor : public ratioBaseVisitor {
     public:
-        expression_visitor(core& c, context& ctx);
+        expression_visitor(solver& slv, context& ctx);
         expression_visitor(const expression_visitor& orig) = delete;
         virtual ~expression_visitor();
 
@@ -63,7 +64,7 @@ namespace ratio {
         antlrcpp::Any visitExtc_one_expression(ratioParser::Extc_one_expressionContext* ctx) override;
 
     private:
-        core& _core;
+        solver& _solver;
         context& ctx;
     };
 }

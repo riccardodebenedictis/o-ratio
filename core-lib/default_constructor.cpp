@@ -29,7 +29,7 @@
 
 namespace ratio {
 
-    default_constructor::default_constructor(core& c, scope& s) : constructor(c, s,{}) { }
+    default_constructor::default_constructor(solver& slv, scope& s) : constructor(slv, s,{}) { }
 
     default_constructor::~default_constructor() { }
 

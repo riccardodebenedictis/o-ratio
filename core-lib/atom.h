@@ -48,7 +48,7 @@ namespace ratio {
         static atom_state * const inactive;
         static atom_state * const unified;
     public:
-        atom(core& c, env& e, predicate& p);
+        atom(solver& slv, env& e, predicate& p);
         atom(const atom& orig);
         virtual ~atom();
 

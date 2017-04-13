@@ -32,7 +32,7 @@ namespace ratio {
 
     class defined_method : public method {
     public:
-        defined_method(core& c, scope& s, const std::string& name, const std::vector<field*>& args, ratioParser::BlockContext& b, const type * const return_type = nullptr);
+        defined_method(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args, ratioParser::BlockContext& b, const type * const return_type = nullptr);
         defined_method(const defined_method& orig) = delete;
         virtual ~defined_method();
 

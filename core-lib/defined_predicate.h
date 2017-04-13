@@ -32,7 +32,7 @@ namespace ratio {
 
     class defined_predicate : public predicate {
     public:
-        defined_predicate(core& c, scope& s, const std::string& name, const std::vector<field*>& args, ratioParser::BlockContext& b);
+        defined_predicate(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args, ratioParser::BlockContext& b);
         defined_predicate(const defined_predicate& orig) = delete;
         virtual ~defined_predicate();
 

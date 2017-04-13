@@ -28,7 +28,7 @@
 
 namespace ratio {
 
-    defined_predicate::defined_predicate(core& c, scope& s, const std::string & name, const std::vector<field*>& args, ratioParser::BlockContext& b) : predicate(c, s, name, args), block(b) { }
+    defined_predicate::defined_predicate(solver& slv, scope& s, const std::string & name, const std::vector<field*>& args, ratioParser::BlockContext& b) : predicate(slv, s, name, args), block(b) { }
 
     defined_predicate::~defined_predicate() { }
 
@@ -39,8 +39,8 @@ namespace ratio {
             }
         }
 
-        context ctx(new env(_core, a));
+        context ctx(new env(_solver, a));
         ctx->items.insert({THIS_KEYWORD, &a});
-        return statement_visitor(_core, ctx).visit(&block).as<bool>();
+        return statement_visitor(_solver, ctx).visit(&block).as<bool>();
     }
 }

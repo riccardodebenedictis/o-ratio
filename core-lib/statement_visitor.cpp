@@ -26,7 +26,7 @@
 
 namespace ratio {
 
-    statement_visitor::statement_visitor(core& c, context& ctx) : _core(c), ctx(ctx) { }
+    statement_visitor::statement_visitor(solver& s, context& ctx) : _solver(s), ctx(ctx) { }
 
     statement_visitor::~statement_visitor() { }
 

@@ -28,7 +28,7 @@
 
 namespace ratio {
 
-    predicate::predicate(core& c, scope& s, const std::string& name, const std::vector<field*>& args) : type(c, s, name), args(args) {
+    predicate::predicate(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args) : type(slv, s, name), args(args) {
         if (type * t = dynamic_cast<type*> (&s)) {
             fields.insert({THIS_KEYWORD, new field(*t, THIS_KEYWORD, true)});
         }
@@ -40,7 +40,7 @@ namespace ratio {
     predicate::~predicate() { }
 
     expr predicate::new_instance(context& ctx) {
-        atom * a = new atom(_core, *ctx, *this);
+        atom * a = new atom(_solver, *ctx, *this);
         std::queue<predicate*> q;
         q.push(this);
         while (!q.empty()) {

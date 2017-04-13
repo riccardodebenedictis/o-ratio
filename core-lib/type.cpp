@@ -27,14 +27,14 @@
 #include "predicate.h"
 #include "method.h"
 #include "constructor.h"
-#include "core.h"
+#include "solver.h"
 #include <unordered_set>
 #include <cassert>
 #include <algorithm>
 
 namespace ratio {
 
-    type::type(core& c, scope& s, const std::string& name, bool primitive) : scope(c, s), name(name), primitive(primitive) { }
+    type::type(solver& slv, scope& s, const std::string& name, bool primitive) : scope(slv, s), name(name), primitive(primitive) { }
 
     type::~type() {
         for (const auto& p : predicates) {
@@ -74,7 +74,7 @@ namespace ratio {
     }
 
     expr type::new_instance(context& ctx) {
-        expr i = new item(_core, *ctx, *this);
+        expr i = new item(_solver, *ctx, *this);
         std::queue<type*> q;
         q.push(this);
         while (!q.empty()) {
@@ -96,7 +96,7 @@ namespace ratio {
             for (const auto& i : instances) {
                 c_items.insert(&*i);
             }
-            return _core.new_enum(*this, c_items);
+            return _solver.new_enum(*this, c_items);
         }
     }
 
@@ -252,35 +252,35 @@ namespace ratio {
         derived.supertypes.push_back(&base);
     }
 
-    bool_type::bool_type(core& c) : type(c, c, BOOL_KEYWORD, true) { }
+    bool_type::bool_type(solver& slv) : type(slv, slv, BOOL_KEYWORD, true) { }
 
     bool_type::~bool_type() { }
 
     expr bool_type::new_instance(context& ctx) {
-        return _core.new_bool();
+        return _solver.new_bool();
     }
 
-    int_type::int_type(core& c) : type(c, c, INT_KEYWORD, true) { }
+    int_type::int_type(solver& slv) : type(slv, slv, INT_KEYWORD, true) { }
 
     int_type::~int_type() { }
 
     expr int_type::new_instance(context& ctx) {
-        return _core.new_int();
+        return _solver.new_int();
     }
 
-    real_type::real_type(core& c) : type(c, c, REAL_KEYWORD, true) { }
+    real_type::real_type(solver& slv) : type(slv, slv, REAL_KEYWORD, true) { }
 
     real_type::~real_type() { }
 
     expr real_type::new_instance(context& ctx) {
-        return _core.new_real();
+        return _solver.new_real();
     }
 
-    string_type::string_type(core& c) : type(c, c, STRING_KEYWORD, true) { }
+    string_type::string_type(solver& slv) : type(slv, slv, STRING_KEYWORD, true) { }
 
     string_type::~string_type() { }
 
     expr string_type::new_instance(context& ctx) {
-        return _core.new_string();
+        return _solver.new_string();
     }
 }

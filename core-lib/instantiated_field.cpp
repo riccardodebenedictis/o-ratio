@@ -33,6 +33,6 @@ namespace ratio {
     instantiated_field::~instantiated_field() { }
 
     expr instantiated_field::new_instance(context& ctx) {
-        return expression_visitor(ctx->get_core(), ctx).visit(&expr_c).as<expr>();
+        return expression_visitor(ctx->get_solver(), ctx).visit(&expr_c).as<expr>();
     }
 }

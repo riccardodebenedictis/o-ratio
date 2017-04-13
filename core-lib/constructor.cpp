@@ -29,7 +29,7 @@
 
 namespace ratio {
 
-    constructor::constructor(core& c, scope& s, const std::vector<field*>& args) : scope(c, s), args(args) {
+    constructor::constructor(solver& slv, scope& s, const std::vector<field*>& args) : scope(slv, s), args(args) {
         fields.insert({THIS_KEYWORD, new field(static_cast<type&> (s), THIS_KEYWORD, true)});
         for (const auto& arg : args) {
             fields.insert({arg->name, new field(arg->t, arg->name)});

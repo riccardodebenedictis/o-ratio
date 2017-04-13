@@ -32,7 +32,7 @@ namespace ratio {
 
     class typedef_type : public type {
     public:
-        typedef_type(core& c, scope& s, std::string name, type& base_type, ratioParser::ExprContext& expr_c);
+        typedef_type(solver& slv, scope& s, std::string name, type& base_type, ratioParser::ExprContext& expr_c);
         typedef_type(const typedef_type& orig) = delete;
         virtual ~typedef_type();
 

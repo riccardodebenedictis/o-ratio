@@ -30,11 +30,11 @@
 
 namespace ratio {
 
-    core::core() : scope(*this, *this), env(*this, *this), sat(), la(sat), set(sat) {
-        types.insert({BOOL_KEYWORD, new bool_type(*this)});
-        types.insert({INT_KEYWORD, new int_type(*this)});
-        types.insert({REAL_KEYWORD, new real_type(*this)});
-        types.insert({STRING_KEYWORD, new string_type(*this)});
+    core::core(solver& slv) : scope(slv, *this), env(slv, *this), sat(), la(sat), set(sat) {
+        types.insert({BOOL_KEYWORD, new bool_type(slv)});
+        types.insert({INT_KEYWORD, new int_type(slv)});
+        types.insert({REAL_KEYWORD, new real_type(slv)});
+        types.insert({STRING_KEYWORD, new string_type(slv)});
     }
 
     core::~core() {
@@ -58,12 +58,12 @@ namespace ratio {
         p = new ratioParser(new antlr4::CommonTokenStream(new ratioLexer(new antlr4::ANTLRInputStream(script))));
         parsers.push_back(p);
         ratioParser::Compilation_unitContext* cu = p->compilation_unit();
-        type_declaration_listener td(*this);
-        type_refinement_listener tr(*this);
+        type_declaration_listener td(scope::_solver);
+        type_refinement_listener tr(scope::_solver);
         antlr4::tree::ParseTreeWalker::DEFAULT.walk(&td, cu);
         antlr4::tree::ParseTreeWalker::DEFAULT.walk(&tr, cu);
         context ctx(this);
-        if (!statement_visitor(*this, ctx).visit(cu).as<bool>()) {
+        if (!statement_visitor(scope::_solver, ctx).visit(cu).as<bool>()) {
             return false;
         }
         p = nullptr;
@@ -78,16 +78,16 @@ namespace ratio {
             snippet* s = new snippet(f, *p, p->compilation_unit());
             snippets.push_back(s);
         }
-        type_declaration_listener td(*this);
+        type_declaration_listener td(scope::_solver);
         for (const auto& s : snippets) {
             antlr4::tree::ParseTreeWalker::DEFAULT.walk(&td, s->cu);
         }
-        type_refinement_listener tr(*this);
+        type_refinement_listener tr(scope::_solver);
         for (const auto& s : snippets) {
             antlr4::tree::ParseTreeWalker::DEFAULT.walk(&tr, s->cu);
         }
         context ctx(this);
-        statement_visitor sv(*this, ctx);
+        statement_visitor sv(scope::_solver, ctx);
         for (const auto& s : snippets) {
             p = &s->p;
             if (!sv.visit(s->cu).as<bool>()) {

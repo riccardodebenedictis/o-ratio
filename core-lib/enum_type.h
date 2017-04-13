@@ -32,7 +32,7 @@ namespace ratio {
     class enum_type : public type {
         friend class type_refinement_listener;
     public:
-        enum_type(core& c, scope& s, std::string name);
+        enum_type(solver& slv, scope& s, std::string name);
         enum_type(const enum_type& orig) = delete;
         virtual ~enum_type();
 

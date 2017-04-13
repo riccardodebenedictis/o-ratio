@@ -36,7 +36,7 @@ namespace ratio {
 
     class item : public env, public smt::set_item {
     public:
-        item(core& c, env& e, const type& t);
+        item(solver& slv, env& e, const type& t);
         item(const item& orig) = delete;
         virtual ~item();
 
@@ -49,7 +49,7 @@ namespace ratio {
 
     class bool_item : public item {
     public:
-        bool_item(core& c, const smt::lit& l);
+        bool_item(solver& slv, const smt::lit& l);
         bool_item(const bool_item& that) = delete;
         virtual ~bool_item();
 
@@ -64,7 +64,7 @@ namespace ratio {
 
     class arith_item : public item {
     public:
-        arith_item(core& c, const type& t, const smt::lin& l);
+        arith_item(solver& slv, const type& t, const smt::lin& l);
         arith_item(const arith_item& that) = delete;
         virtual ~arith_item();
 
@@ -79,7 +79,7 @@ namespace ratio {
 
     class string_item : public item {
     public:
-        string_item(core& c, const std::string& l);
+        string_item(solver& slv, const std::string& l);
         string_item(const string_item& that) = delete;
         virtual ~string_item();
 
@@ -96,7 +96,7 @@ namespace ratio {
 
     class enum_item : public virtual item {
     public:
-        enum_item(core& c, const type& t, smt::var ev);
+        enum_item(solver& slv, const type& t, smt::var ev);
         enum_item(const enum_item& that) = delete;
         virtual ~enum_item();
 

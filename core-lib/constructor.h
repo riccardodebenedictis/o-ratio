@@ -34,7 +34,7 @@ namespace ratio {
     class constructor : public scope {
         friend class type;
     public:
-        constructor(core& c, scope& s, const std::vector<field*>& args);
+        constructor(solver& slv, scope& s, const std::vector<field*>& args);
         constructor(const constructor& orig) = delete;
         virtual ~constructor();
 

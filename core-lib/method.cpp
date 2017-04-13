@@ -28,7 +28,7 @@
 
 namespace ratio {
 
-    method::method(core& c, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type) : scope(c, s), name(name), args(args), return_type(return_type) {
+    method::method(solver& slv, scope& s, const std::string& name, const std::vector<field*>& args, const type * const return_type) : scope(slv, s), name(name), args(args), return_type(return_type) {
         if (type * t = dynamic_cast<type*> (&s)) {
             fields.insert({THIS_KEYWORD, new field(*t, THIS_KEYWORD, true)});
         }

@@ -31,7 +31,7 @@
 
 namespace ratio {
 
-    class core;
+    class solver;
 
     class env {
         template<typename T>
@@ -40,12 +40,12 @@ namespace ratio {
         friend class defined_constructor;
         friend class defined_predicate;
     public:
-        env(core& c, env& e);
+        env(solver& slv, env& e);
         env(const env& orig) = delete;
         virtual ~env();
 
-        core& get_core() const {
-            return _core;
+        solver& get_solver() const {
+            return _solver;
         }
 
         env& get_env() const {
@@ -59,7 +59,7 @@ namespace ratio {
         unsigned ref_count;
 
     protected:
-        core& _core;
+        solver& _solver;
         env& _env;
         std::unordered_map<std::string, expr> items;
     };

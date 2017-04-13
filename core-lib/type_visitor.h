@@ -29,11 +29,11 @@
 
 namespace ratio {
 
-    class core;
+    class solver;
 
     class type_visitor : public ratioBaseVisitor {
     public:
-        type_visitor(core& c);
+        type_visitor(solver& slv);
         type_visitor(const type_visitor& orig) = delete;
         virtual ~type_visitor();
 
@@ -47,7 +47,7 @@ namespace ratio {
         antlrcpp::Any visitConstructor_expression(ratioParser::Constructor_expressionContext* ctx) override;
 
     private:
-        core& _core;
+        solver& _solver;
     };
 }
 

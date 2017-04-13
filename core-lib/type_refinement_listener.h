@@ -29,12 +29,12 @@
 
 namespace ratio {
 
-    class core;
+    class solver;
     class scope;
 
     class type_refinement_listener : public ratioBaseListener {
     public:
-        type_refinement_listener(core& c);
+        type_refinement_listener(solver& slv);
         type_refinement_listener(const type_refinement_listener& orig) = delete;
         virtual ~type_refinement_listener();
 
@@ -75,7 +75,7 @@ namespace ratio {
         void enterFunction_expression(ratioParser::Function_expressionContext* ctx) override;
 
     private:
-        core& _core;
+        solver& _solver;
         scope* _scope;
     };
 }

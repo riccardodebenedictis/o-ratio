@@ -33,7 +33,7 @@
 
 namespace ratio {
 
-    class core;
+    class solver;
     class field;
     class type;
     class method;
@@ -42,12 +42,12 @@ namespace ratio {
     class scope {
         friend class type_refinement_listener;
     public:
-        scope(core& c, scope& s);
+        scope(solver& c, scope& s);
         scope(const scope& orig) = delete;
         virtual ~scope();
 
-        core& get_core() const {
-            return _core;
+        solver& get_solver() const {
+            return _solver;
         }
 
         scope& get_scope() const {
@@ -67,7 +67,7 @@ namespace ratio {
         virtual std::unordered_map<std::string, predicate*> get_predicates() const noexcept;
 
     protected:
-        core& _core;
+        solver& _solver;
         scope& _scope;
         std::unordered_map<std::string, field*> fields;
     };

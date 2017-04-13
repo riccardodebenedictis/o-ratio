@@ -31,7 +31,7 @@ namespace ratio {
 
     class default_constructor : public constructor {
     public:
-        default_constructor(core& c, scope& s);
+        default_constructor(solver& slv, scope& s);
         default_constructor(const default_constructor& orig) = delete;
         virtual ~default_constructor();
 

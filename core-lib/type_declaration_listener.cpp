@@ -23,25 +23,25 @@
  */
 
 #include "type_declaration_listener.h"
-#include "core.h"
+#include "solver.h"
 #include "typedef_type.h"
 #include "type_visitor.h"
 #include "enum_type.h"
 
 namespace ratio {
 
-    type_declaration_listener::type_declaration_listener(core& c) : _core(c) { }
+    type_declaration_listener::type_declaration_listener(solver& slv) : _solver(slv) { }
 
     type_declaration_listener::~type_declaration_listener() { }
 
     void type_declaration_listener::enterCompilation_unit(ratioParser::Compilation_unitContext* ctx) {
-        _core.scopes.insert({ctx, &_core});
-        _scope = &_core;
+        _solver.scopes.insert({ctx, &_solver});
+        _scope = &_solver;
     }
 
     void type_declaration_listener::enterTypedef_declaration(ratioParser::Typedef_declarationContext* ctx) {
         // A new typedef type has been declared..
-        typedef_type* td = new typedef_type(_core, *_scope, ctx->name->getText(), *type_visitor(_core).visit(ctx->primitive_type()).as<type*>(), *ctx->expr());
+        typedef_type* td = new typedef_type(_solver, *_scope, ctx->name->getText(), *type_visitor(_solver).visit(ctx->primitive_type()).as<type*>(), *ctx->expr());
         if (core * c = dynamic_cast<core*> (_scope)) {
             c->types.insert({ctx->name->getText(), td});
         } else if (type * t = dynamic_cast<type*> (_scope)) {
@@ -50,13 +50,13 @@ namespace ratio {
     }
 
     void type_declaration_listener::enterEnum_declaration(ratioParser::Enum_declarationContext* ctx) { // A new enum type has been declared..
-        enum_type* et = new enum_type(_core, *_scope, ctx->name->getText());
-        _core.scopes.insert({ctx, et});
+        enum_type* et = new enum_type(_solver, *_scope, ctx->name->getText());
+        _solver.scopes.insert({ctx, et});
 
         // We add the enum values..
         for (const auto& cn : ctx->enum_constants()) {
             for (const auto& l : cn->StringLiteral()) {
-                et->instances.push_back(_core.new_string(l->getText()));
+                et->instances.push_back(_solver.new_string(l->getText()));
             }
         }
         if (core * c = dynamic_cast<core*> (_scope)) {
@@ -67,8 +67,8 @@ namespace ratio {
     }
 
     void type_declaration_listener::enterClass_declaration(ratioParser::Class_declarationContext* ctx) { // A new type has been declared..
-        type* c_t = new type(_core, *_scope, ctx->name->getText());
-        _core.scopes.insert({ctx, c_t});
+        type* c_t = new type(_solver, *_scope, ctx->name->getText());
+        _solver.scopes.insert({ctx, c_t});
         if (core * rc = dynamic_cast<core*> (_scope)) {
             rc->types.insert({ctx->name->getText(), c_t});
         } else if (type * t = dynamic_cast<type*> (_scope)) {
@@ -83,6 +83,6 @@ namespace ratio {
     }
 
     void type_declaration_listener::enterClass_type(ratioParser::Class_typeContext* ctx) {
-        _core.scopes.insert({ctx, _scope});
+        _solver.scopes.insert({ctx, _scope});
     }
 }

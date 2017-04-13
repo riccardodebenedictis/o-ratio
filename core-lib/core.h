@@ -41,6 +41,7 @@
 
 namespace ratio {
 
+    class solver;
     class atom;
     class disjunction;
 
@@ -49,7 +50,7 @@ namespace ratio {
         friend class type_refinement_listener;
         friend class type_visitor;
     public:
-        core();
+        core(solver& slv);
         core(const core& orig) = delete;
         virtual ~core();
 

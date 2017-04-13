@@ -23,16 +23,16 @@
  */
 
 #include "enum_type.h"
-#include "core.h"
+#include "solver.h"
 
 namespace ratio {
 
-    enum_type::enum_type(core& c, scope& s, std::string name) : type(c, s, name) { }
+    enum_type::enum_type(solver& slv, scope& s, std::string name) : type(slv, s, name) { }
 
     enum_type::~enum_type() { }
 
     expr enum_type::new_instance(context& ctx) {
-        return _core.new_enum(*this, get_all_instances());
+        return _solver.new_enum(*this, get_all_instances());
     }
 
     std::unordered_set<item*> enum_type::get_all_instances() const {

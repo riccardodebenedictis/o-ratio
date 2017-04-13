@@ -39,7 +39,7 @@ namespace ratio {
         friend class type_declaration_listener;
         friend class type_refinement_listener;
     public:
-        type(core& c, scope& s, const std::string& name, bool primitive = false);
+        type(solver& slv, scope& s, const std::string& name, bool primitive = false);
         type(const type& orig) = delete;
         virtual ~type();
 
@@ -86,7 +86,7 @@ namespace ratio {
 
     class bool_type : public type {
     public:
-        bool_type(core& c);
+        bool_type(solver& slv);
         bool_type(const bool_type& that) = delete;
         virtual ~bool_type();
 
@@ -95,7 +95,7 @@ namespace ratio {
 
     class int_type : public type {
     public:
-        int_type(core& c);
+        int_type(solver& slv);
         int_type(const int_type& that) = delete;
         virtual ~int_type();
 
@@ -104,7 +104,7 @@ namespace ratio {
 
     class real_type : public type {
     public:
-        real_type(core& c);
+        real_type(solver& slv);
         real_type(const real_type& that) = delete;
         virtual ~real_type();
 
@@ -113,7 +113,7 @@ namespace ratio {
 
     class string_type : public type {
     public:
-        string_type(core& c);
+        string_type(solver& slv);
         string_type(const string_type& that) = delete;
         virtual ~string_type();
 

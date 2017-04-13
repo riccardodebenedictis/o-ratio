@@ -24,18 +24,18 @@
 
 #include "typedef_type.h"
 #include "expression_visitor.h"
-#include "core.h"
+#include "solver.h"
 
 namespace ratio {
 
-    typedef_type::typedef_type(core& c, scope& s, std::string name, type& base_type, ratioParser::ExprContext& expr_c) : type(c, s, name), base_type(base_type), expr_c(expr_c) { }
+    typedef_type::typedef_type(solver& slv, scope& s, std::string name, type& base_type, ratioParser::ExprContext& expr_c) : type(slv, s, name), base_type(base_type), expr_c(expr_c) { }
 
     typedef_type::~typedef_type() { }
 
     expr typedef_type::new_instance(context& e) {
         expr i = base_type.new_instance(e);
-        expr c_e = expression_visitor(_core, e).visit(&expr_c).as<expr>();
-        bool assert_facts = _core.sat.new_clause({smt::lit(i->eq(*c_e), true)});
+        expr c_e = expression_visitor(_solver, e).visit(&expr_c).as<expr>();
+        bool assert_facts = _solver.sat.new_clause({smt::lit(i->eq(*c_e), true)});
         assert(assert_facts && "new typedef instance creation failed..");
         return i;
     }

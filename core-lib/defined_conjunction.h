@@ -32,7 +32,7 @@ namespace ratio {
 
     class defined_conjunction : public conjunction {
     public:
-        defined_conjunction(core& c, scope& s, arith_expr& cst, ratioParser::BlockContext& b);
+        defined_conjunction(solver& slv, scope& s, arith_expr& cst, ratioParser::BlockContext& b);
         defined_conjunction(const defined_conjunction& orig) = delete;
         virtual ~defined_conjunction();
 

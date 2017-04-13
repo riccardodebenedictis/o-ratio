@@ -32,7 +32,7 @@ namespace ratio {
 
     class defined_constructor : public constructor {
     public:
-        defined_constructor(core& c, scope& s, const std::vector<field*>& args, std::vector<ratioParser::Initializer_elementContext*> init_els, ratioParser::BlockContext& b);
+        defined_constructor(solver& slv, scope& s, const std::vector<field*>& args, std::vector<ratioParser::Initializer_elementContext*> init_els, ratioParser::BlockContext& b);
         defined_constructor(const defined_constructor& orig) = delete;
         virtual ~defined_constructor();
 
