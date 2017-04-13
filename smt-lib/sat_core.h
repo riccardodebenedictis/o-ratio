@@ -52,12 +52,26 @@ namespace smt {
         virtual ~sat_core();
         var new_var();
 
+        bool new_clause(const std::vector<lit>& lits);
+
         bool eq(const lit& left, const lit& right) {
             return new_clause({!left, right}) && new_clause({left, !right});
         }
 
-        bool new_clause(const std::vector<lit>& lits);
-        bool exct_one(const std::vector<lit>& lits);
+        bool exct_one(const std::vector<lit>& lits) {
+            // the at-least-one clause..
+            std::vector<lit> ls;
+            for (size_t i = 0; i < lits.size(); i++) {
+                for (size_t j = i + 1; j < lits.size(); j++) {
+                    // the at-most-one clauses..
+                    if (!new_clause({!lits[i], !lits[j]})) {
+                        return false;
+                    }
+                }
+                ls.push_back(lits[i]);
+            }
+            return new_clause(ls);
+        }
 
         var new_eq(const lit& left, const lit& right);
         var new_conj(const std::vector<lit>& ls);
