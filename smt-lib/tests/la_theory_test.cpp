@@ -22,8 +22,8 @@
  * Created on April 11, 2017, 2:51 PM
  */
 
-#include "../sat_core.h"
-#include "../la_theory.h"
+#include "sat_core.h"
+#include "la_theory.h"
 #include <stdlib.h>
 #include <iostream>
 #include <cassert>

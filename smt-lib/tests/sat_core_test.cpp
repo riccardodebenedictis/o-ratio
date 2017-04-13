@@ -22,7 +22,7 @@
  * Created on April 10, 2017, 4:45 PM
  */
 
-#include "../sat_core.h"
+#include "sat_core.h"
 #include <stdlib.h>
 #include <iostream>
 #include <cassert>

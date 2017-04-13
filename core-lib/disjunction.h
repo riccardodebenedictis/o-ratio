@@ -26,7 +26,7 @@
 #define DISJUNCTION_H
 
 #include "scope.h"
-#include "../smt-lib/la_theory.h"
+#include "la_theory.h"
 
 namespace ratio {
 

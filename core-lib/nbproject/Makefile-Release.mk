@@ -43,6 +43,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/field.o \
 	${OBJECTDIR}/item.o \
 	${OBJECTDIR}/method.o \
+	${OBJECTDIR}/parser/ratioBaseListener.o \
+	${OBJECTDIR}/parser/ratioBaseVisitor.o \
+	${OBJECTDIR}/parser/ratioLexer.o \
+	${OBJECTDIR}/parser/ratioListener.o \
+	${OBJECTDIR}/parser/ratioParser.o \
+	${OBJECTDIR}/parser/ratioVisitor.o \
 	${OBJECTDIR}/predicate.o \
 	${OBJECTDIR}/scope.o \
 	${OBJECTDIR}/solver.o \
@@ -73,7 +79,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../smt-lib/dist/Release/MinGW-Windows -lsmt-lib
+LDLIBSOPTIONS=-L/C/Program\ Files\ \(x86\)/LIBANTLR4/lib -L../smt-lib/dist/Release/MinGW-Windows -lsmt-lib -lantlr4-runtime
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -88,62 +94,92 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}: ${OBJECT
 ${OBJECTDIR}/atom.o: atom.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom.o atom.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom.o atom.cpp
 
 ${OBJECTDIR}/constructor.o: constructor.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/constructor.o constructor.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/constructor.o constructor.cpp
 
 ${OBJECTDIR}/core.o: core.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core.o core.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core.o core.cpp
 
 ${OBJECTDIR}/disjunction.o: disjunction.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction.o disjunction.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction.o disjunction.cpp
 
 ${OBJECTDIR}/env.o: env.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env.o env.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env.o env.cpp
 
 ${OBJECTDIR}/field.o: field.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field.o field.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field.o field.cpp
 
 ${OBJECTDIR}/item.o: item.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item.o item.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item.o item.cpp
 
 ${OBJECTDIR}/method.o: method.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method.o method.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method.o method.cpp
+
+${OBJECTDIR}/parser/ratioBaseListener.o: parser/ratioBaseListener.cpp
+	${MKDIR} -p ${OBJECTDIR}/parser
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioBaseListener.o parser/ratioBaseListener.cpp
+
+${OBJECTDIR}/parser/ratioBaseVisitor.o: parser/ratioBaseVisitor.cpp
+	${MKDIR} -p ${OBJECTDIR}/parser
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioBaseVisitor.o parser/ratioBaseVisitor.cpp
+
+${OBJECTDIR}/parser/ratioLexer.o: parser/ratioLexer.cpp
+	${MKDIR} -p ${OBJECTDIR}/parser
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioLexer.o parser/ratioLexer.cpp
+
+${OBJECTDIR}/parser/ratioListener.o: parser/ratioListener.cpp
+	${MKDIR} -p ${OBJECTDIR}/parser
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioListener.o parser/ratioListener.cpp
+
+${OBJECTDIR}/parser/ratioParser.o: parser/ratioParser.cpp
+	${MKDIR} -p ${OBJECTDIR}/parser
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioParser.o parser/ratioParser.cpp
+
+${OBJECTDIR}/parser/ratioVisitor.o: parser/ratioVisitor.cpp
+	${MKDIR} -p ${OBJECTDIR}/parser
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioVisitor.o parser/ratioVisitor.cpp
 
 ${OBJECTDIR}/predicate.o: predicate.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/predicate.o predicate.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/predicate.o predicate.cpp
 
 ${OBJECTDIR}/scope.o: scope.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope.o scope.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope.o scope.cpp
 
 ${OBJECTDIR}/solver.o: solver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver.o solver.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver.o solver.cpp
 
 ${OBJECTDIR}/type.o: type.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type.o type.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type.o type.cpp
 
 # Subprojects
 .build-subprojects:
@@ -161,7 +197,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/core_test.o ${OBJECTFILES:%.o=%_nomain
 ${TESTDIR}/tests/core_test.o: tests/core_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/core_test.o tests/core_test.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/core_test.o tests/core_test.cpp
 
 
 ${OBJECTDIR}/atom_nomain.o: ${OBJECTDIR}/atom.o atom.cpp 
@@ -172,7 +208,7 @@ ${OBJECTDIR}/atom_nomain.o: ${OBJECTDIR}/atom.o atom.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_nomain.o atom.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_nomain.o atom.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/atom.o ${OBJECTDIR}/atom_nomain.o;\
 	fi
@@ -185,7 +221,7 @@ ${OBJECTDIR}/constructor_nomain.o: ${OBJECTDIR}/constructor.o constructor.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/constructor_nomain.o constructor.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/constructor_nomain.o constructor.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/constructor.o ${OBJECTDIR}/constructor_nomain.o;\
 	fi
@@ -198,7 +234,7 @@ ${OBJECTDIR}/core_nomain.o: ${OBJECTDIR}/core.o core.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core_nomain.o core.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core_nomain.o core.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/core.o ${OBJECTDIR}/core_nomain.o;\
 	fi
@@ -211,7 +247,7 @@ ${OBJECTDIR}/disjunction_nomain.o: ${OBJECTDIR}/disjunction.o disjunction.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_nomain.o disjunction.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_nomain.o disjunction.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/disjunction.o ${OBJECTDIR}/disjunction_nomain.o;\
 	fi
@@ -224,7 +260,7 @@ ${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env_nomain.o env.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env_nomain.o env.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/env.o ${OBJECTDIR}/env_nomain.o;\
 	fi
@@ -237,7 +273,7 @@ ${OBJECTDIR}/field_nomain.o: ${OBJECTDIR}/field.o field.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field_nomain.o field.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field_nomain.o field.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/field.o ${OBJECTDIR}/field_nomain.o;\
 	fi
@@ -250,7 +286,7 @@ ${OBJECTDIR}/item_nomain.o: ${OBJECTDIR}/item.o item.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item_nomain.o item.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/item_nomain.o item.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/item.o ${OBJECTDIR}/item_nomain.o;\
 	fi
@@ -263,9 +299,87 @@ ${OBJECTDIR}/method_nomain.o: ${OBJECTDIR}/method.o method.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method_nomain.o method.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/method_nomain.o method.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/method.o ${OBJECTDIR}/method_nomain.o;\
+	fi
+
+${OBJECTDIR}/parser/ratioBaseListener_nomain.o: ${OBJECTDIR}/parser/ratioBaseListener.o parser/ratioBaseListener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/parser
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/parser/ratioBaseListener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioBaseListener_nomain.o parser/ratioBaseListener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/parser/ratioBaseListener.o ${OBJECTDIR}/parser/ratioBaseListener_nomain.o;\
+	fi
+
+${OBJECTDIR}/parser/ratioBaseVisitor_nomain.o: ${OBJECTDIR}/parser/ratioBaseVisitor.o parser/ratioBaseVisitor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/parser
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/parser/ratioBaseVisitor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioBaseVisitor_nomain.o parser/ratioBaseVisitor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/parser/ratioBaseVisitor.o ${OBJECTDIR}/parser/ratioBaseVisitor_nomain.o;\
+	fi
+
+${OBJECTDIR}/parser/ratioLexer_nomain.o: ${OBJECTDIR}/parser/ratioLexer.o parser/ratioLexer.cpp 
+	${MKDIR} -p ${OBJECTDIR}/parser
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/parser/ratioLexer.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioLexer_nomain.o parser/ratioLexer.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/parser/ratioLexer.o ${OBJECTDIR}/parser/ratioLexer_nomain.o;\
+	fi
+
+${OBJECTDIR}/parser/ratioListener_nomain.o: ${OBJECTDIR}/parser/ratioListener.o parser/ratioListener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/parser
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/parser/ratioListener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioListener_nomain.o parser/ratioListener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/parser/ratioListener.o ${OBJECTDIR}/parser/ratioListener_nomain.o;\
+	fi
+
+${OBJECTDIR}/parser/ratioParser_nomain.o: ${OBJECTDIR}/parser/ratioParser.o parser/ratioParser.cpp 
+	${MKDIR} -p ${OBJECTDIR}/parser
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/parser/ratioParser.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioParser_nomain.o parser/ratioParser.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/parser/ratioParser.o ${OBJECTDIR}/parser/ratioParser_nomain.o;\
+	fi
+
+${OBJECTDIR}/parser/ratioVisitor_nomain.o: ${OBJECTDIR}/parser/ratioVisitor.o parser/ratioVisitor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/parser
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/parser/ratioVisitor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/ratioVisitor_nomain.o parser/ratioVisitor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/parser/ratioVisitor.o ${OBJECTDIR}/parser/ratioVisitor_nomain.o;\
 	fi
 
 ${OBJECTDIR}/predicate_nomain.o: ${OBJECTDIR}/predicate.o predicate.cpp 
@@ -276,7 +390,7 @@ ${OBJECTDIR}/predicate_nomain.o: ${OBJECTDIR}/predicate.o predicate.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/predicate_nomain.o predicate.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/predicate_nomain.o predicate.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/predicate.o ${OBJECTDIR}/predicate_nomain.o;\
 	fi
@@ -289,7 +403,7 @@ ${OBJECTDIR}/scope_nomain.o: ${OBJECTDIR}/scope.o scope.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope_nomain.o scope.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/scope_nomain.o scope.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/scope.o ${OBJECTDIR}/scope_nomain.o;\
 	fi
@@ -302,7 +416,7 @@ ${OBJECTDIR}/solver_nomain.o: ${OBJECTDIR}/solver.o solver.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver_nomain.o solver.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver_nomain.o solver.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/solver.o ${OBJECTDIR}/solver_nomain.o;\
 	fi
@@ -315,7 +429,7 @@ ${OBJECTDIR}/type_nomain.o: ${OBJECTDIR}/type.o type.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Wall  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_nomain.o type.cpp;\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_nomain.o type.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/type.o ${OBJECTDIR}/type_nomain.o;\
 	fi

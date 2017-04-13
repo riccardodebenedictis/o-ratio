@@ -27,9 +27,9 @@
 
 #include "scope.h"
 #include "env.h"
-#include "../smt-lib/sat_core.h"
-#include "../smt-lib/la_theory.h"
-#include "../smt-lib/set_theory.h"
+#include "sat_core.h"
+#include "la_theory.h"
+#include "set_theory.h"
 #include <unordered_set>
 
 #define BOOL_KEYWORD "bool"
