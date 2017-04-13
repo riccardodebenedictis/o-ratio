@@ -23,10 +23,17 @@
  */
 
 #include "defined_conjunction.h"
+#include "statement_visitor.h"
+#include "env.h"
 
 namespace ratio {
 
-    defined_conjunction::defined_conjunction() { }
+    defined_conjunction::defined_conjunction(core& c, scope& s, arith_expr& cst, ratioParser::BlockContext& b) : conjunction(c, s, cst), block(b) { }
 
     defined_conjunction::~defined_conjunction() { }
+
+    bool defined_conjunction::apply(context& ctx) const {
+        context c(new env(_core, *ctx));
+        return statement_visitor(_core, c).visit(&block).as<bool>();
+    }
 }

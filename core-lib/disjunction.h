@@ -26,6 +26,8 @@
 #define DISJUNCTION_H
 
 #include "scope.h"
+#include "env_ptr.h"
+#include "item.h"
 #include "la_theory.h"
 
 namespace ratio {
@@ -34,6 +36,7 @@ namespace ratio {
     class env;
 
     class disjunction : public scope {
+        friend class type_refinement_listener;
     public:
         disjunction(core& c, scope& s);
         disjunction(const disjunction& orig) = delete;
@@ -47,18 +50,18 @@ namespace ratio {
 
     class conjunction : public scope {
     public:
-        conjunction(core& c, scope& s, smt::var cst);
+        conjunction(core& c, scope& s, arith_expr& cst);
         conjunction(const conjunction& that) = delete;
         virtual ~conjunction();
 
-        smt::var get_cost() const {
+        arith_expr get_cost() const {
             return cost;
         }
 
-        virtual bool apply(env& e) const = 0;
+        virtual bool apply(context& ctx) const = 0;
 
     private:
-        smt::var cost;
+        arith_expr cost;
     };
 }
 

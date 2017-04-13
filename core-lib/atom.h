@@ -25,15 +25,35 @@
 #ifndef ATOM_H
 #define ATOM_H
 
+#include "item.h"
+
 namespace ratio {
 
-    class atom {
-    public:
-        atom();
-        atom(const atom& orig);
-        virtual ~atom();
+    class predicate;
+    class atom;
+
+    class atom_state : public smt::set_item {
+        friend class atom;
     private:
 
+        atom_state() { }
+        atom_state(const atom_state& that) = delete;
+
+        virtual ~atom_state() { }
+    };
+
+    class atom : public item {
+    public:
+        static atom_state * const active;
+        static atom_state * const inactive;
+        static atom_state * const unified;
+    public:
+        atom(core& c, env& e, predicate& p);
+        atom(const atom& orig);
+        virtual ~atom();
+
+    public:
+        const smt::var state;
     };
 }
 

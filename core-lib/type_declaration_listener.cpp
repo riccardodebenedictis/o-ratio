@@ -26,6 +26,7 @@
 #include "core.h"
 #include "typedef_type.h"
 #include "type_visitor.h"
+#include "enum_type.h"
 
 namespace ratio {
 
@@ -41,18 +42,47 @@ namespace ratio {
     void type_declaration_listener::enterTypedef_declaration(ratioParser::Typedef_declarationContext* ctx) {
         // A new typedef type has been declared..
         typedef_type* td = new typedef_type(_core, *_scope, ctx->name->getText(), *type_visitor(_core).visit(ctx->primitive_type()).as<type*>(), *ctx->expr());
-        if (core * rc = dynamic_cast<core*> (_scope)) {
-            rc->types.insert({ctx->name->getText(), td});
+        if (core * c = dynamic_cast<core*> (_scope)) {
+            c->types.insert({ctx->name->getText(), td});
         } else if (type * t = dynamic_cast<type*> (_scope)) {
             t->types.insert({ctx->name->getText(), td});
         }
     }
 
-    void type_declaration_listener::enterEnum_declaration(ratioParser::Enum_declarationContext* ctx) { }
+    void type_declaration_listener::enterEnum_declaration(ratioParser::Enum_declarationContext* ctx) { // A new enum type has been declared..
+        enum_type* et = new enum_type(_core, *_scope, ctx->name->getText());
+        _core.scopes.insert({ctx, et});
 
-    void type_declaration_listener::enterClass_declaration(ratioParser::Class_declarationContext* ctx) { }
+        // We add the enum values..
+        for (const auto& cn : ctx->enum_constants()) {
+            for (const auto& l : cn->StringLiteral()) {
+                et->instances.push_back(_core.new_string(l->getText()));
+            }
+        }
+        if (core * c = dynamic_cast<core*> (_scope)) {
+            c->types.insert({ctx->name->getText(), et});
+        } else if (type * t = dynamic_cast<type*> (_scope)) {
+            t->types.insert({ctx->name->getText(), et});
+        }
+    }
 
-    void type_declaration_listener::exitClass_declaration(ratioParser::Class_declarationContext* ctx) { }
+    void type_declaration_listener::enterClass_declaration(ratioParser::Class_declarationContext* ctx) { // A new type has been declared..
+        type* c_t = new type(_core, *_scope, ctx->name->getText());
+        _core.scopes.insert({ctx, c_t});
+        if (core * rc = dynamic_cast<core*> (_scope)) {
+            rc->types.insert({ctx->name->getText(), c_t});
+        } else if (type * t = dynamic_cast<type*> (_scope)) {
+            t->types.insert({ctx->name->getText(), c_t});
+        }
 
-    void type_declaration_listener::enterClass_type(ratioParser::Class_typeContext* ctx) { }
+        _scope = c_t;
+    }
+
+    void type_declaration_listener::exitClass_declaration(ratioParser::Class_declarationContext* ctx) {
+        _scope = &_scope->get_scope();
+    }
+
+    void type_declaration_listener::enterClass_type(ratioParser::Class_typeContext* ctx) {
+        _core.scopes.insert({ctx, _scope});
+    }
 }

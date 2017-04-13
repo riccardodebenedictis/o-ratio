@@ -36,6 +36,9 @@ namespace ratio {
     class env {
         template<typename T>
         friend class env_ptr;
+        friend class default_constructor;
+        friend class defined_constructor;
+        friend class defined_predicate;
     public:
         env(core& c, env& e);
         env(const env& orig) = delete;

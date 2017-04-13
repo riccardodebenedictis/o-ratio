@@ -248,6 +248,10 @@ namespace ratio {
         return types;
     }
 
+    void type::inherit(predicate& base, predicate& derived) {
+        derived.supertypes.push_back(&base);
+    }
+
     bool_type::bool_type(core& c) : type(c, c, BOOL_KEYWORD, true) { }
 
     bool_type::~bool_type() { }

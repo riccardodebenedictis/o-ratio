@@ -25,15 +25,21 @@
 #ifndef DEFINED_METHOD_H
 #define DEFINED_METHOD_H
 
+#include "method.h"
+#include "parser/ratioParser.h"
+
 namespace ratio {
 
-    class defined_method {
+    class defined_method : public method {
     public:
-        defined_method();
+        defined_method(core& c, scope& s, const std::string& name, const std::vector<field*>& args, ratioParser::BlockContext& b, const type * const return_type = nullptr);
         defined_method(const defined_method& orig) = delete;
         virtual ~defined_method();
-    private:
 
+    private:
+        ratioParser::BlockContext& block;
+
+        bool invoke(context& ctx, const std::vector<expr>& exprs) override;
     };
 }
 

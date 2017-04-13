@@ -25,15 +25,28 @@
 #ifndef PREDICATE_H
 #define PREDICATE_H
 
+#include "type.h"
+
 namespace ratio {
 
-    class predicate {
+    class atom;
+
+    class predicate : public type {
     public:
-        predicate();
+        predicate(core& c, scope& s, const std::string& name, const std::vector<field*>& args);
         predicate(const predicate& orig);
         virtual ~predicate();
-    private:
 
+        const std::vector<field*> get_args() const {
+            return args;
+        }
+
+        expr new_instance(context& ctx) override;
+
+        virtual bool apply_rule(atom& a) const = 0;
+
+    protected:
+        const std::vector<field*> args;
     };
 }
 

@@ -23,10 +23,57 @@
  */
 
 #include "defined_constructor.h"
+#include "instantiated_field.h"
+#include "item.h"
+#include "type.h"
+#include "expression_visitor.h"
+#include "statement_visitor.h"
 
 namespace ratio {
 
-    defined_constructor::defined_constructor() { }
+    defined_constructor::defined_constructor(core& c, scope& s, const std::vector<field*>& args, std::vector<ratioParser::Initializer_elementContext*> init_els, ratioParser::BlockContext& b) : constructor(c, s, args), init_els(init_els), block(b) { }
 
     defined_constructor::~defined_constructor() { }
+
+    bool defined_constructor::invoke(item& i, const std::vector<expr>& exprs) {
+        for (const auto& f : _scope.get_fields()) {
+            if (instantiated_field * inst_f = dynamic_cast<instantiated_field*> (f.second)) {
+                context ctx(&i);
+                i.items.insert({f.second->name, expression_visitor(_core, ctx).visit(&inst_f->expr_c).as<expr>()});
+            }
+        }
+
+        context ctx(new env(_core, i));
+        ctx->items.insert({THIS_KEYWORD, expr(&i)});
+        for (unsigned int j = 0; j < args.size(); j++) {
+            ctx->items.insert({args[j]->name, exprs[j]});
+        }
+        for (const auto& el : init_els) {
+            if (fields.find(el->name->getText()) != fields.end()) {
+                i.items.insert({el->name->getText(), expression_visitor(_core, ctx).visit(el->expr_list()->expr(0)).as<expr>()});
+            } else {
+                std::vector<expr> exprs;
+                std::vector<const type*> par_types;
+                if (el->expr_list()) {
+                    for (const auto& ex : el->expr_list()->expr()) {
+                        expr i = expression_visitor(_core, ctx).visit(ex).as<expr>();
+                        exprs.push_back(i);
+                        par_types.push_back(&i->t);
+                    }
+                }
+                if (!get_type(el->name->getText()).get_constructor(par_types).invoke(i, exprs)) {
+                    return false;
+                }
+            }
+        }
+
+        for (const auto& f : _scope.get_fields()) {
+            if (!f.second->synthetic && i.items.find(f.second->name) == i.items.end()) {
+                context c(&i);
+                i.items.insert({f.second->name, f.second->new_instance(c)});
+            }
+        }
+
+        return statement_visitor(_core, ctx).visit(&block).as<bool>();
+    }
 }

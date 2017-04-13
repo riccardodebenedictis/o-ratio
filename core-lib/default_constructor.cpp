@@ -23,10 +23,31 @@
  */
 
 #include "default_constructor.h"
+#include "type.h"
+#include "field.h"
+#include <cassert>
 
 namespace ratio {
 
-    default_constructor::default_constructor() { }
+    default_constructor::default_constructor(core& c, scope& s) : constructor(c, s,{}) { }
 
     default_constructor::~default_constructor() { }
+
+    bool default_constructor::invoke(item& i, const std::vector<expr>& exprs) {
+        assert(exprs.empty());
+
+        // we invoke superclasses constructors..
+        for (const auto& st : static_cast<type&> (_scope).get_supertypes()) {
+            st->get_constructor(std::vector<const type*>(0)).invoke(i, exprs);
+        }
+
+        // we initialize the fields..
+        context ctx(&i);
+        for (const auto& f : _scope.get_fields()) {
+            if (!f.second->synthetic) {
+                i.items.insert({f.second->name, f.second->new_instance(ctx)});
+            }
+        }
+        return true;
+    }
 }

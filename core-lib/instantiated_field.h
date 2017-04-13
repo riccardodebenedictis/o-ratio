@@ -25,15 +25,22 @@
 #ifndef INSTANTIATED_FIELD_H
 #define INSTANTIATED_FIELD_H
 
+#include "field.h"
+#include "parser/ratioParser.h"
+
 namespace ratio {
 
-    class instantiated_field {
+    class instantiated_field : public field {
+        friend class defined_constructor;
     public:
-        instantiated_field();
+        instantiated_field(const type& t, const std::string& name, ratioParser::ExprContext& expr_c);
         instantiated_field(const instantiated_field& orig) = delete;
         virtual ~instantiated_field();
-    private:
 
+        expr new_instance(context& ctx) override;
+
+    private:
+        ratioParser::ExprContext& expr_c;
     };
 }
 

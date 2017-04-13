@@ -40,6 +40,7 @@ namespace ratio {
     class predicate;
 
     class scope {
+        friend class type_refinement_listener;
     public:
         scope(core& c, scope& s);
         scope(const scope& orig) = delete;

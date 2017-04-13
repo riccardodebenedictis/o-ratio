@@ -25,15 +25,21 @@
 #ifndef DEFINED_CONJUNCTION_H
 #define DEFINED_CONJUNCTION_H
 
+#include "disjunction.h"
+#include "parser/ratioParser.h"
+
 namespace ratio {
 
-    class defined_conjunction {
+    class defined_conjunction : public conjunction {
     public:
-        defined_conjunction();
+        defined_conjunction(core& c, scope& s, arith_expr& cst, ratioParser::BlockContext& b);
         defined_conjunction(const defined_conjunction& orig) = delete;
         virtual ~defined_conjunction();
-    private:
 
+    private:
+        ratioParser::BlockContext& block;
+
+        bool apply(context& ctx) const override;
     };
 }
 

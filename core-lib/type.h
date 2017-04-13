@@ -37,6 +37,7 @@ namespace ratio {
     class type : public scope {
         friend class core;
         friend class type_declaration_listener;
+        friend class type_refinement_listener;
     public:
         type(core& c, scope& s, const std::string& name, bool primitive = false);
         type(const type& orig) = delete;
@@ -64,6 +65,11 @@ namespace ratio {
 
         type & get_type(const std::string& name) const override;
         std::unordered_map<std::string, type*> get_types() const noexcept override;
+
+    protected:
+        virtual void inherit(predicate& base, predicate& derived);
+
+        virtual void new_predicate(predicate& p) { }
 
     public:
         const std::string name;

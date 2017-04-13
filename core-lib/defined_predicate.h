@@ -25,15 +25,21 @@
 #ifndef DEFINED_PREDICATE_H
 #define DEFINED_PREDICATE_H
 
+#include "predicate.h"
+#include "parser/ratioParser.h"
+
 namespace ratio {
 
-    class defined_predicate {
+    class defined_predicate : public predicate {
     public:
-        defined_predicate();
+        defined_predicate(core& c, scope& s, const std::string& name, const std::vector<field*>& args, ratioParser::BlockContext& b);
         defined_predicate(const defined_predicate& orig) = delete;
         virtual ~defined_predicate();
-    private:
 
+    private:
+        ratioParser::BlockContext& block;
+
+        bool apply_rule(atom& a) const override;
     };
 }
 

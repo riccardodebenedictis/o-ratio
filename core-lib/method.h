@@ -31,7 +31,7 @@
 
 namespace ratio {
 
-    class method : scope {
+    class method : public scope {
         friend class core;
         friend class type;
     public:
@@ -43,7 +43,7 @@ namespace ratio {
             return args;
         }
 
-        virtual bool invoke(env& e, const std::vector<expr>& exprs) = 0;
+        virtual bool invoke(context& ctx, const std::vector<expr>& exprs) = 0;
 
     public:
         const std::string name;

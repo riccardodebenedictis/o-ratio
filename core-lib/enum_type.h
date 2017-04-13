@@ -25,15 +25,24 @@
 #ifndef ENUM_TYPE_H
 #define ENUM_TYPE_H
 
+#include "type.h"
+
 namespace ratio {
 
-    class enum_type {
+    class enum_type : public type {
+        friend class type_refinement_listener;
     public:
-        enum_type();
+        enum_type(core& c, scope& s, std::string name);
         enum_type(const enum_type& orig) = delete;
         virtual ~enum_type();
-    private:
 
+        expr new_instance(context& ctx) override;
+
+    private:
+        std::unordered_set<item*> get_all_instances() const;
+
+    private:
+        std::vector<enum_type*> enums;
     };
 }
 

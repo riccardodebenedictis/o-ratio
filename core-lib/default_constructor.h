@@ -25,15 +25,17 @@
 #ifndef DEFAULT_CONSTRUCTOR_H
 #define DEFAULT_CONSTRUCTOR_H
 
+#include "constructor.h"
+
 namespace ratio {
 
-    class default_constructor {
+    class default_constructor : public constructor {
     public:
-        default_constructor();
+        default_constructor(core& c, scope& s);
         default_constructor(const default_constructor& orig) = delete;
         virtual ~default_constructor();
-    private:
 
+        bool invoke(item& i, const std::vector<expr>& exprs) override;
     };
 }
 

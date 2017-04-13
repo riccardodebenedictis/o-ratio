@@ -23,10 +23,24 @@
  */
 
 #include "defined_predicate.h"
+#include "atom.h"
+#include "statement_visitor.h"
 
 namespace ratio {
 
-    defined_predicate::defined_predicate() { }
+    defined_predicate::defined_predicate(core& c, scope& s, const std::string & name, const std::vector<field*>& args, ratioParser::BlockContext& b) : predicate(c, s, name, args), block(b) { }
 
     defined_predicate::~defined_predicate() { }
+
+    bool defined_predicate::apply_rule(atom& a) const {
+        for (const auto& sp : supertypes) {
+            if (!static_cast<predicate*> (sp)->apply_rule(a)) {
+                return false;
+            }
+        }
+
+        context ctx(new env(_core, a));
+        ctx->items.insert({THIS_KEYWORD, &a});
+        return statement_visitor(_core, ctx).visit(&block).as<bool>();
+    }
 }

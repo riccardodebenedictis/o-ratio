@@ -25,15 +25,22 @@
 #ifndef DEFINED_CONSTRUCTOR_H
 #define DEFINED_CONSTRUCTOR_H
 
+#include "constructor.h"
+#include "parser/ratioParser.h"
+
 namespace ratio {
 
-    class defined_constructor {
+    class defined_constructor : public constructor {
     public:
-        defined_constructor();
+        defined_constructor(core& c, scope& s, const std::vector<field*>& args, std::vector<ratioParser::Initializer_elementContext*> init_els, ratioParser::BlockContext& b);
         defined_constructor(const defined_constructor& orig) = delete;
         virtual ~defined_constructor();
-    private:
 
+    private:
+        std::vector<ratioParser::Initializer_elementContext*> init_els;
+        ratioParser::BlockContext& block;
+
+        bool invoke(item& i, const std::vector<expr>& exprs) override;
     };
 }
 
