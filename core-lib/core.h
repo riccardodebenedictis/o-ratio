@@ -110,10 +110,34 @@ namespace ratio {
             return c.value(v);
         }
 
+        smt::var new_bool_var() {
+            return c.new_var();
+        }
+
         smt::lbool bool_value(const smt::lit& l) const {
             return c.value(l);
         }
         smt::lbool bool_value(const bool_expr& var) const noexcept;
+
+        smt::var new_eq(const smt::lit& l, const smt::lit& r) {
+            return c.new_eq(l, r);
+        }
+
+        smt::var new_conj(const std::vector<smt::lit>& ls) {
+            return c.new_conj(ls);
+        }
+
+        smt::var new_disj(const std::vector<smt::lit>& ls) {
+            return c.new_disj(ls);
+        }
+
+        smt::var new_exct_one(const std::vector<smt::lit>& ls) {
+            return c.new_exct_one(ls);
+        }
+
+        smt::var new_arith_var() {
+            return la.new_var();
+        }
 
         smt::interval arith_bounds(smt::var v) const {
             return la.bounds(v);
@@ -133,10 +157,30 @@ namespace ratio {
         }
         double arith_value(const arith_expr& var) const noexcept;
 
+        smt::var new_enum_var(const std::unordered_set<smt::set_item*>& vals) {
+            return set.new_var(vals);
+        }
+
+        smt::var new_leq(const smt::lin& l, const smt::lin& r) {
+            return la.leq(l, r);
+        }
+
+        smt::var new_geq(const smt::lin& l, const smt::lin& r) {
+            return la.geq(l, r);
+        }
+
         std::unordered_set<smt::set_item*> enum_value(smt::var v) const {
             return set.value(v);
         }
         std::unordered_set<smt::set_item*> enum_value(const enum_expr& var) const noexcept;
+
+        smt::var allows(const smt::var& l, smt::set_item& val) const {
+            return set.allows(l, val);
+        }
+
+        smt::var new_eq(const smt::var& l, const smt::var& r) {
+            return set.eq(l, r);
+        }
 
     private:
         smt::sat_core c;

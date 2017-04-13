@@ -51,7 +51,7 @@ namespace smt {
         return id;
     }
 
-    var set_theory::eq(const var& left, set_item& right) const {
+    var set_theory::allows(const var& left, set_item& right) const {
         if (assigns[left].find(&right) != assigns[left].end()) {
             return assigns[left].at(&right);
         } else {

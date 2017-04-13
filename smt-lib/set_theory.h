@@ -47,7 +47,7 @@ namespace smt {
 
         var new_var(const std::unordered_set<set_item*>& items);
 
-        var eq(const var& left, set_item& right) const;
+        var allows(const var& left, set_item& right) const;
         var eq(const var& left, const var& right);
 
         std::unordered_set<set_item*> value(var v) const;

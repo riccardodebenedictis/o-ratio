@@ -126,7 +126,7 @@ namespace ratio {
         if (this == &i) {
             return smt::TRUE;
         } else if (arith_item * ae = dynamic_cast<arith_item*> (&i)) {
-            return _core.new_eq(l, ae->l);
+            return _core.new_conj({smt::lit(_core.new_leq(l, ae->l), true), smt::lit(_core.new_geq(l, ae->l), true)});
         } else {
             return smt::FALSE;
         }
@@ -199,7 +199,7 @@ namespace ratio {
                 enum_expr e = _core.new_enum(t.get_field(name).t, vals);
 
                 for (unsigned int i = 0; i < c_vals.size(); i++) {
-                    bool af = _core.eq(smt::lit(_core.allows(ev, *c_vals[i]), true), smt::lit(_core.allows(e->ev, *f_vals[i]), true));
+                    bool af = _core.new_eq(smt::lit(_core.allows(ev, *c_vals[i]), true), smt::lit(_core.allows(e->ev, *f_vals[i]), true));
                     assert(af);
                 }
 
