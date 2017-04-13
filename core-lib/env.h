@@ -39,6 +39,7 @@ namespace ratio {
         friend class default_constructor;
         friend class defined_constructor;
         friend class defined_predicate;
+        friend class statement_visitor;
     public:
         env(solver& slv, env& e);
         env(const env& orig) = delete;

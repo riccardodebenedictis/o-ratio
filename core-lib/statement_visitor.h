@@ -34,7 +34,7 @@ namespace ratio {
 
     class statement_visitor : public ratioBaseVisitor {
     public:
-        statement_visitor(solver& s, context& ctx);
+        statement_visitor(solver& s, context& cntx);
         statement_visitor(const statement_visitor& orig) = delete;
         virtual ~statement_visitor();
 
@@ -51,7 +51,7 @@ namespace ratio {
 
     private:
         solver& _solver;
-        context& ctx;
+        context& cntx;
     };
 }
 

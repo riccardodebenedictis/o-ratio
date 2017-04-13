@@ -38,7 +38,7 @@ namespace ratio {
 
         virtual bool new_fact(atom& a) = 0;
         virtual bool new_goal(atom& a) = 0;
-        virtual void new_disjunction(env& e, disjunction& d) = 0;
+        virtual void new_disjunction(context& e, disjunction& d) = 0;
         virtual bool solve() = 0;
     };
 }
