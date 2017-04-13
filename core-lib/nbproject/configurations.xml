@@ -5,6 +5,11 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="parser" projectFiles="true">
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h</itemPath>
         <itemPath>parser/ratioBaseListener.h</itemPath>
         <itemPath>parser/ratioBaseVisitor.h</itemPath>
         <itemPath>parser/ratioLexer.h</itemPath>
@@ -14,14 +19,19 @@
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h</itemPath>
       </logicalFolder>
       <itemPath>atom.h</itemPath>
       <itemPath>constructor.h</itemPath>
       <itemPath>core.h</itemPath>
       <itemPath>disjunction.h</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h</itemPath>
       <itemPath>env.h</itemPath>
       <itemPath>env_ptr.h</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h</itemPath>
       <itemPath>field.h</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h</itemPath>
       <itemPath>item.h</itemPath>
       <itemPath>method.h</itemPath>
       <itemPath>predicate.h</itemPath>
@@ -38,6 +48,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="parser" projectFiles="true">
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp</itemPath>
         <itemPath>parser/ratioBaseListener.cpp</itemPath>
         <itemPath>parser/ratioBaseVisitor.cpp</itemPath>
         <itemPath>parser/ratioLexer.cpp</itemPath>
@@ -47,13 +62,18 @@
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp</itemPath>
       </logicalFolder>
       <itemPath>atom.cpp</itemPath>
       <itemPath>constructor.cpp</itemPath>
       <itemPath>core.cpp</itemPath>
       <itemPath>disjunction.cpp</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp</itemPath>
       <itemPath>env.cpp</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp</itemPath>
       <itemPath>field.cpp</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp</itemPath>
       <itemPath>item.cpp</itemPath>
       <itemPath>method.cpp</itemPath>
       <itemPath>predicate.cpp</itemPath>
@@ -116,6 +136,86 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp"
             ex="false"
             tool="1"
@@ -142,6 +242,26 @@
             flavor2="0">
       </item>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -285,6 +405,86 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp"
             ex="false"
             tool="1"
@@ -311,6 +511,26 @@
             flavor2="0">
       </item>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h"
             ex="false"
             tool="3"
             flavor2="0">
