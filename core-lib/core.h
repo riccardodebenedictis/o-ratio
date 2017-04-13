@@ -157,16 +157,16 @@ namespace ratio {
         }
         double arith_value(const arith_expr& var) const noexcept;
 
-        smt::var new_enum_var(const std::unordered_set<smt::set_item*>& vals) {
-            return set.new_var(vals);
-        }
-
         smt::var new_leq(const smt::lin& l, const smt::lin& r) {
             return la.leq(l, r);
         }
 
         smt::var new_geq(const smt::lin& l, const smt::lin& r) {
             return la.geq(l, r);
+        }
+
+        smt::var new_enum_var(const std::unordered_set<smt::set_item*>& vals) {
+            return set.new_var(vals);
         }
 
         std::unordered_set<smt::set_item*> enum_value(smt::var v) const {
