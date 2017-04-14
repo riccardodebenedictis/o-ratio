@@ -41,7 +41,10 @@ namespace cg {
 
         virtual bool apply() = 0;
         bool add_precondition(flaw& f);
-        std::vector<flaw*> get_preconditions() const;
+
+        std::vector<flaw*> get_preconditions() const {
+            return preconditions;
+        }
         double get_cost() const;
 
     protected:

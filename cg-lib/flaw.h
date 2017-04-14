@@ -26,6 +26,7 @@
 #define FLAW_H
 
 #include "la_theory.h"
+#include <limits>
 
 namespace cg {
 
@@ -39,6 +40,10 @@ namespace cg {
         flaw(const flaw& orig) = delete;
         virtual ~flaw();
 
+        double get_cost() const {
+            return cost;
+        }
+
     private:
         virtual void init();
         bool expand();
@@ -48,7 +53,7 @@ namespace cg {
         causal_graph& cg;
 
     private:
-        const bool disjunctive;
+        const bool exclusive;
         bool initialized = false;
         bool expanded = false;
         smt::var in_plan;
@@ -58,6 +63,7 @@ namespace cg {
         std::vector<resolver*> causes;
         // the resolvers supported by this flaw..
         std::vector<resolver*> supports;
+        double cost = std::numeric_limits<double>::infinity();
     };
 }
 

@@ -23,10 +23,35 @@
  */
 
 #include "resolver.h"
+#include "flaw.h"
+#include "causal_graph.h"
 
 namespace cg {
 
     resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : cg(cg), cost(cost), effect(e) { }
 
     resolver::~resolver() { }
+
+    bool resolver::add_precondition(flaw& f) {
+        preconditions.push_back(&f);
+        f.supports.push_back(this);
+        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(f.in_plan, true)});
+    }
+
+    double resolver::get_cost() const {
+        if (cg.sat.value(chosen) == smt::False) {
+            // the resolver cannot be chosen..
+            return std::numeric_limits<double>::infinity();
+        } else {
+            // the cost of the resolver is given by the cost of its most expensive precondition plus the cost of the resolver itself..
+            double r_cost = preconditions.empty() ? 0.0 : -std::numeric_limits<double>::infinity();
+            for (const auto& f : preconditions) {
+                if (f->cost > r_cost) {
+                    r_cost = f->cost;
+                }
+            }
+            r_cost += cg.la.value(cost);
+            return r_cost;
+        }
+    }
 }
