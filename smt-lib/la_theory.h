@@ -136,8 +136,8 @@ namespace smt {
         virtual ~assertion();
 
     private:
-        constr* propagate_lb(var x, const lit& p);
-        constr* propagate_ub(var x, const lit& p);
+        constr* propagate_lb(var x);
+        constr* propagate_ub(var x);
 
     public:
         friend std::ostream& operator<<(std::ostream& os, const assertion& obj);

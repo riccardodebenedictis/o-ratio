@@ -266,7 +266,7 @@ namespace smt {
             constr* cnfl = nullptr;
             // unate propagation..
             for (const auto& c : a_watches[x_i]) {
-                cnfl = c->propagate_lb(x_i, p);
+                cnfl = c->propagate_lb(x_i);
                 if (cnfl) return cnfl;
             }
             // bound propagation..
@@ -300,7 +300,7 @@ namespace smt {
             constr* cnfl = nullptr;
             // unate propagation..
             for (const auto& c : a_watches[x_i]) {
-                cnfl = c->propagate_ub(x_i, p);
+                cnfl = c->propagate_ub(x_i);
                 if (cnfl) return cnfl;
             }
             // bound propagation..
@@ -399,27 +399,30 @@ namespace smt {
 
     assertion::~assertion() { }
 
-    constr* assertion::propagate_lb(var x, const lit& p) {
+    constr* assertion::propagate_lb(var x) {
         if (th.assigns[x].lb > v) {
+            lit p = lit(th.s_asrts["x" + std::to_string(x) + " >= " + std::to_string(th.assigns[x].lb)], false);
             switch (o) {
                 case leq:
+                    // [x >= lb(x)] -> ![x <= v]..
                     // the assertion is unsatisfable..
                     switch (th.c.value(b)) {
                         case True:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{!p, lit(b, false)});
+                            return new constr(th.c,{p, lit(b, false)});
                         case False:
                             // nothing to propagate..
                             break;
                         case Undefined:
                             // we propagate information to the sat core..
-                            th.record({lit(b, false), !p});
+                            th.record({lit(b, false), p});
                             break;
                         default:
                             break;
                     }
                     break;
                 case geq:
+                    // [x >= lb(x)] -> [x >= v]..
                     // the assertion is satisfied..
                     switch (th.c.value(b)) {
                         case True:
@@ -427,10 +430,10 @@ namespace smt {
                             break;
                         case False:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{!p, lit(b, true)});
+                            return new constr(th.c,{p, lit(b, true)});
                         case Undefined:
                             // we propagate information to the sat core..
-                            th.record({lit(b, true), !p});
+                            th.record({lit(b, true), p});
                             break;
                         default:
                             break;
@@ -443,10 +446,12 @@ namespace smt {
         return nullptr;
     }
 
-    constr* assertion::propagate_ub(var x, const lit& p) {
+    constr* assertion::propagate_ub(var x) {
         if (th.assigns[x].ub < v) {
+            lit p = lit(th.s_asrts["x" + std::to_string(x) + " <= " + std::to_string(th.assigns[x].ub)], false);
             switch (o) {
                 case leq:
+                    // [x <= ub(x)] -> [x <= v]..
                     // the assertion is satisfied..
                     switch (th.c.value(b)) {
                         case True:
@@ -454,29 +459,30 @@ namespace smt {
                             break;
                         case False:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{!p, lit(b, true)});
+                            return new constr(th.c,{p, lit(b, true)});
                             break;
                         case Undefined:
                             // we propagate information to the sat core..
-                            th.record({lit(b, true), !p});
+                            th.record({lit(b, true), p});
                             break;
                         default:
                             break;
                     }
                     break;
                 case geq:
+                    // [x <= ub(x)] -> ![x >= v]..
                     // the assertion is unsatisfable..
                     switch (th.c.value(b)) {
                         case True:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{!p, lit(b, false)});
+                            return new constr(th.c,{p, lit(b, false)});
                             break;
                         case False:
                             // nothing to propagate..
                             break;
                         case Undefined:
                             // we propagate information to the sat core..
-                            th.record({lit(b, false), !p});
+                            th.record({lit(b, false), p});
                             break;
                         default:
                             break;
