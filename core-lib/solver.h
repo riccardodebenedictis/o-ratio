@@ -40,8 +40,8 @@ namespace ratio {
         virtual bool solve() = 0;
 
     private:
-        virtual bool new_fact(atom& a) = 0;
-        virtual bool new_goal(atom& a) = 0;
+        virtual bool new_fact(atom& a);
+        virtual bool new_goal(atom& a);
         virtual void new_disjunction(context& e, disjunction& d) = 0;
     };
 }

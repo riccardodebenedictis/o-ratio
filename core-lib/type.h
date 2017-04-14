@@ -35,7 +35,7 @@ namespace ratio {
     class atom;
 
     class type : public scope {
-        friend class core;
+        friend class solver;
         friend class type_declaration_listener;
         friend class type_refinement_listener;
     public:
@@ -71,6 +71,15 @@ namespace ratio {
 
         virtual void new_predicate(predicate& p) { }
 
+    private:
+
+        virtual bool new_fact(atom& a) {
+            return true;
+        }
+
+        virtual bool new_goal(atom& a) {
+            return true;
+        }
     public:
         const std::string name;
         const bool primitive;

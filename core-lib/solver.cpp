@@ -23,10 +23,42 @@
  */
 
 #include "solver.h"
+#include "type.h"
+#include "atom.h"
 
 namespace ratio {
 
     solver::solver() : core(*this), theory(c) { }
 
     solver::~solver() { }
+
+    bool solver::new_fact(atom& a) {
+        std::queue<type*> q;
+        q.push(static_cast<type*> (&a.t.get_scope()));
+        while (!q.empty()) {
+            if (!q.front()->new_fact(a)) {
+                return false;
+            }
+            for (const auto& st : q.front()->get_supertypes()) {
+                q.push(st);
+            }
+            q.pop();
+        }
+        return true;
+    }
+
+    bool solver::new_goal(atom& a) {
+        std::queue<type*> q;
+        q.push(static_cast<type*> (&a.t.get_scope()));
+        while (!q.empty()) {
+            if (!q.front()->new_goal(a)) {
+                return false;
+            }
+            for (const auto& st : q.front()->get_supertypes()) {
+                q.push(st);
+            }
+            q.pop();
+        }
+        return true;
+    }
 }

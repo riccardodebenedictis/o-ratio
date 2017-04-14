@@ -67,7 +67,7 @@ namespace ratio {
         arith_expr new_real(const double& val);
         string_expr new_string();
         string_expr new_string(const std::string& val);
-        virtual enum_expr new_enum(const type& t, const std::unordered_set<item*>& allowed_vals);
+        virtual expr new_enum(const type& t, const std::unordered_set<item*>& allowed_vals);
 
         bool_expr negate(bool_expr var);
         bool_expr eq(bool_expr left, bool_expr right);

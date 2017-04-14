@@ -41,7 +41,7 @@ namespace cg {
         causal_graph(const causal_graph& orig) = delete;
         virtual ~causal_graph();
 
-        ratio::enum_expr new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) override;
+        ratio::expr new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) override;
 
     private:
         bool new_fact(ratio::atom& a) override;

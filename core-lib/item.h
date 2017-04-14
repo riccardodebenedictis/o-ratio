@@ -94,7 +94,7 @@ namespace ratio {
         std::string l;
     };
 
-    class enum_item : public virtual item {
+    class enum_item : public item {
     public:
         enum_item(solver& slv, const type& t, smt::var ev);
         enum_item(const enum_item& that) = delete;

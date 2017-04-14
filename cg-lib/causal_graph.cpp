@@ -30,7 +30,7 @@ namespace cg {
 
     causal_graph::~causal_graph() { }
 
-    ratio::enum_expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) { }
+    ratio::expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) { }
 
     bool causal_graph::new_fact(ratio::atom& a) { }
 
