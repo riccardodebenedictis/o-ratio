@@ -44,6 +44,8 @@ namespace cg {
 
         ratio::expr new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) override;
 
+        bool solve() override;
+
     private:
         bool new_fact(ratio::atom& a) override;
         bool new_goal(ratio::atom& a) override;
