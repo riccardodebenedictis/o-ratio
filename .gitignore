@@ -7,3 +7,9 @@
 /cg-lib/dist/
 /cg-lib/nbproject/private/
 /cg-lib/build/
+/api/java/native-api/nbproject/private/
+/api/java/native-api/dist/
+/api/java/native-api/build/
+/api/java/java-api/nbproject/private/
+/api/java/java-api/dist/
+/api/java/java-api/build/

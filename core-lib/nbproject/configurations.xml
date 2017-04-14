@@ -1,633 +1,633 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
-  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
-      <logicalFolder name="f1" displayName="parser" projectFiles="true">
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h</itemPath>
-        <itemPath>parser/ratioBaseListener.h</itemPath>
-        <itemPath>parser/ratioBaseVisitor.h</itemPath>
-        <itemPath>parser/ratioLexer.h</itemPath>
-        <itemPath>parser/ratioListener.h</itemPath>
-        <itemPath>parser/ratioParser.h</itemPath>
-        <itemPath>parser/ratioVisitor.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h</itemPath>
-      </logicalFolder>
-      <itemPath>atom.h</itemPath>
-      <itemPath>constructor.h</itemPath>
-      <itemPath>core.h</itemPath>
-      <itemPath>disjunction.h</itemPath>
-      <itemPath>env.h</itemPath>
-      <itemPath>env_ptr.h</itemPath>
-      <itemPath>field.h</itemPath>
-      <itemPath>item.h</itemPath>
-      <itemPath>method.h</itemPath>
-      <itemPath>predicate.h</itemPath>
-      <itemPath>scope.h</itemPath>
-      <itemPath>solver.h</itemPath>
-      <itemPath>type.h</itemPath>
+    <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+        <logicalFolder name="HeaderFiles"
+                       displayName="Header Files"
+                       projectFiles="true">
+            <logicalFolder name="f1" displayName="parser" projectFiles="true">
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h</itemPath>
+                <itemPath>parser/ratioBaseListener.h</itemPath>
+                <itemPath>parser/ratioBaseVisitor.h</itemPath>
+                <itemPath>parser/ratioLexer.h</itemPath>
+                <itemPath>parser/ratioListener.h</itemPath>
+                <itemPath>parser/ratioParser.h</itemPath>
+                <itemPath>parser/ratioVisitor.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h</itemPath>
+            </logicalFolder>
+            <itemPath>atom.h</itemPath>
+            <itemPath>constructor.h</itemPath>
+            <itemPath>core.h</itemPath>
+            <itemPath>disjunction.h</itemPath>
+            <itemPath>env.h</itemPath>
+            <itemPath>env_ptr.h</itemPath>
+            <itemPath>field.h</itemPath>
+            <itemPath>item.h</itemPath>
+            <itemPath>method.h</itemPath>
+            <itemPath>predicate.h</itemPath>
+            <itemPath>scope.h</itemPath>
+            <itemPath>solver.h</itemPath>
+            <itemPath>type.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ResourceFiles"
+                       displayName="Resource Files"
+                       projectFiles="true">
+            <itemPath>parser/ratio.g4</itemPath>
+        </logicalFolder>
+        <logicalFolder name="SourceFiles"
+                       displayName="Source Files"
+                       projectFiles="true">
+            <logicalFolder name="f1" displayName="parser" projectFiles="true">
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp</itemPath>
+                <itemPath>parser/ratioBaseListener.cpp</itemPath>
+                <itemPath>parser/ratioBaseVisitor.cpp</itemPath>
+                <itemPath>parser/ratioLexer.cpp</itemPath>
+                <itemPath>parser/ratioListener.cpp</itemPath>
+                <itemPath>parser/ratioParser.cpp</itemPath>
+                <itemPath>parser/ratioVisitor.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp</itemPath>
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp</itemPath>
+            </logicalFolder>
+            <itemPath>atom.cpp</itemPath>
+            <itemPath>constructor.cpp</itemPath>
+            <itemPath>core.cpp</itemPath>
+            <itemPath>disjunction.cpp</itemPath>
+            <itemPath>env.cpp</itemPath>
+            <itemPath>field.cpp</itemPath>
+            <itemPath>item.cpp</itemPath>
+            <itemPath>method.cpp</itemPath>
+            <itemPath>predicate.cpp</itemPath>
+            <itemPath>scope.cpp</itemPath>
+            <itemPath>solver.cpp</itemPath>
+            <itemPath>type.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="TestFiles"
+                       displayName="Test Files"
+                       projectFiles="false"
+                       kind="TEST_LOGICAL_FOLDER">
+            <logicalFolder name="f1"
+                           displayName="Core Test"
+                           projectFiles="true"
+                           kind="TEST">
+                <itemPath>tests/core_test.cpp</itemPath>
+            </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="ExternalFiles"
+                       displayName="Important Files"
+                       projectFiles="false"
+                       kind="IMPORTANT_FILES_FOLDER">
+            <itemPath>Makefile</itemPath>
+        </logicalFolder>
     </logicalFolder>
-    <logicalFolder name="ResourceFiles"
-                   displayName="Resource Files"
-                   projectFiles="true">
-      <itemPath>parser/ratio.g4</itemPath>
-    </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
-      <logicalFolder name="f1" displayName="parser" projectFiles="true">
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp</itemPath>
-        <itemPath>parser/ratioBaseListener.cpp</itemPath>
-        <itemPath>parser/ratioBaseVisitor.cpp</itemPath>
-        <itemPath>parser/ratioLexer.cpp</itemPath>
-        <itemPath>parser/ratioListener.cpp</itemPath>
-        <itemPath>parser/ratioParser.cpp</itemPath>
-        <itemPath>parser/ratioVisitor.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp</itemPath>
-      </logicalFolder>
-      <itemPath>atom.cpp</itemPath>
-      <itemPath>constructor.cpp</itemPath>
-      <itemPath>core.cpp</itemPath>
-      <itemPath>disjunction.cpp</itemPath>
-      <itemPath>env.cpp</itemPath>
-      <itemPath>field.cpp</itemPath>
-      <itemPath>item.cpp</itemPath>
-      <itemPath>method.cpp</itemPath>
-      <itemPath>predicate.cpp</itemPath>
-      <itemPath>scope.cpp</itemPath>
-      <itemPath>solver.cpp</itemPath>
-      <itemPath>type.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="TestFiles"
-                   displayName="Test Files"
-                   projectFiles="false"
-                   kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f1"
-                     displayName="Core Test"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/core_test.cpp</itemPath>
-      </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false"
-                   kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
-    </logicalFolder>
-  </logicalFolder>
-  <projectmakefile>Makefile</projectmakefile>
-  <confs>
-    <conf name="Debug" type="2">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>../smt-lib</pElem>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
-          </incDir>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <linkerTool>
-          <linkerAddLib>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../smt-lib"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../smt-lib"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
-          </linkerLibItems>
-        </linkerTool>
-      </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="atom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="atom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="constructor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="constructor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="core.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="core.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="disjunction.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="disjunction.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="env.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="env.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="env_ptr.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-      <item path="field.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="field.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="item.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="item.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="method.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratio.g4" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseListener.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseVisitor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseVisitor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioLexer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioLexer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioListener.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioParser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioParser.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioVisitor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioVisitor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="predicate.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="predicate.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="scope.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="scope.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="solver.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="solver.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/core_test.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="type.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="type.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-    <conf name="Release" type="2">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
-        <ccTool>
-          <developmentMode>5</developmentMode>
-          <incDir>
-            <pElem>../smt-lib</pElem>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
-          </incDir>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
-        <linkerTool>
-          <linkerAddLib>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../smt-lib"
-                            CT="2"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../smt-lib"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
-          </linkerLibItems>
-        </linkerTool>
-      </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="atom.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="atom.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="constructor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="constructor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="core.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="core.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="disjunction.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="disjunction.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="env.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="env.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="env_ptr.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-      <item path="field.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="field.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="item.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="item.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="method.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="method.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratio.g4" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseListener.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseVisitor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioBaseVisitor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioLexer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioLexer.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioListener.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioListener.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioParser.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioParser.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="parser/ratioVisitor.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="parser/ratioVisitor.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="predicate.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="predicate.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="scope.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="scope.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="solver.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="solver.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/core_test.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="type.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="type.h" ex="false" tool="3" flavor2="0">
-      </item>
-    </conf>
-  </confs>
+    <projectmakefile>Makefile</projectmakefile>
+    <confs>
+        <conf name="Debug" type="2">
+            <toolsSet>
+                <compilerSet>default</compilerSet>
+                <dependencyChecking>true</dependencyChecking>
+                <rebuildPropChanged>false</rebuildPropChanged>
+            </toolsSet>
+            <compileType>
+                <ccTool>
+                    <incDir>
+                        <pElem>../smt-lib</pElem>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+                    </incDir>
+                    <warningLevel>2</warningLevel>
+                </ccTool>
+                <linkerTool>
+                    <linkerAddLib>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+                    </linkerAddLib>
+                    <linkerLibItems>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../smt-lib"
+                                          CT="2"
+                                          CN="Debug"
+                                          AC="true"
+                                          BL="true"
+                                          WD="../smt-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Debug"
+                                          CC="${MAKE}  -f Makefile CONF=Debug clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
+                    </linkerLibItems>
+                </linkerTool>
+            </compileType>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="atom.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="atom.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="constructor.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="constructor.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="core.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="core.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="disjunction.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="disjunction.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="env.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="env.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="env_ptr.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <folder path="TestFiles/f1">
+                <cTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </cTool>
+                <ccTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </ccTool>
+                <linkerTool>
+                    <output>${TESTDIR}/TestFiles/f1</output>
+                </linkerTool>
+            </folder>
+            <item path="field.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="field.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="item.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="item.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="method.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="method.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratio.g4" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseListener.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseListener.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseVisitor.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseVisitor.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioLexer.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioLexer.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioListener.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioListener.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioParser.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioParser.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioVisitor.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioVisitor.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="predicate.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="predicate.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="scope.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="scope.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="solver.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="solver.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="tests/core_test.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="type.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="type.h" ex="false" tool="3" flavor2="0">
+            </item>
+        </conf>
+        <conf name="Release" type="2">
+            <toolsSet>
+                <compilerSet>default</compilerSet>
+                <dependencyChecking>true</dependencyChecking>
+                <rebuildPropChanged>false</rebuildPropChanged>
+            </toolsSet>
+            <compileType>
+                <cTool>
+                    <developmentMode>5</developmentMode>
+                </cTool>
+                <ccTool>
+                    <developmentMode>5</developmentMode>
+                    <incDir>
+                        <pElem>../smt-lib</pElem>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+                    </incDir>
+                    <warningLevel>2</warningLevel>
+                </ccTool>
+                <fortranCompilerTool>
+                    <developmentMode>5</developmentMode>
+                </fortranCompilerTool>
+                <asmTool>
+                    <developmentMode>5</developmentMode>
+                </asmTool>
+                <linkerTool>
+                    <linkerAddLib>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+                    </linkerAddLib>
+                    <linkerLibItems>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../smt-lib"
+                                          CT="2"
+                                          CN="Release"
+                                          AC="false"
+                                          BL="true"
+                                          WD="../smt-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Release"
+                                          CC="${MAKE}  -f Makefile CONF=Release clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
+                    </linkerLibItems>
+                </linkerTool>
+            </compileType>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="atom.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="atom.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="constructor.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="constructor.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="core.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="core.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="disjunction.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="disjunction.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="env.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="env.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="env_ptr.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <folder path="TestFiles/f1">
+                <cTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </cTool>
+                <ccTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </ccTool>
+                <linkerTool>
+                    <output>${TESTDIR}/TestFiles/f1</output>
+                </linkerTool>
+            </folder>
+            <item path="field.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="field.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="item.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="item.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="method.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="method.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratio.g4" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseListener.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseListener.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseVisitor.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioBaseVisitor.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioLexer.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioLexer.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioListener.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioListener.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioParser.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioParser.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="parser/ratioVisitor.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="parser/ratioVisitor.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="predicate.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="predicate.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="scope.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="scope.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="solver.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="solver.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="tests/core_test.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="type.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="type.h" ex="false" tool="3" flavor2="0">
+            </item>
+        </conf>
+    </confs>
 </configurationDescriptor>

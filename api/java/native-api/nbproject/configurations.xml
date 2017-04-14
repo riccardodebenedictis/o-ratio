@@ -4,12 +4,8 @@
         <logicalFolder name="HeaderFiles"
                        displayName="Header Files"
                        projectFiles="true">
-            <itemPath>atom_flaw.h</itemPath>
-            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h</itemPath>
-            <itemPath>disjunction_flaw.h</itemPath>
-            <itemPath>enum_flaw.h</itemPath>
-            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h</itemPath>
-            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h</itemPath>
+            <itemPath>handle.h</itemPath>
+            <itemPath>solver_api.h</itemPath>
         </logicalFolder>
         <logicalFolder name="ResourceFiles"
                        displayName="Resource Files"
@@ -18,12 +14,7 @@
         <logicalFolder name="SourceFiles"
                        displayName="Source Files"
                        projectFiles="true">
-            <itemPath>atom_flaw.cpp</itemPath>
-            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp</itemPath>
-            <itemPath>disjunction_flaw.cpp</itemPath>
-            <itemPath>enum_flaw.cpp</itemPath>
-            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp</itemPath>
-            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp</itemPath>
+            <itemPath>solver_api.cpp</itemPath>
         </logicalFolder>
         <logicalFolder name="TestFiles"
                        displayName="Test Files"
@@ -48,9 +39,12 @@
             <compileType>
                 <ccTool>
                     <incDir>
-                        <pElem>../smt-lib</pElem>
-                        <pElem>../core-lib</pElem>
+                        <pElem>../../../smt-lib</pElem>
+                        <pElem>../../../core-lib</pElem>
+                        <pElem>../../../cg-lib</pElem>
                         <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+                        <pElem>C:/Program Files/Java/jdk1.8.0_121/include</pElem>
+                        <pElem>C:/Program Files/Java/jdk1.8.0_121/include/win32</pElem>
                     </incDir>
                     <warningLevel>2</warningLevel>
                 </ccTool>
@@ -60,74 +54,50 @@
                     </linkerAddLib>
                     <linkerLibItems>
                         <linkerLibProjectItem>
-                            <makeArtifact PL="../smt-lib"
+                            <makeArtifact PL="../../../smt-lib"
                                           CT="2"
                                           CN="Debug"
                                           AC="true"
                                           BL="true"
-                                          WD="../smt-lib"
+                                          WD="../../../smt-lib"
                                           BC="${MAKE}  -f Makefile CONF=Debug"
                                           CC="${MAKE}  -f Makefile CONF=Debug clean"
                                           OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
                             </makeArtifact>
                         </linkerLibProjectItem>
                         <linkerLibProjectItem>
-                            <makeArtifact PL="../core-lib"
+                            <makeArtifact PL="../../../core-lib"
                                           CT="2"
                                           CN="Debug"
                                           AC="true"
                                           BL="true"
-                                          WD="../core-lib"
+                                          WD="../../../core-lib"
                                           BC="${MAKE}  -f Makefile CONF=Debug"
                                           CC="${MAKE}  -f Makefile CONF=Debug clean"
                                           OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../../../cg-lib"
+                                          CT="2"
+                                          CN="Debug"
+                                          AC="true"
+                                          BL="true"
+                                          WD="../../../cg-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Debug"
+                                          CC="${MAKE}  -f Makefile CONF=Debug clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}">
                             </makeArtifact>
                         </linkerLibProjectItem>
                         <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
                     </linkerLibItems>
                 </linkerTool>
             </compileType>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
-                  ex="false"
-                  tool="1"
-                  flavor2="0">
+            <item path="handle.h" ex="false" tool="3" flavor2="0">
             </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h"
-                  ex="false"
-                  tool="3"
-                  flavor2="0">
+            <item path="solver_api.cpp" ex="false" tool="1" flavor2="0">
             </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp"
-                  ex="false"
-                  tool="1"
-                  flavor2="0">
-            </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h"
-                  ex="false"
-                  tool="3"
-                  flavor2="0">
-            </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp"
-                  ex="false"
-                  tool="1"
-                  flavor2="0">
-            </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h"
-                  ex="false"
-                  tool="3"
-                  flavor2="0">
-            </item>
-            <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="disjunction_flaw.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="disjunction_flaw.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="enum_flaw.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="enum_flaw.h" ex="false" tool="3" flavor2="0">
+            <item path="solver_api.h" ex="false" tool="3" flavor2="0">
             </item>
         </conf>
         <conf name="Release" type="2">
@@ -143,9 +113,12 @@
                 <ccTool>
                     <developmentMode>5</developmentMode>
                     <incDir>
-                        <pElem>../smt-lib</pElem>
-                        <pElem>../core-lib</pElem>
+                        <pElem>../../../smt-lib</pElem>
+                        <pElem>../../../core-lib</pElem>
+                        <pElem>../../../cg-lib</pElem>
                         <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+                        <pElem>C:/Program Files/Java/jdk1.8.0_121/include</pElem>
+                        <pElem>C:/Program Files/Java/jdk1.8.0_121/include/win32</pElem>
                     </incDir>
                     <warningLevel>2</warningLevel>
                 </ccTool>
@@ -161,74 +134,50 @@
                     </linkerAddLib>
                     <linkerLibItems>
                         <linkerLibProjectItem>
-                            <makeArtifact PL="../smt-lib"
+                            <makeArtifact PL="../../../smt-lib"
                                           CT="2"
                                           CN="Release"
                                           AC="false"
                                           BL="true"
-                                          WD="../smt-lib"
+                                          WD="../../../smt-lib"
                                           BC="${MAKE}  -f Makefile CONF=Release"
                                           CC="${MAKE}  -f Makefile CONF=Release clean"
                                           OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
                             </makeArtifact>
                         </linkerLibProjectItem>
                         <linkerLibProjectItem>
-                            <makeArtifact PL="../core-lib"
+                            <makeArtifact PL="../../../core-lib"
                                           CT="2"
                                           CN="Release"
                                           AC="false"
                                           BL="true"
-                                          WD="../core-lib"
+                                          WD="../../../core-lib"
                                           BC="${MAKE}  -f Makefile CONF=Release"
                                           CC="${MAKE}  -f Makefile CONF=Release clean"
                                           OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../../../cg-lib"
+                                          CT="2"
+                                          CN="Release"
+                                          AC="false"
+                                          BL="true"
+                                          WD="../../../cg-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Release"
+                                          CC="${MAKE}  -f Makefile CONF=Release clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}">
                             </makeArtifact>
                         </linkerLibProjectItem>
                         <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
                     </linkerLibItems>
                 </linkerTool>
             </compileType>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
-                  ex="false"
-                  tool="1"
-                  flavor2="0">
+            <item path="handle.h" ex="false" tool="3" flavor2="0">
             </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h"
-                  ex="false"
-                  tool="3"
-                  flavor2="0">
+            <item path="solver_api.cpp" ex="false" tool="1" flavor2="0">
             </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp"
-                  ex="false"
-                  tool="1"
-                  flavor2="0">
-            </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h"
-                  ex="false"
-                  tool="3"
-                  flavor2="0">
-            </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp"
-                  ex="false"
-                  tool="1"
-                  flavor2="0">
-            </item>
-            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h"
-                  ex="false"
-                  tool="3"
-                  flavor2="0">
-            </item>
-            <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="disjunction_flaw.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="disjunction_flaw.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="enum_flaw.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="enum_flaw.h" ex="false" tool="3" flavor2="0">
+            <item path="solver_api.h" ex="false" tool="3" flavor2="0">
             </item>
         </conf>
     </confs>
