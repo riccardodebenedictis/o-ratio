@@ -16,35 +16,17 @@
  */
 
 /* 
- * File:   solver.h
+ * File:   resolver.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- *
- * Created on April 13, 2017, 10:54 AM
+ * 
+ * Created on April 14, 2017, 10:35 AM
  */
 
-#ifndef SOLVER_H
-#define SOLVER_H
+#include "resolver.h"
 
-#include "core.h"
-#include "../smt-lib/theory.h"
+namespace cg {
 
-namespace ratio {
+    resolver::resolver(causal_graph& cg) : cg(cg) { }
 
-    class solver : public core, public smt::theory {
-        friend class statement_visitor;
-    public:
-        solver();
-        solver(const solver& orig) = delete;
-        virtual ~solver();
-
-        virtual bool solve() = 0;
-
-    private:
-        virtual bool new_fact(atom& a) = 0;
-        virtual bool new_goal(atom& a) = 0;
-        virtual void new_disjunction(context& e, disjunction& d) = 0;
-    };
+    resolver::~resolver() { }
 }
-
-#endif /* SOLVER_H */
-

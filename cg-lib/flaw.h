@@ -16,35 +16,29 @@
  */
 
 /* 
- * File:   solver.h
+ * File:   flaw.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on April 13, 2017, 10:54 AM
+ * Created on April 14, 2017, 10:35 AM
  */
 
-#ifndef SOLVER_H
-#define SOLVER_H
+#ifndef FLAW_H
+#define FLAW_H
 
-#include "core.h"
-#include "../smt-lib/theory.h"
+namespace cg {
 
-namespace ratio {
+    class causal_graph;
 
-    class solver : public core, public smt::theory {
-        friend class statement_visitor;
+    class flaw {
     public:
-        solver();
-        solver(const solver& orig) = delete;
-        virtual ~solver();
+        flaw(causal_graph& cg);
+        flaw(const flaw& orig) = delete;
+        virtual ~flaw();
 
-        virtual bool solve() = 0;
-
-    private:
-        virtual bool new_fact(atom& a) = 0;
-        virtual bool new_goal(atom& a) = 0;
-        virtual void new_disjunction(context& e, disjunction& d) = 0;
+    protected:
+        causal_graph& cg;
     };
 }
 
-#endif /* SOLVER_H */
+#endif /* FLAW_H */
 

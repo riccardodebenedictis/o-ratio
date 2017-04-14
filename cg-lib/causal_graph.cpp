@@ -29,4 +29,34 @@ namespace cg {
     causal_graph::causal_graph() { }
 
     causal_graph::~causal_graph() { }
+
+    ratio::enum_expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) { }
+
+    bool causal_graph::new_fact(ratio::atom& a) { }
+
+    bool causal_graph::new_goal(ratio::atom& a) { }
+
+    void causal_graph::new_disjunction(ratio::context& e, ratio::disjunction& d) { }
+
+    smt::constr* causal_graph::propagate(const smt::lit& p) { }
+
+    smt::constr* causal_graph::check() { }
+
+    void causal_graph::push() { }
+
+    void causal_graph::pop() { }
+
+    bool causal_graph::build() { }
+
+    bool causal_graph::add_layer() { }
+
+    bool causal_graph::has_solution() { }
+
+    bool causal_graph::is_deferrable(flaw& f) { }
+
+    flaw* causal_graph::select_flaw() { }
+
+    resolver& causal_graph::select_resolver(flaw& f) { }
+
+    void causal_graph::set_cost(flaw& f, double cost) { }
 }

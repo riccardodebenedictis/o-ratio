@@ -25,15 +25,49 @@
 #ifndef CAUSAL_GRAPH_H
 #define CAUSAL_GRAPH_H
 
+#include "solver.h"
+#include "type.h"
+#include "atom.h"
+#include "disjunction.h"
+
 namespace cg {
 
-    class causal_graph {
+    class flaw;
+    class resolver;
+
+    class causal_graph : public ratio::solver {
     public:
         causal_graph();
-        causal_graph(const causal_graph& orig);
+        causal_graph(const causal_graph& orig) = delete;
         virtual ~causal_graph();
-    private:
 
+        ratio::enum_expr new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) override;
+
+    private:
+        bool new_fact(ratio::atom& a) override;
+        bool new_goal(ratio::atom& a) override;
+        void new_disjunction(ratio::context& e, ratio::disjunction& d) override;
+
+        smt::constr* propagate(const smt::lit& p) override;
+        smt::constr* check() override;
+        void push() override;
+        void pop() override;
+
+        bool build();
+        bool add_layer();
+        bool has_solution();
+        bool is_deferrable(flaw& f);
+        void set_cost(flaw& f, double cost);
+
+        flaw* select_flaw();
+        resolver& select_resolver(flaw& f);
+
+    private:
+        bool ok = true;
+        // the reason for having introduced a flaw..
+        std::unordered_map<ratio::atom*, flaw*> reason;
+        // the flaw queue..
+        std::queue<flaw*> flaw_q;
     };
 }
 
