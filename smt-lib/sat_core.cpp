@@ -62,6 +62,7 @@ namespace smt {
         watches.push_back(std::vector<constr*>());
         watches.push_back(std::vector<constr*>());
         assigns.push_back(Undefined);
+        exprs.insert({"b" + std::to_string(id), id});
         level.push_back(0);
         reason.push_back(nullptr);
         return id;

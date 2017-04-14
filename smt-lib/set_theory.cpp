@@ -48,6 +48,7 @@ namespace smt {
             bool eo = c.exct_one(lits);
             assert(eo);
         }
+        exprs.insert({"e" + std::to_string(id), id});
         return id;
     }
 
