@@ -23,10 +23,39 @@
  */
 
 #include "flaw.h"
+#include "sat_core.h"
+#include "resolver.h"
+#include "causal_graph.h"
+#include <cassert>
 
 namespace cg {
 
-    flaw::flaw(causal_graph& cg) : cg(cg) { }
+    flaw::flaw(causal_graph& cg, bool disjunctive) : cg(cg), disjunctive(disjunctive) { }
 
     flaw::~flaw() { }
+
+    void flaw::init() {
+        assert(!initialized);
+        assert(!expanded);
+
+        // we create the in_plan variable..
+        std::vector<smt::lit> cs;
+        for (const auto& c : causes) {
+            cs.push_back(smt::lit(c->chosen, true));
+        }
+        switch (cs.size()) {
+            case 0:
+                // the flaw is necessarily in_plan..
+                in_plan = smt::TRUE;
+                break;
+            case 1:
+                // the flaw is in_plan if its cause is in_plan..
+                in_plan = cs.begin()->v;
+                break;
+            default:
+                // the flaw is in_plan if the conjunction of its causes is in_plan..
+                in_plan = cg.sat.new_conj(cs);
+        }
+        initialized = true;
+    }
 }

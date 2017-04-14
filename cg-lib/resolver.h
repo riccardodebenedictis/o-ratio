@@ -25,18 +25,33 @@
 #ifndef RESOLVER_H
 #define RESOLVER_H
 
+#include "la_theory.h"
+
 namespace cg {
 
     class causal_graph;
+    class flaw;
 
     class resolver {
+        friend class flaw;
     public:
-        resolver(causal_graph& cg);
+        resolver(causal_graph& cg, const smt::lin& cost, flaw& e);
         resolver(const resolver& orig) = delete;
         virtual ~resolver();
 
+        virtual bool apply() = 0;
+        bool add_precondition(flaw& f);
+        std::vector<flaw*> get_preconditions() const;
+        double get_cost() const;
+
     protected:
         causal_graph& cg;
+        smt::var chosen;
+        smt::lin cost;
+        // the preconditions of this resolver..
+        std::vector<flaw*> preconditions;
+        // the flaw solved by this resolver..
+        flaw& effect;
     };
 }
 

@@ -25,18 +25,39 @@
 #ifndef FLAW_H
 #define FLAW_H
 
+#include "la_theory.h"
+
 namespace cg {
 
     class causal_graph;
+    class resolver;
 
     class flaw {
+        friend class resolver;
     public:
-        flaw(causal_graph& cg);
+        flaw(causal_graph& cg, bool disjunctive = false);
         flaw(const flaw& orig) = delete;
         virtual ~flaw();
 
+    private:
+        virtual void init();
+        bool expand();
+        virtual bool compute_resolvers(std::vector<resolver*>& rs) = 0;
+
     protected:
         causal_graph& cg;
+
+    private:
+        const bool disjunctive;
+        bool initialized = false;
+        bool expanded = false;
+        smt::var in_plan;
+        // the resolvers for this flaw..
+        std::vector<resolver*> resolvers;
+        // the causes for having this flaw..
+        std::vector<resolver*> causes;
+        // the resolvers supported by this flaw..
+        std::vector<resolver*> supports;
     };
 }
 

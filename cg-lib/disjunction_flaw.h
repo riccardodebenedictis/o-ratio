@@ -16,17 +16,29 @@
  */
 
 /* 
- * File:   resolver.cpp
+ * File:   disjunction_flaw.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- * 
- * Created on April 14, 2017, 10:35 AM
+ *
+ * Created on April 14, 2017, 2:28 PM
  */
 
-#include "resolver.h"
+#ifndef DISJUNCTION_FLAW_H
+#define DISJUNCTION_FLAW_H
+
+#include "flaw.h"
+#include "disjunction.h"
 
 namespace cg {
 
-    resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : cg(cg), cost(cost), effect(e) { }
+    class disjunction_flaw : public flaw {
+    public:
+        disjunction_flaw(causal_graph& cg, ratio::disjunction& d);
+        disjunction_flaw(const disjunction_flaw& orig) = delete;
+        virtual ~disjunction_flaw();
+    private:
 
-    resolver::~resolver() { }
+    };
 }
+
+#endif /* DISJUNCTION_FLAW_H */
+

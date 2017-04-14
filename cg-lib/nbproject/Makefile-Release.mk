@@ -37,7 +37,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o \
 	${OBJECTDIR}/_ext/2a0b8f30/flaw.o \
-	${OBJECTDIR}/_ext/2a0b8f30/resolver.o
+	${OBJECTDIR}/_ext/2a0b8f30/resolver.o \
+	${OBJECTDIR}/atom_flaw.o \
+	${OBJECTDIR}/disjunction_flaw.o \
+	${OBJECTDIR}/enum_flaw.o
 
 
 # C Compiler Flags
@@ -82,6 +85,21 @@ ${OBJECTDIR}/_ext/2a0b8f30/resolver.o: /C/Users/sydde/OneDrive/Documenti/NetBean
 	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/resolver.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp
+
+${OBJECTDIR}/atom_flaw.o: atom_flaw.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp
+
+${OBJECTDIR}/disjunction_flaw.o: disjunction_flaw.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_flaw.o disjunction_flaw.cpp
+
+${OBJECTDIR}/enum_flaw.o: enum_flaw.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw.o enum_flaw.cpp
 
 # Subprojects
 .build-subprojects:

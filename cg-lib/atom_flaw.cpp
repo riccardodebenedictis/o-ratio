@@ -16,17 +16,17 @@
  */
 
 /* 
- * File:   resolver.cpp
+ * File:   atom_flaw.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  * 
- * Created on April 14, 2017, 10:35 AM
+ * Created on April 14, 2017, 2:28 PM
  */
 
-#include "resolver.h"
+#include "atom_flaw.h"
 
 namespace cg {
 
-    resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : cg(cg), cost(cost), effect(e) { }
+    atom_flaw::atom_flaw(causal_graph& cg, ratio::atom& a) : flaw(cg, true) { }
 
-    resolver::~resolver() { }
+    atom_flaw::~atom_flaw() { }
 }

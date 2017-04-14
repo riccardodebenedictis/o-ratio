@@ -16,17 +16,29 @@
  */
 
 /* 
- * File:   resolver.cpp
+ * File:   enum_flaw.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- * 
- * Created on April 14, 2017, 10:35 AM
+ *
+ * Created on April 14, 2017, 2:28 PM
  */
 
-#include "resolver.h"
+#ifndef ENUM_FLAW_H
+#define ENUM_FLAW_H
+
+#include "flaw.h"
+#include "item.h"
 
 namespace cg {
 
-    resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : cg(cg), cost(cost), effect(e) { }
+    class enum_flaw : public flaw {
+    public:
+        enum_flaw(causal_graph& cg, ratio::enum_expr& e);
+        enum_flaw(const enum_flaw& orig) = delete;
+        virtual ~enum_flaw();
+    private:
 
-    resolver::~resolver() { }
+    };
 }
+
+#endif /* ENUM_FLAW_H */
+

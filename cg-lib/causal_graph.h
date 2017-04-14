@@ -68,6 +68,8 @@ namespace cg {
         std::unordered_map<ratio::atom*, flaw*> reason;
         // the flaw queue..
         std::queue<flaw*> flaw_q;
+        // the current assumed resolvers..
+        std::list<resolver*> resolvers;
     };
 }
 

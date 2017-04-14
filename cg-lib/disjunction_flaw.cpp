@@ -16,17 +16,17 @@
  */
 
 /* 
- * File:   resolver.cpp
+ * File:   disjunction_flaw.cpp
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  * 
- * Created on April 14, 2017, 10:35 AM
+ * Created on April 14, 2017, 2:28 PM
  */
 
-#include "resolver.h"
+#include "disjunction_flaw.h"
 
 namespace cg {
 
-    resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : cg(cg), cost(cost), effect(e) { }
+    disjunction_flaw::disjunction_flaw(causal_graph& cg, ratio::disjunction& d) : flaw(cg, true) { }
 
-    resolver::~resolver() { }
+    disjunction_flaw::~disjunction_flaw() { }
 }
