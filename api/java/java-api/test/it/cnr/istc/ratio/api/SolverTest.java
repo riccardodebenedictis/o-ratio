@@ -16,34 +16,39 @@
  */
 package it.cnr.istc.ratio.api;
 
-import java.util.Collection;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class Solver {
+public class SolverTest {
 
-    static {
-        System.loadLibrary(System.mapLibraryName("antlr4-runtime"));
-        System.loadLibrary(System.mapLibraryName("smt-lib"));
-        System.loadLibrary(System.mapLibraryName("core-lib"));
-        System.loadLibrary(System.mapLibraryName("core-lib"));
-        System.loadLibrary(System.mapLibraryName("native-api"));
-    }
-    private long handle;
-
-    public Solver() {
-        initialise();
+    public SolverTest() {
     }
 
-    public native boolean read(String script);
+    @BeforeClass
+    public static void setUpClass() {
+    }
 
-    public native boolean read(Collection<String> files);
+    @AfterClass
+    public static void tearDownClass() {
+    }
 
-    public native boolean solve();
+    @Before
+    public void setUp() {
+    }
 
-    private native void initialise();
+    @After
+    public void tearDown() {
+    }
 
-    public native void dispose();
+    @Test
+    public void test0() {
+        Solver instance = new Solver();
+    }
 }
