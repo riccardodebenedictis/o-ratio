@@ -52,11 +52,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-L/C/Program\ Files\ \(x86\)/LIBANTLR4/lib -L../smt-lib/dist/Release/MinGW-Windows -lsmt-lib -L../core-lib/dist/Release/MinGW-Windows -lcore-lib -lantlr4-runtime
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}: ../smt-lib/dist/Release/MinGW-Windows/libsmt-lib.dll
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}: ../core-lib/dist/Release/MinGW-Windows/libcore-lib.dll
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -65,17 +69,23 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}: ${OBJECTFI
 ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp
+	$(COMPILE.cc) -O2 -Wall -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../smt-lib && ${MAKE}  -f Makefile CONF=Release
+	cd ../core-lib && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
+	${RM} -r ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.dll ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.dll
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}
 
 # Subprojects
 .clean-subprojects:
+	cd ../smt-lib && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../core-lib && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

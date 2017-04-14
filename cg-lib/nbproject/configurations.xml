@@ -37,8 +37,43 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <incDir>
+            <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+          </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../smt-lib"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../smt-lib"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../core-lib"
+                            CT="2"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../core-lib"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
             ex="false"
@@ -63,6 +98,9 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+          </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
         <fortranCompilerTool>
@@ -71,6 +109,38 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../smt-lib"
+                            CT="2"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../smt-lib"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../core-lib"
+                            CT="2"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../core-lib"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
       </compileType>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
             ex="false"
