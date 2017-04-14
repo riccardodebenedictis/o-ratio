@@ -237,10 +237,9 @@ namespace ratio {
         if (ctx->cost) {
             context c(&_solver);
             arith_expr cst = expression_visitor(_solver, c).visit(ctx->cost).as<expr>();
-            dc = new defined_conjunction(_solver, *_scope, cst, *ctx->block());
+            dc = new defined_conjunction(_solver, *_scope, cst->l, *ctx->block());
         } else {
-            arith_expr cst = _solver.new_real(1);
-            dc = new defined_conjunction(_solver, *_scope, cst, *ctx->block());
+            dc = new defined_conjunction(_solver, *_scope, smt::lin(1), *ctx->block());
         }
         static_cast<disjunction*> (_scope)->conjunctions.push_back(dc);
         _solver.scopes.insert({ctx, dc});

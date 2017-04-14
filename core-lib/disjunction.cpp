@@ -34,7 +34,7 @@ namespace ratio {
         }
     }
 
-    conjunction::conjunction(solver& slv, scope& s, arith_expr& cst) : scope(slv, s), cost(cst) { }
+    conjunction::conjunction(solver& slv, scope& s, const smt::lin& cst) : scope(slv, s), cost(cst) { }
 
     conjunction::~conjunction() { }
 }

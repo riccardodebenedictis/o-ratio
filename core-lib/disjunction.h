@@ -50,18 +50,18 @@ namespace ratio {
 
     class conjunction : public scope {
     public:
-        conjunction(solver& slv, scope& s, arith_expr& cst);
+        conjunction(solver& slv, scope& s, const smt::lin& cst);
         conjunction(const conjunction& that) = delete;
         virtual ~conjunction();
 
-        arith_expr get_cost() const {
+        smt::lin get_cost() const {
             return cost;
         }
 
         virtual bool apply(context& ctx) const = 0;
 
     private:
-        arith_expr cost;
+        smt::lin cost;
     };
 }
 

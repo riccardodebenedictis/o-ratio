@@ -28,7 +28,7 @@
 
 namespace ratio {
 
-    defined_conjunction::defined_conjunction(solver& slv, scope& s, arith_expr& cst, ratioParser::BlockContext& b) : conjunction(slv, s, cst), block(b) { }
+    defined_conjunction::defined_conjunction(solver& slv, scope& s, const smt::lin& cst, ratioParser::BlockContext& b) : conjunction(slv, s, cst), block(b) { }
 
     defined_conjunction::~defined_conjunction() { }
 
