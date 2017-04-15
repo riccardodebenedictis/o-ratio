@@ -25,11 +25,11 @@ import java.util.Collection;
 public class Solver {
 
     static {
-        System.loadLibrary(System.mapLibraryName("antlr4-runtime"));
-        System.loadLibrary(System.mapLibraryName("smt-lib"));
-        System.loadLibrary(System.mapLibraryName("core-lib"));
-        System.loadLibrary(System.mapLibraryName("core-lib"));
-        System.loadLibrary(System.mapLibraryName("native-api"));
+        System.loadLibrary("libantlr4-runtime");
+        System.loadLibrary("libsmt-lib");
+        System.loadLibrary("libcore-lib");
+        System.loadLibrary("libcg-lib");
+        System.loadLibrary("libnative-api");
     }
     private long handle;
 
