@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
+ * Copyright (C) 2017 sydde
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
 
 /* 
  * File:   newsimpletest.cpp
- * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
+ * Author: sydde
  *
- * Created on April 12, 2017, 4:32 PM
+ * Created on April 15, 2017, 4:34 PM
  */
 
-#include "core.h"
+#include "causal_graph.h"
 #include <stdlib.h>
 #include <iostream>
 
@@ -30,21 +30,21 @@
  * Simple C++ Test Suite
  */
 
-using namespace ratio;
-
-void testCore0() {
-    core c;
+void testCG0() {
+    cg::causal_graph g;
+    g.read("real a;");
 }
 
 int main(int argc, char** argv) {
-    std::cout << "%SUITE_STARTING% core_test" << std::endl;
+    std::cout << "%SUITE_STARTING% cg_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
 
-    std::cout << "%TEST_STARTED% testCore0 (core_test)" << std::endl;
-    testCore0();
-    std::cout << "%TEST_FINISHED% time=0 testCore0 (core_test)" << std::endl;
+    std::cout << "%TEST_STARTED% testCG0 (cg_test)" << std::endl;
+    testCG0();
+    std::cout << "%TEST_FINISHED% testCG0=0 test1 (cg_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
     return (EXIT_SUCCESS);
 }
+

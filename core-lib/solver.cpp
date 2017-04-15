@@ -28,7 +28,7 @@
 
 namespace ratio {
 
-    solver::solver() : core(*this), theory(c) { }
+    solver::solver() : core(*this), theory(sat) { }
 
     solver::~solver() { }
 
