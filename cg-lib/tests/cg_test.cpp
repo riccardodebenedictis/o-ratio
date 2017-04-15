@@ -32,7 +32,6 @@
 
 void testCG0() {
     cg::causal_graph g;
-    g.read("real a;");
 }
 
 int main(int argc, char** argv) {

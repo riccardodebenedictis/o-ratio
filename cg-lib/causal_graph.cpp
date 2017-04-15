@@ -40,9 +40,13 @@ namespace cg {
 
     void causal_graph::new_disjunction(ratio::context& e, ratio::disjunction& d) { }
 
-    smt::constr* causal_graph::propagate(const smt::lit& p) { }
+    smt::constr* causal_graph::propagate(const smt::lit& p) {
+        return nullptr;
+    }
 
-    smt::constr* causal_graph::check() { }
+    smt::constr* causal_graph::check() {
+        return nullptr;
+    }
 
     void causal_graph::push() { }
 

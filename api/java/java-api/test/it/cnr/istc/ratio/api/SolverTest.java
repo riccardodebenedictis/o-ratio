@@ -50,5 +50,6 @@ public class SolverTest {
     @Test
     public void test0() {
         Solver instance = new Solver();
+        instance.dispose();
     }
 }
