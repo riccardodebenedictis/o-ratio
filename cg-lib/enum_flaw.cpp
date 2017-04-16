@@ -23,6 +23,7 @@
  */
 
 #include "enum_flaw.h"
+#include "causal_graph.h"
 
 namespace cg {
 
@@ -31,6 +32,18 @@ namespace cg {
     enum_flaw::~enum_flaw() { }
 
     bool enum_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+        std::unordered_set<smt::set_item*> vals = cg.set.value(e.ev);
+        for (const auto& v : vals) {
+            rs.push_back(new choose_value(cg, *this, *v));
+        }
         return true;
+    }
+
+    enum_flaw::choose_value::choose_value(causal_graph& cg, enum_flaw& f, smt::set_item& val) : resolver(cg, smt::lin(1.0 / cg.set.value(f.e.ev).size()), f), v(f.e.ev), val(val) { }
+
+    enum_flaw::choose_value::~choose_value() { }
+
+    bool enum_flaw::choose_value::apply() {
+        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(cg.set.allows(v, val), true)});
     }
 }

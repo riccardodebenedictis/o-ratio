@@ -37,6 +37,7 @@ namespace cg {
 
     class causal_graph : public ratio::solver {
         friend class flaw;
+        friend class atom_flaw;
     public:
         causal_graph();
         causal_graph(const causal_graph& orig) = delete;

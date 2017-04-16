@@ -27,6 +27,7 @@
 
 #include "flaw.h"
 #include "item.h"
+#include "resolver.h"
 
 namespace cg {
 
@@ -38,7 +39,20 @@ namespace cg {
 
     private:
         bool compute_resolvers(std::vector<resolver*>& rs) override;
-        
+
+        class choose_value : public resolver {
+        public:
+            choose_value(causal_graph& cg, enum_flaw& f, smt::set_item& val);
+            choose_value(const choose_value& that) = delete;
+            virtual ~choose_value();
+
+        private:
+            bool apply() override;
+
+        private:
+            smt::var v;
+            smt::set_item& val;
+        };
     private:
         ratio::enum_item& e;
     };

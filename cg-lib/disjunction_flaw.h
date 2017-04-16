@@ -27,6 +27,7 @@
 
 #include "flaw.h"
 #include "disjunction.h"
+#include "resolver.h"
 
 namespace cg {
 
@@ -39,9 +40,23 @@ namespace cg {
     private:
         bool compute_resolvers(std::vector<resolver*>& rs) override;
 
+        class choose_conjunction : public resolver {
+        public:
+            choose_conjunction(causal_graph& cg, disjunction_flaw& f, ratio::context& e, ratio::conjunction& c);
+            choose_conjunction(const choose_conjunction& that) = delete;
+            virtual ~choose_conjunction();
+
+        private:
+            bool apply() override;
+
+        private:
+            ratio::context e;
+            ratio::conjunction& conj;
+        };
+
     private:
         ratio::context e;
-        ratio::disjunction& d;
+        ratio::disjunction& disj;
     };
 }
 

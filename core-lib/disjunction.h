@@ -42,7 +42,9 @@ namespace ratio {
         disjunction(const disjunction& orig) = delete;
         virtual ~disjunction();
 
-        std::vector<conjunction*> get_conjunctions() const;
+        std::vector<conjunction*> get_conjunctions() const {
+            return conjunctions;
+        }
 
     private:
         std::vector<conjunction*> conjunctions;

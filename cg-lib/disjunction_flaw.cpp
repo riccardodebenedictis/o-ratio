@@ -23,14 +23,27 @@
  */
 
 #include "disjunction_flaw.h"
+#include "causal_graph.h"
 
 namespace cg {
 
-    disjunction_flaw::disjunction_flaw(causal_graph& cg, ratio::context& e, ratio::disjunction& d) : flaw(cg, true), e(e), d(d) { }
+    disjunction_flaw::disjunction_flaw(causal_graph& cg, ratio::context& e, ratio::disjunction& d) : flaw(cg, true), e(e), disj(d) { }
 
     disjunction_flaw::~disjunction_flaw() { }
 
     bool disjunction_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+        for (const auto& cnj : disj.get_conjunctions()) {
+            ratio::context ctx(new ratio::env(cg, *e));
+            rs.push_back(new choose_conjunction(cg, *this, ctx, *cnj));
+        }
         return true;
+    }
+
+    disjunction_flaw::choose_conjunction::choose_conjunction(causal_graph& cg, disjunction_flaw& f, ratio::context& e, ratio::conjunction& c) : resolver(cg, c.get_cost(), f), e(e), conj(c) { }
+
+    disjunction_flaw::choose_conjunction::~choose_conjunction() { }
+
+    bool disjunction_flaw::choose_conjunction::apply() {
+        return conj.apply(e);
     }
 }

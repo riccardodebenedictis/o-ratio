@@ -27,6 +27,7 @@
 
 #include "flaw.h"
 #include "atom.h"
+#include "resolver.h"
 
 namespace cg {
 
@@ -39,6 +40,46 @@ namespace cg {
     private:
         bool compute_resolvers(std::vector<resolver*>& rs) override;
 
+        class add_fact : public resolver {
+        public:
+            add_fact(causal_graph& cg, atom_flaw& f, ratio::atom& a);
+            add_fact(const add_fact& that) = delete;
+            virtual ~add_fact();
+
+        private:
+            bool apply() override;
+
+        private:
+            ratio::atom& a;
+        };
+
+        class expand_goal : public resolver {
+        public:
+            expand_goal(causal_graph& cg, atom_flaw& f, ratio::atom& a);
+            expand_goal(const expand_goal& that) = delete;
+            virtual ~expand_goal();
+
+        private:
+            bool apply() override;
+
+        private:
+            ratio::atom& a;
+        };
+
+        class unify_atom : public resolver {
+        public:
+            unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, smt::var unif_var);
+            unify_atom(const unify_atom& that) = delete;
+            virtual ~unify_atom();
+
+        private:
+            bool apply() override;
+
+        private:
+            ratio::atom& a;
+            ratio::atom& with;
+            smt::var unif_var;
+        };
     private:
         ratio::atom& a;
         bool is_fact;

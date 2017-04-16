@@ -1,289 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
-  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
-      <itemPath>atom_flaw.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h</itemPath>
-      <itemPath>disjunction_flaw.h</itemPath>
-      <itemPath>enum_flaw.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/smart_type.h</itemPath>
+    <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+        <logicalFolder name="HeaderFiles"
+                       displayName="Header Files"
+                       projectFiles="true">
+            <itemPath>atom_flaw.h</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h</itemPath>
+            <itemPath>disjunction_flaw.h</itemPath>
+            <itemPath>enum_flaw.h</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/smart_type.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ResourceFiles"
+                       displayName="Resource Files"
+                       projectFiles="true">
+        </logicalFolder>
+        <logicalFolder name="SourceFiles"
+                       displayName="Source Files"
+                       projectFiles="true">
+            <itemPath>atom_flaw.cpp</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp</itemPath>
+            <itemPath>disjunction_flaw.cpp</itemPath>
+            <itemPath>enum_flaw.cpp</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp</itemPath>
+            <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="TestFiles"
+                       displayName="Test Files"
+                       projectFiles="false"
+                       kind="TEST_LOGICAL_FOLDER">
+            <logicalFolder name="f1" displayName="CG Test" projectFiles="true" kind="TEST">
+                <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp</itemPath>
+            </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="ExternalFiles"
+                       displayName="Important Files"
+                       projectFiles="false"
+                       kind="IMPORTANT_FILES_FOLDER">
+            <itemPath>Makefile</itemPath>
+        </logicalFolder>
     </logicalFolder>
-    <logicalFolder name="ResourceFiles"
-                   displayName="Resource Files"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
-      <itemPath>atom_flaw.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp</itemPath>
-      <itemPath>disjunction_flaw.cpp</itemPath>
-      <itemPath>enum_flaw.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp</itemPath>
-    </logicalFolder>
-    <logicalFolder name="TestFiles"
-                   displayName="Test Files"
-                   projectFiles="false"
-                   kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f1" displayName="CG Test" projectFiles="true" kind="TEST">
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp</itemPath>
-      </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false"
-                   kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
-    </logicalFolder>
-  </logicalFolder>
-  <projectmakefile>Makefile</projectmakefile>
-  <confs>
-    <conf name="Debug" type="2">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>../smt-lib</pElem>
-            <pElem>../core-lib</pElem>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
-          </incDir>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <linkerTool>
-          <linkerAddLib>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../smt-lib"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../smt-lib"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../core-lib"
-                            CT="2"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../core-lib"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
-          </linkerLibItems>
-        </linkerTool>
-      </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/smart_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="disjunction_flaw.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="disjunction_flaw.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="enum_flaw.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="enum_flaw.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-    </conf>
-    <conf name="Release" type="2">
-      <toolsSet>
-        <compilerSet>default</compilerSet>
-        <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
-      </toolsSet>
-      <compileType>
-        <cTool>
-          <developmentMode>5</developmentMode>
-        </cTool>
-        <ccTool>
-          <developmentMode>5</developmentMode>
-          <incDir>
-            <pElem>../smt-lib</pElem>
-            <pElem>../core-lib</pElem>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
-          </incDir>
-          <warningLevel>2</warningLevel>
-        </ccTool>
-        <fortranCompilerTool>
-          <developmentMode>5</developmentMode>
-        </fortranCompilerTool>
-        <asmTool>
-          <developmentMode>5</developmentMode>
-        </asmTool>
-        <linkerTool>
-          <linkerAddLib>
-            <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
-          </linkerAddLib>
-          <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../smt-lib"
-                            CT="2"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../smt-lib"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../core-lib"
-                            CT="2"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../core-lib"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
-          </linkerLibItems>
-        </linkerTool>
-      </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/smart_type.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="disjunction_flaw.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="disjunction_flaw.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="enum_flaw.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="enum_flaw.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-    </conf>
-  </confs>
+    <projectmakefile>Makefile</projectmakefile>
+    <confs>
+        <conf name="Debug" type="2">
+            <toolsSet>
+                <compilerSet>default</compilerSet>
+                <dependencyChecking>true</dependencyChecking>
+                <rebuildPropChanged>false</rebuildPropChanged>
+            </toolsSet>
+            <compileType>
+                <ccTool>
+                    <incDir>
+                        <pElem>../smt-lib</pElem>
+                        <pElem>../core-lib</pElem>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+                    </incDir>
+                    <warningLevel>2</warningLevel>
+                </ccTool>
+                <linkerTool>
+                    <linkerAddLib>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+                    </linkerAddLib>
+                    <linkerLibItems>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../smt-lib"
+                                          CT="2"
+                                          CN="Debug"
+                                          AC="true"
+                                          BL="true"
+                                          WD="../smt-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Debug"
+                                          CC="${MAKE}  -f Makefile CONF=Debug clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../core-lib"
+                                          CT="2"
+                                          CN="Debug"
+                                          AC="true"
+                                          BL="true"
+                                          WD="../core-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Debug"
+                                          CC="${MAKE}  -f Makefile CONF=Debug clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
+                    </linkerLibItems>
+                </linkerTool>
+            </compileType>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/smart_type.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="disjunction_flaw.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="disjunction_flaw.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="enum_flaw.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="enum_flaw.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <folder path="TestFiles/f1">
+                <cTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </cTool>
+                <ccTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </ccTool>
+                <linkerTool>
+                    <output>${TESTDIR}/TestFiles/f1</output>
+                </linkerTool>
+            </folder>
+        </conf>
+        <conf name="Release" type="2">
+            <toolsSet>
+                <compilerSet>default</compilerSet>
+                <dependencyChecking>true</dependencyChecking>
+                <rebuildPropChanged>false</rebuildPropChanged>
+            </toolsSet>
+            <compileType>
+                <cTool>
+                    <developmentMode>5</developmentMode>
+                </cTool>
+                <ccTool>
+                    <developmentMode>5</developmentMode>
+                    <incDir>
+                        <pElem>../smt-lib</pElem>
+                        <pElem>../core-lib</pElem>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+                    </incDir>
+                    <warningLevel>2</warningLevel>
+                </ccTool>
+                <fortranCompilerTool>
+                    <developmentMode>5</developmentMode>
+                </fortranCompilerTool>
+                <asmTool>
+                    <developmentMode>5</developmentMode>
+                </asmTool>
+                <linkerTool>
+                    <linkerAddLib>
+                        <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+                    </linkerAddLib>
+                    <linkerLibItems>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../smt-lib"
+                                          CT="2"
+                                          CN="Release"
+                                          AC="false"
+                                          BL="true"
+                                          WD="../smt-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Release"
+                                          CC="${MAKE}  -f Makefile CONF=Release clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsmt-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibProjectItem>
+                            <makeArtifact PL="../core-lib"
+                                          CT="2"
+                                          CN="Release"
+                                          AC="false"
+                                          BL="true"
+                                          WD="../core-lib"
+                                          BC="${MAKE}  -f Makefile CONF=Release"
+                                          CC="${MAKE}  -f Makefile CONF=Release clean"
+                                          OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}">
+                            </makeArtifact>
+                        </linkerLibProjectItem>
+                        <linkerLibLibItem>antlr4-runtime</linkerLibLibItem>
+                    </linkerLibItems>
+                </linkerTool>
+            </compileType>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/smart_type.h"
+                  ex="false"
+                  tool="3"
+                  flavor2="0">
+            </item>
+            <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp"
+                  ex="false"
+                  tool="1"
+                  flavor2="0">
+            </item>
+            <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="disjunction_flaw.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="disjunction_flaw.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <item path="enum_flaw.cpp" ex="false" tool="1" flavor2="0">
+            </item>
+            <item path="enum_flaw.h" ex="false" tool="3" flavor2="0">
+            </item>
+            <folder path="TestFiles/f1">
+                <cTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </cTool>
+                <ccTool>
+                    <incDir>
+                        <pElem>.</pElem>
+                    </incDir>
+                </ccTool>
+                <linkerTool>
+                    <output>${TESTDIR}/TestFiles/f1</output>
+                </linkerTool>
+            </folder>
+        </conf>
+    </confs>
 </configurationDescriptor>

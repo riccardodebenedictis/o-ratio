@@ -41,6 +41,22 @@ namespace cg {
         flaw(const flaw& orig) = delete;
         virtual ~flaw();
 
+        bool is_expanded() const {
+            return expanded;
+        }
+
+        bool is_initialized() const {
+            return initialized;
+        }
+
+        smt::var get_in_plan() const {
+            return in_plan;
+        }
+
+        std::vector<resolver*> get_causes() const {
+            return causes;
+        }
+
         double get_cost() const {
             return cost;
         }

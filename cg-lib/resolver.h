@@ -43,6 +43,14 @@ namespace cg {
         virtual bool apply() = 0;
         bool add_precondition(flaw& f);
 
+        smt::var get_chosen() const {
+            return chosen;
+        }
+
+        flaw& get_effect() const {
+            return effect;
+        }
+
         std::vector<flaw*> get_preconditions() const {
             return preconditions;
         }
