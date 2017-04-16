@@ -182,25 +182,21 @@ namespace cg {
     }
 
     bool causal_graph::is_deferrable(flaw& f) {
-        std::set<const flaw*> visited;
         std::queue<flaw*> q;
         q.push(&f);
         while (!q.empty()) {
-            if (visited.find(q.front()) == visited.end()) {
-                if (!q.front()->exclusive) {
-                    // we cannot defer this flaw..
-                    return false;
-                } else if (sat.value(q.front()->in_plan) == smt::False) {
-                    // it is not possible to solve this flaw with current assignments.. thus we defer..
-                    return true;
-                } else if (q.front()->cost < std::numeric_limits<double>::infinity()) {
-                    // we already have a possible solution for this flaw.. thus we defer..
-                    return true;
-                }
-                visited.insert(q.front());
-                for (const auto& r : q.front()->causes) {
-                    q.push(&r->effect);
-                }
+            if (!q.front()->exclusive) {
+                // we cannot defer this flaw..
+                return false;
+            } else if (sat.value(q.front()->in_plan) == smt::False) {
+                // it is not possible to solve this flaw with current assignments.. thus we defer..
+                return true;
+            } else if (q.front()->cost < std::numeric_limits<double>::infinity()) {
+                // we already have a possible solution for this flaw.. thus we defer..
+                return true;
+            }
+            for (const auto& r : q.front()->causes) {
+                q.push(&r->effect);
             }
             q.pop();
         }
@@ -253,5 +249,36 @@ namespace cg {
         return *r_next;
     }
 
-    void causal_graph::set_cost(flaw& f, double cost) { }
+    void causal_graph::set_cost(flaw& f, double cost) {
+        if (f.cost != cost) {
+            if (!trail.empty()) {
+                trail.back().old_costs.insert({&f, f.cost});
+            }
+            f.cost = cost;
+
+            std::queue<flaw*> q;
+            for (const auto& supp : f.supports) {
+                q.push(&supp->effect);
+            }
+            while (!q.empty()) {
+                double f_cost = std::numeric_limits<double>::infinity();
+                for (const auto& r : q.front()->resolvers) {
+                    double c = r->get_cost();
+                    if (c < f_cost) {
+                        f_cost = c;
+                    }
+                }
+                if (q.front()->cost != f_cost) {
+                    if (!trail.empty()) {
+                        trail.back().old_costs.insert({q.front(), q.front()->cost});
+                    }
+                    q.front()->cost = f_cost;
+                    for (const auto& supp : q.front()->supports) {
+                        q.push(&supp->effect);
+                    }
+                }
+                q.pop();
+            }
+        }
+    }
 }
