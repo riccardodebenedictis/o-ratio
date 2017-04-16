@@ -91,4 +91,10 @@ namespace cg {
                 return cg.sat.new_clause({smt::lit(in_plan, false), smt::lit(exclusive ? cg.sat.new_exct_one(r_chs) : cg.sat.new_disj(r_chs), true)});
         }
     }
+
+    bool flaw::has_subgoals() {
+        return std::all_of(resolvers.begin(), resolvers.end(), [](const resolver * r) {
+            return r->preconditions.empty();
+        });
+    }
 }

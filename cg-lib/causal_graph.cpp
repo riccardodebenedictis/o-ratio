@@ -26,6 +26,7 @@
 #include "enum_flaw.h"
 #include "atom_flaw.h"
 #include "disjunction_flaw.h"
+#include "resolver.h"
 
 namespace cg {
 
@@ -78,6 +79,15 @@ namespace cg {
     }
 
     smt::constr* causal_graph::propagate(const smt::lit& p) {
+        flaw* f = in_plan.at(p.v);
+        if (p.sign) {
+            flaws.insert(f);
+            if (!trail.empty()) {
+                trail.back().new_flaws.insert(f);
+            }
+        } else {
+            set_cost(*f, std::numeric_limits<double>::infinity());
+        }
         return nullptr;
     }
 
@@ -97,9 +107,50 @@ namespace cg {
 
     bool causal_graph::is_deferrable(flaw& f) { }
 
-    flaw* causal_graph::select_flaw() { }
+    flaw* causal_graph::select_flaw() {
+        // this is the next flaw to be solved (i.e., the most expensive one)..
+        flaw* f_next = nullptr;
+        for (auto it = flaws.begin(); it != flaws.end();) {
+            assert((*it)->expanded);
+            assert(sat.value((*it)->in_plan) == smt::True);
+            if (std::count_if((*it)->resolvers.begin(), (*it)->resolvers.end(), [&](resolver * r) {
+                    return sat.value(r->chosen) != smt::False;
+                }) == 1) {
+            assert(sat.value((*std::find_if((*it)->resolvers.begin(), (*it)->resolvers.end(), [&](resolver * r) {
+                return sat.value(r->chosen) != smt::False;
+            }))->chosen) == smt::True);
+            // we have a trivial flaw..
+            if (!trail.empty()) {
+                trail.back().solved_flaws.insert((*it));
+            }
+            flaws.erase(it++);
+        } else {
+                if (!f_next) {
+                    f_next = *it;
+                } else if (f_next->has_subgoals() && !(*it)->has_subgoals()) {
+                    // we prefere non-structural flaws (i.e., inconsistencies) to structural ones..
+                    f_next = *it;
+                } else if (f_next->has_subgoals() == (*it)->has_subgoals() && f_next->cost < (*it)->cost) {
+                    f_next = *it;
+                }
+                ++it;
+            }
+        }
+        return f_next;
+    }
 
-    resolver& causal_graph::select_resolver(flaw& f) { }
+    resolver& causal_graph::select_resolver(flaw& f) {
+        double r_cost = std::numeric_limits<double>::infinity();
+        resolver* r_next; // this is the next resolver to be chosen (i.e., the cheapest one)..
+        for (const auto& r : f.resolvers) {
+            double c_cost = r->get_cost();
+            if (c_cost < r_cost) {
+                r_cost = c_cost;
+                r_next = r;
+            }
+        }
+        return *r_next;
+    }
 
     void causal_graph::set_cost(flaw& f, double cost) { }
 }

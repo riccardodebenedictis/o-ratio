@@ -68,6 +68,20 @@ namespace cg {
         resolver& select_resolver(flaw& f);
 
     private:
+
+        struct layer {
+
+            layer(resolver* r) : r(r) { }
+
+            resolver* r;
+            // the estimated flaw costs..
+            std::unordered_map<flaw*, double> old_costs;
+            // the new flaws..
+            std::unordered_set<flaw*> new_flaws;
+            // the solved flaws..
+            std::unordered_set<flaw*> solved_flaws;
+        };
+
         bool ok = true;
         // the reason for having introduced a flaw..
         std::unordered_map<ratio::atom*, flaw*> reason;
@@ -79,6 +93,8 @@ namespace cg {
         std::unordered_set<flaw*> flaws;
         // the in_plan variables (boolean variable to flaw) of the flaws..
         std::unordered_map<smt::var, flaw*> in_plan;
+        // the list of resolvers in chronological order..
+        std::vector<layer> trail;
     };
 }
 
