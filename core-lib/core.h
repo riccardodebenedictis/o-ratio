@@ -109,13 +109,20 @@ namespace ratio {
         double arith_value(const arith_expr& var) const noexcept;
         std::unordered_set<smt::set_item*> enum_value(const enum_expr& var) const noexcept;
 
+    protected:
+        void set_var(smt::var ctr_var);
+        void restore_var();
+
+    private:
+        smt::var tmp_var;
+        smt::var ctr_var = smt::TRUE;
+
     public:
         smt::sat_core sat;
         smt::la_theory la;
         smt::set_theory set;
 
     protected:
-        smt::var ctr_var = smt::TRUE;
         std::unordered_map<std::string, std::vector<method*>> methods;
         std::unordered_map<std::string, type*> types;
         std::unordered_map<std::string, predicate*> predicates;

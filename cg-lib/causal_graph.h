@@ -63,6 +63,7 @@ namespace cg {
         bool has_solution();
         bool is_deferrable(flaw& f);
         void set_cost(flaw& f, double cost);
+        bool has_inconsistencies();
 
         flaw* select_flaw();
         resolver& select_resolver(flaw& f);

@@ -27,6 +27,7 @@
 #include "atom_flaw.h"
 #include "disjunction_flaw.h"
 #include "resolver.h"
+#include "smart_type.h"
 
 namespace cg {
 
@@ -44,7 +45,79 @@ namespace cg {
         return c_e;
     }
 
-    bool causal_graph::solve() { }
+    bool causal_graph::solve() {
+main_loop:
+        // we update the planning graph..
+        if (!build()) {
+            // the problem is unsolvable..
+            return false;
+        }
+
+        // this is the next flaw to be solved..
+        flaw* f_next = select_flaw();
+        while (f_next) {
+            if (f_next->cost == std::numeric_limits<double>::infinity()) {
+                // the heuristic has become blind! the chosen resolvers prevent this flaw to be solved with the previously estimated resolvers..
+                // we go back to root level..
+                while (!sat.root_level()) {
+                    sat.pop();
+                }
+                // we add a new layer to the planning graph..
+                if (!add_layer()) {
+                    // the problem is unsolvable..
+                    return false;
+                }
+                // we restart the search..
+                f_next = select_flaw();
+                continue;
+            }
+
+            if (f_next->has_subgoals()) {
+                // we run out of inconsistencies, thus, we renew them..
+                if (has_inconsistencies()) {
+                    goto main_loop;
+                }
+            }
+
+            // we solve the flaw..
+            if (!trail.empty()) {
+                trail.back().solved_flaws.insert(f_next);
+            }
+            flaws.erase(f_next);
+
+            // this is the next resolver to be chosen..
+            resolver& r_next = select_resolver(*f_next);
+            if (f_next->has_subgoals()) {
+                res = &r_next;
+                resolvers.push_back(&r_next);
+            } else {
+                res = nullptr;
+            }
+
+            ok = true;
+
+            // we apply the resolver..
+            if (!sat.assume(smt::lit(r_next.chosen, true))) {
+                return false;
+            }
+
+            if (!ok) {
+                // the last assumption resulted in a backtracking..
+                goto main_loop;
+            }
+
+            // we select a new flaw..
+            f_next = select_flaw();
+        }
+
+        // we run out of flaws, we check for inconsistencies one last time..
+        if (has_inconsistencies()) {
+            goto main_loop;
+        }
+
+        // we have found a solution..
+        return true;
+    }
 
     bool causal_graph::new_fact(ratio::atom& a) {
         atom_flaw* af = new atom_flaw(*this, a, true);
@@ -127,7 +200,6 @@ namespace cg {
             return true;
         }
 
-        size_t tmp_expr = ctr_var;
         while (!has_solution() && !flaw_q.empty()) {
             assert(flaw_q.front()->initialized);
             assert(!flaw_q.front()->expanded);
@@ -141,10 +213,11 @@ namespace cg {
 
                 for (const auto& r : flaw_q.front()->resolvers) {
                     resolvers.push_front(r);
-                    ctr_var = r->chosen;
+                    set_var(r->chosen);
                     if (!r->apply() || !sat.check()) {
                         return false;
                     }
+                    restore_var();
                     if (r->preconditions.empty()) {
                         // there are no requirements for this resolver..
                         set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
@@ -155,7 +228,6 @@ namespace cg {
             flaw_q.pop();
         }
 
-        ctr_var = tmp_expr;
         return true;
     }
 
@@ -167,7 +239,6 @@ namespace cg {
             flaw_q.pop();
         }
 
-        size_t tmp_expr = ctr_var;
         for (const auto& f : fs) {
             assert(f->initialized);
             assert(!f->expanded);
@@ -177,10 +248,11 @@ namespace cg {
 
             for (const auto& r : f->resolvers) {
                 resolvers.push_front(r);
-                ctr_var = r->chosen;
+                set_var(r->chosen);
                 if (!r->apply() || !sat.check()) {
                     return false;
                 }
+                restore_var();
                 if (r->preconditions.empty()) {
                     // there are no requirements for this resolver..
                     set_cost(*f, la.value(r->cost));
@@ -189,7 +261,6 @@ namespace cg {
             }
         }
 
-        ctr_var = tmp_expr;
         return true;
     }
 
@@ -301,5 +372,38 @@ namespace cg {
                 q.pop();
             }
         }
+    }
+
+    bool causal_graph::has_inconsistencies() {
+        std::vector<flaw*> incs;
+        std::queue<ratio::type*> q;
+        for (const auto& t : get_types()) {
+            if (!t.second->primitive) {
+                q.push(t.second);
+            }
+        }
+        while (!q.empty()) {
+            if (smart_type * st = dynamic_cast<smart_type*> (q.front())) {
+                std::vector<flaw*> c_incs = st->get_flaws();
+                incs.insert(incs.end(), c_incs.begin(), c_incs.end());
+            }
+            for (const auto& st : q.front()->get_types()) {
+                q.push(st.second);
+            }
+            q.pop();
+        }
+
+        if (!incs.empty()) {
+            // we go back to root level..
+            while (!sat.root_level()) {
+                sat.pop();
+            }
+            // we initialize the new flaws..
+            for (const auto& f : incs) {
+                new_flaw(*f);
+            }
+        }
+
+        return !incs.empty();
     }
 }

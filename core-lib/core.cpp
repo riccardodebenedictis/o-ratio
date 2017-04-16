@@ -364,4 +364,13 @@ namespace ratio {
     std::unordered_set<smt::set_item*> core::enum_value(const enum_expr& var) const noexcept {
         return set.value(var->ev);
     }
+
+    void core::set_var(smt::var ctr_var) {
+        tmp_var = scope::_solver.ctr_var;
+        scope::_solver.ctr_var = ctr_var;
+    }
+
+    void core::restore_var() {
+        scope::_solver.ctr_var = tmp_var;
+    }
 }

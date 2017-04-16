@@ -31,6 +31,7 @@
 namespace ratio {
 
     class solver : public core, public smt::theory {
+        friend class type;
         friend class statement_visitor;
     public:
         solver();

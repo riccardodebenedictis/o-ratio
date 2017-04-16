@@ -28,6 +28,7 @@
 #include "scope.h"
 #include "item.h"
 #include "env_ptr.h"
+#include "solver.h"
 
 namespace ratio {
 
@@ -70,6 +71,14 @@ namespace ratio {
         virtual void inherit(predicate& base, predicate& derived);
 
         virtual void new_predicate(predicate& p) { }
+
+        void set_var(smt::var ctr_var) {
+            _solver.set_var(ctr_var);
+        }
+
+        void restore_var() {
+            _solver.restore_var();
+        }
 
     private:
 
