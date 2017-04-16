@@ -95,9 +95,30 @@ namespace cg {
         return nullptr;
     }
 
-    void causal_graph::push() { }
+    void causal_graph::push() {
+        trail.push_back(layer(res));
+    }
 
-    void causal_graph::pop() { }
+    void causal_graph::pop() {
+        // we erase new flaws..
+        for (const auto& f : trail.back().new_flaws) {
+            flaws.erase(f);
+        }
+        // we reintroduce the solved flaw..
+        for (const auto& f : trail.back().solved_flaws) {
+            flaws.insert(f);
+        }
+        // we restore flaw costs..
+        for (const auto& c : trail.back().old_costs) {
+            c.first->cost = c.second;
+        }
+        // we manage structural flaws..
+        if (!resolvers.empty() && resolvers.back() == trail.back().r) {
+            resolvers.pop_back();
+        }
+        trail.pop_back();
+        ok = false;
+    }
 
     bool causal_graph::build() {
         assert(sat.root_level());

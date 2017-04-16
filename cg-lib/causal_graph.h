@@ -93,6 +93,8 @@ namespace cg {
         std::unordered_set<flaw*> flaws;
         // the in_plan variables (boolean variable to flaw) of the flaws..
         std::unordered_map<smt::var, flaw*> in_plan;
+        // the current resolver (will be into the trail)..
+        resolver* res;
         // the list of resolvers in chronological order..
         std::vector<layer> trail;
     };
