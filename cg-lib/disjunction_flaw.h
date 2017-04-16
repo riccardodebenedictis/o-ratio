@@ -32,11 +32,16 @@ namespace cg {
 
     class disjunction_flaw : public flaw {
     public:
-        disjunction_flaw(causal_graph& cg, ratio::disjunction& d);
+        disjunction_flaw(causal_graph& cg, ratio::context& e, ratio::disjunction& d);
         disjunction_flaw(const disjunction_flaw& orig) = delete;
         virtual ~disjunction_flaw();
-    private:
 
+    private:
+        bool compute_resolvers(std::vector<resolver*>& rs) override;
+
+    private:
+        ratio::context e;
+        ratio::disjunction& d;
     };
 }
 

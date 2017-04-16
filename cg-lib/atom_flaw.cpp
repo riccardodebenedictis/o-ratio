@@ -26,7 +26,11 @@
 
 namespace cg {
 
-    atom_flaw::atom_flaw(causal_graph& cg, ratio::atom& a) : flaw(cg, true) { }
+    atom_flaw::atom_flaw(causal_graph& cg, ratio::atom& a, bool is_fact) : flaw(cg, true), a(a), is_fact(is_fact) { }
 
     atom_flaw::~atom_flaw() { }
+
+    bool atom_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+        return true;
+    }
 }

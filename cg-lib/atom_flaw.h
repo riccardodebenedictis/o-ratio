@@ -32,11 +32,16 @@ namespace cg {
 
     class atom_flaw : public flaw {
     public:
-        atom_flaw(causal_graph& cg, ratio::atom& a);
+        atom_flaw(causal_graph& cg, ratio::atom& a, bool is_fact);
         atom_flaw(const atom_flaw& orig) = delete;
         virtual ~atom_flaw();
-    private:
 
+    private:
+        bool compute_resolvers(std::vector<resolver*>& rs) override;
+
+    private:
+        ratio::atom& a;
+        bool is_fact;
     };
 }
 

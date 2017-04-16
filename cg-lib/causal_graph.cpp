@@ -23,6 +23,9 @@
  */
 
 #include "causal_graph.h"
+#include "enum_flaw.h"
+#include "atom_flaw.h"
+#include "disjunction_flaw.h"
 
 namespace cg {
 
@@ -30,15 +33,49 @@ namespace cg {
 
     causal_graph::~causal_graph() { }
 
-    ratio::expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) { }
+    ratio::expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) {
+        assert(!allowed_vals.empty());
+        ratio::enum_expr c_e = ratio::solver::new_enum(t, allowed_vals);
+        if (allowed_vals.size() > 1) {
+            enum_flaw* ef = new enum_flaw(*this, *c_e);
+            new_flaw(*ef);
+        }
+        return c_e;
+    }
 
     bool causal_graph::solve() { }
 
-    bool causal_graph::new_fact(ratio::atom& a) { }
+    bool causal_graph::new_fact(ratio::atom& a) {
+        atom_flaw* af = new atom_flaw(*this, a, true);
+        reason.insert({&a, af});
+        new_flaw(*af);
+        return ratio::solver::new_fact(a);
+    }
 
-    bool causal_graph::new_goal(ratio::atom& a) { }
+    bool causal_graph::new_goal(ratio::atom& a) {
+        atom_flaw* af = new atom_flaw(*this, a, false);
+        reason.insert({&a, af});
+        new_flaw(*af);
+        return ratio::solver::new_goal(a);
+    }
 
-    void causal_graph::new_disjunction(ratio::context& e, ratio::disjunction& d) { }
+    void causal_graph::new_disjunction(ratio::context& e, ratio::disjunction& d) {
+        disjunction_flaw* df = new disjunction_flaw(*this, e, d);
+        new_flaw(*df);
+    }
+
+    void causal_graph::new_flaw(flaw& f) {
+        f.init();
+        flaw_q.push(&f);
+        if (sat.value(f.in_plan) == smt::True) {
+            // we have a top-level (landmark) flaw..
+            flaws.insert(&f);
+        } else {
+            // we listen for the flaw to become in_plan..
+            in_plan.insert({f.in_plan, &f});
+            bind(f.in_plan);
+        }
+    }
 
     smt::constr* causal_graph::propagate(const smt::lit& p) {
         return nullptr;

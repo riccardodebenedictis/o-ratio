@@ -32,11 +32,15 @@ namespace cg {
 
     class enum_flaw : public flaw {
     public:
-        enum_flaw(causal_graph& cg, ratio::enum_expr& e);
+        enum_flaw(causal_graph& cg, ratio::enum_item& e);
         enum_flaw(const enum_flaw& orig) = delete;
         virtual ~enum_flaw();
-    private:
 
+    private:
+        bool compute_resolvers(std::vector<resolver*>& rs) override;
+        
+    private:
+        ratio::enum_item& e;
     };
 }
 

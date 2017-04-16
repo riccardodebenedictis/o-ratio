@@ -26,7 +26,11 @@
 
 namespace cg {
 
-    enum_flaw::enum_flaw(causal_graph& cg, ratio::enum_expr& e) : flaw(cg, true) { }
+    enum_flaw::enum_flaw(causal_graph& cg, ratio::enum_item& e) : flaw(cg, true), e(e) { }
 
     enum_flaw::~enum_flaw() { }
+
+    bool enum_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+        return true;
+    }
 }

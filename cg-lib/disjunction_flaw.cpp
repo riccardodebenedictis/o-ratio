@@ -26,7 +26,11 @@
 
 namespace cg {
 
-    disjunction_flaw::disjunction_flaw(causal_graph& cg, ratio::disjunction& d) : flaw(cg, true) { }
+    disjunction_flaw::disjunction_flaw(causal_graph& cg, ratio::context& e, ratio::disjunction& d) : flaw(cg, true), e(e), d(d) { }
 
     disjunction_flaw::~disjunction_flaw() { }
+
+    bool disjunction_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+        return true;
+    }
 }

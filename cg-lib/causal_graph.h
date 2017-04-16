@@ -51,6 +51,8 @@ namespace cg {
         bool new_goal(ratio::atom& a) override;
         void new_disjunction(ratio::context& e, ratio::disjunction& d) override;
 
+        void new_flaw(flaw& f);
+
         smt::constr* propagate(const smt::lit& p) override;
         smt::constr* check() override;
         void push() override;
@@ -73,6 +75,10 @@ namespace cg {
         std::queue<flaw*> flaw_q;
         // the current assumed resolvers..
         std::list<resolver*> resolvers;
+        // the current flaws..
+        std::unordered_set<flaw*> flaws;
+        // the in_plan variables (boolean variable to flaw) of the flaws..
+        std::unordered_map<smt::var, flaw*> in_plan;
     };
 }
 

@@ -34,6 +34,7 @@ namespace cg {
     class resolver;
 
     class flaw {
+        friend class causal_graph;
         friend class resolver;
     public:
         flaw(causal_graph& cg, bool disjunctive = false);
