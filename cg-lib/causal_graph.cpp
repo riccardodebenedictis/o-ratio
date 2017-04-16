@@ -99,13 +99,114 @@ namespace cg {
 
     void causal_graph::pop() { }
 
-    bool causal_graph::build() { }
+    bool causal_graph::build() {
+        assert(sat.root_level());
+        if (flaw_q.empty()) {
+            // there is nothing to reason on..
+            return true;
+        }
 
-    bool causal_graph::add_layer() { }
+        size_t tmp_expr = ctr_var;
+        while (!has_solution() && !flaw_q.empty()) {
+            assert(flaw_q.front()->initialized);
+            assert(!flaw_q.front()->expanded);
+            if (is_deferrable(*flaw_q.front())) {
+                // we postpone the expansion..
+                flaw_q.push(flaw_q.front());
+            } else {
+                if (!flaw_q.front()->expand() || !sat.check()) {
+                    return false;
+                }
 
-    bool causal_graph::has_solution() { }
+                for (const auto& r : flaw_q.front()->resolvers) {
+                    resolvers.push_front(r);
+                    ctr_var = r->chosen;
+                    if (!r->apply() || !sat.check()) {
+                        return false;
+                    }
+                    if (r->preconditions.empty()) {
+                        // there are no requirements for this resolver..
+                        set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
+                    }
+                    resolvers.pop_front();
+                }
+            }
+            flaw_q.pop();
+        }
 
-    bool causal_graph::is_deferrable(flaw& f) { }
+        ctr_var = tmp_expr;
+        return true;
+    }
+
+    bool causal_graph::add_layer() {
+        assert(sat.root_level());
+        std::vector<flaw*> fs;
+        while (!flaw_q.empty()) {
+            fs.push_back(flaw_q.front());
+            flaw_q.pop();
+        }
+
+        size_t tmp_expr = ctr_var;
+        for (const auto& f : fs) {
+            assert(f->initialized);
+            assert(!f->expanded);
+            if (!f->expand() || !sat.check()) {
+                return false;
+            }
+
+            for (const auto& r : f->resolvers) {
+                resolvers.push_front(r);
+                ctr_var = r->chosen;
+                if (!r->apply() || !sat.check()) {
+                    return false;
+                }
+                if (r->preconditions.empty()) {
+                    // there are no requirements for this resolver..
+                    set_cost(*f, la.value(r->cost));
+                }
+                resolvers.pop_front();
+            }
+        }
+
+        ctr_var = tmp_expr;
+        return true;
+    }
+
+    bool causal_graph::has_solution() {
+        for (const auto& f : flaws) {
+            if (f->cost == std::numeric_limits<double>::infinity()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool causal_graph::is_deferrable(flaw& f) {
+        std::set<const flaw*> visited;
+        std::queue<flaw*> q;
+        q.push(&f);
+        while (!q.empty()) {
+            if (visited.find(q.front()) == visited.end()) {
+                if (!q.front()->exclusive) {
+                    // we cannot defer this flaw..
+                    return false;
+                } else if (sat.value(q.front()->in_plan) == smt::False) {
+                    // it is not possible to solve this flaw with current assignments.. thus we defer..
+                    return true;
+                } else if (q.front()->cost < std::numeric_limits<double>::infinity()) {
+                    // we already have a possible solution for this flaw.. thus we defer..
+                    return true;
+                }
+                visited.insert(q.front());
+                for (const auto& r : q.front()->causes) {
+                    q.push(&r->effect);
+                }
+            }
+            q.pop();
+        }
+        // we cannot defer this flaw..
+        return false;
+    }
 
     flaw* causal_graph::select_flaw() {
         // this is the next flaw to be solved (i.e., the most expensive one)..
