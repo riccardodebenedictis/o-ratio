@@ -34,10 +34,16 @@ namespace cg {
 
     class flaw;
     class resolver;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+    class causal_graph_listener;
+#endif
 
     class causal_graph : public ratio::solver {
         friend class flaw;
         friend class atom_flaw;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        friend class causal_graph_listener;
+#endif
     public:
         causal_graph();
         causal_graph(const causal_graph& orig) = delete;
@@ -99,6 +105,9 @@ namespace cg {
         resolver* res;
         // the list of resolvers in chronological order..
         std::vector<layer> trail;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        std::vector<causal_graph_listener*> listeners;
+#endif
     };
 }
 

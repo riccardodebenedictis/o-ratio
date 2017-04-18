@@ -28,12 +28,24 @@
 #include "disjunction_flaw.h"
 #include "resolver.h"
 #include "smart_type.h"
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+#include "causal_graph_listener.h"
+#endif
 
 namespace cg {
 
     causal_graph::causal_graph() { }
 
-    causal_graph::~causal_graph() { }
+    causal_graph::~causal_graph() {
+        for (const auto& f : in_plan) {
+            delete f.second;
+        }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            delete l;
+        }
+#endif
+    }
 
     ratio::expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) {
         assert(!allowed_vals.empty());
@@ -149,6 +161,11 @@ main_loop:
             in_plan.insert({f.in_plan, &f});
             bind(f.in_plan);
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->new_flaw(f);
+        }
+#endif
     }
 
     smt::constr* causal_graph::propagate(const smt::lit& p) {
@@ -210,6 +227,16 @@ main_loop:
                 if (!flaw_q.front()->expand() || !sat.check()) {
                     return false;
                 }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+                for (const auto& l : listeners) {
+                    l->updated_flaw(*flaw_q.front());
+                }
+                for (const auto& r : flaw_q.front()->resolvers) {
+                    for (const auto& l : listeners) {
+                        l->new_resolver(*r);
+                    }
+                }
+#endif
 
                 for (const auto& r : flaw_q.front()->resolvers) {
                     resolvers.push_front(r);
@@ -217,6 +244,11 @@ main_loop:
                     if (!r->apply() || !sat.check()) {
                         return false;
                     }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+                    for (const auto& l : listeners) {
+                        l->updated_resolver(*r);
+                    }
+#endif
                     restore_var();
                     if (r->preconditions.empty()) {
                         // there are no requirements for this resolver..
@@ -245,6 +277,16 @@ main_loop:
             if (!f->expand() || !sat.check()) {
                 return false;
             }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+            for (const auto& l : listeners) {
+                l->updated_flaw(*f);
+            }
+            for (const auto& r : f->resolvers) {
+                for (const auto& l : listeners) {
+                    l->new_resolver(*r);
+                }
+            }
+#endif
 
             for (const auto& r : f->resolvers) {
                 resolvers.push_front(r);
@@ -252,6 +294,11 @@ main_loop:
                 if (!r->apply() || !sat.check()) {
                     return false;
                 }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+                for (const auto& l : listeners) {
+                    l->updated_resolver(*r);
+                }
+#endif
                 restore_var();
                 if (r->preconditions.empty()) {
                     // there are no requirements for this resolver..
@@ -325,6 +372,11 @@ main_loop:
                 ++it;
             }
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->current_flaw(*f_next);
+        }
+#endif
         return f_next;
     }
 
@@ -338,6 +390,11 @@ main_loop:
                 r_next = r;
             }
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->current_resolver(*r_next);
+        }
+#endif
         return *r_next;
     }
 
@@ -347,6 +404,11 @@ main_loop:
                 trail.back().old_costs.insert({&f, f.cost});
             }
             f.cost = cost;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+            for (const auto& l : listeners) {
+                l->updated_flaw(f);
+            }
+#endif
 
             std::queue<flaw*> q;
             for (const auto& supp : f.supports) {
@@ -365,6 +427,11 @@ main_loop:
                         trail.back().old_costs.insert({q.front(), q.front()->cost});
                     }
                     q.front()->cost = f_cost;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+                    for (const auto& l : listeners) {
+                        l->updated_flaw(*q.front());
+                    }
+#endif
                     for (const auto& supp : q.front()->supports) {
                         q.push(&supp->effect);
                     }
