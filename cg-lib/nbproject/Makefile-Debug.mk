@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o \
+	${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o \
 	${OBJECTDIR}/_ext/2a0b8f30/flaw.o \
 	${OBJECTDIR}/_ext/2a0b8f30/resolver.o \
 	${OBJECTDIR}/atom_flaw.o \
@@ -85,6 +86,11 @@ ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o: /C/Users/sydde/OneDrive/Documenti/Net
 	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp
+
+${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp
 
 ${OBJECTDIR}/_ext/2a0b8f30/flaw.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
@@ -142,6 +148,19 @@ ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/cau
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener_nomain.o;\
 	fi
 
 ${OBJECTDIR}/_ext/2a0b8f30/flaw_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/flaw.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp 

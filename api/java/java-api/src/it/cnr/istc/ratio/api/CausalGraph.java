@@ -41,6 +41,9 @@ public class CausalGraph {
     private void flaw_state_change(long f) {
     }
 
+    private void current_flaw(long f) {
+    }
+
     private native double get_flaw_cost(long f);
 
     private native int get_flaw_state(long f);
@@ -52,6 +55,9 @@ public class CausalGraph {
     }
 
     private void resolver_state_change(long r) {
+    }
+
+    private void current_resolver(long r) {
     }
 
     private native double get_resolver_cost(long r);

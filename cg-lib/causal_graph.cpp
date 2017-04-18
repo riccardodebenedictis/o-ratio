@@ -28,6 +28,9 @@
 #include "disjunction_flaw.h"
 #include "resolver.h"
 #include "smart_type.h"
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+#include "causal_graph_listener.h"
+#endif
 
 namespace cg {
 
@@ -153,6 +156,11 @@ main_loop:
             in_plan.insert({f.in_plan, &f});
             bind(f.in_plan);
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->new_flaw(f);
+        }
+#endif
     }
 
     smt::constr* causal_graph::propagate(const smt::lit& p) {
@@ -189,6 +197,13 @@ main_loop:
         for (const auto& c : trail.back().old_costs) {
             c.first->cost = c.second;
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& c : trail.back().old_costs) {
+            for (const auto& l : listeners) {
+                l->flaw_cost_changed(*c.first);
+            }
+        }
+#endif
         // we manage structural flaws..
         if (!resolvers.empty() && resolvers.back() == trail.back().r) {
             resolvers.pop_back();
@@ -214,6 +229,13 @@ main_loop:
                 if (!flaw_q.front()->expand() || !sat.check()) {
                     return false;
                 }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+                for (const auto& r : flaw_q.front()->resolvers) {
+                    for (const auto& l : listeners) {
+                        l->new_resolver(*r);
+                    }
+                }
+#endif
 
                 for (const auto& r : flaw_q.front()->resolvers) {
                     resolvers.push_front(r);
@@ -249,6 +271,13 @@ main_loop:
             if (!f->expand() || !sat.check()) {
                 return false;
             }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+            for (const auto& r : flaw_q.front()->resolvers) {
+                for (const auto& l : listeners) {
+                    l->new_resolver(*r);
+                }
+            }
+#endif
 
             for (const auto& r : f->resolvers) {
                 resolvers.push_front(r);
@@ -329,6 +358,11 @@ main_loop:
                 ++it;
             }
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->current_flaw(*f_next);
+        }
+#endif
         return f_next;
     }
 
@@ -342,6 +376,11 @@ main_loop:
                 r_next = r;
             }
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->current_resolver(*r_next);
+        }
+#endif
         return *r_next;
     }
 
@@ -351,6 +390,11 @@ main_loop:
                 trail.back().old_costs.insert({&f, f.cost});
             }
             f.cost = cost;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+            for (const auto& l : listeners) {
+                l->flaw_cost_changed(f);
+            }
+#endif
 
             std::queue<flaw*> q;
             for (const auto& supp : f.supports) {
@@ -369,6 +413,11 @@ main_loop:
                         trail.back().old_costs.insert({q.front(), q.front()->cost});
                     }
                     q.front()->cost = f_cost;
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+                    for (const auto& l : listeners) {
+                        l->flaw_cost_changed(*q.front());
+                    }
+#endif
                     for (const auto& supp : q.front()->supports) {
                         q.push(&supp->effect);
                     }
