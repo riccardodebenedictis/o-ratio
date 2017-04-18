@@ -141,8 +141,8 @@ namespace smt {
         void remove_listener(sat_listener& l);
 
     private:
-        void listen(size_t var, sat_value_listener * const th);
-        void forget(size_t var, sat_value_listener * const th);
+        void listen(var v, sat_value_listener * const th);
+        void forget(var v, sat_value_listener * const th);
 
         std::list<sat_listener*> listeners;
         std::unordered_map<size_t, std::list<sat_value_listener*>> listening;

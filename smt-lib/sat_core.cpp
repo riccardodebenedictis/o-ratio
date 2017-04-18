@@ -434,6 +434,15 @@ namespace smt {
         assigns[trail.back().v] = Undefined;
         reason[trail.back().v] = nullptr;
         level[trail.back().v] = 0;
+#ifndef N_SAT_LISTENERS
+        std::for_each(listeners.begin(), listeners.end(), [trail](sat_listener * l) {
+            l->freed(trail.back()); });
+        if (listening.find(trail.back().v) != listening.end()) {
+            for (const auto& l : listening[trail.back().v]) {
+                l->sat_value_change(trail.back().v);
+            }
+        }
+#endif
         trail.pop_back();
     }
 
