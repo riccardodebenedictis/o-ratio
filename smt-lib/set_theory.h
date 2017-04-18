@@ -64,19 +64,31 @@ namespace smt {
             return nullptr;
         }
 
-        void push() override { }
+        void push() override;
 
-        void pop() override { }
+        void pop() override;
 
         void listen(var v, set_value_listener * const l);
         void forget(var v, set_value_listener * const l);
 
     private:
+
+        class layer {
+        public:
+
+            layer() { }
+
+        public:
+            // the updated variables..
+            std::unordered_set<var> vars;
+        };
         // the current assignments..
         std::vector<std::unordered_map<set_item*, var>> assigns;
         // the already existing expressions (string to bool variable)..
         std::unordered_map<std::string, var> exprs;
         std::unordered_map<var, var> is_contained_in;
+        // we store the updated variables..
+        std::vector<layer> layers;
         std::unordered_map<var, std::list<set_value_listener*>> listening;
     };
 }

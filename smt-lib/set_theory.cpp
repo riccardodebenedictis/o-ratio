@@ -134,6 +134,21 @@ namespace smt {
         return nullptr;
     }
 
+    void set_theory::push() {
+        layers.push_back(layer());
+    }
+
+    void set_theory::pop() {
+        for (const auto& v : layers.back().vars) {
+            if (listening.find(v) != listening.end()) {
+                for (const auto& l : listening[v]) {
+                    l->set_value_change(v);
+                }
+            }
+        }
+        layers.pop_back();
+    }
+
     void set_theory::listen(var v, set_value_listener * const l) {
         listening[v].push_back(l);
     }
