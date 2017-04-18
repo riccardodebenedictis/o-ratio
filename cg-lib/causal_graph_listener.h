@@ -32,13 +32,13 @@ namespace cg {
     class causal_graph_listener {
     public:
 
-        causal_graph_listener(causal_graph& cg) : cg(cg) {
-            cg.listeners.push_back(this);
+        causal_graph_listener(causal_graph& g) : g(g) {
+            g.listeners.push_back(this);
         }
         causal_graph_listener(const causal_graph_listener& that) = delete;
 
         virtual ~causal_graph_listener() {
-            cg.listeners.erase(std::find(cg.listeners.begin(), cg.listeners.end(), this));
+            g.listeners.erase(std::find(g.listeners.begin(), g.listeners.end(), this));
         }
 
         virtual void new_flaw(const flaw& f) { }
@@ -52,8 +52,9 @@ namespace cg {
         virtual void current_flaw(const flaw& f) { }
 
         virtual void current_resolver(const resolver& r) { }
-    public:
-        causal_graph& cg;
+
+    protected:
+        causal_graph& g;
     };
 }
 
