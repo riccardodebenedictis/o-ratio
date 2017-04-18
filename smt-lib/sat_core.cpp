@@ -397,6 +397,11 @@ namespace smt {
         assigns[trail.back().v] = Undefined;
         reason[trail.back().v] = nullptr;
         level[trail.back().v] = 0;
+        if (listening.find(trail.back().v) != listening.end()) {
+            for (const auto& l : listening[trail.back().v]) {
+                l->sat_value_change(trail.back().v);
+            }
+        }
         trail.pop_back();
     }
 
