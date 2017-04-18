@@ -35,7 +35,7 @@ namespace smt {
     var set_theory::new_var(const std::unordered_set<set_item*>& items) {
         assert(!items.empty());
         var id = assigns.size();
-        assigns.push_back(std::unordered_map<set_item*, size_t>());
+        assigns.push_back(std::unordered_map<set_item*, var>());
         if (items.size() == 1) {
             assigns.back().insert({*items.begin(), TRUE});
         } else {
