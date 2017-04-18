@@ -31,4 +31,33 @@ public class CausalGraph {
     private native long initialise(long s);
 
     public native void dispose();
+
+    private void new_flaw(long f, long[] cs, String label) {
+    }
+
+    private void flaw_cost_change(long f) {
+    }
+
+    private void flaw_state_change(long f) {
+    }
+
+    private native double get_flaw_cost(long f);
+
+    private native int get_flaw_state(long f);
+
+    private void new_resolver(long r, long eff, String label) {
+    }
+
+    private void resolver_cost_change(long r) {
+    }
+
+    private void resolver_state_change(long r) {
+    }
+
+    private native double get_resolver_cost(long r);
+
+    private native int get_resolver_state(long r);
+
+    private void new_causal_link(long f, long r) {
+    }
 }
