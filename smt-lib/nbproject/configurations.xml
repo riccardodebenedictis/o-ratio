@@ -1,243 +1,276 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
-    <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-        <logicalFolder name="HeaderFiles"
-                       displayName="Header Files"
-                       projectFiles="true">
-            <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
-                <itemPath>interval.h</itemPath>
-                <itemPath>la_theory.h</itemPath>
-                <itemPath>lin.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f2" displayName="set_theory" projectFiles="true">
-                <itemPath>set_theory.h</itemPath>
-            </logicalFolder>
-            <itemPath>clause.h</itemPath>
-            <itemPath>constr.h</itemPath>
-            <itemPath>lit.h</itemPath>
-            <itemPath>sat_core.h</itemPath>
-            <itemPath>theory.h</itemPath>
-            <itemPath>utils.h</itemPath>
-        </logicalFolder>
-        <logicalFolder name="ResourceFiles"
-                       displayName="Resource Files"
-                       projectFiles="true">
-        </logicalFolder>
-        <logicalFolder name="SourceFiles"
-                       displayName="Source Files"
-                       projectFiles="true">
-            <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
-                <itemPath>interval.cpp</itemPath>
-                <itemPath>la_theory.cpp</itemPath>
-                <itemPath>lin.cpp</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f2" displayName="set_theory" projectFiles="true">
-                <itemPath>set_theory.cpp</itemPath>
-            </logicalFolder>
-            <itemPath>clause.cpp</itemPath>
-            <itemPath>lit.cpp</itemPath>
-            <itemPath>sat_core.cpp</itemPath>
-            <itemPath>theory.cpp</itemPath>
-        </logicalFolder>
-        <logicalFolder name="TestFiles"
-                       displayName="Test Files"
-                       projectFiles="false"
-                       kind="TEST_LOGICAL_FOLDER">
-            <logicalFolder name="f2"
-                           displayName="LA Theory Test Test"
-                           projectFiles="true"
-                           kind="TEST">
-                <itemPath>tests/la_theory_test.cpp</itemPath>
-            </logicalFolder>
-            <logicalFolder name="f1"
-                           displayName="SAT Core Test"
-                           projectFiles="true"
-                           kind="TEST">
-                <itemPath>tests/sat_core_test.cpp</itemPath>
-            </logicalFolder>
-        </logicalFolder>
-        <logicalFolder name="ExternalFiles"
-                       displayName="Important Files"
-                       projectFiles="false"
-                       kind="IMPORTANT_FILES_FOLDER">
-            <itemPath>Makefile</itemPath>
-        </logicalFolder>
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
+        <itemPath>interval.h</itemPath>
+        <itemPath>la_theory.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/la_value_listener.h</itemPath>
+        <itemPath>lin.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="set_theory" projectFiles="true">
+        <itemPath>set_theory.h</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/set_value_listener.h</itemPath>
+      </logicalFolder>
+      <itemPath>clause.h</itemPath>
+      <itemPath>constr.h</itemPath>
+      <itemPath>lit.h</itemPath>
+      <itemPath>sat_core.h</itemPath>
+      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/sat_value_listener.h</itemPath>
+      <itemPath>theory.h</itemPath>
+      <itemPath>utils.h</itemPath>
     </logicalFolder>
-    <projectmakefile>Makefile</projectmakefile>
-    <confs>
-        <conf name="Debug" type="2">
-            <toolsSet>
-                <compilerSet>default</compilerSet>
-                <dependencyChecking>true</dependencyChecking>
-                <rebuildPropChanged>false</rebuildPropChanged>
-            </toolsSet>
-            <compileType>
-                <ccTool>
-                    <warningLevel>2</warningLevel>
-                </ccTool>
-            </compileType>
-            <item path="clause.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="clause.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="constr.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <folder path="TestFiles/f1">
-                <cTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </cTool>
-                <ccTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </ccTool>
-                <linkerTool>
-                    <output>${TESTDIR}/TestFiles/f1</output>
-                </linkerTool>
-            </folder>
-            <folder path="TestFiles/f2">
-                <cTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </cTool>
-                <ccTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </ccTool>
-                <linkerTool>
-                    <output>${TESTDIR}/TestFiles/f2</output>
-                </linkerTool>
-            </folder>
-            <item path="interval.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="interval.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="la_theory.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="lin.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="lin.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="lit.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="lit.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="sat_core.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="sat_core.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="set_theory.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="set_theory.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="tests/la_theory_test.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="theory.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="theory.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="utils.h" ex="false" tool="3" flavor2="0">
-            </item>
-        </conf>
-        <conf name="Release" type="2">
-            <toolsSet>
-                <compilerSet>default</compilerSet>
-                <dependencyChecking>true</dependencyChecking>
-                <rebuildPropChanged>false</rebuildPropChanged>
-            </toolsSet>
-            <compileType>
-                <cTool>
-                    <developmentMode>5</developmentMode>
-                </cTool>
-                <ccTool>
-                    <developmentMode>5</developmentMode>
-                    <warningLevel>2</warningLevel>
-                </ccTool>
-                <fortranCompilerTool>
-                    <developmentMode>5</developmentMode>
-                </fortranCompilerTool>
-                <asmTool>
-                    <developmentMode>5</developmentMode>
-                </asmTool>
-            </compileType>
-            <item path="clause.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="clause.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="constr.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <folder path="TestFiles/f1">
-                <cTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </cTool>
-                <ccTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </ccTool>
-                <linkerTool>
-                    <output>${TESTDIR}/TestFiles/f1</output>
-                </linkerTool>
-            </folder>
-            <folder path="TestFiles/f2">
-                <cTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </cTool>
-                <ccTool>
-                    <incDir>
-                        <pElem>.</pElem>
-                    </incDir>
-                </ccTool>
-                <linkerTool>
-                    <output>${TESTDIR}/TestFiles/f2</output>
-                </linkerTool>
-            </folder>
-            <item path="interval.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="interval.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="la_theory.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="lin.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="lin.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="lit.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="lit.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="sat_core.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="sat_core.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="set_theory.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="set_theory.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="tests/la_theory_test.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="theory.cpp" ex="false" tool="1" flavor2="0">
-            </item>
-            <item path="theory.h" ex="false" tool="3" flavor2="0">
-            </item>
-            <item path="utils.h" ex="false" tool="3" flavor2="0">
-            </item>
-        </conf>
-    </confs>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f1" displayName="la_theory" projectFiles="true">
+        <itemPath>interval.cpp</itemPath>
+        <itemPath>la_theory.cpp</itemPath>
+        <itemPath>lin.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="set_theory" projectFiles="true">
+        <itemPath>set_theory.cpp</itemPath>
+      </logicalFolder>
+      <itemPath>clause.cpp</itemPath>
+      <itemPath>lit.cpp</itemPath>
+      <itemPath>sat_core.cpp</itemPath>
+      <itemPath>theory.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f2"
+                     displayName="LA Theory Test Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/la_theory_test.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1"
+                     displayName="SAT Core Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/sat_core_test.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="2">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+      </compileType>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/la_value_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/sat_value_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/set_value_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="clause.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="clause.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="constr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <item path="interval.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="interval.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lin.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lit.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lit.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sat_core.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sat_core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="set_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="set_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/la_theory_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="2">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/la_value_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/sat_value_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/smt-lib/set_value_listener.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="clause.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="clause.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="constr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <item path="interval.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="interval.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="la_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="la_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lin.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lit.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="lit.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sat_core.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sat_core.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="set_theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="set_theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/la_theory_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/sat_core_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="theory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="theory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
 </configurationDescriptor>

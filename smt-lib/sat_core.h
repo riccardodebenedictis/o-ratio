@@ -38,6 +38,7 @@ namespace smt {
     static const var TRUE = 1;
 
     class theory;
+    class sat_value_listener;
 
     enum lbool {
         True, False, Undefined
@@ -46,6 +47,7 @@ namespace smt {
     class sat_core {
         friend class clause;
         friend class theory;
+        friend class sat_value_listener;
     public:
         sat_core();
         sat_core(const sat_core& orig) = delete;
@@ -124,6 +126,9 @@ namespace smt {
         void bind(var v, theory& th);
         void unbind(var v, theory& th);
 
+        void listen(var v, sat_value_listener * const l);
+        void forget(var v, sat_value_listener * const l);
+
     public:
         friend std::ostream& operator<<(std::ostream& os, const sat_core& obj);
 
@@ -149,6 +154,7 @@ namespace smt {
 
         std::vector<theory*> theories;
         std::unordered_map<var, std::list<theory*>> bounds;
+        std::unordered_map<var, std::list<sat_value_listener*>> listening;
     };
 }
 

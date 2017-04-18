@@ -29,15 +29,18 @@
 #include "lin.h"
 #include "interval.h"
 #include <unordered_map>
+#include <list>
 
 namespace smt {
 
     class assertion;
     class t_row;
+    class la_value_listener;
 
     class la_theory : public theory {
         friend class assertion;
         friend class t_row;
+        friend class la_value_listener;
     public:
         la_theory(sat_core& c);
         la_theory(const la_theory& orig);
@@ -86,6 +89,9 @@ namespace smt {
         void pivot_and_update(var x_i, var x_j, double v);
         void pivot(var x_i, var x_j);
 
+        void listen(var v, la_value_listener * const l);
+        void forget(var v, la_value_listener * const l);
+
     public:
         friend std::ostream& operator<<(std::ostream& os, const la_theory& obj);
 
@@ -121,6 +127,7 @@ namespace smt {
         std::vector<std::set<t_row*>> t_watches;
         // we store the updated bounds..
         std::vector<layer> layers;
+        std::unordered_map<var, std::list<la_value_listener*>> listening;
     };
 
     enum op {

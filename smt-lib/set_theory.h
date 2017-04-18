@@ -28,8 +28,11 @@
 #include "theory.h"
 #include <unordered_set>
 #include <unordered_map>
+#include <list>
 
 namespace smt {
+
+    class set_value_listener;
 
     class set_item {
     public:
@@ -40,6 +43,7 @@ namespace smt {
     };
 
     class set_theory : public theory {
+        friend class set_value_listener;
     public:
         set_theory(sat_core& c);
         set_theory(const set_theory& orig) = delete;
@@ -54,9 +58,7 @@ namespace smt {
 
     private:
 
-        constr* propagate(const lit& p) override {
-            return nullptr;
-        }
+        constr* propagate(const lit& p) override;
 
         constr* check() override {
             return nullptr;
@@ -66,11 +68,16 @@ namespace smt {
 
         void pop() override { }
 
+        void listen(var v, set_value_listener * const l);
+        void forget(var v, set_value_listener * const l);
+
     private:
         // the current assignments..
         std::vector<std::unordered_map<set_item*, var>> assigns;
         // the already existing expressions (string to bool variable)..
         std::unordered_map<std::string, var> exprs;
+        std::unordered_map<var, var> is_contained_in;
+        std::unordered_map<var, std::list<set_value_listener*>> listening;
     };
 }
 

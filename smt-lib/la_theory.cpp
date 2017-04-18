@@ -24,6 +24,7 @@
 
 #include "la_theory.h"
 #include "sat_core.h"
+#include "la_value_listener.h"
 #include <cassert>
 #include <algorithm>
 
@@ -318,9 +319,19 @@ namespace smt {
         for (const auto& c : t_watches[x_i]) {
             // x_j = x_j + a_ji(v - x_i)..
             vals[c->x] += c->l.vars[x_i] * (v - vals[x_i]);
+            if (listening.find(c->x) != listening.end()) {
+                for (const auto& l : listening[c->x]) {
+                    l->la_value_change(c->x);
+                }
+            }
         }
         // x_i = v..
         vals[x_i] = v;
+        if (listening.find(x_i) != listening.end()) {
+            for (const auto& l : listening[x_i]) {
+                l->la_value_change(x_i);
+            }
+        }
     }
 
     void la_theory::pivot_and_update(var x_i, var x_j, double v) {
@@ -331,11 +342,26 @@ namespace smt {
         double theta = (v - vals[x_i]) / tableau.at(x_i)->l.vars.at(x_j);
         // x_i = v
         vals[x_i] = v;
+        if (listening.find(x_i) != listening.end()) {
+            for (const auto& l : listening[x_i]) {
+                l->la_value_change(x_i);
+            }
+        }
         // x_j = x_j + theta
         vals[x_j] += theta;
+        if (listening.find(x_j) != listening.end()) {
+            for (const auto& l : listening[x_j]) {
+                l->la_value_change(x_j);
+            }
+        }
         for (const auto& c : t_watches[x_i]) {
             // x_k = x_k + a_kj * theta..
             vals[c->x] += c->l.vars[x_j] * theta;
+            if (listening.find(c->x) != listening.end()) {
+                for (const auto& l : listening[c->x]) {
+                    l->la_value_change(c->x);
+                }
+            }
         }
 
         pivot(x_i, x_j);
@@ -377,6 +403,17 @@ namespace smt {
         tableau.insert({x_j, row});
         for (const auto& term : row->l.vars) {
             t_watches[term.first].insert(row);
+        }
+    }
+
+    void la_theory::listen(var v, la_value_listener * const l) {
+        listening[v].push_back(l);
+    }
+
+    void la_theory::forget(var v, la_value_listener * const l) {
+        listening.at(v).erase(std::find(listening.at(v).begin(), listening.at(v).end(), l));
+        if (listening.at(v).empty()) {
+            listening.erase(v);
         }
     }
 

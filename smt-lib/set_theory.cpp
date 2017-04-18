@@ -24,7 +24,9 @@
 
 #include "set_theory.h"
 #include "sat_core.h"
+#include "set_value_listener.h"
 #include <cassert>
+#include <algorithm>
 
 namespace smt {
 
@@ -44,6 +46,8 @@ namespace smt {
                 var bv = c.new_var();
                 assigns.back().insert({i, bv});
                 lits.push_back(lit(bv, true));
+                bind(bv);
+                is_contained_in.insert({bv, id});
             }
             bool eo = c.exct_one(lits);
             assert(eo);
@@ -118,5 +122,26 @@ namespace smt {
             }
         }
         return vals;
+    }
+
+    constr* set_theory::propagate(const lit& p) {
+        var set_var = is_contained_in[p.v];
+        if (listening.find(set_var) != listening.end()) {
+            for (const auto& l : listening[set_var]) {
+                l->set_value_change(set_var);
+            }
+        }
+        return nullptr;
+    }
+
+    void set_theory::listen(var v, set_value_listener * const l) {
+        listening[v].push_back(l);
+    }
+
+    void set_theory::forget(var v, set_value_listener * const l) {
+        listening.at(v).erase(std::find(listening.at(v).begin(), listening.at(v).end(), l));
+        if (listening.at(v).empty()) {
+            listening.erase(v);
+        }
     }
 }

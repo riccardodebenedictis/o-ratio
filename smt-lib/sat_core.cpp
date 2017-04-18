@@ -25,6 +25,7 @@
 #include "sat_core.h"
 #include "clause.h"
 #include "theory.h"
+#include "sat_value_listener.h"
 #include <cassert>
 #include <algorithm>
 
@@ -54,6 +55,11 @@ namespace smt {
         }
         for (const auto& c : constrs) {
             delete c;
+        }
+        for (const auto& l : listening) {
+            for (const auto& vl : l.second) {
+                delete vl;
+            }
         }
     }
 
@@ -285,6 +291,11 @@ namespace smt {
                 reason[p.v] = c;
                 trail.push_back(p);
                 prop_q.push(p);
+                if (listening.find(p.v) != listening.end()) {
+                    for (const auto& l : listening[p.v]) {
+                        l->sat_value_change(p.v);
+                    }
+                }
                 return true;
             default:
                 std::unexpected();
@@ -446,6 +457,17 @@ namespace smt {
         const auto& it = std::find(bounds[v].begin(), bounds[v].end(), &th);
         if (it != bounds[v].end()) {
             bounds[v].erase(it);
+        }
+    }
+
+    void sat_core::listen(var v, sat_value_listener * const l) {
+        listening[v].push_back(l);
+    }
+
+    void sat_core::forget(var v, sat_value_listener * const l) {
+        listening.at(v).erase(std::find(listening.at(v).begin(), listening.at(v).end(), l));
+        if (listening.at(v).empty()) {
+            listening.erase(v);
         }
     }
 
