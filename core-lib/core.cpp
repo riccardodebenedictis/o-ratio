@@ -254,7 +254,9 @@ namespace ratio {
         return new bool_item(scope::_solver, smt::lit(la.leq(left->l, right->l), true));
     }
 
-    bool_expr core::eq(arith_expr left, arith_expr right) { }
+    bool_expr core::eq(arith_expr left, arith_expr right) {
+        return new bool_item(scope::_solver, smt::lit(sat.new_conj({smt::lit(la.leq(left->l, right->l), true), smt::lit(la.geq(left->l, right->l), true)}), true));
+    }
 
     bool_expr core::geq(arith_expr left, arith_expr right) {
         return new bool_item(scope::_solver, smt::lit(la.geq(left->l, right->l), true));
@@ -264,7 +266,9 @@ namespace ratio {
         throw std::runtime_error("not supported yet..");
     }
 
-    bool_expr core::eq(expr left, expr right) { }
+    bool_expr core::eq(expr left, expr right) {
+        return new bool_item(scope::_solver, smt::lit(left->eq(*right), true));
+    }
 
     bool core::assert_facts(const std::vector<smt::lit>& facts) {
         for (const auto& f : facts) {
