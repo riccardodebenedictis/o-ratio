@@ -165,6 +165,11 @@ main_loop:
 
     smt::constr* causal_graph::propagate(const smt::lit& p) {
         flaw* f = in_plan.at(p.v);
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->updated_flaw(*f);
+        }
+#endif
         if (p.sign) {
             flaws.insert(f);
             if (!trail.empty()) {
