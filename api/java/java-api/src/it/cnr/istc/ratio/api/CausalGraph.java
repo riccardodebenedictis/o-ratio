@@ -20,28 +20,15 @@ package it.cnr.istc.ratio.api;
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class Solver {
+public class CausalGraph {
 
-    static {
-        System.loadLibrary("libantlr4-runtime");
-        System.loadLibrary("libsmt-lib");
-        System.loadLibrary("libcore-lib");
-        System.loadLibrary("libcg-lib");
-        System.loadLibrary("libnative-api");
-    }
     public final long handle;
 
-    public Solver() {
-        this.handle = initialise();
+    public CausalGraph(Solver s) {
+        this.handle = initialise(s.handle);
     }
 
-    public native boolean read(String script);
-
-    public native boolean read(String... files);
-
-    public native boolean solve();
-
-    private native long initialise();
+    private native long initialise(long s);
 
     public native void dispose();
 }
