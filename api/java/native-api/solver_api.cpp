@@ -26,11 +26,25 @@
 #include "handle.h"
 #include "causal_graph.h"
 
-jboolean Java_it_cnr_istc_ratio_api_Solver_read__Ljava_lang_String_2(JNIEnv * e, jobject o, jstring s) { }
+jboolean Java_it_cnr_istc_ratio_api_Solver_read__Ljava_lang_String_2(JNIEnv * e, jobject o, jstring s) {
+    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
+    return g->read(e->GetStringUTFChars(s, NULL));
+}
 
-jboolean Java_it_cnr_istc_ratio_api_Solver_read__Ljava_util_Collection_2(JNIEnv * e, jobject o, jobject s) { }
+jboolean Java_it_cnr_istc_ratio_api_Solver_read___3Ljava_lang_String_2(JNIEnv * e, jobject o, jobjectArray a) {
+    jsize length = e->GetArrayLength(a);
+    std::vector<std::string> files;
+    for (int i = 0; i < length; i++) {
+        files.push_back(e->GetStringUTFChars(static_cast<jstring> (e->GetObjectArrayElement(a, i)), NULL));
+    }
+    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
+    return g->read(files);
+}
 
-jboolean Java_it_cnr_istc_ratio_api_Solver_solve(JNIEnv * e, jobject o) { }
+jboolean Java_it_cnr_istc_ratio_api_Solver_solve(JNIEnv * e, jobject o) {
+    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
+    return g->solve();
+}
 
 void Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
     std::cout << "initializing solver.." << std::endl;

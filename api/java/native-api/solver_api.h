@@ -18,10 +18,10 @@ extern "C" {
     /*
      * Class:     it_cnr_istc_ratio_api_Solver
      * Method:    read
-     * Signature: (Ljava/util/Collection;)Z
+     * Signature: ([Ljava/lang/String;)Z
      */
-    JNIEXPORT jboolean JNICALL Java_it_cnr_istc_ratio_api_Solver_read__Ljava_util_Collection_2
-    (JNIEnv *, jobject, jobject);
+    JNIEXPORT jboolean JNICALL Java_it_cnr_istc_ratio_api_Solver_read___3Ljava_lang_String_2
+    (JNIEnv *, jobject, jobjectArray);
 
     /*
      * Class:     it_cnr_istc_ratio_api_Solver

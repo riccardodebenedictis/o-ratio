@@ -16,8 +16,6 @@
  */
 package it.cnr.istc.ratio.api;
 
-import java.util.Collection;
-
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
@@ -39,7 +37,7 @@ public class Solver {
 
     public native boolean read(String script);
 
-    public native boolean read(Collection<String> files);
+    public native boolean read(String... files);
 
     public native boolean solve();
 
