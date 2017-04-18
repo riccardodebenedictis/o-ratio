@@ -55,16 +55,6 @@ namespace smt {
         for (const auto& c : constrs) {
             delete c;
         }
-#ifndef N_SAT_LISTENERS
-        for (const auto& l : listening) {
-            for (const auto& vl : l.second) {
-                delete vl;
-            }
-        }
-        for (const auto& l : listeners) {
-            delete l;
-        }
-#endif
     }
 
     var sat_core::new_var() {
@@ -75,19 +65,11 @@ namespace smt {
         exprs.insert({"b" + std::to_string(id), id});
         level.push_back(0);
         reason.push_back(nullptr);
-#ifndef N_SAT_LISTENERS
-        std::for_each(listeners.begin(), listeners.end(), [id](sat_listener * l) {
-            l->new_var(id); });
-#endif
         return id;
     }
 
     bool sat_core::new_clause(const std::vector<lit>& lits) {
         assert(root_level());
-#ifndef N_SAT_LISTENERS
-        std::for_each(listeners.begin(), listeners.end(), [lits](sat_listener * l) {
-            l->new_clause(lits); });
-#endif
         if (std::any_of(lits.begin(), lits.end(), [&](const lit & p) {
                 return value(p) == True;
             })) {
@@ -303,15 +285,6 @@ namespace smt {
                 reason[p.v] = c;
                 trail.push_back(p);
                 prop_q.push(p);
-#ifndef N_SAT_LISTENERS
-                std::for_each(listeners.begin(), listeners.end(), [p](sat_listener * l) {
-                    l->assigned(p); });
-                if (listening.find(p.v) != listening.end()) {
-                    for (const auto& l : listening[p.v]) {
-                        l->sat_value_change(p.v);
-                    }
-                }
-#endif
                 return true;
             default:
                 std::unexpected();
@@ -384,10 +357,6 @@ namespace smt {
     }
 
     bool sat_core::assume(const lit& p) {
-#ifndef N_SAT_LISTENERS
-        std::for_each(listeners.begin(), listeners.end(), [](sat_listener * l) {
-            l->push(); });
-#endif
         trail_lim.push_back(p);
         for (const auto& th : theories) {
             th->push();
@@ -424,33 +393,16 @@ namespace smt {
         for (const auto& th : theories) {
             th->pop();
         }
-#ifndef N_SAT_LISTENERS
-        std::for_each(listeners.begin(), listeners.end(), [](sat_listener * l) {
-            l->pop(); });
-#endif
     }
 
     void sat_core::pop_one() {
         assigns[trail.back().v] = Undefined;
         reason[trail.back().v] = nullptr;
         level[trail.back().v] = 0;
-#ifndef N_SAT_LISTENERS
-        std::for_each(listeners.begin(), listeners.end(), [trail](sat_listener * l) {
-            l->freed(trail.back()); });
-        if (listening.find(trail.back().v) != listening.end()) {
-            for (const auto& l : listening[trail.back().v]) {
-                l->sat_value_change(trail.back().v);
-            }
-        }
-#endif
         trail.pop_back();
     }
 
     void sat_core::record(const std::vector<lit>& lits) {
-#ifndef N_SAT_LISTENERS
-        std::for_each(listeners.begin(), listeners.end(), [lits](sat_listener * l) {
-            l->new_clause(lits); });
-#endif
 #ifndef NDEBUG
         unsigned undefs = std::count_if(lits.begin(), lits.end(), [&](const lit & p) {
             return value(p) == Undefined; });
@@ -527,28 +479,4 @@ namespace smt {
         os << "********************************" << std::endl;
         return os;
     }
-#ifndef N_SAT_LISTENERS
-
-    void sat_core::add_listener(sat_listener& l) {
-        listeners.push_back(&l);
-    }
-
-    void sat_core::remove_listener(sat_listener& l) {
-        const auto& it = std::find(listeners.begin(), listeners.end(), &l);
-        if (it != listeners.end()) {
-            listeners.erase(it);
-        }
-    }
-
-    void sat_core::listen(size_t var, sat_value_listener * const th) {
-        listening[var].push_back(th);
-    }
-
-    void sat_core::forget(size_t var, sat_value_listener * const th) {
-        listening[var].erase(std::find(listening[var].begin(), listening[var].end(), th));
-        if (listening[var].empty()) {
-            listening.erase(var);
-        }
-    }
-#endif
 }

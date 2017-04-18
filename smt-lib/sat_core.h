@@ -38,10 +38,6 @@ namespace smt {
     static const var TRUE = 1;
 
     class theory;
-#ifndef N_SAT_LISTENERS
-    class sat_listener;
-    class sat_value_listener;
-#endif
 
     enum lbool {
         True, False, Undefined
@@ -50,10 +46,6 @@ namespace smt {
     class sat_core {
         friend class clause;
         friend class theory;
-#ifndef N_SAT_LISTENERS
-        friend class sat_listener;
-        friend class sat_value_listener;
-#endif
     public:
         sat_core();
         sat_core(const sat_core& orig) = delete;
@@ -135,19 +127,6 @@ namespace smt {
     public:
         friend std::ostream& operator<<(std::ostream& os, const sat_core& obj);
 
-#ifndef N_SAT_LISTENERS
-    public:
-        void add_listener(sat_listener& l);
-        void remove_listener(sat_listener& l);
-
-    private:
-        void listen(var v, sat_value_listener * const th);
-        void forget(var v, sat_value_listener * const th);
-
-        std::list<sat_listener*> listeners;
-        std::unordered_map<size_t, std::list<sat_value_listener*>> listening;
-#endif
-
     private:
         // collection of problem constraints..
         std::vector<constr*> constrs;
@@ -171,61 +150,6 @@ namespace smt {
         std::vector<theory*> theories;
         std::unordered_map<var, std::list<theory*>> bounds;
     };
-#ifndef N_SAT_LISTENERS
-
-    class sat_listener {
-    public:
-
-        sat_listener(sat_core& s) : s(s) { }
-
-        virtual ~sat_listener() {
-            s.remove_listener(*this);
-        }
-    public:
-
-        virtual void new_var(var v) { }
-
-        virtual void new_clause(const std::vector<lit>& lits) { }
-
-        virtual void assigned(const lit& p) { }
-
-        virtual void freed(const lit& p) { }
-
-        virtual void push() { }
-
-        virtual void pop() { }
-
-    private:
-        sat_core& s;
-    };
-
-    class sat_value_listener {
-        friend class sat_core;
-    public:
-
-        sat_value_listener(sat_core& s) : sat(s) { }
-        sat_value_listener(const sat_value_listener& that) = delete;
-
-        virtual ~sat_value_listener() {
-            for (const auto& v : sat_vars) {
-                sat.forget(v, this);
-            }
-        }
-
-    protected:
-
-        void listen_sat(var v) {
-            sat.listen(v, this);
-            sat_vars.push_back(v);
-        }
-
-        virtual void sat_value_change(var v) { }
-
-    private:
-        sat_core& sat;
-        std::vector<size_t> sat_vars;
-    };
-#endif
 }
 
 #endif /* SAT_CORE_H */
