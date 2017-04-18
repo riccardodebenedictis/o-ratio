@@ -27,8 +27,7 @@
 #include "causal_graph.h"
 
 jboolean Java_it_cnr_istc_ratio_api_Solver_read__Ljava_lang_String_2(JNIEnv * e, jobject o, jstring s) {
-    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    return g->read(e->GetStringUTFChars(s, NULL));
+    return getHandle<cg::causal_graph>(e, o)->read(e->GetStringUTFChars(s, NULL));
 }
 
 jboolean Java_it_cnr_istc_ratio_api_Solver_read___3Ljava_lang_String_2(JNIEnv * e, jobject o, jobjectArray a) {
@@ -37,23 +36,17 @@ jboolean Java_it_cnr_istc_ratio_api_Solver_read___3Ljava_lang_String_2(JNIEnv * 
     for (int i = 0; i < length; i++) {
         files.push_back(e->GetStringUTFChars(static_cast<jstring> (e->GetObjectArrayElement(a, i)), NULL));
     }
-    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    return g->read(files);
+    return getHandle<cg::causal_graph>(e, o)->read(files);
 }
 
 jboolean Java_it_cnr_istc_ratio_api_Solver_solve(JNIEnv * e, jobject o) {
-    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    return g->solve();
+    return getHandle<cg::causal_graph>(e, o)->solve();
 }
 
-void Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
-    std::cout << "initializing solver.." << std::endl;
-    cg::causal_graph* g = new cg::causal_graph();
-    setHandle(e, o, g);
+jlong Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
+    return reinterpret_cast<jlong> (new cg::causal_graph());
 }
 
 void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
-    std::cout << "clearing solver.." << std::endl;
-    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    delete g;
+    delete getHandle<cg::causal_graph>(e, o);
 }

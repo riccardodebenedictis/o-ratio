@@ -34,9 +34,9 @@ extern "C" {
     /*
      * Class:     it_cnr_istc_ratio_api_Solver
      * Method:    initialise
-     * Signature: ()V
+     * Signature: ()J
      */
-    JNIEXPORT void JNICALL Java_it_cnr_istc_ratio_api_Solver_initialise
+    JNIEXPORT jlong JNICALL Java_it_cnr_istc_ratio_api_Solver_initialise
     (JNIEnv *, jobject);
 
     /*

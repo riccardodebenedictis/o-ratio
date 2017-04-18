@@ -27,21 +27,9 @@
 
 #include <jni.h>
 
-jfieldID getHandleField(JNIEnv *env, jobject obj) {
-    jclass c = env->GetObjectClass(obj);
-    return env->GetFieldID(c, "handle", "J");
-}
-
 template <typename T>
 T *getHandle(JNIEnv *env, jobject obj) {
-    jlong handle = env->GetLongField(obj, getHandleField(env, obj));
-    return reinterpret_cast<T *> (handle);
-}
-
-template <typename T>
-void setHandle(JNIEnv *env, jobject obj, T *t) {
-    jlong handle = reinterpret_cast<jlong> (t);
-    env->SetLongField(obj, getHandleField(env, obj), handle);
+    return reinterpret_cast<T *> (env->GetLongField(obj, env->GetFieldID(env->GetObjectClass(obj), "handle", "J")));
 }
 
 #endif /* HANDLE_H */
