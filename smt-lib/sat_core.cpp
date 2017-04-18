@@ -45,21 +45,8 @@ namespace smt {
     }
 
     sat_core::~sat_core() {
-        for (const auto& l : bounds) {
-            for (const auto& vl : l.second) {
-                delete vl;
-            }
-        }
-        for (const auto& th : theories) {
-            delete th;
-        }
         for (const auto& c : constrs) {
             delete c;
-        }
-        for (const auto& l : listening) {
-            for (const auto& vl : l.second) {
-                delete vl;
-            }
         }
     }
 

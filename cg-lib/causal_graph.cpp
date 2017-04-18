@@ -40,11 +40,6 @@ namespace cg {
         for (const auto& f : in_plan) {
             delete f.second;
         }
-#ifndef N_CAUSAL_GRAPH_LISTENERS
-        for (const auto& l : listeners) {
-            delete l;
-        }
-#endif
     }
 
     ratio::expr causal_graph::new_enum(const ratio::type& t, const std::unordered_set<ratio::item*>& allowed_vals) {
