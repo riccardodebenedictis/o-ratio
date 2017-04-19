@@ -9,6 +9,27 @@ extern "C" {
 #endif
     /*
      * Class:     it_cnr_istc_ratio_api_Solver
+     * Method:    initialise
+     * Signature: ()J
+     */
+    JNIEXPORT jlong JNICALL Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv *, jobject);
+
+    /*
+     * Class:     it_cnr_istc_ratio_api_Solver
+     * Method:    dispose
+     * Signature: ()V
+     */
+    JNIEXPORT void JNICALL Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv *, jobject);
+
+    /*
+     * Class:     it_cnr_istc_ratio_api_Solver
+     * Method:    get_state
+     * Signature: ()Ljava/lang/String;
+     */
+    JNIEXPORT jstring JNICALL Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv *, jobject);
+
+    /*
+     * Class:     it_cnr_istc_ratio_api_Solver
      * Method:    read
      * Signature: (Ljava/lang/String;)Z
      */
@@ -27,20 +48,6 @@ extern "C" {
      * Signature: ()Z
      */
     JNIEXPORT jboolean JNICALL Java_it_cnr_istc_ratio_api_Solver_solve(JNIEnv *, jobject);
-
-    /*
-     * Class:     it_cnr_istc_ratio_api_Solver
-     * Method:    initialise
-     * Signature: ()J
-     */
-    JNIEXPORT jlong JNICALL Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv *, jobject);
-
-    /*
-     * Class:     it_cnr_istc_ratio_api_Solver
-     * Method:    dispose
-     * Signature: ()V
-     */
-    JNIEXPORT void JNICALL Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

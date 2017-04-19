@@ -16,40 +16,9 @@
  */
 package it.cnr.istc.ratio.api;
 
-import com.google.gson.Gson;
-
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class Solver {
-
-    static {
-        System.loadLibrary("libantlr4-runtime");
-        System.loadLibrary("libsmt-lib");
-        System.loadLibrary("libcore-lib");
-        System.loadLibrary("libcg-lib");
-        System.loadLibrary("libnative-api");
-    }
-    public final long handle;
-
-    public Solver() {
-        this.handle = initialise();
-    }
-
-    private native long initialise();
-
-    public native void dispose();
-
-    public State getState() {
-        return new Gson().fromJson(get_state(), State.class);
-    }
-
-    private native String get_state();
-
-    public native boolean read(String script);
-
-    public native boolean read(String... files);
-
-    public native boolean solve();
+public class State {
 }

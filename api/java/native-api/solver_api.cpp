@@ -26,6 +26,21 @@
 #include "handle.h"
 #include "causal_graph.h"
 
+jlong Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
+    return reinterpret_cast<jlong> (new cg::causal_graph());
+}
+
+void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
+    delete getHandle<cg::causal_graph>(e, o);
+}
+
+jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
+    cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
+    jstring res;
+    e->ReleaseStringUTFChars(res, g->get_state());
+    return res;
+}
+
 jboolean Java_it_cnr_istc_ratio_api_Solver_read__Ljava_lang_String_2(JNIEnv * e, jobject o, jstring s) {
     return getHandle<cg::causal_graph>(e, o)->read(e->GetStringUTFChars(s, NULL));
 }
@@ -41,12 +56,4 @@ jboolean Java_it_cnr_istc_ratio_api_Solver_read___3Ljava_lang_String_2(JNIEnv * 
 
 jboolean Java_it_cnr_istc_ratio_api_Solver_solve(JNIEnv * e, jobject o) {
     return getHandle<cg::causal_graph>(e, o)->solve();
-}
-
-jlong Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
-    return reinterpret_cast<jlong> (new cg::causal_graph());
-}
-
-void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
-    delete getHandle<cg::causal_graph>(e, o);
 }

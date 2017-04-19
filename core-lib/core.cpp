@@ -377,4 +377,8 @@ namespace ratio {
     void core::restore_var() {
         scope::_solver.ctr_var = tmp_var;
     }
+
+    std::string core::get_state() const noexcept {
+        return "";
+    }
 }
