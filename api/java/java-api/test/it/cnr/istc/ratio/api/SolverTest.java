@@ -49,7 +49,15 @@ public class SolverTest {
 
     @Test
     public void test0() {
-        Solver instance = new Solver();
-        instance.dispose();
+        Solver s = new Solver();
+        s.dispose();
+    }
+
+    @Test
+    public void test1() {
+        Solver s = new Solver();
+        CausalGraph cg = new CausalGraph(s);
+        cg.dispose();
+        s.dispose();
     }
 }
