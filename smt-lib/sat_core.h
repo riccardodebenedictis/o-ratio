@@ -106,6 +106,7 @@ namespace smt {
         }
 
         bool check();
+        bool check(const std::vector<lit>& lits);
 
     private:
         constr* propagate();

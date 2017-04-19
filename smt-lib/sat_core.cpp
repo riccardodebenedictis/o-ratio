@@ -382,6 +382,19 @@ namespace smt {
         }
     }
 
+    bool sat_core::check(const std::vector<lit>& lits) {
+        size_t c_level = trail_lim.size();
+        for (const auto& p : lits) {
+            if (!assume(p) || propagate() != nullptr) {
+                while (trail_lim.size() > c_level) {
+                    pop();
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
     void sat_core::pop() {
         while (trail_lim.back() != trail.back()) {
             pop_one();
