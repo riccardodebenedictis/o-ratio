@@ -35,10 +35,10 @@ public class CausalGraph {
     private void new_flaw(long f, long[] cs, String label) {
     }
 
-    private void flaw_cost_change(long f) {
+    private void flaw_state_changed(long f) {
     }
 
-    private void flaw_state_change(long f) {
+    private void flaw_cost_changed(long f) {
     }
 
     private void current_flaw(long f) {
@@ -51,10 +51,7 @@ public class CausalGraph {
     private void new_resolver(long r, long eff, String label) {
     }
 
-    private void resolver_cost_change(long r) {
-    }
-
-    private void resolver_state_change(long r) {
+    private void resolver_state_changed(long r) {
     }
 
     private void current_resolver(long r) {
