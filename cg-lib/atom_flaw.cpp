@@ -36,49 +36,58 @@ namespace cg {
         std::unordered_set<smt::set_item*> a_state = cg.set.value(a.state);
         if (a_state.find(ratio::atom::unified) != a_state.end()) {
             for (const auto& i : a.t.get_instances()) {
-                if (&*i != &a) {
-                    ratio::atom* c_a = static_cast<ratio::atom*> (&*i);
-                    if (cg.reason.at(c_a)->is_expanded()) {
-                        std::unordered_set<smt::set_item*> c_state = cg.set.value(c_a->state);
-                        if (c_state.find(ratio::atom::active) != c_state.end() && a.equates(*c_a)) {
-                            // atom c_a is a good candidate for unification..
-                            std::vector<smt::lit> causal_and;
-                            std::unordered_set<flaw*> seen;
-                            std::queue<flaw*> q;
-                            q.push(cg.reason.at(&a));
-                            q.push(cg.reason.at(c_a));
-                            while (!q.empty()) {
-                                assert(cg.sat.value(q.front()->get_in_plan()) != smt::False);
-                                if (seen.find(q.front()) != seen.end()) {
-                                    goto next_atom;
-                                }
-                                seen.insert(q.front());
-                                if (cg.sat.value(q.front()->get_in_plan()) == smt::Undefined) {
-                                    for (const auto& cause : q.front()->get_causes()) {
-                                        assert(cg.sat.value(cause->get_chosen()) != smt::False);
-                                        causal_and.push_back(smt::lit(cause->get_chosen(), true));
-                                        q.push(&cause->get_effect());
-                                    }
-                                }
-                                q.pop();
-                            }
-                            causal_and.push_back(smt::lit(cg.set.allows(a.state, *ratio::atom::unified), true));
-                            causal_and.push_back(smt::lit(cg.set.allows(c_a->state, *ratio::atom::active), true));
-                            causal_and.push_back(smt::lit(a.eq(*c_a), true));
-                            smt::var unify = cg.sat.new_conj(causal_and);
-                            //                            if (cg.sat.value(unify) != smt::False && cg.sat.check(smt::lit(unify, true))) {
-                            //                                // unification is actually possible!
-                            //                                unify_atom* u_res = new unify_atom(cg, *this, a, *c_a, unify);
-                            //                                rs.push_back(u_res);
-                            //                                bool add_pre = u_res->add_precondition(*cg.reason.at(c_a));
-                            //                                assert(add_pre);
-                            //                                cg.set_cost(*this, cg.reason.at(c_a)->get_cost());
-                            //                            }
+                if (&*i == &a) {
+                    continue;
+                }
+
+                ratio::atom* c_a = static_cast<ratio::atom*> (&*i);
+                if (!cg.reason.at(c_a)->is_expanded()) {
+                    continue;
+                }
+                std::unordered_set<smt::set_item*> c_state = cg.set.value(c_a->state);
+                if (c_state.find(ratio::atom::active) == c_state.end() || !a.equates(*c_a)) {
+                    continue;
+                }
+                // atom c_a is a good candidate for unification..
+                std::vector<smt::lit> unif_lits;
+                std::unordered_set<flaw*> seen;
+                std::queue<flaw*> q;
+                q.push(cg.reason.at(&a));
+                q.push(cg.reason.at(c_a));
+                while (!q.empty()) {
+                    assert(cg.sat.value(q.front()->get_in_plan()) != smt::False);
+                    if (seen.find(q.front()) != seen.end()) {
+                        // we do not allow cyclic causality..
+                        break;
+                    }
+                    seen.insert(q.front());
+                    if (cg.sat.value(q.front()->get_in_plan()) == smt::Undefined) {
+                        for (const auto& cause : q.front()->get_causes()) {
+                            assert(cg.sat.value(cause->get_chosen()) != smt::False);
+                            unif_lits.push_back(smt::lit(cause->get_chosen(), true));
+                            q.push(&cause->get_effect());
                         }
                     }
+                    q.pop();
                 }
-next_atom:
-                ;
+                if (!q.empty()) {
+                    continue;
+                }
+                unif_lits.push_back(smt::lit(cg.set.allows(a.state, *ratio::atom::unified), true));
+                unif_lits.push_back(smt::lit(cg.set.allows(c_a->state, *ratio::atom::active), true));
+                smt::var eq_v = a.eq(*c_a);
+                if (cg.sat.value(eq_v) == smt::False) {
+                    continue;
+                }
+                unif_lits.push_back(smt::lit(a.eq(*c_a), true));
+                if (cg.sat.check(unif_lits)) {
+                    // unification is actually possible!
+                    unify_atom* u_res = new unify_atom(cg, *this, a, *c_a, unif_lits);
+                    rs.push_back(u_res);
+                    bool add_pre = u_res->add_precondition(*cg.reason.at(c_a));
+                    assert(add_pre);
+                    cg.set_cost(*this, cg.reason.at(c_a)->get_cost());
+                }
             }
         }
         if (rs.empty()) {
@@ -110,11 +119,16 @@ next_atom:
         return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(cg.set.allows(a.state, *ratio::atom::active), true)}) && static_cast<const ratio::predicate*> (&a.t)->apply_rule(a);
     }
 
-    atom_flaw::unify_atom::unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, smt::var unif_var) : resolver(cg, smt::lin(0), f), a(a), with(with), unif_var(unif_var) { }
+    atom_flaw::unify_atom::unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_lits) : resolver(cg, smt::lin(0), f), a(a), with(with), unif_lits(unif_lits) { }
 
     atom_flaw::unify_atom::~unify_atom() { }
 
     bool atom_flaw::unify_atom::apply() {
-        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(unif_var, true)});
+        for (const auto& v : unif_lits) {
+            if (!cg.sat.new_clause({smt::lit(chosen, false), v})) {
+                return false;
+            }
+        }
+        return true;
     }
 }

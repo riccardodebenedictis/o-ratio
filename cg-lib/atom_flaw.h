@@ -68,7 +68,7 @@ namespace cg {
 
         class unify_atom : public resolver {
         public:
-            unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, smt::var unif_var);
+            unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_vars);
             unify_atom(const unify_atom& that) = delete;
             virtual ~unify_atom();
 
@@ -78,7 +78,7 @@ namespace cg {
         private:
             ratio::atom& a;
             ratio::atom& with;
-            smt::var unif_var;
+            std::vector<smt::lit> unif_lits;
         };
     private:
         ratio::atom& a;
