@@ -14,25 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package it.cnr.istc.ratio.api;
 
-/* 
- * File:   causal_graph_api.cpp
- * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- * 
- * Created on April 18, 2017, 7:13 PM
+/**
+ *
+ * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-
-#include "causal_graph_api.h"
-#include "handle.h"
-#include "causal_graph.h"
-#include "flaw.h"
-#include "resolver.h"
-#include "causal_graph_java_listener.h"
-
-jlong Java_it_cnr_istc_ratio_api_CausalGraph_initialise(JNIEnv * e, jobject o, jlong s) {
-    return reinterpret_cast<jlong> (new causal_graph_java_listener(*getHandle<cg::causal_graph>(e, o), e, o));
-}
-
-void Java_it_cnr_istc_ratio_api_CausalGraph_dispose(JNIEnv * e, jobject o) {
-    delete getHandle<causal_graph_java_listener>(e, o);
+public enum LBool {
+    True, False, Undefined
 }

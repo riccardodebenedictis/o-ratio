@@ -25,6 +25,7 @@
 #include "causal_graph_java_listener.h"
 #include "flaw.h"
 #include "resolver.h"
+#include "causal_graph.h"
 
 causal_graph_java_listener::causal_graph_java_listener(cg::causal_graph& g, JNIEnv * e, jobject o) : causal_graph_listener(g), e(e), o(o) { }
 
@@ -43,11 +44,25 @@ void causal_graph_java_listener::flaw_created(const cg::flaw& f) {
 }
 
 void causal_graph_java_listener::flaw_state_changed(const cg::flaw& f) {
-    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "flaw_state_changed", "(J)V"), reinterpret_cast<jlong> (&f));
+    jint ret_s;
+    switch (g.sat.value(f.get_in_plan())) {
+        case smt::True:
+            ret_s = 0;
+            break;
+        case smt::False:
+            ret_s = 1;
+            break;
+        case smt::Undefined:
+            ret_s = 2;
+            break;
+        default:
+            break;
+    }
+    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "flaw_state_changed", "(JI)V"), reinterpret_cast<jlong> (&f), ret_s);
 }
 
 void causal_graph_java_listener::flaw_cost_changed(const cg::flaw& f) {
-    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "flaw_cost_changed", "(J)V"), reinterpret_cast<jlong> (&f));
+    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "flaw_cost_changed", "(JJ)V"), reinterpret_cast<jlong> (&f), f.get_cost());
 }
 
 void causal_graph_java_listener::current_flaw(const cg::flaw& f) {
@@ -59,7 +74,21 @@ void causal_graph_java_listener::resolver_created(const cg::resolver& r) {
 }
 
 void causal_graph_java_listener::resolver_state_changed(const cg::resolver& r) {
-    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "resolver_state_changed", "(J)V"), reinterpret_cast<jlong> (&r));
+    jint ret_s;
+    switch (g.sat.value(r.get_chosen())) {
+        case smt::True:
+            ret_s = 0;
+            break;
+        case smt::False:
+            ret_s = 1;
+            break;
+        case smt::Undefined:
+            ret_s = 2;
+            break;
+        default:
+            break;
+    }
+    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "resolver_state_changed", "(JI)V"), reinterpret_cast<jlong> (&r), ret_s);
 }
 
 void causal_graph_java_listener::current_resolver(const cg::resolver& r) {

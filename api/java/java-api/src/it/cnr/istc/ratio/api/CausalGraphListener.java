@@ -14,25 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package it.cnr.istc.ratio.api;
 
-/* 
- * File:   causal_graph_api.cpp
- * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
- * 
- * Created on April 18, 2017, 7:13 PM
+/**
+ *
+ * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
+public interface CausalGraphListener {
 
-#include "causal_graph_api.h"
-#include "handle.h"
-#include "causal_graph.h"
-#include "flaw.h"
-#include "resolver.h"
-#include "causal_graph_java_listener.h"
+    public void new_flaw(long f, long[] cs, String label);
 
-jlong Java_it_cnr_istc_ratio_api_CausalGraph_initialise(JNIEnv * e, jobject o, jlong s) {
-    return reinterpret_cast<jlong> (new causal_graph_java_listener(*getHandle<cg::causal_graph>(e, o), e, o));
-}
+    public void flaw_state_changed(long f, LBool state);
 
-void Java_it_cnr_istc_ratio_api_CausalGraph_dispose(JNIEnv * e, jobject o) {
-    delete getHandle<causal_graph_java_listener>(e, o);
+    public void flaw_cost_changed(long f, double cost);
+
+    public void current_flaw(long f);
+
+    public void new_resolver(long r, long eff, String label);
+
+    public void resolver_state_changed(long r, LBool state);
+
+    public void current_resolver(long r);
+
+    public void new_causal_link(long f, long r);
 }

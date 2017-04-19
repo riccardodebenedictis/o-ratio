@@ -16,6 +16,9 @@
  */
 package it.cnr.istc.ratio.api;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
@@ -23,6 +26,7 @@ package it.cnr.istc.ratio.api;
 public class CausalGraph {
 
     public final long handle;
+    private final Collection<CausalGraphListener> listeners = new ArrayList<>();
 
     public CausalGraph(Solver s) {
         this.handle = initialise(s.handle);
@@ -33,34 +37,42 @@ public class CausalGraph {
     public native void dispose();
 
     private void new_flaw(long f, long[] cs, String label) {
+        listeners.parallelStream().forEach(l -> l.new_flaw(f, cs, label));
     }
 
-    private void flaw_state_changed(long f) {
+    private void flaw_state_changed(long f, int state) {
+        listeners.parallelStream().forEach(l -> l.flaw_state_changed(f, LBool.values()[state]));
     }
 
-    private void flaw_cost_changed(long f) {
+    private void flaw_cost_changed(long f, double cost) {
+        listeners.parallelStream().forEach(l -> l.flaw_cost_changed(f, cost));
     }
 
     private void current_flaw(long f) {
+        listeners.parallelStream().forEach(l -> l.current_flaw(f));
     }
-
-    private native double get_flaw_cost(long f);
-
-    private native int get_flaw_state(long f);
 
     private void new_resolver(long r, long eff, String label) {
+        listeners.parallelStream().forEach(l -> l.new_resolver(r, eff, label));
     }
 
-    private void resolver_state_changed(long r) {
+    private void resolver_state_changed(long r, int state) {
+        listeners.parallelStream().forEach(l -> l.resolver_state_changed(r, LBool.values()[state]));
     }
 
     private void current_resolver(long r) {
+        listeners.parallelStream().forEach(l -> l.current_resolver(r));
     }
 
-    private native double get_resolver_cost(long r);
-
-    private native int get_resolver_state(long r);
-
     private void new_causal_link(long f, long r) {
+        listeners.parallelStream().forEach(l -> l.new_causal_link(f, r));
+    }
+
+    public void addCausalGraphListener(CausalGraphListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeCausalGraphListener(CausalGraphListener listener) {
+        listeners.remove(listener);
     }
 }
