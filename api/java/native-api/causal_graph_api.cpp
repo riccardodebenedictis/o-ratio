@@ -30,7 +30,7 @@
 #include "causal_graph_java_listener.h"
 
 jlong Java_it_cnr_istc_ratio_api_CausalGraph_initialise(JNIEnv * e, jobject o, jlong s) {
-    return reinterpret_cast<jlong> (new causal_graph_java_listener(*getHandle<cg::causal_graph>(e, o), e, o));
+    return reinterpret_cast<jlong> (new causal_graph_java_listener(*reinterpret_cast<cg::causal_graph*> (s), e, o));
 }
 
 void Java_it_cnr_istc_ratio_api_CausalGraph_dispose(JNIEnv * e, jobject o) {
