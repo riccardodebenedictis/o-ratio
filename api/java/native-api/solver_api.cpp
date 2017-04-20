@@ -37,7 +37,8 @@ void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
 jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
     cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
     jstring res;
-    e->ReleaseStringUTFChars(res, g->get_state());
+    std::string state;
+    e->ReleaseStringUTFChars(res, state.c_str());
     return res;
 }
 

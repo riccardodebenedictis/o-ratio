@@ -113,9 +113,6 @@ namespace ratio {
         void set_var(smt::var ctr_var);
         void restore_var();
 
-    public:
-        std::string get_state() const noexcept;
-
     private:
         smt::var tmp_var;
         smt::var ctr_var = smt::TRUE;
