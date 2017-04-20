@@ -25,6 +25,7 @@
 #include "solver_api.h"
 #include "handle.h"
 #include "causal_graph.h"
+#include "predicate.h"
 
 jlong Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
     return reinterpret_cast<jlong> (new cg::causal_graph());
@@ -36,8 +37,40 @@ void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
 
 jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
     cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
+    std::string instances;
+    std::string atoms;
+    for (const auto& p : g->get_predicates()) {
+        for (const auto& e : p.second->get_instances()) {
+            atoms += "{ \"id\" = \"" + std::to_string(reinterpret_cast<uintptr_t> (&*e)) + "\"}";
+        }
+    }
+    std::queue<ratio::type*> q;
+    for (const auto& t : g->get_types()) {
+        if (!t.second->primitive) {
+            q.push(t.second);
+        }
+    }
+    while (!q.empty()) {
+        for (const auto& e : q.front()->get_instances()) {
+            instances += "{ \"id\" = \"" + std::to_string(reinterpret_cast<uintptr_t> (&*e)) + "\"}";
+        }
+        for (const auto& p : q.front()->get_predicates()) {
+            for (const auto& e : p.second->get_instances()) {
+                atoms += "{ \"id\" = \"" + std::to_string(reinterpret_cast<uintptr_t> (&*e)) + "\"}";
+            }
+        }
+        for (const auto& st : q.front()->get_types()) {
+            q.push(st.second);
+        }
+        q.pop();
+    }
+    std::string references;
+    for (const auto& i : g->get_items()) {
+
+    }
+
+    std::string state = "{ \"instances\" = [" + instances + "], \"atoms\" = [" + atoms + "], \"references\" = {" + references + "} }";
     jstring res;
-    std::string state;
     e->ReleaseStringUTFChars(res, state.c_str());
     return res;
 }
