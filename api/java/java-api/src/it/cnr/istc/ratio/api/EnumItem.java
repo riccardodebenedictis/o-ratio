@@ -32,4 +32,9 @@ public class EnumItem extends Item {
         super(type);
         this.var = var;
     }
+
+    @Override
+    public String toString() {
+        return "EnumItem{" + "var=" + var + ", values=" + values + '}';
+    }
 }

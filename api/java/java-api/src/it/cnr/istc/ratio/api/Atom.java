@@ -30,4 +30,9 @@ public class Atom extends Item {
     Atom(String type) {
         super(type);
     }
+
+    @Override
+    public String toString() {
+        return "Atom{" + "state=" + state + ", predicate=" + type + ", items=" + items + '}';
+    }
 }

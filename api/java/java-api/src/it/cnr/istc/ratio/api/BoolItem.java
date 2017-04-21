@@ -30,4 +30,9 @@ public class BoolItem extends Item {
         this.lit = lit;
         this.val = val;
     }
+
+    @Override
+    public String toString() {
+        return "BoolItem{" + "lit=" + lit + ", val=" + val + '}';
+    }
 }

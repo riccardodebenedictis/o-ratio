@@ -16,6 +16,9 @@
  */
 package it.cnr.istc.ratio.api;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,4 +29,21 @@ import java.util.Map;
 public class State {
 
     final Map<String, Item> items = new HashMap<>();
+    final Collection<Atom> atoms = new ArrayList<>();
+
+    State() {
+    }
+
+    public Item get(String name) {
+        return items.get(name);
+    }
+
+    public Collection<Atom> getAtoms() {
+        return Collections.unmodifiableCollection(atoms);
+    }
+
+    @Override
+    public String toString() {
+        return "State{" + "items=" + items + ", atoms=" + atoms + '}';
+    }
 }

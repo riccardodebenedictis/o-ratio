@@ -32,4 +32,9 @@ public class ArithItem extends Item {
         this.lb = lb;
         this.ub = ub;
     }
+
+    @Override
+    public String toString() {
+        return "ArithItem{" + "lin=" + lin + ", val=" + val + ", lb=" + lb + ", ub=" + ub + '}';
+    }
 }

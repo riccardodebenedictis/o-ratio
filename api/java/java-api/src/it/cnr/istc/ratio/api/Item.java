@@ -31,4 +31,9 @@ public class Item {
     Item(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" + "type=" + type + ", items=" + items + '}';
+    }
 }

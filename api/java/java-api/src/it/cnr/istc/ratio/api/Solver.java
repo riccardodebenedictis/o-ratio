@@ -64,6 +64,7 @@ public class Solver {
             String id = j_atom.get("id").getAsString();
             String predicate = j_atom.get("predicate").getAsString();
             Atom atom = new Atom(predicate);
+            state.atoms.add(atom);
             items.put(id, atom);
             JsonArray j_atom_state = j_atom.get("state").getAsJsonArray();
             for (int j = 0; j < j_atom_state.size(); j++) {
