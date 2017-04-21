@@ -58,7 +58,7 @@ build: .build-post
 
 .build-post: .build-impl
 # Add your post 'build' code here...
-
+	CP init.rddl ${CND_ARTIFACT_DIR_${CONF}}/
 
 # clean
 clean: .clean-post

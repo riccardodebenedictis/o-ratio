@@ -38,7 +38,7 @@ namespace cg {
 
     class state_variable : public smart_type {
     public:
-        state_variable(cg::causal_graph g);
+        state_variable(cg::causal_graph& g);
         state_variable(const state_variable& orig) = delete;
         virtual ~state_variable();
 

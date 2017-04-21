@@ -28,13 +28,18 @@
 #include "disjunction_flaw.h"
 #include "resolver.h"
 #include "smart_type.h"
+#include "state_variable.h"
 #ifndef N_CAUSAL_GRAPH_LISTENERS
 #include "causal_graph_listener.h"
 #endif
 
 namespace cg {
 
-    causal_graph::causal_graph() { }
+    causal_graph::causal_graph() {
+        bool r = read(std::vector<std::string>({"init.rddl"}));
+        assert(r);
+        types.insert({STATE_VARIABLE_NAME, new state_variable(*this)});
+    }
 
     causal_graph::~causal_graph() {
         for (const auto& f : in_plan) {
