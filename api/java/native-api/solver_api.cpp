@@ -33,9 +33,9 @@ std::stringstream to_string(std::unordered_map<std::string, ratio::expr> items) 
         if (is_it != items.begin()) {
             ss << ", ";
         }
-        ss << "{ \"name\" = \"" << is_it->first << "\", \"type\" = \"" << is_it->second->t.name << "\", \"value\" = ";
+        ss << "{ \"name\" : \"" << is_it->first << "\", \"type\" : \"" << is_it->second->t.name << "\", \"value\" : ";
         if (ratio::bool_item * bi = dynamic_cast<ratio::bool_item*> (&*is_it->second)) {
-            ss << "{ \"lit\" = \"" << (bi->l.sign ? "b" : "!b") << std::to_string(bi->l.v) << "\", \"value\" = ";
+            ss << "{ \"lit\" : \"" << (bi->l.sign ? "b" : "!b") << std::to_string(bi->l.v) << "\", \"val\" : ";
             switch (bi->get_solver().sat.value(bi->l)) {
                 case smt::True:
                     ss << "\"True\"";
@@ -50,9 +50,16 @@ std::stringstream to_string(std::unordered_map<std::string, ratio::expr> items) 
             ss << " }";
         } else if (ratio::arith_item * ai = dynamic_cast<ratio::arith_item*> (&*is_it->second)) {
             smt::interval bnds = ai->get_solver().la.bounds(ai->l);
-            ss << "{ \"lin\" = \"" << ai->l.to_string() << "\" \"val\" = " << std::to_string(ai->get_solver().la.value(ai->l)) << ", \"lb\" = " << std::to_string(bnds.lb) << ", \"ub\" = " << std::to_string(bnds.ub) << " }";
+            ss << "{ \"lin\" : \"" << ai->l.to_string() << "\", \"val\" : " << std::to_string(ai->get_solver().la.value(ai->l));
+            if (bnds.lb > -std::numeric_limits<double>::infinity()) {
+                ss << ", \"lb\" : " << std::to_string(bnds.lb);
+            }
+            if (bnds.ub < std::numeric_limits<double>::infinity()) {
+                ss << ", \"ub\" : " << std::to_string(bnds.ub);
+            }
+            ss << " }";
         } else if (ratio::enum_item * ei = dynamic_cast<ratio::enum_item*> (&*is_it->second)) {
-            ss << "{ \"var\" = \"e" << std::to_string(ei->ev) << "\", \"vals\" = { ";
+            ss << "{ \"var\" : \"e" << std::to_string(ei->ev) << "\", \"vals\" : [ ";
             std::unordered_set<smt::set_item*> vals = ei->get_solver().set.value(ei->ev);
             for (std::unordered_set<smt::set_item*>::iterator vals_it = vals.begin(); vals_it != vals.end(); ++vals_it) {
                 if (vals_it != vals.begin()) {
@@ -60,7 +67,7 @@ std::stringstream to_string(std::unordered_map<std::string, ratio::expr> items) 
                 }
                 ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (*vals_it)) << "\"";
             }
-            ss << " } }";
+            ss << " ] }";
         } else {
             ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (&*is_it->second)) << "\"";
         }
@@ -71,10 +78,10 @@ std::stringstream to_string(std::unordered_map<std::string, ratio::expr> items) 
 
 std::stringstream to_string(ratio::item* i) {
     std::stringstream ss;
-    ss << "{ \"id\" = \"" << std::to_string(reinterpret_cast<uintptr_t> (i)) << "\", \"type\" = \"" << i->t.name << "\"";
+    ss << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (i)) << "\", \"type\" : \"" << i->t.name << "\"";
     std::unordered_map<std::string, ratio::expr> is = i->get_items();
     if (!is.empty()) {
-        ss << ", \"items\" = { " << to_string(is).rdbuf() << " }";
+        ss << ", \"items\" : [ " << to_string(is).str() << " ]";
     }
     ss << "}";
     return ss;
@@ -82,7 +89,7 @@ std::stringstream to_string(ratio::item* i) {
 
 std::stringstream to_string(ratio::atom* a) {
     std::stringstream ss;
-    ss << "{ \"id\" = \"" << std::to_string(reinterpret_cast<uintptr_t> (a)) << "\", \"predicate\" = \"" << a->t.name << "\", \"state\" = [";
+    ss << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (a)) << "\", \"predicate\" : \"" << a->t.name << "\", \"state\" : [";
     std::unordered_set<smt::set_item*> state_vals = a->get_solver().set.value(a->state);
     for (std::unordered_set<smt::set_item*>::iterator vals_it = state_vals.begin(); vals_it != state_vals.end(); ++vals_it) {
         if (vals_it != state_vals.begin()) {
@@ -99,7 +106,7 @@ std::stringstream to_string(ratio::atom* a) {
     ss << "]";
     std::unordered_map<std::string, ratio::expr> is = a->get_items();
     if (!is.empty()) {
-        ss << ", \"pars\" = { " << to_string(is).rdbuf() << " }";
+        ss << ", \"pars\" : [ " << to_string(is).str() << " ]";
     }
     ss << "}";
     return ss;
@@ -126,7 +133,7 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
                 as << ", ";
             }
             std::stringstream a = to_string(static_cast<ratio::atom*> (&**as_it));
-            as << a.rdbuf();
+            as << a.str();
         }
     }
     std::queue<ratio::type*> q;
@@ -142,7 +149,7 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
                 is << ", ";
             }
             std::stringstream i = to_string(static_cast<ratio::item*> (&**is_it));
-            is << i.rdbuf();
+            is << i.str();
         }
         for (const auto& p : q.front()->get_predicates()) {
             std::vector<ratio::expr> atoms = p.second->get_instances();
@@ -151,7 +158,7 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
                     as << ", ";
                 }
                 std::stringstream a = to_string(static_cast<ratio::atom*> (&**as_it));
-                as << a.rdbuf();
+                as << a.str();
             }
         }
         for (const auto& st : q.front()->get_types()) {
@@ -162,11 +169,9 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
     // the accessible references..
     std::stringstream rs = to_string(g->get_items());
     std::stringstream ss;
-    ss << "{ \"instances\" = [" << is.rdbuf() << "], \"atoms\" = [" << as.rdbuf() << "], \"references\" = {" << rs.rdbuf() << "} }";
+    ss << "{ \"items\" : [" << is.str() << "], \"atoms\" : [" << as.str() << "], \"refs\" : [" << rs.str() << "] }";
     std::string str = ss.str();
-    jstring res;
-    e->ReleaseStringUTFChars(res, str.c_str());
-    return res;
+    return e->NewStringUTF(str.c_str());
 }
 
 jboolean Java_it_cnr_istc_ratio_api_Solver_read__Ljava_lang_String_2(JNIEnv * e, jobject o, jstring s) {

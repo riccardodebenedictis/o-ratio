@@ -16,14 +16,18 @@
  */
 package it.cnr.istc.ratio.api;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class State {
+public class Atom extends Item {
 
-    final Map<String, Item> items = new HashMap<>();
+    final Set<AtomState> state = new HashSet<>();
+
+    Atom(String type) {
+        super(type);
+    }
 }

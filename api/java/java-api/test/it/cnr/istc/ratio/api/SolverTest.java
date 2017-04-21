@@ -60,4 +60,12 @@ public class SolverTest {
         cg.dispose();
         s.dispose();
     }
+
+    @Test
+    public void test2() {
+        Solver s = new Solver();
+        s.read("real a; real b; a >= 10.0; b <= 15.0;");
+        State state = s.getState();
+        s.dispose();
+    }
 }

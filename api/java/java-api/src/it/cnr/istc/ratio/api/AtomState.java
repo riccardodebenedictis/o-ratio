@@ -16,14 +16,10 @@
  */
 package it.cnr.istc.ratio.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class State {
-
-    final Map<String, Item> items = new HashMap<>();
+public enum AtomState {
+    Active, Inactive, Unified;
 }

@@ -16,14 +16,18 @@
  */
 package it.cnr.istc.ratio.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class State {
+public class BoolItem extends Item {
 
-    final Map<String, Item> items = new HashMap<>();
+    public final String lit;
+    public final LBool val;
+
+    public BoolItem(String lit, LBool val) {
+        super("bool");
+        this.lit = lit;
+        this.val = val;
+    }
 }

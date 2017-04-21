@@ -23,7 +23,12 @@ import java.util.Map;
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class State {
+public class Item {
 
+    public final String type;
     final Map<String, Item> items = new HashMap<>();
+
+    Item(String type) {
+        this.type = type;
+    }
 }

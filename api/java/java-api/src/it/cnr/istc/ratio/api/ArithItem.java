@@ -16,14 +16,20 @@
  */
 package it.cnr.istc.ratio.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  */
-public class State {
+public class ArithItem extends Item {
 
-    final Map<String, Item> items = new HashMap<>();
+    public final String lin;
+    public final double val, lb, ub;
+
+    ArithItem(String type, String lin, double val, double lb, double ub) {
+        super(type);
+        this.lin = lin;
+        this.val = val;
+        this.lb = lb;
+        this.ub = ub;
+    }
 }
