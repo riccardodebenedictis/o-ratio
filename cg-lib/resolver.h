@@ -57,7 +57,7 @@ namespace cg {
         double get_cost() const;
 
     protected:
-        causal_graph& cg;
+        causal_graph& g;
         smt::var chosen;
         smt::lin cost;
         // the preconditions of this resolver..

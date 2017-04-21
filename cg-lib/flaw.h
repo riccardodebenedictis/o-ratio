@@ -68,7 +68,7 @@ namespace cg {
         bool has_subgoals();
 
     protected:
-        causal_graph& cg;
+        causal_graph& g;
 
     private:
         const bool exclusive;

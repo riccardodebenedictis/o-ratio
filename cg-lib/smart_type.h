@@ -27,7 +27,7 @@
 
 #include "type.h"
 #include "field.h"
-#include "solver.h"
+#include "causal_graph.h"
 #include "sat_value_listener.h"
 #include "la_value_listener.h"
 #include "set_value_listener.h"
@@ -39,12 +39,15 @@ namespace cg {
     class smart_type : public ratio::type {
     public:
 
-        smart_type(ratio::solver& slv, scope& s, const std::string& name) : type(slv, s, name, false) { }
+        smart_type(cg::causal_graph& g, scope& s, const std::string& name) : type(g, s, name, false), g(g) { }
         smart_type(const smart_type& that) = delete;
 
         virtual ~smart_type() { }
 
         virtual std::vector<flaw*> get_flaws() = 0;
+
+    protected:
+        cg::causal_graph& g;
     };
 
     class atom_listener : public smt::sat_value_listener, public smt::la_value_listener, public smt::set_value_listener {
@@ -78,7 +81,7 @@ namespace cg {
 
         virtual ~atom_listener() { }
 
-    private:
+    protected:
         ratio::atom& a;
     };
 }

@@ -28,18 +28,18 @@
 
 namespace cg {
 
-    resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : cg(cg), cost(cost), effect(e) { }
+    resolver::resolver(causal_graph& cg, const smt::lin& cost, flaw& e) : g(cg), cost(cost), effect(e) { }
 
     resolver::~resolver() { }
 
     bool resolver::add_precondition(flaw& f) {
         preconditions.push_back(&f);
         f.supports.push_back(this);
-        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(f.in_plan, true)});
+        return g.sat.new_clause({smt::lit(chosen, false), smt::lit(f.in_plan, true)});
     }
 
     double resolver::get_cost() const {
-        if (cg.sat.value(chosen) == smt::False) {
+        if (g.sat.value(chosen) == smt::False) {
             // the resolver cannot be chosen..
             return std::numeric_limits<double>::infinity();
         } else {
@@ -50,7 +50,7 @@ namespace cg {
                     r_cost = f->cost;
                 }
             }
-            r_cost += cg.la.value(cost);
+            r_cost += g.la.value(cost);
             return r_cost;
         }
     }

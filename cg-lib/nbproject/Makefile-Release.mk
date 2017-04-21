@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o \
 	${OBJECTDIR}/_ext/2a0b8f30/flaw.o \
 	${OBJECTDIR}/_ext/2a0b8f30/resolver.o \
+	${OBJECTDIR}/_ext/2a0b8f30/state_variable.o \
 	${OBJECTDIR}/atom_flaw.o \
 	${OBJECTDIR}/disjunction_flaw.o \
 	${OBJECTDIR}/enum_flaw.o
@@ -101,6 +102,11 @@ ${OBJECTDIR}/_ext/2a0b8f30/resolver.o: /C/Users/sydde/OneDrive/Documenti/NetBean
 	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/resolver.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp
+
+${OBJECTDIR}/_ext/2a0b8f30/state_variable.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp
+	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp
 
 ${OBJECTDIR}/atom_flaw.o: atom_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -187,6 +193,19 @@ ${OBJECTDIR}/_ext/2a0b8f30/resolver_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/resolve
 	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/resolver_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/resolver.o ${OBJECTDIR}/_ext/2a0b8f30/resolver_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/2a0b8f30/state_variable_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/state_variable_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o ${OBJECTDIR}/_ext/2a0b8f30/state_variable_nomain.o;\
 	fi
 
 ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp 

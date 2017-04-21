@@ -33,8 +33,8 @@ namespace cg {
 
     bool disjunction_flaw::compute_resolvers(std::vector<resolver*>& rs) {
         for (const auto& cnj : disj.get_conjunctions()) {
-            ratio::context ctx(new ratio::env(cg, *e));
-            rs.push_back(new choose_conjunction(cg, *this, ctx, *cnj));
+            ratio::context ctx(new ratio::env(g, *e));
+            rs.push_back(new choose_conjunction(g, *this, ctx, *cnj));
         }
         return true;
     }

@@ -30,7 +30,7 @@
 
 namespace cg {
 
-    flaw::flaw(causal_graph& cg, bool exclusive) : cg(cg), exclusive(exclusive), supports(cg.resolvers.begin(), cg.resolvers.end()) {
+    flaw::flaw(causal_graph& cg, bool exclusive) : g(cg), exclusive(exclusive), supports(cg.resolvers.begin(), cg.resolvers.end()) {
         for (const auto& r : cg.resolvers) {
             causes.push_back(r);
             r->preconditions.push_back(this);
@@ -59,7 +59,7 @@ namespace cg {
                 break;
             default:
                 // the flaw is in_plan if the conjunction of its causes is in_plan..
-                in_plan = cg.sat.new_conj(cs);
+                in_plan = g.sat.new_conj(cs);
         }
         initialized = true;
     }
@@ -78,17 +78,17 @@ namespace cg {
         switch (resolvers.size()) {
             case 0:
                 // there is no way for solving this flaw..
-                return cg.sat.new_clause({smt::lit(in_plan, false)});
+                return g.sat.new_clause({smt::lit(in_plan, false)});
             case 1:
                 // there is a unique way for solving this flaw: this is a trivial flaw..
-                return cg.sat.new_clause({smt::lit(in_plan, false), smt::lit(resolvers.front()->chosen, true)});
+                return g.sat.new_clause({smt::lit(in_plan, false), smt::lit(resolvers.front()->chosen, true)});
             default:
                 // we need to take a decision for solving this flaw..
                 std::vector<smt::lit> r_chs;
                 for (const auto& r : resolvers) {
                     r_chs.push_back(smt::lit(r->chosen, true));
                 }
-                return cg.sat.new_clause({smt::lit(in_plan, false), smt::lit(exclusive ? cg.sat.new_exct_one(r_chs) : cg.sat.new_disj(r_chs), true)});
+                return g.sat.new_clause({smt::lit(in_plan, false), smt::lit(exclusive ? g.sat.new_exct_one(r_chs) : g.sat.new_disj(r_chs), true)});
         }
     }
 

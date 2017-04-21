@@ -33,7 +33,7 @@ namespace cg {
     atom_flaw::~atom_flaw() { }
 
     bool atom_flaw::compute_resolvers(std::vector<resolver*>& rs) {
-        std::unordered_set<smt::set_item*> a_state = cg.set.value(a.state);
+        std::unordered_set<smt::set_item*> a_state = g.set.value(a.state);
         if (a_state.find(ratio::atom::unified) != a_state.end()) {
             for (const auto& i : a.t.get_instances()) {
                 if (&*i == &a) {
@@ -41,10 +41,10 @@ namespace cg {
                 }
 
                 ratio::atom* c_a = static_cast<ratio::atom*> (&*i);
-                if (!cg.reason.at(c_a)->is_expanded()) {
+                if (!g.reason.at(c_a)->is_expanded()) {
                     continue;
                 }
-                std::unordered_set<smt::set_item*> c_state = cg.set.value(c_a->state);
+                std::unordered_set<smt::set_item*> c_state = g.set.value(c_a->state);
                 if (c_state.find(ratio::atom::active) == c_state.end() || !a.equates(*c_a)) {
                     continue;
                 }
@@ -52,18 +52,18 @@ namespace cg {
                 std::vector<smt::lit> unif_lits;
                 std::unordered_set<flaw*> seen;
                 std::queue<flaw*> q;
-                q.push(cg.reason.at(&a));
-                q.push(cg.reason.at(c_a));
+                q.push(g.reason.at(&a));
+                q.push(g.reason.at(c_a));
                 while (!q.empty()) {
-                    assert(cg.sat.value(q.front()->get_in_plan()) != smt::False);
+                    assert(g.sat.value(q.front()->get_in_plan()) != smt::False);
                     if (seen.find(q.front()) != seen.end()) {
                         // we do not allow cyclic causality..
                         break;
                     }
                     seen.insert(q.front());
-                    if (cg.sat.value(q.front()->get_in_plan()) == smt::Undefined) {
+                    if (g.sat.value(q.front()->get_in_plan()) == smt::Undefined) {
                         for (const auto& cause : q.front()->get_causes()) {
-                            assert(cg.sat.value(cause->get_chosen()) != smt::False);
+                            assert(g.sat.value(cause->get_chosen()) != smt::False);
                             unif_lits.push_back(smt::lit(cause->get_chosen(), true));
                             q.push(&cause->get_effect());
                         }
@@ -73,32 +73,32 @@ namespace cg {
                 if (!q.empty()) {
                     continue;
                 }
-                unif_lits.push_back(smt::lit(cg.set.allows(a.state, *ratio::atom::unified), true));
-                unif_lits.push_back(smt::lit(cg.set.allows(c_a->state, *ratio::atom::active), true));
+                unif_lits.push_back(smt::lit(g.set.allows(a.state, *ratio::atom::unified), true));
+                unif_lits.push_back(smt::lit(g.set.allows(c_a->state, *ratio::atom::active), true));
                 smt::var eq_v = a.eq(*c_a);
-                if (cg.sat.value(eq_v) == smt::False) {
+                if (g.sat.value(eq_v) == smt::False) {
                     continue;
                 }
                 unif_lits.push_back(smt::lit(a.eq(*c_a), true));
-                if (cg.sat.check(unif_lits)) {
+                if (g.sat.check(unif_lits)) {
                     // unification is actually possible!
-                    unify_atom* u_res = new unify_atom(cg, *this, a, *c_a, unif_lits);
+                    unify_atom* u_res = new unify_atom(g, *this, a, *c_a, unif_lits);
                     rs.push_back(u_res);
-                    bool add_pre = u_res->add_precondition(*cg.reason.at(c_a));
+                    bool add_pre = u_res->add_precondition(*g.reason.at(c_a));
                     assert(add_pre);
-                    cg.set_cost(*this, cg.reason.at(c_a)->get_cost());
+                    g.set_cost(*this, g.reason.at(c_a)->get_cost());
                 }
             }
         }
         if (rs.empty()) {
             // we remove unification from atom state..
-            bool not_unify = cg.sat.new_clause({smt::lit(cg.set.allows(a.state, *ratio::atom::unified), false)});
+            bool not_unify = g.sat.new_clause({smt::lit(g.set.allows(a.state, *ratio::atom::unified), false)});
             assert(not_unify);
         }
         if (is_fact) {
-            rs.push_back(new add_fact(cg, *this, a));
+            rs.push_back(new add_fact(g, *this, a));
         } else {
-            rs.push_back(new expand_goal(cg, *this, a));
+            rs.push_back(new expand_goal(g, *this, a));
         }
         return true;
     }
@@ -108,7 +108,7 @@ namespace cg {
     atom_flaw::add_fact::~add_fact() { }
 
     bool atom_flaw::add_fact::apply() {
-        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(cg.set.allows(a.state, *ratio::atom::active), true)});
+        return g.sat.new_clause({smt::lit(chosen, false), smt::lit(g.set.allows(a.state, *ratio::atom::active), true)});
     }
 
     atom_flaw::expand_goal::expand_goal(causal_graph& cg, atom_flaw& f, ratio::atom& a) : resolver(cg, smt::lin(1), f), a(a) { }
@@ -116,7 +116,7 @@ namespace cg {
     atom_flaw::expand_goal::~expand_goal() { }
 
     bool atom_flaw::expand_goal::apply() {
-        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(cg.set.allows(a.state, *ratio::atom::active), true)}) && static_cast<const ratio::predicate*> (&a.t)->apply_rule(a);
+        return g.sat.new_clause({smt::lit(chosen, false), smt::lit(g.set.allows(a.state, *ratio::atom::active), true)}) && static_cast<const ratio::predicate*> (&a.t)->apply_rule(a);
     }
 
     atom_flaw::unify_atom::unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_lits) : resolver(cg, smt::lin(0), f), a(a), with(with), unif_lits(unif_lits) { }
@@ -125,7 +125,7 @@ namespace cg {
 
     bool atom_flaw::unify_atom::apply() {
         for (const auto& v : unif_lits) {
-            if (!cg.sat.new_clause({smt::lit(chosen, false), v})) {
+            if (!g.sat.new_clause({smt::lit(chosen, false), v})) {
                 return false;
             }
         }

@@ -32,9 +32,9 @@ namespace cg {
     enum_flaw::~enum_flaw() { }
 
     bool enum_flaw::compute_resolvers(std::vector<resolver*>& rs) {
-        std::unordered_set<smt::set_item*> vals = cg.set.value(e.ev);
+        std::unordered_set<smt::set_item*> vals = g.set.value(e.ev);
         for (const auto& v : vals) {
-            rs.push_back(new choose_value(cg, *this, *v));
+            rs.push_back(new choose_value(g, *this, *v));
         }
         return true;
     }
@@ -44,6 +44,6 @@ namespace cg {
     enum_flaw::choose_value::~choose_value() { }
 
     bool enum_flaw::choose_value::apply() {
-        return cg.sat.new_clause({smt::lit(chosen, false), smt::lit(cg.set.allows(v, val), true)});
+        return g.sat.new_clause({smt::lit(chosen, false), smt::lit(g.set.allows(v, val), true)});
     }
 }
