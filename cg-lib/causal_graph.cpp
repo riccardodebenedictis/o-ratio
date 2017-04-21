@@ -364,8 +364,10 @@ main_loop:
             }
         }
 #ifndef N_CAUSAL_GRAPH_LISTENERS
-        for (const auto& l : listeners) {
-            l->current_flaw(*f_next);
+        if (f_next) {
+            for (const auto& l : listeners) {
+                l->current_flaw(*f_next);
+            }
         }
 #endif
         return f_next;
