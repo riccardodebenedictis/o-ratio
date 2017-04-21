@@ -27,6 +27,84 @@
 #include "causal_graph.h"
 #include "predicate.h"
 
+std::stringstream to_string(std::unordered_map<std::string, ratio::expr> items) {
+    std::stringstream ss;
+    for (std::unordered_map<std::string, ratio::expr>::iterator is_it = items.begin(); is_it != items.end(); ++is_it) {
+        if (is_it != items.begin()) {
+            ss << ", ";
+        }
+        ss << "{ \"name\" = \"" << is_it->first << "\", \"type\" = \"" << is_it->second->t.name << "\", \"value\" = ";
+        if (ratio::bool_item * bi = dynamic_cast<ratio::bool_item*> (&*is_it->second)) {
+            ss << "{ \"lit\" = \"" << (bi->l.sign ? "b" : "!b") << std::to_string(bi->l.v) << "\", \"value\" = ";
+            switch (bi->get_solver().sat.value(bi->l)) {
+                case smt::True:
+                    ss << "\"True\"";
+                    break;
+                case smt::False:
+                    ss << "\"False\"";
+                    break;
+                case smt::Undefined:
+                    ss << "\"Undefined\"";
+                    break;
+            }
+            ss << " }";
+        } else if (ratio::arith_item * ai = dynamic_cast<ratio::arith_item*> (&*is_it->second)) {
+            smt::interval bnds = ai->get_solver().la.bounds(ai->l);
+            ss << "{ \"lin\" = \"" << ai->l.to_string() << "\" \"val\" = " << std::to_string(ai->get_solver().la.value(ai->l)) << ", \"lb\" = " << std::to_string(bnds.lb) << ", \"ub\" = " << std::to_string(bnds.ub) << " }";
+        } else if (ratio::enum_item * ei = dynamic_cast<ratio::enum_item*> (&*is_it->second)) {
+            ss << "{ \"var\" = \"e" << std::to_string(ei->ev) << "\", \"vals\" = { ";
+            std::unordered_set<smt::set_item*> vals = ei->get_solver().set.value(ei->ev);
+            for (std::unordered_set<smt::set_item*>::iterator vals_it = vals.begin(); vals_it != vals.end(); ++vals_it) {
+                if (vals_it != vals.begin()) {
+                    ss << ", ";
+                }
+                ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (*vals_it)) << "\"";
+            }
+            ss << " } }";
+        } else {
+            ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (&*is_it->second)) << "\"";
+        }
+        ss << " }";
+    }
+    return ss;
+}
+
+std::stringstream to_string(ratio::item* i) {
+    std::stringstream ss;
+    ss << "{ \"id\" = \"" << std::to_string(reinterpret_cast<uintptr_t> (i)) << "\", \"type\" = \"" << i->t.name << "\"";
+    std::unordered_map<std::string, ratio::expr> is = i->get_items();
+    if (!is.empty()) {
+        ss << ", \"items\" = { " << to_string(is).rdbuf() << " }";
+    }
+    ss << "}";
+    return ss;
+}
+
+std::stringstream to_string(ratio::atom* a) {
+    std::stringstream ss;
+    ss << "{ \"id\" = \"" << std::to_string(reinterpret_cast<uintptr_t> (a)) << "\", \"predicate\" = \"" << a->t.name << "\", \"state\" = [";
+    std::unordered_set<smt::set_item*> state_vals = a->get_solver().set.value(a->state);
+    for (std::unordered_set<smt::set_item*>::iterator vals_it = state_vals.begin(); vals_it != state_vals.end(); ++vals_it) {
+        if (vals_it != state_vals.begin()) {
+            ss << ", ";
+        }
+        if (*vals_it == ratio::atom::active) {
+            ss << "Active";
+        } else if (*vals_it == ratio::atom::inactive) {
+            ss << "Inactive";
+        } else if (*vals_it == ratio::atom::unified) {
+            ss << "Unified";
+        }
+    }
+    ss << "]";
+    std::unordered_map<std::string, ratio::expr> is = a->get_items();
+    if (!is.empty()) {
+        ss << ", \"pars\" = { " << to_string(is).rdbuf() << " }";
+    }
+    ss << "}";
+    return ss;
+}
+
 jlong Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
     return reinterpret_cast<jlong> (new cg::causal_graph());
 }
@@ -37,11 +115,18 @@ void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
 
 jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
     cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    std::string instances;
-    std::string atoms;
+    // all the items..
+    std::stringstream is;
+    // all the atoms..
+    std::stringstream as;
     for (const auto& p : g->get_predicates()) {
-        for (const auto& e : p.second->get_instances()) {
-            atoms += "{ \"id\" = \"" + std::to_string(reinterpret_cast<uintptr_t> (&*e)) + "\"}";
+        std::vector<ratio::expr> atoms = p.second->get_instances();
+        for (std::vector<ratio::expr>::iterator as_it = atoms.begin(); as_it != atoms.end(); ++as_it) {
+            if (as_it != atoms.begin()) {
+                as << ", ";
+            }
+            std::stringstream a = to_string(static_cast<ratio::atom*> (&**as_it));
+            as << a.rdbuf();
         }
     }
     std::queue<ratio::type*> q;
@@ -51,12 +136,22 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
         }
     }
     while (!q.empty()) {
-        for (const auto& e : q.front()->get_instances()) {
-            instances += "{ \"id\" = \"" + std::to_string(reinterpret_cast<uintptr_t> (&*e)) + "\"}";
+        std::vector<ratio::expr> atoms = q.front()->get_instances();
+        for (std::vector<ratio::expr>::iterator is_it = atoms.begin(); is_it != atoms.end(); ++is_it) {
+            if (is_it != atoms.begin()) {
+                is << ", ";
+            }
+            std::stringstream i = to_string(static_cast<ratio::item*> (&**is_it));
+            is << i.rdbuf();
         }
         for (const auto& p : q.front()->get_predicates()) {
-            for (const auto& e : p.second->get_instances()) {
-                atoms += "{ \"id\" = \"" + std::to_string(reinterpret_cast<uintptr_t> (&*e)) + "\"}";
+            std::vector<ratio::expr> atoms = p.second->get_instances();
+            for (std::vector<ratio::expr>::iterator as_it = atoms.begin(); as_it != atoms.end(); ++as_it) {
+                if (as_it != atoms.begin()) {
+                    as << ", ";
+                }
+                std::stringstream a = to_string(static_cast<ratio::atom*> (&**as_it));
+                as << a.rdbuf();
             }
         }
         for (const auto& st : q.front()->get_types()) {
@@ -64,14 +159,13 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
         }
         q.pop();
     }
-    std::string references;
-    for (const auto& i : g->get_items()) {
-
-    }
-
-    std::string state = "{ \"instances\" = [" + instances + "], \"atoms\" = [" + atoms + "], \"references\" = {" + references + "} }";
+    // the accessible references..
+    std::stringstream rs = to_string(g->get_items());
+    std::stringstream ss;
+    ss << "{ \"instances\" = [" << is.rdbuf() << "], \"atoms\" = [" << as.rdbuf() << "], \"references\" = {" << rs.rdbuf() << "} }";
+    std::string str = ss.str();
     jstring res;
-    e->ReleaseStringUTFChars(res, state.c_str());
+    e->ReleaseStringUTFChars(res, str.c_str());
     return res;
 }
 
