@@ -32,6 +32,12 @@
 
 void testCG0() {
     cg::causal_graph g;
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_sv_0.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(slvd);
 }
 
 int main(int argc, char** argv) {

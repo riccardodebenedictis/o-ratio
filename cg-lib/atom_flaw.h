@@ -33,7 +33,7 @@ namespace cg {
 
     class atom_flaw : public flaw {
     public:
-        atom_flaw(causal_graph& cg, ratio::atom& a, bool is_fact);
+        atom_flaw(causal_graph& g, ratio::atom& a, bool is_fact);
         atom_flaw(const atom_flaw& orig) = delete;
         virtual ~atom_flaw();
 
@@ -42,7 +42,7 @@ namespace cg {
 
         class add_fact : public resolver {
         public:
-            add_fact(causal_graph& cg, atom_flaw& f, ratio::atom& a);
+            add_fact(causal_graph& g, atom_flaw& f, ratio::atom& a);
             add_fact(const add_fact& that) = delete;
             virtual ~add_fact();
 
@@ -55,7 +55,7 @@ namespace cg {
 
         class expand_goal : public resolver {
         public:
-            expand_goal(causal_graph& cg, atom_flaw& f, ratio::atom& a);
+            expand_goal(causal_graph& g, atom_flaw& f, ratio::atom& a);
             expand_goal(const expand_goal& that) = delete;
             virtual ~expand_goal();
 
@@ -68,7 +68,7 @@ namespace cg {
 
         class unify_atom : public resolver {
         public:
-            unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_vars);
+            unify_atom(causal_graph& g, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_vars);
             unify_atom(const unify_atom& that) = delete;
             virtual ~unify_atom();
 

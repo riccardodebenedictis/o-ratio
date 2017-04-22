@@ -27,7 +27,7 @@
 
 namespace cg {
 
-    disjunction_flaw::disjunction_flaw(causal_graph& cg, ratio::context& e, ratio::disjunction& d) : flaw(cg, true), e(e), disj(d) { }
+    disjunction_flaw::disjunction_flaw(causal_graph& g, ratio::context& e, ratio::disjunction& d) : flaw(g, true), e(e), disj(d) { }
 
     disjunction_flaw::~disjunction_flaw() { }
 

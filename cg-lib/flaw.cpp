@@ -30,8 +30,8 @@
 
 namespace cg {
 
-    flaw::flaw(causal_graph& cg, bool exclusive) : g(cg), exclusive(exclusive), supports(cg.resolvers.begin(), cg.resolvers.end()) {
-        for (const auto& r : cg.resolvers) {
+    flaw::flaw(causal_graph& g, bool exclusive) : g(g), exclusive(exclusive), supports(g.resolvers.begin(), g.resolvers.end()) {
+        for (const auto& r : g.resolvers) {
             causes.push_back(r);
             r->preconditions.push_back(this);
         }

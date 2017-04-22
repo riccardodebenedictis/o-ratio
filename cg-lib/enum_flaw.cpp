@@ -27,7 +27,7 @@
 
 namespace cg {
 
-    enum_flaw::enum_flaw(causal_graph& cg, ratio::enum_item& e) : flaw(cg, true), e(e) { }
+    enum_flaw::enum_flaw(causal_graph& g, ratio::enum_item& e) : flaw(g, true), e(e) { }
 
     enum_flaw::~enum_flaw() { }
 

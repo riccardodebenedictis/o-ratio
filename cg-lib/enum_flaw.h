@@ -33,7 +33,7 @@ namespace cg {
 
     class enum_flaw : public flaw {
     public:
-        enum_flaw(causal_graph& cg, ratio::enum_item& e);
+        enum_flaw(causal_graph& g, ratio::enum_item& e);
         enum_flaw(const enum_flaw& orig) = delete;
         virtual ~enum_flaw();
 
@@ -42,7 +42,7 @@ namespace cg {
 
         class choose_value : public resolver {
         public:
-            choose_value(causal_graph& cg, enum_flaw& f, smt::set_item& val);
+            choose_value(causal_graph& g, enum_flaw& f, smt::set_item& val);
             choose_value(const choose_value& that) = delete;
             virtual ~choose_value();
 

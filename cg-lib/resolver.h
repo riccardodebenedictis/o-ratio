@@ -36,7 +36,7 @@ namespace cg {
         friend class causal_graph;
         friend class flaw;
     public:
-        resolver(causal_graph& cg, const smt::lin& cost, flaw& e);
+        resolver(causal_graph& g, const smt::lin& cost, flaw& e);
         resolver(const resolver& orig) = delete;
         virtual ~resolver();
 
