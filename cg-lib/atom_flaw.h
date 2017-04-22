@@ -37,6 +37,8 @@ namespace cg {
         atom_flaw(const atom_flaw& orig) = delete;
         virtual ~atom_flaw();
 
+        std::string get_label() const override;
+
     private:
         bool compute_resolvers(std::vector<resolver*>& rs) override;
 
@@ -45,6 +47,8 @@ namespace cg {
             add_fact(causal_graph& g, atom_flaw& f, ratio::atom& a);
             add_fact(const add_fact& that) = delete;
             virtual ~add_fact();
+
+            std::string get_label() const override;
 
         private:
             bool apply() override;
@@ -59,6 +63,8 @@ namespace cg {
             expand_goal(const expand_goal& that) = delete;
             virtual ~expand_goal();
 
+            std::string get_label() const override;
+
         private:
             bool apply() override;
 
@@ -71,6 +77,8 @@ namespace cg {
             unify_atom(causal_graph& g, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_vars);
             unify_atom(const unify_atom& that) = delete;
             virtual ~unify_atom();
+
+            std::string get_label() const override;
 
         private:
             bool apply() override;

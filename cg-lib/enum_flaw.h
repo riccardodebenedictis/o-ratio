@@ -37,6 +37,8 @@ namespace cg {
         enum_flaw(const enum_flaw& orig) = delete;
         virtual ~enum_flaw();
 
+        std::string get_label() const override;
+
     private:
         bool compute_resolvers(std::vector<resolver*>& rs) override;
 
@@ -45,6 +47,8 @@ namespace cg {
             choose_value(causal_graph& g, enum_flaw& f, smt::set_item& val);
             choose_value(const choose_value& that) = delete;
             virtual ~choose_value();
+
+            std::string get_label() const override;
 
         private:
             bool apply() override;

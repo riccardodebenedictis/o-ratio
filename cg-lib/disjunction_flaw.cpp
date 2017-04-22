@@ -31,6 +31,10 @@ namespace cg {
 
     disjunction_flaw::~disjunction_flaw() { }
 
+    std::string disjunction_flaw::get_label() const {
+        return "disj";
+    }
+
     bool disjunction_flaw::compute_resolvers(std::vector<resolver*>& rs) {
         for (const auto& cnj : disj.get_conjunctions()) {
             ratio::context ctx(new ratio::env(g, *e));
@@ -42,6 +46,10 @@ namespace cg {
     disjunction_flaw::choose_conjunction::choose_conjunction(causal_graph& cg, disjunction_flaw& f, ratio::context& e, ratio::conjunction& c) : resolver(cg, c.get_cost(), f), e(e), conj(c) { }
 
     disjunction_flaw::choose_conjunction::~choose_conjunction() { }
+
+    std::string disjunction_flaw::choose_conjunction::get_label() const {
+        return "conj";
+    }
 
     bool disjunction_flaw::choose_conjunction::apply() {
         return conj.apply(e);

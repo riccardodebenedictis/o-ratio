@@ -37,6 +37,8 @@ namespace cg {
         disjunction_flaw(const disjunction_flaw& orig) = delete;
         virtual ~disjunction_flaw();
 
+        std::string get_label() const override;
+
     private:
         bool compute_resolvers(std::vector<resolver*>& rs) override;
 
@@ -45,6 +47,8 @@ namespace cg {
             choose_conjunction(causal_graph& g, disjunction_flaw& f, ratio::context& e, ratio::conjunction& c);
             choose_conjunction(const choose_conjunction& that) = delete;
             virtual ~choose_conjunction();
+
+            std::string get_label() const override;
 
         private:
             bool apply() override;

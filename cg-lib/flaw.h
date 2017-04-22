@@ -61,6 +61,8 @@ namespace cg {
             return cost;
         }
 
+        virtual std::string get_label() const;
+
     private:
         virtual void init();
         bool expand();

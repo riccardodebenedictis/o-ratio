@@ -97,4 +97,22 @@ namespace cg {
             return r->preconditions.empty();
         });
     }
+
+    std::string flaw::get_label() const {
+        std::string lbl = "b" + std::to_string(in_plan);
+        switch (g.sat.value(in_plan)) {
+            case smt::True:
+                lbl += "(T)";
+                break;
+            case smt::False:
+                lbl += "(F)";
+                break;
+            case smt::Undefined:
+                break;
+            default:
+                break;
+        }
+        lbl += " " + std::to_string(cost);
+        return lbl;
+    }
 }

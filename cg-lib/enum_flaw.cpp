@@ -31,6 +31,10 @@ namespace cg {
 
     enum_flaw::~enum_flaw() { }
 
+    std::string enum_flaw::get_label() const {
+        return "enum";
+    }
+
     bool enum_flaw::compute_resolvers(std::vector<resolver*>& rs) {
         std::unordered_set<smt::set_item*> vals = g.set.value(e.ev);
         for (const auto& v : vals) {
@@ -42,6 +46,10 @@ namespace cg {
     enum_flaw::choose_value::choose_value(causal_graph& cg, enum_flaw& f, smt::set_item& val) : resolver(cg, smt::lin(1.0 / cg.set.value(f.e.ev).size()), f), v(f.e.ev), val(val) { }
 
     enum_flaw::choose_value::~choose_value() { }
+
+    std::string enum_flaw::choose_value::get_label() const {
+        return "val";
+    }
 
     bool enum_flaw::choose_value::apply() {
         return g.sat.new_clause({smt::lit(chosen, false), smt::lit(g.set.allows(v, val), true)});

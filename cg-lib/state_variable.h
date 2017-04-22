@@ -95,6 +95,8 @@ namespace cg {
             state_variable_flaw(state_variable_flaw&&) = delete;
             virtual ~state_variable_flaw();
 
+            std::string get_label() const override;
+
         private:
             bool compute_resolvers(std::vector<resolver*>& rs) override;
 
@@ -121,6 +123,8 @@ namespace cg {
             order_resolver(const order_resolver& that) = delete;
             virtual ~order_resolver();
 
+            std::string get_label() const override;
+
         private:
             const ratio::atom& before;
             const ratio::atom& after;
@@ -131,6 +135,8 @@ namespace cg {
             displace_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do);
             displace_resolver(const displace_resolver& that) = delete;
             virtual ~displace_resolver();
+
+            std::string get_label() const override;
 
         private:
             const ratio::atom& a;

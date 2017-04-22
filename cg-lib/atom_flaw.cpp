@@ -32,6 +32,14 @@ namespace cg {
 
     atom_flaw::~atom_flaw() { }
 
+    std::string atom_flaw::get_label() const {
+        if (is_fact) {
+            return "fact e" + std::to_string(a.state);
+        } else {
+            return "goal e" + std::to_string(a.state);
+        }
+    }
+
     bool atom_flaw::compute_resolvers(std::vector<resolver*>& rs) {
         std::unordered_set<smt::set_item*> a_state = g.set.value(a.state);
         if (a_state.find(ratio::atom::unified) != a_state.end()) {
@@ -107,6 +115,10 @@ namespace cg {
 
     atom_flaw::add_fact::~add_fact() { }
 
+    std::string atom_flaw::add_fact::get_label() const {
+        return "add fact";
+    }
+
     bool atom_flaw::add_fact::apply() {
         return g.sat.new_clause({smt::lit(chosen, false), smt::lit(g.set.allows(a.state, *ratio::atom::active), true)});
     }
@@ -115,6 +127,10 @@ namespace cg {
 
     atom_flaw::expand_goal::~expand_goal() { }
 
+    std::string atom_flaw::expand_goal::get_label() const {
+        return "expand goal";
+    }
+
     bool atom_flaw::expand_goal::apply() {
         return g.sat.new_clause({smt::lit(chosen, false), smt::lit(g.set.allows(a.state, *ratio::atom::active), true)}) && static_cast<const ratio::predicate*> (&a.t)->apply_rule(a);
     }
@@ -122,6 +138,10 @@ namespace cg {
     atom_flaw::unify_atom::unify_atom(causal_graph& cg, atom_flaw& f, ratio::atom& a, ratio::atom& with, const std::vector<smt::lit>& unif_lits) : resolver(cg, smt::lin(0), f), a(a), with(with), unif_lits(unif_lits) { }
 
     atom_flaw::unify_atom::~unify_atom() { }
+
+    std::string atom_flaw::unify_atom::get_label() const {
+        return "unify";
+    }
 
     bool atom_flaw::unify_atom::apply() {
         for (const auto& v : unif_lits) {

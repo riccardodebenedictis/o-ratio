@@ -40,7 +40,7 @@ void causal_graph_java_listener::flaw_created(const cg::flaw& f) {
         tmp.push_back(reinterpret_cast<jlong> (r));
     }
     e->SetLongArrayRegion(ret_cs, 0, cs.size(), &tmp[0]);
-    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "new_flaw", "(J[JLjava/lang/String;)V"), ret_f, ret_cs, "flaw_label");
+    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "new_flaw", "(J[JLjava/lang/String;)V"), ret_f, ret_cs, f.get_label());
 }
 
 void causal_graph_java_listener::flaw_state_changed(const cg::flaw& f) {
@@ -70,7 +70,7 @@ void causal_graph_java_listener::current_flaw(const cg::flaw& f) {
 }
 
 void causal_graph_java_listener::resolver_created(const cg::resolver& r) {
-    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "new_resolver", "(JJLjava/lang/String;)V"), reinterpret_cast<jlong> (&r), reinterpret_cast<jlong> (&r.get_effect()), "resolver_label");
+    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "new_resolver", "(JJLjava/lang/String;)V"), reinterpret_cast<jlong> (&r), reinterpret_cast<jlong> (&r.get_effect()), r.get_label());
 }
 
 void causal_graph_java_listener::resolver_state_changed(const cg::resolver& r) {

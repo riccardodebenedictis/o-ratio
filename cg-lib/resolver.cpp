@@ -54,4 +54,21 @@ namespace cg {
             return r_cost;
         }
     }
+
+    std::string resolver::get_label() const {
+        std::string lbl = "b" + std::to_string(chosen);
+        switch (g.sat.value(chosen)) {
+            case smt::True:
+                lbl += "(T)";
+                break;
+            case smt::False:
+                lbl += "(F)";
+                break;
+            case smt::Undefined:
+                break;
+            default:
+                break;
+        }
+        return lbl;
+    }
 }

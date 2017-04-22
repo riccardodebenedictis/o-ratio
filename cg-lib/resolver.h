@@ -56,6 +56,8 @@ namespace cg {
         }
         double get_cost() const;
 
+        virtual std::string get_label() const;
+
     protected:
         causal_graph& g;
         smt::var chosen;

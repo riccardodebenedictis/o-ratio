@@ -147,6 +147,10 @@ namespace cg {
 
     state_variable::state_variable_flaw::~state_variable_flaw() { }
 
+    std::string state_variable::state_variable_flaw::get_label() const {
+        return "sv-flaw";
+    }
+
     bool state_variable::state_variable_flaw::compute_resolvers(std::vector<resolver*>& rs) {
         std::vector<std::vector < ratio::atom*>> cs = smt::combinations(std::vector<ratio::atom*>(overlapping_atoms.begin(), overlapping_atoms.end()), 2);
         for (const auto& as : cs) {
@@ -195,7 +199,16 @@ namespace cg {
 
     state_variable::order_resolver::~order_resolver() { }
 
+    std::string state_variable::order_resolver::get_label() const {
+        return "e" + std::to_string(before.state) + " <= e" + std::to_string(after.state);
+    }
+
     state_variable::displace_resolver::displace_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do) : sv_resolver(g, cost, f, to_do), a(a), i(i) { }
 
     state_variable::displace_resolver::~displace_resolver() { }
+
+    std::string state_variable::displace_resolver::get_label() const {
+        ratio::enum_expr scp = a.get("scope");
+        return "e" + std::to_string(scp->ev) + " != " + std::to_string(reinterpret_cast<uintptr_t> (&i));
+    }
 }
