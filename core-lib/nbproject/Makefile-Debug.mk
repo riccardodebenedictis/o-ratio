@@ -35,25 +35,20 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/f1d707eb/default_constructor.o \
-	${OBJECTDIR}/_ext/f1d707eb/defined_conjunction.o \
-	${OBJECTDIR}/_ext/f1d707eb/defined_constructor.o \
-	${OBJECTDIR}/_ext/f1d707eb/defined_method.o \
-	${OBJECTDIR}/_ext/f1d707eb/defined_predicate.o \
-	${OBJECTDIR}/_ext/f1d707eb/enum_type.o \
-	${OBJECTDIR}/_ext/f1d707eb/expression_visitor.o \
-	${OBJECTDIR}/_ext/f1d707eb/instantiated_field.o \
-	${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o \
-	${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o \
-	${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o \
-	${OBJECTDIR}/_ext/f1d707eb/type_visitor.o \
-	${OBJECTDIR}/_ext/f1d707eb/typedef_type.o \
 	${OBJECTDIR}/atom.o \
 	${OBJECTDIR}/constructor.o \
 	${OBJECTDIR}/core.o \
+	${OBJECTDIR}/default_constructor.o \
+	${OBJECTDIR}/defined_conjunction.o \
+	${OBJECTDIR}/defined_constructor.o \
+	${OBJECTDIR}/defined_method.o \
+	${OBJECTDIR}/defined_predicate.o \
 	${OBJECTDIR}/disjunction.o \
+	${OBJECTDIR}/enum_type.o \
 	${OBJECTDIR}/env.o \
+	${OBJECTDIR}/expression_visitor.o \
 	${OBJECTDIR}/field.o \
+	${OBJECTDIR}/instantiated_field.o \
 	${OBJECTDIR}/item.o \
 	${OBJECTDIR}/method.o \
 	${OBJECTDIR}/parser/ratioBaseListener.o \
@@ -65,7 +60,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/predicate.o \
 	${OBJECTDIR}/scope.o \
 	${OBJECTDIR}/solver.o \
-	${OBJECTDIR}/type.o
+	${OBJECTDIR}/statement_visitor.o \
+	${OBJECTDIR}/type.o \
+	${OBJECTDIR}/type_declaration_listener.o \
+	${OBJECTDIR}/type_refinement_listener.o \
+	${OBJECTDIR}/type_visitor.o \
+	${OBJECTDIR}/typedef_type.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -104,71 +104,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT}: ${OBJECT
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcore-lib.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
-${OBJECTDIR}/_ext/f1d707eb/default_constructor.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/default_constructor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/defined_conjunction.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_conjunction.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/defined_constructor.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_constructor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/defined_method.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_method.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/defined_predicate.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_predicate.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/enum_type.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/enum_type.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/expression_visitor.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/expression_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/instantiated_field.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/instantiated_field.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/type_visitor.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp
-
-${OBJECTDIR}/_ext/f1d707eb/typedef_type.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/typedef_type.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp
-
 ${OBJECTDIR}/atom.o: atom.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -184,20 +119,60 @@ ${OBJECTDIR}/core.o: core.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core.o core.cpp
 
+${OBJECTDIR}/default_constructor.o: default_constructor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/default_constructor.o default_constructor.cpp
+
+${OBJECTDIR}/defined_conjunction.o: defined_conjunction.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_conjunction.o defined_conjunction.cpp
+
+${OBJECTDIR}/defined_constructor.o: defined_constructor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_constructor.o defined_constructor.cpp
+
+${OBJECTDIR}/defined_method.o: defined_method.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_method.o defined_method.cpp
+
+${OBJECTDIR}/defined_predicate.o: defined_predicate.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_predicate.o defined_predicate.cpp
+
 ${OBJECTDIR}/disjunction.o: disjunction.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction.o disjunction.cpp
+
+${OBJECTDIR}/enum_type.o: enum_type.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_type.o enum_type.cpp
 
 ${OBJECTDIR}/env.o: env.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/env.o env.cpp
 
+${OBJECTDIR}/expression_visitor.o: expression_visitor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/expression_visitor.o expression_visitor.cpp
+
 ${OBJECTDIR}/field.o: field.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field.o field.cpp
+
+${OBJECTDIR}/instantiated_field.o: instantiated_field.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/instantiated_field.o instantiated_field.cpp
 
 ${OBJECTDIR}/item.o: item.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -254,10 +229,35 @@ ${OBJECTDIR}/solver.o: solver.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/solver.o solver.cpp
 
+${OBJECTDIR}/statement_visitor.o: statement_visitor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/statement_visitor.o statement_visitor.cpp
+
 ${OBJECTDIR}/type.o: type.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type.o type.cpp
+
+${OBJECTDIR}/type_declaration_listener.o: type_declaration_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_declaration_listener.o type_declaration_listener.cpp
+
+${OBJECTDIR}/type_refinement_listener.o: type_refinement_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_refinement_listener.o type_refinement_listener.cpp
+
+${OBJECTDIR}/type_visitor.o: type_visitor.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_visitor.o type_visitor.cpp
+
+${OBJECTDIR}/typedef_type.o: typedef_type.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/typedef_type.o typedef_type.cpp
 
 # Subprojects
 .build-subprojects:
@@ -277,175 +277,6 @@ ${TESTDIR}/tests/core_test.o: tests/core_test.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/core_test.o tests/core_test.cpp
 
-
-${OBJECTDIR}/_ext/f1d707eb/default_constructor_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/default_constructor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/default_constructor.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/default_constructor_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/default_constructor.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/default_constructor.o ${OBJECTDIR}/_ext/f1d707eb/default_constructor_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/defined_conjunction_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/defined_conjunction.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/defined_conjunction.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_conjunction_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_conjunction.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/defined_conjunction.o ${OBJECTDIR}/_ext/f1d707eb/defined_conjunction_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/defined_constructor_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/defined_constructor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/defined_constructor.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_constructor_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_constructor.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/defined_constructor.o ${OBJECTDIR}/_ext/f1d707eb/defined_constructor_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/defined_method_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/defined_method.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/defined_method.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_method_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_method.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/defined_method.o ${OBJECTDIR}/_ext/f1d707eb/defined_method_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/defined_predicate_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/defined_predicate.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/defined_predicate.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/defined_predicate_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/defined_predicate.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/defined_predicate.o ${OBJECTDIR}/_ext/f1d707eb/defined_predicate_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/enum_type_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/enum_type.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/enum_type.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/enum_type_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/enum_type.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/enum_type.o ${OBJECTDIR}/_ext/f1d707eb/enum_type_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/expression_visitor_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/expression_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/expression_visitor.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/expression_visitor_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/expression_visitor.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/expression_visitor.o ${OBJECTDIR}/_ext/f1d707eb/expression_visitor_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/instantiated_field_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/instantiated_field.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/instantiated_field.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/instantiated_field_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/instantiated_field.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/instantiated_field.o ${OBJECTDIR}/_ext/f1d707eb/instantiated_field_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/statement_visitor_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/statement_visitor_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/statement_visitor.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/statement_visitor.o ${OBJECTDIR}/_ext/f1d707eb/statement_visitor_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_declaration_listener.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener.o ${OBJECTDIR}/_ext/f1d707eb/type_declaration_listener_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_refinement_listener.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener.o ${OBJECTDIR}/_ext/f1d707eb/type_refinement_listener_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/type_visitor_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/type_visitor.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/type_visitor.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/type_visitor_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/type_visitor.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/type_visitor.o ${OBJECTDIR}/_ext/f1d707eb/type_visitor_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/f1d707eb/typedef_type_nomain.o: ${OBJECTDIR}/_ext/f1d707eb/typedef_type.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/f1d707eb
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/f1d707eb/typedef_type.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/f1d707eb/typedef_type_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/core-lib/typedef_type.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/f1d707eb/typedef_type.o ${OBJECTDIR}/_ext/f1d707eb/typedef_type_nomain.o;\
-	fi
 
 ${OBJECTDIR}/atom_nomain.o: ${OBJECTDIR}/atom.o atom.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -486,6 +317,71 @@ ${OBJECTDIR}/core_nomain.o: ${OBJECTDIR}/core.o core.cpp
 	    ${CP} ${OBJECTDIR}/core.o ${OBJECTDIR}/core_nomain.o;\
 	fi
 
+${OBJECTDIR}/default_constructor_nomain.o: ${OBJECTDIR}/default_constructor.o default_constructor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/default_constructor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/default_constructor_nomain.o default_constructor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/default_constructor.o ${OBJECTDIR}/default_constructor_nomain.o;\
+	fi
+
+${OBJECTDIR}/defined_conjunction_nomain.o: ${OBJECTDIR}/defined_conjunction.o defined_conjunction.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/defined_conjunction.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_conjunction_nomain.o defined_conjunction.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/defined_conjunction.o ${OBJECTDIR}/defined_conjunction_nomain.o;\
+	fi
+
+${OBJECTDIR}/defined_constructor_nomain.o: ${OBJECTDIR}/defined_constructor.o defined_constructor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/defined_constructor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_constructor_nomain.o defined_constructor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/defined_constructor.o ${OBJECTDIR}/defined_constructor_nomain.o;\
+	fi
+
+${OBJECTDIR}/defined_method_nomain.o: ${OBJECTDIR}/defined_method.o defined_method.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/defined_method.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_method_nomain.o defined_method.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/defined_method.o ${OBJECTDIR}/defined_method_nomain.o;\
+	fi
+
+${OBJECTDIR}/defined_predicate_nomain.o: ${OBJECTDIR}/defined_predicate.o defined_predicate.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/defined_predicate.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/defined_predicate_nomain.o defined_predicate.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/defined_predicate.o ${OBJECTDIR}/defined_predicate_nomain.o;\
+	fi
+
 ${OBJECTDIR}/disjunction_nomain.o: ${OBJECTDIR}/disjunction.o disjunction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/disjunction.o`; \
@@ -497,6 +393,19 @@ ${OBJECTDIR}/disjunction_nomain.o: ${OBJECTDIR}/disjunction.o disjunction.cpp
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_nomain.o disjunction.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/disjunction.o ${OBJECTDIR}/disjunction_nomain.o;\
+	fi
+
+${OBJECTDIR}/enum_type_nomain.o: ${OBJECTDIR}/enum_type.o enum_type.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/enum_type.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_type_nomain.o enum_type.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/enum_type.o ${OBJECTDIR}/enum_type_nomain.o;\
 	fi
 
 ${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp 
@@ -512,6 +421,19 @@ ${OBJECTDIR}/env_nomain.o: ${OBJECTDIR}/env.o env.cpp
 	    ${CP} ${OBJECTDIR}/env.o ${OBJECTDIR}/env_nomain.o;\
 	fi
 
+${OBJECTDIR}/expression_visitor_nomain.o: ${OBJECTDIR}/expression_visitor.o expression_visitor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/expression_visitor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/expression_visitor_nomain.o expression_visitor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/expression_visitor.o ${OBJECTDIR}/expression_visitor_nomain.o;\
+	fi
+
 ${OBJECTDIR}/field_nomain.o: ${OBJECTDIR}/field.o field.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/field.o`; \
@@ -523,6 +445,19 @@ ${OBJECTDIR}/field_nomain.o: ${OBJECTDIR}/field.o field.cpp
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/field_nomain.o field.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/field.o ${OBJECTDIR}/field_nomain.o;\
+	fi
+
+${OBJECTDIR}/instantiated_field_nomain.o: ${OBJECTDIR}/instantiated_field.o instantiated_field.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/instantiated_field.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/instantiated_field_nomain.o instantiated_field.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/instantiated_field.o ${OBJECTDIR}/instantiated_field_nomain.o;\
 	fi
 
 ${OBJECTDIR}/item_nomain.o: ${OBJECTDIR}/item.o item.cpp 
@@ -668,6 +603,19 @@ ${OBJECTDIR}/solver_nomain.o: ${OBJECTDIR}/solver.o solver.cpp
 	    ${CP} ${OBJECTDIR}/solver.o ${OBJECTDIR}/solver_nomain.o;\
 	fi
 
+${OBJECTDIR}/statement_visitor_nomain.o: ${OBJECTDIR}/statement_visitor.o statement_visitor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/statement_visitor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/statement_visitor_nomain.o statement_visitor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/statement_visitor.o ${OBJECTDIR}/statement_visitor_nomain.o;\
+	fi
+
 ${OBJECTDIR}/type_nomain.o: ${OBJECTDIR}/type.o type.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/type.o`; \
@@ -679,6 +627,58 @@ ${OBJECTDIR}/type_nomain.o: ${OBJECTDIR}/type.o type.cpp
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_nomain.o type.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/type.o ${OBJECTDIR}/type_nomain.o;\
+	fi
+
+${OBJECTDIR}/type_declaration_listener_nomain.o: ${OBJECTDIR}/type_declaration_listener.o type_declaration_listener.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/type_declaration_listener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_declaration_listener_nomain.o type_declaration_listener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/type_declaration_listener.o ${OBJECTDIR}/type_declaration_listener_nomain.o;\
+	fi
+
+${OBJECTDIR}/type_refinement_listener_nomain.o: ${OBJECTDIR}/type_refinement_listener.o type_refinement_listener.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/type_refinement_listener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_refinement_listener_nomain.o type_refinement_listener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/type_refinement_listener.o ${OBJECTDIR}/type_refinement_listener_nomain.o;\
+	fi
+
+${OBJECTDIR}/type_visitor_nomain.o: ${OBJECTDIR}/type_visitor.o type_visitor.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/type_visitor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/type_visitor_nomain.o type_visitor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/type_visitor.o ${OBJECTDIR}/type_visitor_nomain.o;\
+	fi
+
+${OBJECTDIR}/typedef_type_nomain.o: ${OBJECTDIR}/typedef_type.o typedef_type.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/typedef_type.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/typedef_type_nomain.o typedef_type.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/typedef_type.o ${OBJECTDIR}/typedef_type_nomain.o;\
 	fi
 
 # Run Test Targets

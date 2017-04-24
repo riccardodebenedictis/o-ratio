@@ -4,8 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.h</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.h</itemPath>
+      <itemPath>causal_graph_api.h</itemPath>
+      <itemPath>causal_graph_java_listener.h</itemPath>
       <itemPath>handle.h</itemPath>
       <itemPath>solver_api.h</itemPath>
     </logicalFolder>
@@ -16,8 +16,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.cpp</itemPath>
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.cpp</itemPath>
+      <itemPath>causal_graph_api.cpp</itemPath>
+      <itemPath>causal_graph_java_listener.cpp</itemPath>
       <itemPath>solver_api.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -97,25 +97,13 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="causal_graph_api.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="causal_graph_api.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="causal_graph_java_listener.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="causal_graph_java_listener.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="handle.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -197,25 +185,13 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="causal_graph_api.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="causal_graph_api.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
+      <item path="causal_graph_java_listener.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.h"
-            ex="false"
-            tool="3"
-            flavor2="0">
+      <item path="causal_graph_java_listener.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="handle.h" ex="false" tool="3" flavor2="0">
       </item>

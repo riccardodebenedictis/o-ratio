@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/d4886e68/causal_graph_api.o \
-	${OBJECTDIR}/_ext/d4886e68/causal_graph_java_listener.o \
+	${OBJECTDIR}/causal_graph_api.o \
+	${OBJECTDIR}/causal_graph_java_listener.o \
 	${OBJECTDIR}/solver_api.o
 
 
@@ -70,15 +70,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnative-api.${CND_DLIB_EXT}: ${OBJE
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnative-api.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
-${OBJECTDIR}/_ext/d4886e68/causal_graph_api.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/d4886e68
+${OBJECTDIR}/causal_graph_api.o: causal_graph_api.cpp
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -I../../../smt-lib -I../../../core-lib -I../../../cg-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/C/Program\ Files/Java/jdk1.8.0_121/include -I/C/Program\ Files/Java/jdk1.8.0_121/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d4886e68/causal_graph_api.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_api.cpp
+	$(COMPILE.cc) -O2 -Wall -I../../../smt-lib -I../../../core-lib -I../../../cg-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/C/Program\ Files/Java/jdk1.8.0_121/include -I/C/Program\ Files/Java/jdk1.8.0_121/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_api.o causal_graph_api.cpp
 
-${OBJECTDIR}/_ext/d4886e68/causal_graph_java_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/d4886e68
+${OBJECTDIR}/causal_graph_java_listener.o: causal_graph_java_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -I../../../smt-lib -I../../../core-lib -I../../../cg-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/C/Program\ Files/Java/jdk1.8.0_121/include -I/C/Program\ Files/Java/jdk1.8.0_121/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/d4886e68/causal_graph_java_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/api/java/native-api/causal_graph_java_listener.cpp
+	$(COMPILE.cc) -O2 -Wall -I../../../smt-lib -I../../../core-lib -I../../../cg-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/C/Program\ Files/Java/jdk1.8.0_121/include -I/C/Program\ Files/Java/jdk1.8.0_121/include/win32  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_java_listener.o causal_graph_java_listener.cpp
 
 ${OBJECTDIR}/solver_api.o: solver_api.cpp
 	${MKDIR} -p ${OBJECTDIR}

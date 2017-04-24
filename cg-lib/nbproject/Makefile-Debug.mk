@@ -35,14 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o \
-	${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o \
-	${OBJECTDIR}/_ext/2a0b8f30/flaw.o \
-	${OBJECTDIR}/_ext/2a0b8f30/resolver.o \
-	${OBJECTDIR}/_ext/2a0b8f30/state_variable.o \
 	${OBJECTDIR}/atom_flaw.o \
+	${OBJECTDIR}/causal_graph.o \
+	${OBJECTDIR}/causal_graph_listener.o \
 	${OBJECTDIR}/disjunction_flaw.o \
-	${OBJECTDIR}/enum_flaw.o
+	${OBJECTDIR}/enum_flaw.o \
+	${OBJECTDIR}/flaw.o \
+	${OBJECTDIR}/resolver.o \
+	${OBJECTDIR}/state_variable.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -83,35 +83,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}: ${OBJECTFI
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared
 
-${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp
-
-${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp
-
-${OBJECTDIR}/_ext/2a0b8f30/flaw.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/flaw.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp
-
-${OBJECTDIR}/_ext/2a0b8f30/resolver.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/resolver.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp
-
-${OBJECTDIR}/_ext/2a0b8f30/state_variable.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp
-
 ${OBJECTDIR}/atom_flaw.o: atom_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp
+
+${OBJECTDIR}/causal_graph.o: causal_graph.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph.o causal_graph.cpp
+
+${OBJECTDIR}/causal_graph_listener.o: causal_graph_listener.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_listener.o causal_graph_listener.cpp
 
 ${OBJECTDIR}/disjunction_flaw.o: disjunction_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -122,6 +107,21 @@ ${OBJECTDIR}/enum_flaw.o: enum_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw.o enum_flaw.cpp
+
+${OBJECTDIR}/flaw.o: flaw.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw.o flaw.cpp
+
+${OBJECTDIR}/resolver.o: resolver.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver.o resolver.cpp
+
+${OBJECTDIR}/state_variable.o: state_variable.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/state_variable.o state_variable.cpp
 
 # Subprojects
 .build-subprojects:
@@ -143,71 +143,6 @@ ${TESTDIR}/_ext/12d57e82/cg_test.o: /C/Users/sydde/OneDrive/Documenti/NetBeansPr
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/_ext/12d57e82/cg_test.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp
 
 
-${OBJECTDIR}/_ext/2a0b8f30/causal_graph_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph.o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/causal_graph_listener.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener.o ${OBJECTDIR}/_ext/2a0b8f30/causal_graph_listener_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/2a0b8f30/flaw_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/flaw.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/flaw.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/flaw_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/flaw.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/flaw.o ${OBJECTDIR}/_ext/2a0b8f30/flaw_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/2a0b8f30/resolver_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/resolver.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/resolver.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/resolver_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/resolver.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/resolver.o ${OBJECTDIR}/_ext/2a0b8f30/resolver_nomain.o;\
-	fi
-
-${OBJECTDIR}/_ext/2a0b8f30/state_variable_nomain.o: ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/2a0b8f30
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/2a0b8f30/state_variable_nomain.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/state_variable.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/_ext/2a0b8f30/state_variable.o ${OBJECTDIR}/_ext/2a0b8f30/state_variable_nomain.o;\
-	fi
-
 ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/atom_flaw.o`; \
@@ -219,6 +154,32 @@ ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw_nomain.o atom_flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/atom_flaw.o ${OBJECTDIR}/atom_flaw_nomain.o;\
+	fi
+
+${OBJECTDIR}/causal_graph_nomain.o: ${OBJECTDIR}/causal_graph.o causal_graph.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/causal_graph.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_nomain.o causal_graph.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/causal_graph.o ${OBJECTDIR}/causal_graph_nomain.o;\
+	fi
+
+${OBJECTDIR}/causal_graph_listener_nomain.o: ${OBJECTDIR}/causal_graph_listener.o causal_graph_listener.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/causal_graph_listener.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_listener_nomain.o causal_graph_listener.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/causal_graph_listener.o ${OBJECTDIR}/causal_graph_listener_nomain.o;\
 	fi
 
 ${OBJECTDIR}/disjunction_flaw_nomain.o: ${OBJECTDIR}/disjunction_flaw.o disjunction_flaw.cpp 
@@ -245,6 +206,45 @@ ${OBJECTDIR}/enum_flaw_nomain.o: ${OBJECTDIR}/enum_flaw.o enum_flaw.cpp
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw_nomain.o enum_flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/enum_flaw.o ${OBJECTDIR}/enum_flaw_nomain.o;\
+	fi
+
+${OBJECTDIR}/flaw_nomain.o: ${OBJECTDIR}/flaw.o flaw.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/flaw.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw_nomain.o flaw.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/flaw.o ${OBJECTDIR}/flaw_nomain.o;\
+	fi
+
+${OBJECTDIR}/resolver_nomain.o: ${OBJECTDIR}/resolver.o resolver.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/resolver.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver_nomain.o resolver.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/resolver.o ${OBJECTDIR}/resolver_nomain.o;\
+	fi
+
+${OBJECTDIR}/state_variable_nomain.o: ${OBJECTDIR}/state_variable.o state_variable.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/state_variable.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/state_variable_nomain.o state_variable.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/state_variable.o ${OBJECTDIR}/state_variable_nomain.o;\
 	fi
 
 # Run Test Targets
