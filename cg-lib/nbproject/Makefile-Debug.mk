@@ -53,7 +53,7 @@ TESTFILES= \
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/_ext/12d57e82/cg_test.o
+	${TESTDIR}/tests/cg_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -132,15 +132,15 @@ ${OBJECTDIR}/state_variable.o: state_variable.cpp
 .build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
 .build-tests-subprojects:
 
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/_ext/12d57e82/cg_test.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/cg_test.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
 
 
-${TESTDIR}/_ext/12d57e82/cg_test.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp 
-	${MKDIR} -p ${TESTDIR}/_ext/12d57e82
+${TESTDIR}/tests/cg_test.o: tests/cg_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/_ext/12d57e82/cg_test.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/cg_test.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/cg_test.o tests/cg_test.cpp
 
 
 ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp 
