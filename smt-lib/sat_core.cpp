@@ -355,6 +355,7 @@ namespace smt {
     }
 
     bool sat_core::assume(const lit& p) {
+        assert(assigns[p.v] == Undefined);
         trail_lim.push_back(p);
         for (const auto& th : theories) {
             th->push();
