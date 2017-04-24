@@ -392,6 +392,9 @@ namespace smt {
                 return false;
             }
         }
+        while (trail_lim.size() > c_level) {
+            pop();
+        }
         return true;
     }
 
