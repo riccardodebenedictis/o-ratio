@@ -66,6 +66,14 @@ public class SolverTest {
         Solver s = new Solver();
         s.read("real a; real b; a >= 10.0; b <= 15.0;");
         State state = s.getState();
+        ArithItem a = (ArithItem) state.get("a");
+        ArithItem b = (ArithItem) state.get("b");
+        assert a.lb == 10;
+        assert a.ub == Double.POSITIVE_INFINITY;
+        assert a.val == 10;
+        assert b.lb == Double.NEGATIVE_INFINITY;
+        assert b.ub == 15;
+        assert b.val == 0;
         s.dispose();
     }
 }
