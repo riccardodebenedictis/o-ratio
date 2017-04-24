@@ -42,6 +42,7 @@ namespace cg {
 
     bool atom_flaw::compute_resolvers(std::vector<resolver*>& rs) {
         std::unordered_set<smt::set_item*> a_state = g.set.value(a.state);
+        assert(!a_state.empty());
         if (a_state.find(ratio::atom::unified) != a_state.end()) {
             for (const auto& i : a.t.get_instances()) {
                 if (&*i == &a) {
@@ -53,6 +54,7 @@ namespace cg {
                     continue;
                 }
                 std::unordered_set<smt::set_item*> c_state = g.set.value(c_a->state);
+                assert(!c_state.empty());
                 if (c_state.find(ratio::atom::active) == c_state.end() || !a.equates(*c_a)) {
                     continue;
                 }
@@ -69,9 +71,9 @@ namespace cg {
                         break;
                     }
                     seen.insert(q.front());
-                    if (g.sat.value(q.front()->get_in_plan()) == smt::Undefined) {
-                        for (const auto& cause : q.front()->get_causes()) {
-                            assert(g.sat.value(cause->get_chosen()) != smt::False);
+                    for (const auto& cause : q.front()->get_causes()) {
+                        assert(g.sat.value(cause->get_chosen()) != smt::False);
+                        if (g.sat.value(cause->get_chosen()) != smt::True) {
                             unif_lits.push_back(smt::lit(cause->get_chosen(), true));
                             q.push(&cause->get_effect());
                         }
@@ -81,14 +83,22 @@ namespace cg {
                 if (!q.empty()) {
                     continue;
                 }
-                unif_lits.push_back(smt::lit(g.set.allows(a.state, *ratio::atom::unified), true));
-                unif_lits.push_back(smt::lit(g.set.allows(c_a->state, *ratio::atom::active), true));
+                if (a_state.size() > 1) {
+                    assert(g.sat.value(g.set.allows(a.state, *ratio::atom::unified)) != smt::False);
+                    unif_lits.push_back(smt::lit(g.set.allows(a.state, *ratio::atom::unified), true));
+                }
+                if (c_state.size() > 1) {
+                    assert(g.sat.value(g.set.allows(c_a->state, *ratio::atom::unified)) != smt::False);
+                    unif_lits.push_back(smt::lit(g.set.allows(c_a->state, *ratio::atom::unified), true));
+                }
                 smt::var eq_v = a.eq(*c_a);
                 if (g.sat.value(eq_v) == smt::False) {
                     continue;
                 }
-                unif_lits.push_back(smt::lit(a.eq(*c_a), true));
-                if (g.sat.check(unif_lits)) {
+                if (g.sat.value(eq_v) != smt::True) {
+                    unif_lits.push_back(smt::lit(a.eq(*c_a), true));
+                }
+                if (unif_lits.empty() || g.sat.check(unif_lits)) {
                     // unification is actually possible!
                     unify_atom* u_res = new unify_atom(g, *this, a, *c_a, unif_lits);
                     rs.push_back(u_res);
