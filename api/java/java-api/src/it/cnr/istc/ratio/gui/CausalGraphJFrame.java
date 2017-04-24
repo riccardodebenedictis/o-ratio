@@ -18,6 +18,9 @@ package it.cnr.istc.ratio.gui;
 
 import it.cnr.istc.ratio.api.CausalGraph;
 import it.cnr.istc.ratio.api.Solver;
+import java.io.File;
+import java.util.stream.Stream;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -34,7 +37,6 @@ public class CausalGraphJFrame extends javax.swing.JFrame {
     public CausalGraphJFrame() {
         initComponents();
         cg.addCausalGraphListener(causalGraphDisplay);
-        s.read("real a;");
     }
 
     /**
@@ -46,25 +48,56 @@ public class CausalGraphJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fc = new javax.swing.JFileChooser();
         causalGraphDisplay = new it.cnr.istc.ratio.gui.CausalGraphDisplay();
+        jToolBar = new javax.swing.JToolBar();
+        jButton = new javax.swing.JButton();
+
+        fc.setMultiSelectionEnabled(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Causal graph");
+
+        jToolBar.setFloatable(false);
+        jToolBar.setRollover(true);
+
+        jButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/it/cnr/istc/ratio/gui/resources/open.png"))); // NOI18N
+        jButton.setFocusable(false);
+        jButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActionPerformed(evt);
+            }
+        });
+        jToolBar.add(jButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(causalGraphDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(causalGraphDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(causalGraphDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActionPerformed
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File[] files = fc.getSelectedFiles();
+            boolean read = s.read(Stream.of(files).map(f -> f.getPath()).toArray(String[]::new));
+        }
+    }//GEN-LAST:event_jButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,5 +129,8 @@ public class CausalGraphJFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private it.cnr.istc.ratio.gui.CausalGraphDisplay causalGraphDisplay;
+    private javax.swing.JFileChooser fc;
+    private javax.swing.JButton jButton;
+    private javax.swing.JToolBar jToolBar;
     // End of variables declaration//GEN-END:variables
 }
