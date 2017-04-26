@@ -62,7 +62,7 @@ void causal_graph_java_listener::flaw_state_changed(const cg::flaw& f) {
 }
 
 void causal_graph_java_listener::flaw_cost_changed(const cg::flaw& f) {
-    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "flaw_cost_changed", "(JJ)V"), reinterpret_cast<jlong> (&f), f.get_cost());
+    e->CallVoidMethod(o, e->GetMethodID(e->GetObjectClass(o), "flaw_cost_changed", "(JD)V"), reinterpret_cast<jlong> (&f), f.get_cost());
 }
 
 void causal_graph_java_listener::current_flaw(const cg::flaw& f) {
