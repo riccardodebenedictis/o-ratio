@@ -109,7 +109,7 @@ main_loop:
             ok = true;
 
             // we apply the resolver..
-            if (!sat.assume(smt::lit(r_next.chosen, true))) {
+            if (!sat.assume(smt::lit(r_next.chosen, true)) || !sat.check()) {
                 return false;
             }
 
