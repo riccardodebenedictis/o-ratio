@@ -40,7 +40,8 @@ namespace cg {
         }
     }
 
-    bool atom_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+    void atom_flaw::compute_resolvers() {
+        bool solved = false;
         std::unordered_set<smt::set_item*> a_state = g.set.value(a.state);
         assert(!a_state.empty());
         if (a_state.find(ratio::atom::unified) != a_state.end()) {
@@ -101,23 +102,23 @@ namespace cg {
                 if (unif_lits.empty() || g.sat.check(unif_lits)) {
                     // unification is actually possible!
                     unify_atom* u_res = new unify_atom(g, *this, a, *c_a, unif_lits);
-                    rs.push_back(u_res);
+                    add_resolver(*u_res);
                     g.new_causal_link(*g.reason.at(c_a), *u_res);
                     g.set_cost(*this, g.reason.at(c_a)->get_cost());
+                    solved = true;
                 }
             }
         }
-        if (rs.empty()) {
+        if (!solved) {
             // we remove unification from atom state..
             bool not_unify = g.sat.new_clause({smt::lit(g.set.allows(a.state, *ratio::atom::unified), false)});
             assert(not_unify);
         }
         if (is_fact) {
-            rs.push_back(new add_fact(g, *this, a));
+            add_resolver(*new add_fact(g, *this, a));
         } else {
-            rs.push_back(new expand_goal(g, *this, a));
+            add_resolver(*new expand_goal(g, *this, a));
         }
-        return true;
     }
 
     atom_flaw::add_fact::add_fact(causal_graph& cg, atom_flaw& f, ratio::atom& a) : resolver(cg, smt::lin(0), f), a(a) { }

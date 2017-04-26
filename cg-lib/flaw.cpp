@@ -69,9 +69,7 @@ namespace cg {
         assert(!expanded);
 
         // we compute the resolvers..
-        if (!compute_resolvers(resolvers)) {
-            return false;
-        }
+        compute_resolvers();
         expanded = true;
 
         // we add causal relations between the flaw and its resolvers (i.e., if the flaw is in_plan exactly one of its resolvers should be in plan)..
@@ -96,6 +94,11 @@ namespace cg {
         return std::all_of(resolvers.begin(), resolvers.end(), [](const resolver * r) {
             return r->preconditions.empty();
         });
+    }
+
+    void flaw::add_resolver(resolver& r) {
+        resolvers.push_back(&r);
+        g.new_resolver(r);
     }
 
     std::string flaw::get_label() const {

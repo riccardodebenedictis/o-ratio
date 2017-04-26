@@ -66,8 +66,11 @@ namespace cg {
     private:
         virtual void init();
         bool expand();
-        virtual bool compute_resolvers(std::vector<resolver*>& rs) = 0;
+        virtual void compute_resolvers() = 0;
         bool has_subgoals();
+
+    protected:
+        void add_resolver(resolver& r);
 
     protected:
         causal_graph& g;

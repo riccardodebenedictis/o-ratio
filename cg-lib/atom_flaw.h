@@ -40,7 +40,7 @@ namespace cg {
         std::string get_label() const override;
 
     private:
-        bool compute_resolvers(std::vector<resolver*>& rs) override;
+        void compute_resolvers() override;
 
         class add_fact : public resolver {
         public:

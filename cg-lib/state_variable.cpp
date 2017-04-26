@@ -151,7 +151,7 @@ namespace cg {
         return "sv-flaw";
     }
 
-    bool state_variable::state_variable_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+    void state_variable::state_variable_flaw::compute_resolvers() {
         std::vector<std::vector < ratio::atom*>> cs = smt::combinations(std::vector<ratio::atom*>(overlapping_atoms.begin(), overlapping_atoms.end()), 2);
         for (const auto& as : cs) {
             ratio::arith_expr a0_start = as[0]->get("start");
@@ -161,18 +161,18 @@ namespace cg {
 
             ratio::bool_expr a0_before_a1 = g.leq(a0_end, a1_start);
             if (g.sat.value(a0_before_a1->l) != smt::False) {
-                rs.push_back(new order_resolver(g, smt::lin(0.0), *this, *as[0], *as[1], a0_before_a1->l));
+                add_resolver(*new order_resolver(g, smt::lin(0.0), *this, *as[0], *as[1], a0_before_a1->l));
             }
             ratio::bool_expr a1_before_a0 = g.leq(a1_end, a0_start);
             if (g.sat.value(a1_before_a0->l) != smt::False) {
-                rs.push_back(new order_resolver(g, smt::lin(0.0), *this, *as[1], *as[0], a1_before_a0->l));
+                add_resolver(*new order_resolver(g, smt::lin(0.0), *this, *as[1], *as[0], a1_before_a0->l));
             }
 
             ratio::enum_expr a0_scope = as[0]->get("scope");
             std::unordered_set<smt::set_item*> a0_scopes = g.set.value(a0_scope->ev);
             if (a0_scopes.size() > 1) {
                 for (const auto& sc : a0_scopes) {
-                    rs.push_back(new displace_resolver(g, smt::lin(0.0), *this, *as[0], *static_cast<ratio::item*> (sc), smt::lit(g.set.allows(a0_scope->ev, *sc), false)));
+                    add_resolver(*new displace_resolver(g, smt::lin(0.0), *this, *as[0], *static_cast<ratio::item*> (sc), smt::lit(g.set.allows(a0_scope->ev, *sc), false)));
                 }
             }
 
@@ -180,11 +180,10 @@ namespace cg {
             std::unordered_set<smt::set_item*> a1_scopes = g.set.value(a1_scope->ev);
             if (a1_scopes.size() > 1) {
                 for (const auto& sc : a1_scopes) {
-                    rs.push_back(new displace_resolver(g, smt::lin(0.0), *this, *as[1], *static_cast<ratio::item*> (sc), smt::lit(g.set.allows(a1_scope->ev, *sc), false)));
+                    add_resolver(*new displace_resolver(g, smt::lin(0.0), *this, *as[1], *static_cast<ratio::item*> (sc), smt::lit(g.set.allows(a1_scope->ev, *sc), false)));
                 }
             }
         }
-        return true;
     }
 
     state_variable::sv_resolver::sv_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const smt::lit& to_do) : resolver(g, cost, f), to_do(to_do) { }

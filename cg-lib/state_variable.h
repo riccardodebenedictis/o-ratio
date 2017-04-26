@@ -98,7 +98,7 @@ namespace cg {
             std::string get_label() const override;
 
         private:
-            bool compute_resolvers(std::vector<resolver*>& rs) override;
+            void compute_resolvers() override;
 
         private:
             const std::set<ratio::atom*> overlapping_atoms;

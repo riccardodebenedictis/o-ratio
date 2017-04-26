@@ -35,12 +35,11 @@ namespace cg {
         return "enum";
     }
 
-    bool enum_flaw::compute_resolvers(std::vector<resolver*>& rs) {
+    void enum_flaw::compute_resolvers() {
         std::unordered_set<smt::set_item*> vals = g.set.value(e.ev);
         for (const auto& v : vals) {
-            rs.push_back(new choose_value(g, *this, *v));
+            add_resolver(*new choose_value(g, *this, *v));
         }
-        return true;
     }
 
     enum_flaw::choose_value::choose_value(causal_graph& cg, enum_flaw& f, smt::set_item& val) : resolver(cg, smt::lin(1.0 / cg.set.value(f.e.ev).size()), f), v(f.e.ev), val(val) { }

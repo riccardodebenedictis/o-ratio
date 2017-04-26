@@ -40,7 +40,6 @@ namespace cg {
 
     class causal_graph : public ratio::solver {
         friend class flaw;
-        friend class resolver;
         friend class atom_flaw;
 #ifndef N_CAUSAL_GRAPH_LISTENERS
         friend class causal_graph_listener;
