@@ -40,6 +40,7 @@ namespace cg {
 
     class causal_graph : public ratio::solver {
         friend class flaw;
+        friend class resolver;
         friend class atom_flaw;
 #ifndef N_CAUSAL_GRAPH_LISTENERS
         friend class causal_graph_listener;
@@ -59,6 +60,7 @@ namespace cg {
         void new_disjunction(ratio::context& e, ratio::disjunction& d) override;
 
         void new_flaw(flaw& f);
+        void new_resolver(resolver& r);
         void new_causal_link(flaw& f, resolver& r);
 
         smt::constr* propagate(const smt::lit& p) override;

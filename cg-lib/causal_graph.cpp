@@ -168,6 +168,14 @@ main_loop:
 #endif
     }
 
+    void causal_graph::new_resolver(resolver& r) {
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->new_resolver(r);
+        }
+#endif
+    }
+
     void causal_graph::new_causal_link(flaw& f, resolver& r) {
         r.preconditions.push_back(&f);
         f.supports.push_back(&r);
@@ -246,13 +254,6 @@ main_loop:
                 if (!flaw_q.front()->expand() || !sat.check()) {
                     return false;
                 }
-#ifndef N_CAUSAL_GRAPH_LISTENERS
-                for (const auto& r : flaw_q.front()->resolvers) {
-                    for (const auto& l : listeners) {
-                        l->new_resolver(*r);
-                    }
-                }
-#endif
 
                 for (const auto& r : flaw_q.front()->resolvers) {
                     resolvers.push_front(r);
@@ -288,13 +289,6 @@ main_loop:
             if (!f->expand() || !sat.check()) {
                 return false;
             }
-#ifndef N_CAUSAL_GRAPH_LISTENERS
-            for (const auto& r : flaw_q.front()->resolvers) {
-                for (const auto& l : listeners) {
-                    l->new_resolver(*r);
-                }
-            }
-#endif
 
             for (const auto& r : f->resolvers) {
                 resolvers.push_front(r);
