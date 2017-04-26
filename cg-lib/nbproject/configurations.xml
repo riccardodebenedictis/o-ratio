@@ -42,6 +42,8 @@
       <logicalFolder name="f1" displayName="CG Test" projectFiles="true" kind="TEST">
         <itemPath>tests/cg_test.cpp</itemPath>
         <itemPath>tests/test_sv_0.rddl</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl</itemPath>
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -102,6 +104,16 @@
         </linkerTool>
       </compileType>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/init.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl"
             ex="false"
             tool="3"
             flavor2="0">
@@ -219,6 +231,16 @@
         </linkerTool>
       </compileType>
       <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/init.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl"
             ex="false"
             tool="3"
             flavor2="0">

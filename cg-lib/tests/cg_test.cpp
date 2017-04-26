@@ -40,6 +40,26 @@ void testCG0() {
     assert(slvd);
 }
 
+void testCG1() {
+    cg::causal_graph g;
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_sv_1.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(slvd);
+}
+
+void testCG2() {
+    cg::causal_graph g;
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_sv_2.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(slvd);
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% cg_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -47,6 +67,14 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testCG0 (cg_test)" << std::endl;
     testCG0();
     std::cout << "%TEST_FINISHED% testCG0=0 test1 (cg_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testCG1 (cg_test)" << std::endl;
+    testCG1();
+    std::cout << "%TEST_FINISHED% testCG1=0 test1 (cg_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testCG2 (cg_test)" << std::endl;
+    testCG2();
+    std::cout << "%TEST_FINISHED% testCG2=0 test1 (cg_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
