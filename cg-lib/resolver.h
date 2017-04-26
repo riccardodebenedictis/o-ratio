@@ -41,7 +41,6 @@ namespace cg {
         virtual ~resolver();
 
         virtual bool apply() = 0;
-        bool add_precondition(flaw& f);
 
         smt::var get_chosen() const {
             return chosen;

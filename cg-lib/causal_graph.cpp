@@ -168,6 +168,18 @@ main_loop:
 #endif
     }
 
+    void causal_graph::new_causal_link(flaw& f, resolver& r) {
+        r.preconditions.push_back(&f);
+        f.supports.push_back(&r);
+        bool new_clause = sat.new_clause({smt::lit(r.chosen, false), smt::lit(f.in_plan, true)});
+        assert(new_clause);
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->causal_link_added(f, r);
+        }
+#endif
+    }
+
     smt::constr* causal_graph::propagate(const smt::lit& p) {
         flaw* f = in_plan.at(p.v);
         if (p.sign) {

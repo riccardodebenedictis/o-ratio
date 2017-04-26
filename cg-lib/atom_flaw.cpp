@@ -102,8 +102,7 @@ namespace cg {
                     // unification is actually possible!
                     unify_atom* u_res = new unify_atom(g, *this, a, *c_a, unif_lits);
                     rs.push_back(u_res);
-                    bool add_pre = u_res->add_precondition(*g.reason.at(c_a));
-                    assert(add_pre);
+                    g.new_causal_link(*this, *u_res);
                     g.set_cost(*this, g.reason.at(c_a)->get_cost());
                 }
             }

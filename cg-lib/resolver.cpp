@@ -32,12 +32,6 @@ namespace cg {
 
     resolver::~resolver() { }
 
-    bool resolver::add_precondition(flaw& f) {
-        preconditions.push_back(&f);
-        f.supports.push_back(this);
-        return g.sat.new_clause({smt::lit(chosen, false), smt::lit(f.in_plan, true)});
-    }
-
     double resolver::get_cost() const {
         if (g.sat.value(chosen) == smt::False) {
             // the resolver cannot be chosen..

@@ -59,6 +59,7 @@ namespace cg {
         void new_disjunction(ratio::context& e, ratio::disjunction& d) override;
 
         void new_flaw(flaw& f);
+        void new_causal_link(flaw& f, resolver& r);
 
         smt::constr* propagate(const smt::lit& p) override;
         smt::constr* check() override;
