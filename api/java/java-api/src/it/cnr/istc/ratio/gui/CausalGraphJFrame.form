@@ -32,13 +32,13 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="causalGraphDisplay" max="32767" attributes="0"/>
-          <Component id="jToolBar" alignment="0" max="32767" attributes="0"/>
+          <Component id="toolBar" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="jToolBar" min="-2" max="-2" attributes="0"/>
+              <Component id="toolBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="causalGraphDisplay" max="32767" attributes="0"/>
           </Group>
@@ -48,7 +48,7 @@
   <SubComponents>
     <Component class="it.cnr.istc.ratio.gui.CausalGraphDisplay" name="causalGraphDisplay">
     </Component>
-    <Container class="javax.swing.JToolBar" name="jToolBar">
+    <Container class="javax.swing.JToolBar" name="toolBar">
       <Properties>
         <Property name="floatable" type="boolean" value="false"/>
         <Property name="rollover" type="boolean" value="true"/>
@@ -56,7 +56,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton">
+        <Component class="javax.swing.JButton" name="openJButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/it/cnr/istc/ratio/gui/resources/open.png"/>
@@ -66,7 +66,20 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openJButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="solveJButton">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/it/cnr/istc/ratio/gui/resources/solve.png"/>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solveJButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
