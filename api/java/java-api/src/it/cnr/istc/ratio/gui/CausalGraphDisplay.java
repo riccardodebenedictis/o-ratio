@@ -225,6 +225,7 @@ public class CausalGraphDisplay extends Display implements CausalGraphListener {
 
     @Override
     public void flaw_state_changed(long f, LBool state) {
+        assert flaws.containsKey(f);
         synchronized (m_vis) {
             Node flaw_node = flaws.get(f);
             flaw_node.set(NODE_STATE, state);
@@ -233,6 +234,7 @@ public class CausalGraphDisplay extends Display implements CausalGraphListener {
 
     @Override
     public void flaw_cost_changed(long f, double cost) {
+        assert flaws.containsKey(f);
         synchronized (m_vis) {
             Node flaw_node = flaws.get(f);
             flaw_node.set(NODE_COST, -cost);
@@ -241,6 +243,7 @@ public class CausalGraphDisplay extends Display implements CausalGraphListener {
 
     @Override
     public void current_flaw(long f) {
+        assert flaws.containsKey(f);
         synchronized (m_vis) {
             if (!m_vis.getVisualItem(NODES, flaws.get(f)).isHighlighted()) {
                 EXECUTOR.execute(() -> {
@@ -277,6 +280,7 @@ public class CausalGraphDisplay extends Display implements CausalGraphListener {
 
     @Override
     public void resolver_state_changed(long r, LBool state) {
+        assert resolvers.containsKey(r);
         synchronized (m_vis) {
             Node resolver_node = resolvers.get(r);
             resolver_node.set(NODE_STATE, state);
@@ -285,6 +289,7 @@ public class CausalGraphDisplay extends Display implements CausalGraphListener {
 
     @Override
     public void current_resolver(long r) {
+        assert resolvers.containsKey(r);
         synchronized (m_vis) {
             if (!m_vis.getVisualItem(NODES, resolvers.get(r)).isHighlighted()) {
                 EXECUTOR.execute(() -> {
