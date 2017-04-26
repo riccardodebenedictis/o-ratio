@@ -271,7 +271,7 @@ public class CausalGraphDisplay extends Display implements CausalGraphListener {
             Node resolver_node = g.addNode();
             resolver_node.set(VisualItem.LABEL, label);
             resolver_node.set(NODE_TYPE, "resolver");
-            resolver_node.set(NODE_COST, Double.NEGATIVE_INFINITY);
+            resolver_node.set(NODE_COST, Double.POSITIVE_INFINITY);
             resolver_node.set(NODE_CONTENT, r);
             resolvers.put(r, resolver_node);
             g.addEdge(resolver_node, flaws.get(eff));
