@@ -50,46 +50,60 @@ public class Solver {
         final Map<String, Item> items = new HashMap<>();
         JsonObject j_state = new JsonParser().parse(get_state()).getAsJsonObject();
 
-        JsonArray items_array = j_state.get("items").getAsJsonArray();
-        for (int i = 0; i < items_array.size(); i++) {
-            JsonObject j_item = items_array.get(i).getAsJsonObject();
-            String id = j_item.get("id").getAsString();
-            String type = j_item.get("type").getAsString();
-            Item item = new Item(type);
-            items.put(id, item);
+        if (j_state.has("items")) {
+            JsonArray items_array = j_state.get("items").getAsJsonArray();
+            for (int i = 0; i < items_array.size(); i++) {
+                JsonObject j_item = items_array.get(i).getAsJsonObject();
+                String id = j_item.get("id").getAsString();
+                String type = j_item.get("type").getAsString();
+                Item item = new Item(type);
+                items.put(id, item);
+            }
         }
-        JsonArray atoms_array = j_state.get("atoms").getAsJsonArray();
-        for (int i = 0; i < atoms_array.size(); i++) {
-            JsonObject j_atom = atoms_array.get(i).getAsJsonObject();
-            String id = j_atom.get("id").getAsString();
-            String predicate = j_atom.get("predicate").getAsString();
-            Atom atom = new Atom(predicate);
-            state.atoms.add(atom);
-            items.put(id, atom);
-            JsonArray j_atom_state = j_atom.get("state").getAsJsonArray();
-            for (int j = 0; j < j_atom_state.size(); j++) {
-                atom.state.add(AtomState.valueOf(j_atom_state.get(i).getAsString()));
+        if (j_state.has("atoms")) {
+            JsonArray atoms_array = j_state.get("atoms").getAsJsonArray();
+            for (int i = 0; i < atoms_array.size(); i++) {
+                JsonObject j_atom = atoms_array.get(i).getAsJsonObject();
+                String id = j_atom.get("id").getAsString();
+                String predicate = j_atom.get("predicate").getAsString();
+                Atom atom = new Atom(predicate);
+                state.atoms.add(atom);
+                items.put(id, atom);
+                JsonArray j_atom_state = j_atom.get("state").getAsJsonArray();
+                for (int j = 0; j < j_atom_state.size(); j++) {
+                    atom.state.add(AtomState.valueOf(j_atom_state.get(j).getAsString()));
+                }
             }
         }
 
-        for (int i = 0; i < items_array.size(); i++) {
-            JsonObject j_item = items_array.get(i).getAsJsonObject();
-            Item item = items.get(j_item.get("id").getAsString());
-            JsonArray j_item_refs = j_item.get("items").getAsJsonArray();
-            for (int j = 0; j < j_item_refs.size(); j++) {
-                JsonObject j_item_ref = j_item_refs.get(j).getAsJsonObject();
-                String name = j_item_ref.get("name").getAsString();
-                item.items.put(name, getItem(items, j_item_ref));
+        if (j_state.has("items")) {
+            JsonArray items_array = j_state.get("items").getAsJsonArray();
+            for (int i = 0; i < items_array.size(); i++) {
+                JsonObject j_item = items_array.get(i).getAsJsonObject();
+                Item item = items.get(j_item.get("id").getAsString());
+                if (j_item.has("items")) {
+                    JsonArray j_item_refs = j_item.get("items").getAsJsonArray();
+                    for (int j = 0; j < j_item_refs.size(); j++) {
+                        JsonObject j_item_ref = j_item_refs.get(j).getAsJsonObject();
+                        String name = j_item_ref.get("name").getAsString();
+                        item.items.put(name, getItem(items, j_item_ref));
+                    }
+                }
             }
         }
-        for (int i = 0; i < atoms_array.size(); i++) {
-            JsonObject j_atom = atoms_array.get(i).getAsJsonObject();
-            Atom atom = (Atom) items.get(j_atom.get("id").getAsString());
-            JsonArray j_atom_refs = j_atom.get("items").getAsJsonArray();
-            for (int j = 0; j < j_atom_refs.size(); j++) {
-                JsonObject j_item_ref = j_atom_refs.get(j).getAsJsonObject();
-                String name = j_item_ref.get("name").getAsString();
-                atom.items.put(name, getItem(items, j_item_ref));
+        if (j_state.has("atoms")) {
+            JsonArray atoms_array = j_state.get("atoms").getAsJsonArray();
+            for (int i = 0; i < atoms_array.size(); i++) {
+                JsonObject j_atom = atoms_array.get(i).getAsJsonObject();
+                Atom atom = (Atom) items.get(j_atom.get("id").getAsString());
+                if (j_atom.has("pars")) {
+                    JsonArray j_atom_refs = j_atom.get("pars").getAsJsonArray();
+                    for (int j = 0; j < j_atom_refs.size(); j++) {
+                        JsonObject j_item_ref = j_atom_refs.get(j).getAsJsonObject();
+                        String name = j_item_ref.get("name").getAsString();
+                        atom.items.put(name, getItem(items, j_item_ref));
+                    }
+                }
             }
         }
 
@@ -104,6 +118,9 @@ public class Solver {
     }
 
     private Item getItem(final Map<String, Item> items, JsonObject ref) {
+        if (ref.get("value").isJsonPrimitive()) {
+            return items.get(ref.get("value").getAsString());
+        }
         JsonObject val = ref.get("value").getAsJsonObject();
         if (val.has("lit")) {
             return new BoolItem(val.get("lit").getAsString(), LBool.valueOf(val.get("val").getAsString()));
@@ -117,7 +134,7 @@ public class Solver {
             }
             return ei;
         } else {
-            return items.get(ref.getAsString());
+            throw new AssertionError(val);
         }
     }
 

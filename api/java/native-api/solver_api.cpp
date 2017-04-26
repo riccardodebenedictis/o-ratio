@@ -96,11 +96,11 @@ std::stringstream to_string(ratio::atom* a) {
             ss << ", ";
         }
         if (*vals_it == ratio::atom::active) {
-            ss << "Active";
+            ss << "\"Active\"";
         } else if (*vals_it == ratio::atom::inactive) {
-            ss << "Inactive";
+            ss << "\"Inactive\"";
         } else if (*vals_it == ratio::atom::unified) {
-            ss << "Unified";
+            ss << "\"Unified\"";
         }
     }
     ss << "]";
@@ -122,18 +122,11 @@ void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
 
 jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
     cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    // all the items..
-    std::stringstream is;
-    // all the atoms..
-    std::stringstream as;
+    std::set<ratio::item*> all_items;
+    std::set<ratio::atom*> all_atoms;
     for (const auto& p : g->get_predicates()) {
-        std::vector<ratio::expr> atoms = p.second->get_instances();
-        for (std::vector<ratio::expr>::iterator as_it = atoms.begin(); as_it != atoms.end(); ++as_it) {
-            if (as_it != atoms.begin()) {
-                as << ", ";
-            }
-            std::stringstream a = to_string(static_cast<ratio::atom*> (&**as_it));
-            as << a.str();
+        for (const auto& a : p.second->get_instances()) {
+            all_atoms.insert(static_cast<ratio::atom*> (&*a));
         }
     }
     std::queue<ratio::type*> q;
@@ -143,33 +136,49 @@ jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
         }
     }
     while (!q.empty()) {
-        std::vector<ratio::expr> atoms = q.front()->get_instances();
-        for (std::vector<ratio::expr>::iterator is_it = atoms.begin(); is_it != atoms.end(); ++is_it) {
-            if (is_it != atoms.begin()) {
-                is << ", ";
-            }
-            std::stringstream i = to_string(static_cast<ratio::item*> (&**is_it));
-            is << i.str();
+        for (const auto& i : q.front()->get_instances()) {
+            all_items.insert(&*i);
         }
         for (const auto& p : q.front()->get_predicates()) {
-            std::vector<ratio::expr> atoms = p.second->get_instances();
-            for (std::vector<ratio::expr>::iterator as_it = atoms.begin(); as_it != atoms.end(); ++as_it) {
-                if (as_it != atoms.begin()) {
-                    as << ", ";
-                }
-                std::stringstream a = to_string(static_cast<ratio::atom*> (&**as_it));
-                as << a.str();
+            for (const auto& a : p.second->get_instances()) {
+                all_atoms.insert(static_cast<ratio::atom*> (&*a));
             }
-        }
-        for (const auto& st : q.front()->get_types()) {
-            q.push(st.second);
         }
         q.pop();
     }
-    // the accessible references..
-    std::stringstream rs = to_string(g->get_items());
+
     std::stringstream ss;
-    ss << "{ \"items\" : [" << is.str() << "], \"atoms\" : [" << as.str() << "], \"refs\" : [" << rs.str() << "] }";
+    ss << "{ ";
+    if (!all_items.empty()) {
+        ss << "\"items\" : [";
+        for (std::set<ratio::item*>::iterator is_it = all_items.begin(); is_it != all_items.end(); ++is_it) {
+            if (is_it != all_items.begin()) {
+                ss << ", ";
+            }
+            std::stringstream a = to_string(*is_it);
+            ss << a.str();
+        }
+        ss << "]";
+    }
+    if (!all_atoms.empty()) {
+        if (!all_items.empty()) {
+            ss << ", ";
+        }
+        ss << "\"atoms\" : [";
+        for (std::set<ratio::atom*>::iterator as_it = all_atoms.begin(); as_it != all_atoms.end(); ++as_it) {
+            if (as_it != all_atoms.begin()) {
+                ss << ", ";
+            }
+            std::stringstream a = to_string(*as_it);
+            ss << a.str();
+        }
+        ss << "]";
+    }
+    if (!all_items.empty() || !all_atoms.empty()) {
+        ss << ", ";
+    }
+    std::stringstream rs = to_string(g->get_items());
+    ss << "\"refs\" : [" << rs.str() << "] }";
     std::string str = ss.str();
     return e->NewStringUTF(str.c_str());
 }
