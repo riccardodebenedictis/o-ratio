@@ -42,8 +42,8 @@
       <logicalFolder name="f1" displayName="CG Test" projectFiles="true" kind="TEST">
         <itemPath>tests/cg_test.cpp</itemPath>
         <itemPath>tests/test_sv_0.rddl</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl</itemPath>
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl</itemPath>
+        <itemPath>tests/test_sv_1.rddl</itemPath>
+        <itemPath>tests/test_sv_2.rddl</itemPath>
         <itemPath>tests/test_sv_3.rddl</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -109,16 +109,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -171,6 +161,10 @@
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_sv_1.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_sv_2.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_sv_3.rddl" ex="false" tool="3" flavor2="0">
       </item>
@@ -238,16 +232,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -300,6 +284,10 @@
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_sv_1.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_sv_2.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_sv_3.rddl" ex="false" tool="3" flavor2="0">
       </item>
