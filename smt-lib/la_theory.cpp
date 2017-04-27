@@ -864,6 +864,11 @@ namespace smt {
 
     std::ostream& operator<<(std::ostream& os, const t_row& obj) {
         os << "x" << std::to_string(obj.x) << " = " << obj.l;
+        double val = obj.l.known_term;
+        for (const auto& term : obj.l.vars) {
+            val += obj.th.value(term.first) * term.second;
+        }
+        os << " (" << obj.th.value(obj.x) << " = " << std::to_string(val);
         return os;
     }
 }
