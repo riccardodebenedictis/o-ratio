@@ -198,6 +198,11 @@ main_loop:
         } else {
             set_cost(*f, std::numeric_limits<double>::infinity());
         }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+        for (const auto& l : listeners) {
+            l->flaw_state_changed(*f);
+        }
+#endif
         return nullptr;
     }
 
