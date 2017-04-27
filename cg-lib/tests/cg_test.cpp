@@ -96,6 +96,16 @@ void testCG2() {
     assert(g.arith_value(g0_duration) == 10);
 }
 
+void testCG3() {
+    cg::causal_graph g;
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_sv_3.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(slvd);
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% cg_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -111,6 +121,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% testCG2 (cg_test)" << std::endl;
     testCG2();
     std::cout << "%TEST_FINISHED% testCG2=0 test1 (cg_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% testCG3 (cg_test)" << std::endl;
+    testCG3();
+    std::cout << "%TEST_FINISHED% testCG3=0 test1 (cg_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

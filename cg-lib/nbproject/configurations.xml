@@ -44,6 +44,7 @@
         <itemPath>tests/test_sv_0.rddl</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_1.rddl</itemPath>
         <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/test_sv_2.rddl</itemPath>
+        <itemPath>tests/test_sv_3.rddl</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -171,6 +172,8 @@
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="tests/test_sv_3.rddl" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="2">
       <toolsSet>
@@ -297,6 +300,8 @@
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_sv_3.rddl" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
