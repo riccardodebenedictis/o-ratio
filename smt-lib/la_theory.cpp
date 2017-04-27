@@ -354,7 +354,7 @@ namespace smt {
                 l->la_value_change(x_j);
             }
         }
-        for (const auto& c : t_watches[x_i]) {
+        for (const auto& c : t_watches[x_j]) {
             // x_k = x_k + a_kj * theta..
             vals[c->x] += c->l.vars[x_j] * theta;
             if (listening.find(c->x) != listening.end()) {
