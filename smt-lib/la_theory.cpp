@@ -868,7 +868,7 @@ namespace smt {
         for (const auto& term : obj.l.vars) {
             val += obj.th.value(term.first) * term.second;
         }
-        os << " (" << obj.th.value(obj.x) << " = " << std::to_string(val);
+        os << " (" << obj.th.value(obj.x) << " = " << std::to_string(val) << ")";
         return os;
     }
 }
