@@ -102,10 +102,10 @@ namespace smt {
         double c_right = -expr.known_term;
         expr.known_term = 0;
         interval i = bounds(expr);
-        if (i <= c_right) {
+        if (i >= c_right) {
             // the constraint is already satisfied..
             return TRUE;
-        } else if (i > c_right) {
+        } else if (i < c_right) {
             // the constraint is unsatisfable..
             return FALSE;
         } else {
