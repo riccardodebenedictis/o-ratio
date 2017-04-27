@@ -19,7 +19,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
-      <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/init.rddl</itemPath>
+      <itemPath>init.rddl</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -104,11 +104,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/init.rddl"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -147,6 +142,8 @@
       <item path="flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="flaw.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="init.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="resolver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -227,11 +224,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/init.rddl"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -270,6 +262,8 @@
       <item path="flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="flaw.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="init.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="resolver.cpp" ex="false" tool="1" flavor2="0">
       </item>
