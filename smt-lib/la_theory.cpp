@@ -355,11 +355,13 @@ namespace smt {
             }
         }
         for (const auto& c : t_watches[x_j]) {
-            // x_k = x_k + a_kj * theta..
-            vals[c->x] += c->l.vars[x_j] * theta;
-            if (listening.find(c->x) != listening.end()) {
-                for (const auto& l : listening[c->x]) {
-                    l->la_value_change(c->x);
+            if (c->x != x_i) {
+                // x_k = x_k + a_kj * theta..
+                vals[c->x] += c->l.vars[x_j] * theta;
+                if (listening.find(c->x) != listening.end()) {
+                    for (const auto& l : listening[c->x]) {
+                        l->la_value_change(c->x);
+                    }
                 }
             }
         }
