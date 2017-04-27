@@ -38,6 +38,24 @@ void testCG0() {
 
     bool slvd = g.solve();
     assert(slvd);
+
+    ratio::expr f0 = g.get("f0");
+    ratio::arith_expr f0_start = f0->get("start");
+    ratio::arith_expr f0_end = f0->get("end");
+    ratio::arith_expr f0_duration = f0->get("duration");
+
+    assert(g.arith_value(f0_start) == 0);
+    assert(g.arith_value(f0_end) == 10);
+    assert(g.arith_value(f0_duration) == 10);
+
+    ratio::expr g0 = g.get("g0");
+    ratio::arith_expr g0_start = g0->get("start");
+    ratio::arith_expr g0_end = g0->get("end");
+    ratio::arith_expr g0_duration = g0->get("duration");
+
+    assert(g.arith_value(g0_start) == 20);
+    assert(g.arith_value(g0_end) == 30);
+    assert(g.arith_value(g0_duration) == 30);
 }
 
 void testCG1() {
