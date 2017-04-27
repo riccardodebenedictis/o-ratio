@@ -89,8 +89,8 @@ namespace cg {
                     unif_lits.push_back(smt::lit(g.set.allows(a.state, *ratio::atom::unified), true));
                 }
                 if (c_state.size() > 1) {
-                    assert(g.sat.value(g.set.allows(c_a->state, *ratio::atom::unified)) != smt::False);
-                    unif_lits.push_back(smt::lit(g.set.allows(c_a->state, *ratio::atom::unified), true));
+                    assert(g.sat.value(g.set.allows(c_a->state, *ratio::atom::active)) != smt::False);
+                    unif_lits.push_back(smt::lit(g.set.allows(c_a->state, *ratio::atom::active), true));
                 }
                 smt::var eq_v = a.eq(*c_a);
                 if (g.sat.value(eq_v) == smt::False) {
