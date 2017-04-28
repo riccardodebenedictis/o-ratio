@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 sydde
+ * Copyright (C) 2017 Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 /* 
  * File:   newsimpletest.cpp
- * Author: sydde
+ * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
  * Created on April 15, 2017, 4:34 PM
  */

@@ -46,6 +46,13 @@
         <itemPath>tests/test_sv_2.rddl</itemPath>
         <itemPath>tests/test_sv_3.rddl</itemPath>
       </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="Heuristic Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp</itemPath>
+        <itemPath>tests/test_heuristic_failure_0.rddl</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -104,6 +111,11 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -139,6 +151,21 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="flaw.h" ex="false" tool="3" flavor2="0">
@@ -156,6 +183,11 @@
       <item path="state_variable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_heuristic_failure_0.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
@@ -224,6 +256,11 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -259,6 +296,21 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
       <item path="flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="flaw.h" ex="false" tool="3" flavor2="0">
@@ -276,6 +328,11 @@
       <item path="state_variable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/test_heuristic_failure_0.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
