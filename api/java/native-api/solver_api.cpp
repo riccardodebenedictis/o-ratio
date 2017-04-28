@@ -25,92 +25,6 @@
 #include "solver_api.h"
 #include "handle.h"
 #include "causal_graph.h"
-#include "predicate.h"
-
-std::stringstream to_string(std::unordered_map<std::string, ratio::expr> items) {
-    std::stringstream ss;
-    for (std::unordered_map<std::string, ratio::expr>::iterator is_it = items.begin(); is_it != items.end(); ++is_it) {
-        if (is_it != items.begin()) {
-            ss << ", ";
-        }
-        ss << "{ \"name\" : \"" << is_it->first << "\", \"type\" : \"" << is_it->second->t.name << "\", \"value\" : ";
-        if (ratio::bool_item * bi = dynamic_cast<ratio::bool_item*> (&*is_it->second)) {
-            ss << "{ \"lit\" : \"" << (bi->l.sign ? "b" : "!b") << std::to_string(bi->l.v) << "\", \"val\" : ";
-            switch (bi->get_solver().sat.value(bi->l)) {
-                case smt::True:
-                    ss << "\"True\"";
-                    break;
-                case smt::False:
-                    ss << "\"False\"";
-                    break;
-                case smt::Undefined:
-                    ss << "\"Undefined\"";
-                    break;
-            }
-            ss << " }";
-        } else if (ratio::arith_item * ai = dynamic_cast<ratio::arith_item*> (&*is_it->second)) {
-            smt::interval bnds = ai->get_solver().la.bounds(ai->l);
-            ss << "{ \"lin\" : \"" << ai->l.to_string() << "\", \"val\" : " << std::to_string(ai->get_solver().la.value(ai->l));
-            if (bnds.lb > -std::numeric_limits<double>::infinity()) {
-                ss << ", \"lb\" : " << std::to_string(bnds.lb);
-            }
-            if (bnds.ub < std::numeric_limits<double>::infinity()) {
-                ss << ", \"ub\" : " << std::to_string(bnds.ub);
-            }
-            ss << " }";
-        } else if (ratio::enum_item * ei = dynamic_cast<ratio::enum_item*> (&*is_it->second)) {
-            ss << "{ \"var\" : \"e" << std::to_string(ei->ev) << "\", \"vals\" : [ ";
-            std::unordered_set<smt::set_item*> vals = ei->get_solver().set.value(ei->ev);
-            for (std::unordered_set<smt::set_item*>::iterator vals_it = vals.begin(); vals_it != vals.end(); ++vals_it) {
-                if (vals_it != vals.begin()) {
-                    ss << ", ";
-                }
-                ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (*vals_it)) << "\"";
-            }
-            ss << " ] }";
-        } else {
-            ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (&*is_it->second)) << "\"";
-        }
-        ss << " }";
-    }
-    return ss;
-}
-
-std::stringstream to_string(ratio::item* i) {
-    std::stringstream ss;
-    ss << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (i)) << "\", \"type\" : \"" << i->t.name << "\"";
-    std::unordered_map<std::string, ratio::expr> is = i->get_items();
-    if (!is.empty()) {
-        ss << ", \"items\" : [ " << to_string(is).str() << " ]";
-    }
-    ss << "}";
-    return ss;
-}
-
-std::stringstream to_string(ratio::atom* a) {
-    std::stringstream ss;
-    ss << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (a)) << "\", \"predicate\" : \"" << a->t.name << "\", \"state\" : [";
-    std::unordered_set<smt::set_item*> state_vals = a->get_solver().set.value(a->state);
-    for (std::unordered_set<smt::set_item*>::iterator vals_it = state_vals.begin(); vals_it != state_vals.end(); ++vals_it) {
-        if (vals_it != state_vals.begin()) {
-            ss << ", ";
-        }
-        if (*vals_it == ratio::atom::active) {
-            ss << "\"Active\"";
-        } else if (*vals_it == ratio::atom::inactive) {
-            ss << "\"Inactive\"";
-        } else if (*vals_it == ratio::atom::unified) {
-            ss << "\"Unified\"";
-        }
-    }
-    ss << "]";
-    std::unordered_map<std::string, ratio::expr> is = a->get_items();
-    if (!is.empty()) {
-        ss << ", \"pars\" : [ " << to_string(is).str() << " ]";
-    }
-    ss << "}";
-    return ss;
-}
 
 jlong Java_it_cnr_istc_ratio_api_Solver_initialise(JNIEnv * e, jobject o) {
     return reinterpret_cast<jlong> (new cg::causal_graph());
@@ -122,63 +36,9 @@ void Java_it_cnr_istc_ratio_api_Solver_dispose(JNIEnv * e, jobject o) {
 
 jstring Java_it_cnr_istc_ratio_api_Solver_get_1state(JNIEnv * e, jobject o) {
     cg::causal_graph* g = getHandle<cg::causal_graph>(e, o);
-    std::set<ratio::item*> all_items;
-    std::set<ratio::atom*> all_atoms;
-    for (const auto& p : g->get_predicates()) {
-        for (const auto& a : p.second->get_instances()) {
-            all_atoms.insert(static_cast<ratio::atom*> (&*a));
-        }
-    }
-    std::queue<ratio::type*> q;
-    for (const auto& t : g->get_types()) {
-        if (!t.second->primitive) {
-            q.push(t.second);
-        }
-    }
-    while (!q.empty()) {
-        for (const auto& i : q.front()->get_instances()) {
-            all_items.insert(&*i);
-        }
-        for (const auto& p : q.front()->get_predicates()) {
-            for (const auto& a : p.second->get_instances()) {
-                all_atoms.insert(static_cast<ratio::atom*> (&*a));
-            }
-        }
-        q.pop();
-    }
 
     std::stringstream ss;
-    ss << "{ ";
-    if (!all_items.empty()) {
-        ss << "\"items\" : [";
-        for (std::set<ratio::item*>::iterator is_it = all_items.begin(); is_it != all_items.end(); ++is_it) {
-            if (is_it != all_items.begin()) {
-                ss << ", ";
-            }
-            std::stringstream a = to_string(*is_it);
-            ss << a.str();
-        }
-        ss << "]";
-    }
-    if (!all_atoms.empty()) {
-        if (!all_items.empty()) {
-            ss << ", ";
-        }
-        ss << "\"atoms\" : [";
-        for (std::set<ratio::atom*>::iterator as_it = all_atoms.begin(); as_it != all_atoms.end(); ++as_it) {
-            if (as_it != all_atoms.begin()) {
-                ss << ", ";
-            }
-            std::stringstream a = to_string(*as_it);
-            ss << a.str();
-        }
-        ss << "]";
-    }
-    if (!all_items.empty() || !all_atoms.empty()) {
-        ss << ", ";
-    }
-    std::stringstream rs = to_string(g->get_items());
-    ss << "\"refs\" : [" << rs.str() << "] }";
+    ss << *g;
     std::string str = ss.str();
     return e->NewStringUTF(str.c_str());
 }
