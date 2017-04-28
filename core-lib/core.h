@@ -109,6 +109,8 @@ namespace ratio {
         double arith_value(const arith_expr& var) const noexcept;
         std::unordered_set<smt::set_item*> enum_value(const enum_expr& var) const noexcept;
 
+        friend std::ostream& operator<<(std::ostream& os, const core& obj);
+
     protected:
         void set_var(smt::var ctr_var);
         void restore_var();

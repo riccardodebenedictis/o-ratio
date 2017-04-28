@@ -26,6 +26,7 @@
 #include "field.h"
 #include "predicate.h"
 #include "method.h"
+#include "atom.h"
 #include "type_declaration_listener.h"
 #include "type_refinement_listener.h"
 #include "statement_visitor.h"
@@ -376,5 +377,151 @@ namespace ratio {
 
     void core::restore_var() {
         scope::_solver.ctr_var = tmp_var;
+    }
+
+    std::stringstream to_string(std::unordered_map<std::string, expr> items) {
+        std::stringstream ss;
+        for (std::unordered_map<std::string, expr>::iterator is_it = items.begin(); is_it != items.end(); ++is_it) {
+            if (is_it != items.begin()) {
+                ss << ", ";
+            }
+            ss << "{ \"name\" : \"" << is_it->first << "\", \"type\" : \"" << is_it->second->t.name << "\", \"value\" : ";
+            if (bool_item * bi = dynamic_cast<bool_item*> (&*is_it->second)) {
+                ss << "{ \"lit\" : \"" << (bi->l.sign ? "b" : "!b") << std::to_string(bi->l.v) << "\", \"val\" : ";
+                switch (bi->get_solver().sat.value(bi->l)) {
+                    case smt::True:
+                        ss << "\"True\"";
+                        break;
+                    case smt::False:
+                        ss << "\"False\"";
+                        break;
+                    case smt::Undefined:
+                        ss << "\"Undefined\"";
+                        break;
+                }
+                ss << " }";
+            } else if (arith_item * ai = dynamic_cast<arith_item*> (&*is_it->second)) {
+                smt::interval bnds = ai->get_solver().la.bounds(ai->l);
+                ss << "{ \"lin\" : \"" << ai->l.to_string() << "\", \"val\" : " << std::to_string(ai->get_solver().la.value(ai->l));
+                if (bnds.lb > -std::numeric_limits<double>::infinity()) {
+                    ss << ", \"lb\" : " << std::to_string(bnds.lb);
+                }
+                if (bnds.ub < std::numeric_limits<double>::infinity()) {
+                    ss << ", \"ub\" : " << std::to_string(bnds.ub);
+                }
+                ss << " }";
+            } else if (enum_item * ei = dynamic_cast<enum_item*> (&*is_it->second)) {
+                ss << "{ \"var\" : \"e" << std::to_string(ei->ev) << "\", \"vals\" : [ ";
+                std::unordered_set<smt::set_item*> vals = ei->get_solver().set.value(ei->ev);
+                for (std::unordered_set<smt::set_item*>::iterator vals_it = vals.begin(); vals_it != vals.end(); ++vals_it) {
+                    if (vals_it != vals.begin()) {
+                        ss << ", ";
+                    }
+                    ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (*vals_it)) << "\"";
+                }
+                ss << " ] }";
+            } else {
+                ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (&*is_it->second)) << "\"";
+            }
+            ss << " }";
+        }
+        return ss;
+    }
+
+    std::stringstream to_string(item* i) {
+        std::stringstream ss;
+        ss << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (i)) << "\", \"type\" : \"" << i->t.name << "\"";
+        std::unordered_map<std::string, expr> is = i->get_items();
+        if (!is.empty()) {
+            ss << ", \"items\" : [ " << to_string(is).str() << " ]";
+        }
+        ss << "}";
+        return ss;
+    }
+
+    std::stringstream to_string(atom* a) {
+        std::stringstream ss;
+        ss << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (a)) << "\", \"predicate\" : \"" << a->t.name << "\", \"state\" : [";
+        std::unordered_set<smt::set_item*> state_vals = a->get_solver().set.value(a->state);
+        for (std::unordered_set<smt::set_item*>::iterator vals_it = state_vals.begin(); vals_it != state_vals.end(); ++vals_it) {
+            if (vals_it != state_vals.begin()) {
+                ss << ", ";
+            }
+            if (*vals_it == atom::active) {
+                ss << "\"Active\"";
+            } else if (*vals_it == atom::inactive) {
+                ss << "\"Inactive\"";
+            } else if (*vals_it == atom::unified) {
+                ss << "\"Unified\"";
+            }
+        }
+        ss << "]";
+        std::unordered_map<std::string, expr> is = a->get_items();
+        if (!is.empty()) {
+            ss << ", \"pars\" : [ " << to_string(is).str() << " ]";
+        }
+        ss << "}";
+        return ss;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const core& obj) {
+        std::set<item*> all_items;
+        std::set<atom*> all_atoms;
+        for (const auto& p : obj.get_predicates()) {
+            for (const auto& a : p.second->get_instances()) {
+                all_atoms.insert(static_cast<atom*> (&*a));
+            }
+        }
+        std::queue<type*> q;
+        for (const auto& t : obj.get_types()) {
+            if (!t.second->primitive) {
+                q.push(t.second);
+            }
+        }
+        while (!q.empty()) {
+            for (const auto& i : q.front()->get_instances()) {
+                all_items.insert(&*i);
+            }
+            for (const auto& p : q.front()->get_predicates()) {
+                for (const auto& a : p.second->get_instances()) {
+                    all_atoms.insert(static_cast<atom*> (&*a));
+                }
+            }
+            q.pop();
+        }
+
+        os << "{ ";
+        if (!all_items.empty()) {
+            os << "\"items\" : [";
+            for (std::set<item*>::iterator is_it = all_items.begin(); is_it != all_items.end(); ++is_it) {
+                if (is_it != all_items.begin()) {
+                    os << ", ";
+                }
+                std::stringstream a = to_string(*is_it);
+                os << a.str();
+            }
+            os << "]";
+        }
+        if (!all_atoms.empty()) {
+            if (!all_items.empty()) {
+                os << ", ";
+            }
+            os << "\"atoms\" : [";
+            for (std::set<atom*>::iterator as_it = all_atoms.begin(); as_it != all_atoms.end(); ++as_it) {
+                if (as_it != all_atoms.begin()) {
+                    os << ", ";
+                }
+                std::stringstream a = to_string(*as_it);
+                os << a.str();
+            }
+            os << "]";
+        }
+        if (!all_items.empty() || !all_atoms.empty()) {
+            os << ", ";
+        }
+        std::stringstream rs = to_string(obj.get_items());
+        os << "\"refs\" : [" << rs.str() << "] }";
+        // Write obj to stream
+        return os;
     }
 }
