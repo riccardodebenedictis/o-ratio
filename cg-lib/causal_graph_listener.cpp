@@ -24,6 +24,8 @@
 
 #include "causal_graph_listener.h"
 #include "causal_graph.h"
+#include "flaw.h"
+#include "resolver.h"
 #include <algorithm>
 
 namespace cg {
@@ -44,6 +46,78 @@ namespace cg {
     void causal_graph_listener::new_resolver(const resolver& r) {
         resolver_listeners.insert({&r, new resolver_listener(*this, r)});
         resolver_created(r);
+    }
+
+    std::ostream& operator<<(std::ostream& os, const causal_graph_listener& obj) {
+        os << "{ ";
+        if (!obj.flaw_listeners.empty()) {
+            os << "\"flaws\" : [";
+            for (std::unordered_map<const flaw*, causal_graph_listener::flaw_listener*>::const_iterator fs_it = obj.flaw_listeners.begin(); fs_it != obj.flaw_listeners.end(); ++fs_it) {
+                if (fs_it != obj.flaw_listeners.begin()) {
+                    os << ", ";
+                }
+                os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (fs_it->first)) << "\", \"label\" : \"" << fs_it->first->get_label() << "\", \"in_plan\" : ";
+                switch (obj.get_causal_graph().sat.value(fs_it->first->get_in_plan())) {
+                    case smt::True:
+                        os << "\"True\"";
+                        break;
+                    case smt::False:
+                        os << "\"False\"";
+                        break;
+                    case smt::Undefined:
+                        os << "\"Undefined\"";
+                        break;
+                    default:
+                        break;
+                }
+                if (fs_it->first->get_cost() < std::numeric_limits<double>::infinity()) {
+                    os << ", \"cost\" : " << std::to_string(fs_it->first->get_cost());
+                }
+                std::vector<resolver*> cs = fs_it->first->get_causes();
+                if (!cs.empty()) {
+                    os << "\"causes\" : [";
+                    for (std::vector<resolver*>::const_iterator cs_it = cs.begin(); cs_it != cs.end(); ++cs_it) {
+                        if (cs_it != cs.begin()) {
+                            os << ", ";
+                        }
+                        os << "\"" << std::to_string(reinterpret_cast<uintptr_t> (fs_it->first)) << "\"";
+                    }
+                    os << "]";
+                }
+                os << " }";
+            }
+            os << "]";
+        }
+        if (!obj.resolver_listeners.empty()) {
+            if (!obj.flaw_listeners.empty()) {
+                os << ", ";
+            }
+            os << "\"resolvers\" : [";
+            for (std::unordered_map<const resolver*, causal_graph_listener::resolver_listener*>::const_iterator rs_it = obj.resolver_listeners.begin(); rs_it != obj.resolver_listeners.end(); ++rs_it) {
+                os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (rs_it->first)) << "\", \"label\" : \"" << rs_it->first->get_label() << "\", \"chosen\" : ";
+                switch (obj.get_causal_graph().sat.value(rs_it->first->get_chosen())) {
+                    case smt::True:
+                        os << "\"True\"";
+                        break;
+                    case smt::False:
+                        os << "\"False\"";
+                        break;
+                    case smt::Undefined:
+                        os << "\"Undefined\"";
+                        break;
+                    default:
+                        break;
+                }
+                if (rs_it->first->get_cost() < std::numeric_limits<double>::infinity()) {
+                    os << ", \"cost\" : " << std::to_string(rs_it->first->get_cost());
+                }
+                os << ", \"solves\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (&rs_it->first->get_effect())) << "\"";
+                os << " }";
+            }
+            os << "]";
+        }
+        os << " }";
+        return os;
     }
 
     causal_graph_listener::flaw_listener::flaw_listener(causal_graph_listener& l, const flaw& f) : sat_value_listener(l.get_causal_graph().sat), l(l), f(f) { }

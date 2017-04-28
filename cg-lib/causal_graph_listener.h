@@ -46,6 +46,8 @@ namespace cg {
             return g;
         }
 
+        friend std::ostream& operator<<(std::ostream& os, const causal_graph_listener& obj);
+
     private:
         void new_flaw(const flaw& f);
 
