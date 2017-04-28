@@ -54,8 +54,8 @@ TESTFILES= \
 
 # Test Object Files
 TESTOBJECTFILES= \
-	${TESTDIR}/_ext/12d57e82/heuristic_test.o \
-	${TESTDIR}/tests/cg_test.o
+	${TESTDIR}/tests/cg_test.o \
+	${TESTDIR}/tests/heuristic_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -138,7 +138,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/cg_test.o ${OBJECTFILES:%.o=%_nomain.o
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
 
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/_ext/12d57e82/heuristic_test.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/heuristic_test.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
 
@@ -149,10 +149,10 @@ ${TESTDIR}/tests/cg_test.o: tests/cg_test.cpp
 	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/cg_test.o tests/cg_test.cpp
 
 
-${TESTDIR}/_ext/12d57e82/heuristic_test.o: /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp 
-	${MKDIR} -p ${TESTDIR}/_ext/12d57e82
+${TESTDIR}/tests/heuristic_test.o: tests/heuristic_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/_ext/12d57e82/heuristic_test.o /C/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/heuristic_test.o tests/heuristic_test.cpp
 
 
 ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp 

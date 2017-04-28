@@ -116,8 +116,14 @@ namespace ratio {
             }
         }
 
-        context c_scope = assignments.at("scope");
-        atom* a = static_cast<atom*> (&*p->new_instance(c_scope));
+        atom * a;
+        if (assignments.find("scope") == assignments.end()) {
+            context c_scope = &_solver;
+            a = static_cast<atom*> (&*p->new_instance(c_scope));
+        } else {
+            context c_scope = assignments.at("scope");
+            a = static_cast<atom*> (&*p->new_instance(c_scope));
+        }
         // we assign fields..
         a->items.insert(assignments.begin(), assignments.end());
 

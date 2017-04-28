@@ -50,7 +50,7 @@
                      displayName="Heuristic Test"
                      projectFiles="true"
                      kind="TEST">
-        <itemPath>C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp</itemPath>
+        <itemPath>tests/heuristic_test.cpp</itemPath>
         <itemPath>tests/test_heuristic_failure_0.rddl</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -111,11 +111,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -183,6 +178,8 @@
       <item path="state_variable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/heuristic_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_heuristic_failure_0.rddl"
             ex="false"
@@ -256,11 +253,6 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
-      <item path="C:/Users/sydde/OneDrive/Documenti/NetBeansProjects/o-ratio/cg-lib/tests/heuristic_test.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="atom_flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="atom_flaw.h" ex="false" tool="3" flavor2="0">
@@ -328,6 +320,8 @@
       <item path="state_variable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/cg_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/heuristic_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/test_heuristic_failure_0.rddl"
             ex="false"

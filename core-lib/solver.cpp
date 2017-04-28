@@ -33,6 +33,9 @@ namespace ratio {
     solver::~solver() { }
 
     bool solver::new_fact(atom& a) {
+        if (&a.t.get_scope() == this) {
+            return true;
+        }
         std::queue<type*> q;
         q.push(static_cast<type*> (&a.t.get_scope()));
         while (!q.empty()) {
@@ -48,6 +51,9 @@ namespace ratio {
     }
 
     bool solver::new_goal(atom& a) {
+        if (&a.t.get_scope() == this) {
+            return true;
+        }
         std::queue<type*> q;
         q.push(static_cast<type*> (&a.t.get_scope()));
         while (!q.empty()) {

@@ -37,7 +37,7 @@ void test_heuristic_failure_0() {
     assert(rd);
 
     bool slvd = g.solve();
-    assert(slvd);
+    assert(!slvd);
 }
 
 int main(int argc, char** argv) {
