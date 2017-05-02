@@ -104,11 +104,11 @@ namespace cg {
                 std::vector<flaw*> pres = rs_it->first->get_preconditions();
                 if (!pres.empty()) {
                     os << ", \"preconditions\" : [";
-                    for (std::vector<resolver*>::const_iterator cs_it = pres.begin(); cs_it != pres.end(); ++cs_it) {
+                    for (std::vector<flaw*>::const_iterator cs_it = pres.begin(); cs_it != pres.end(); ++cs_it) {
                         if (cs_it != pres.begin()) {
                             os << ", ";
                         }
-                        os << "\"" << std::to_string(reinterpret_cast<uintptr_t> (cs_it)) << "\"";
+                        os << "\"" << std::to_string(reinterpret_cast<uintptr_t> (*cs_it)) << "\"";
                     }
                     os << "]";
                 }
