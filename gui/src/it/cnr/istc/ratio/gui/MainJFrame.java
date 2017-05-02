@@ -32,11 +32,13 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -58,6 +60,11 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() {
         initComponents();
+
+        setIconImages(Arrays.asList(
+                new ImageIcon(getClass().getResource("resources/ratio16.png")).getImage(),
+                new ImageIcon(getClass().getResource("resources/ratio32.png")).getImage())
+        );
 
         new Thread(() -> {
             try {
