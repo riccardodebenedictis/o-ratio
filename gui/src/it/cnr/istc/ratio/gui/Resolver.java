@@ -26,7 +26,7 @@ import java.util.Collections;
 public class Resolver {
 
     public final String label;
-    double cost = Double.NEGATIVE_INFINITY;
+    double cost = Double.POSITIVE_INFINITY;
     LBool chosen = LBool.Undefined;
     final Flaw solves;
     final Collection<Flaw> preconditions;

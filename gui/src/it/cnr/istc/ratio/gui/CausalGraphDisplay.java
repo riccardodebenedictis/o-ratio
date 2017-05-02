@@ -33,6 +33,7 @@ import prefuse.action.ActionList;
 import prefuse.action.RepaintAction;
 import prefuse.action.assignment.ColorAction;
 import prefuse.action.assignment.DataColorAction;
+import prefuse.action.assignment.StrokeAction;
 import prefuse.action.layout.Layout;
 import prefuse.action.layout.graph.ForceDirectedLayout;
 import prefuse.activity.Activity;
@@ -50,6 +51,7 @@ import prefuse.render.LabelRenderer;
 import prefuse.util.ColorLib;
 import prefuse.util.FontLib;
 import prefuse.util.PrefuseLib;
+import prefuse.util.StrokeLib;
 import prefuse.visual.DecoratorItem;
 import prefuse.visual.VisualGraph;
 import prefuse.visual.VisualItem;
@@ -91,7 +93,7 @@ public class CausalGraphDisplay extends Display {
         g.getNodeTable().addColumn(VisualItem.LABEL, String.class);
         g.getNodeTable().addColumn(NODE_TYPE, String.class);
         g.getNodeTable().addColumn(NODE_COST, Double.class);
-        g.getNodeTable().addColumn(NODE_STATE, LBool.class);
+        g.getNodeTable().addColumn(NODE_STATE, String.class);
         g.getNodeTable().addColumn(NODE_CONTENT, Object.class);
         g.getEdgeTable().addColumn(VisualItem.LABEL, String.class);
 
@@ -125,12 +127,16 @@ public class CausalGraphDisplay extends Display {
         ColorAction nFill = new DataColorAction(NODES, NODE_COST, Constants.ORDINAL, VisualItem.FILLCOLOR, ColorLib.getHotPalette());
         nFill.add(VisualItem.HOVER, ColorLib.gray(200));
         nFill.add(VisualItem.HIGHLIGHT, ColorLib.rgb(255, 230, 230));
+        nFill.add(NODE_STATE + " == \"" + LBool.False + "\"", ColorLib.gray(235));
 
-        ColorAction nStroke = new ColorAction(NODES, VisualItem.STROKECOLOR);
-        nStroke.setDefaultColor(ColorLib.gray(255));
-        nStroke.add(NODE_TYPE + " == \"flaw\"", ColorLib.rgb(205, 253, 208));
-        nStroke.add(NODE_TYPE + " == \"resolver\"", ColorLib.gray(255));
-        nStroke.add(VisualItem.HOVER, ColorLib.gray(200));
+        ColorAction nStrokeColor = new ColorAction(NODES, VisualItem.STROKECOLOR);
+        nStrokeColor.setDefaultColor(ColorLib.gray(100));
+        nStrokeColor.add(VisualItem.HOVER, ColorLib.gray(200));
+
+        StrokeAction nStroke = new StrokeAction(NODES, StrokeLib.getStroke(5));
+        nStroke.add(NODE_STATE + " == \"" + LBool.True + "\"", StrokeLib.getStroke(0.5f));
+        nStroke.add(NODE_STATE + " == \"" + LBool.False + "\"", StrokeLib.getStroke(0.1f, StrokeLib.DOTS));
+        nStroke.add(NODE_STATE + " == \"" + LBool.Undefined + "\"", StrokeLib.getStroke(1, StrokeLib.DASHES));
 
         ColorAction eStroke = new ColorAction(EDGES, VisualItem.STROKECOLOR);
         eStroke.setDefaultColor(ColorLib.gray(100));
@@ -141,9 +147,10 @@ public class CausalGraphDisplay extends Display {
         // bundle the color actions
         ActionList colors = new ActionList();
         colors.add(nFill);
-        colors.add(nStroke);
+        colors.add(nStrokeColor);
         colors.add(eStroke);
         colors.add(eFill);
+        colors.add(nStroke);
 
         // now create the main layout routine
         ActionList layout = new ActionList(Activity.INFINITY);
@@ -212,7 +219,7 @@ public class CausalGraphDisplay extends Display {
             flaw_node.set(VisualItem.LABEL, f.label);
             flaw_node.set(NODE_TYPE, "flaw");
             flaw_node.set(NODE_COST, -f.cost);
-            flaw_node.set(NODE_STATE, f.in_plan);
+            flaw_node.set(NODE_STATE, f.in_plan.toString());
             flaw_node.set(NODE_CONTENT, f);
             flaws.put(f, flaw_node);
         }
@@ -223,7 +230,7 @@ public class CausalGraphDisplay extends Display {
         synchronized (m_vis) {
             Node flaw_node = flaws.get(f);
             flaw_node.set(NODE_COST, -f.cost);
-            flaw_node.set(NODE_STATE, f.in_plan);
+            flaw_node.set(NODE_STATE, f.in_plan.toString());
         }
     }
 
@@ -236,7 +243,7 @@ public class CausalGraphDisplay extends Display {
             resolver_node.set(VisualItem.LABEL, r.label);
             resolver_node.set(NODE_TYPE, "resolver");
             resolver_node.set(NODE_COST, -r.cost);
-            resolver_node.set(NODE_STATE, r.chosen);
+            resolver_node.set(NODE_STATE, r.chosen.toString());
             resolver_node.set(NODE_CONTENT, r);
             resolvers.put(r, resolver_node);
             g.addEdge(resolver_node, flaws.get(r.solves));
@@ -251,7 +258,7 @@ public class CausalGraphDisplay extends Display {
         synchronized (m_vis) {
             Node resolver_node = resolvers.get(r);
             resolver_node.set(NODE_COST, -r.cost);
-            resolver_node.set(NODE_STATE, r.chosen);
+            resolver_node.set(NODE_STATE, r.chosen.toString());
         }
     }
 

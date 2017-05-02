@@ -1,1 +1,10 @@
-{ "flaws" : [{ "id" : "12265744", "label" : "goal e5", "in_plan" : "True", "cost" : 0.000000 }, { "id" : "12245152", "label" : "goal e4", "in_plan" : "True", "cost" : 1.000000 }, { "id" : "12209888", "label" : "goal e3", "in_plan" : "True", "cost" : 2.000000 }, { "id" : "12210256", "label" : "fact e1", "in_plan" : "True", "cost" : 0.000000 }], "resolvers" : [{ "id" : "12249856", "label" : "expand goal", "chosen" : "False", "solves" : "12265744" }, { "id" : "12227152", "label" : "add fact", "chosen" : "True", "cost" : 0.000000, "solves" : "12210256" }, { "id" : "12227840", "label" : "expand goal", "chosen" : "True", "cost" : 2.000000, "solves" : "12209888", "preconditions" : ["12245152"] }, { "id" : "12245440", "label" : "expand goal", "chosen" : "True", "cost" : 1.000000, "solves" : "12245152", "preconditions" : ["12265744"] }, { "id" : "12285120", "label" : "unify", "chosen" : "True", "cost" : 0.000000, "solves" : "12265744", "preconditions" : ["12210256"] }] }
+{ "flaws" : [{ "id" : "12265744", "label" : "goal e5", "in_plan" : "True", "cost" : 0.000000 },
+ { "id" : "12265745", "label" : "goal e15", "in_plan" : "True", "cost" : 0.000000 },
+ { "id" : "12245152", "label" : "goal e4", "in_plan" : "True", "cost" : 1.000000 },
+ { "id" : "12209888", "label" : "goal e3", "in_plan" : "True", "cost" : 2.000000 },
+ { "id" : "12210256", "label" : "fact e1", "in_plan" : "True", "cost" : 0.000000 }], 
+"resolvers" : [{ "id" : "12249856", "label" : "expand goal", "chosen" : "False", "solves" : "12265744" },
+ { "id" : "12227152", "label" : "add fact", "chosen" : "True", "cost" : 0.000000, "solves" : "12210256" },
+ { "id" : "12227840", "label" : "expand goal", "chosen" : "True", "cost" : 2.000000, "solves" : "12209888", "preconditions" : ["12245152"] },
+ { "id" : "12245440", "label" : "expand goal", "chosen" : "True", "cost" : 1.000000, "solves" : "12245152", "preconditions" : ["12265744"] },
+ { "id" : "12285120", "label" : "unify", "chosen" : "True", "cost" : 0.000000, "solves" : "12265744", "preconditions" : ["12210256"] }] }

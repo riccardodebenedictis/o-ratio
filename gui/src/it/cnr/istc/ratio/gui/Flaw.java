@@ -23,7 +23,7 @@ package it.cnr.istc.ratio.gui;
 public class Flaw {
 
     public final String label;
-    double cost = Double.NEGATIVE_INFINITY;
+    double cost = Double.POSITIVE_INFINITY;
     LBool in_plan = LBool.Undefined;
 
     Flaw(String label) {
