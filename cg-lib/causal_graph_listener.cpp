@@ -73,17 +73,6 @@ namespace cg {
                 if (fs_it->first->get_cost() < std::numeric_limits<double>::infinity()) {
                     os << ", \"cost\" : " << std::to_string(fs_it->first->get_cost());
                 }
-                std::vector<resolver*> cs = fs_it->first->get_causes();
-                if (!cs.empty()) {
-                    os << "\"causes\" : [";
-                    for (std::vector<resolver*>::const_iterator cs_it = cs.begin(); cs_it != cs.end(); ++cs_it) {
-                        if (cs_it != cs.begin()) {
-                            os << ", ";
-                        }
-                        os << "\"" << std::to_string(reinterpret_cast<uintptr_t> (fs_it->first)) << "\"";
-                    }
-                    os << "]";
-                }
                 os << " }";
             }
             os << "]";
@@ -112,6 +101,17 @@ namespace cg {
                     os << ", \"cost\" : " << std::to_string(rs_it->first->get_cost());
                 }
                 os << ", \"solves\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (&rs_it->first->get_effect())) << "\"";
+                std::vector<flaw*> pres = rs_it->first->get_preconditions();
+                if (!pres.empty()) {
+                    os << ", \"preconditions\" : [";
+                    for (std::vector<resolver*>::const_iterator cs_it = pres.begin(); cs_it != pres.end(); ++cs_it) {
+                        if (cs_it != pres.begin()) {
+                            os << ", ";
+                        }
+                        os << "\"" << std::to_string(reinterpret_cast<uintptr_t> (cs_it)) << "\"";
+                    }
+                    os << "]";
+                }
                 os << " }";
             }
             os << "]";
