@@ -417,7 +417,7 @@ namespace ratio {
                     if (vals_it != vals.begin()) {
                         ss << ", ";
                     }
-                    ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (*vals_it)) << "\"";
+                    ss << "\"" << std::to_string(reinterpret_cast<uintptr_t> (static_cast<item*> (*vals_it))) << "\"";
                 }
                 ss << " ] }";
             } else {

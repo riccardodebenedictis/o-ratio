@@ -21,6 +21,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -39,6 +41,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -65,6 +69,23 @@ public class MainJFrame extends javax.swing.JFrame {
                 new ImageIcon(getClass().getResource("resources/ratio16.png")).getImage(),
                 new ImageIcon(getClass().getResource("resources/ratio32.png")).getImage())
         );
+
+        File state_file = new File("state.json");
+        if (state_file.exists()) {
+            try {
+                update_state(new JsonParser().parse(new FileReader(state_file)).getAsJsonObject());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        File graph_file = new File("graph.json");
+        if (graph_file.exists()) {
+            try {
+                update_graph(new JsonParser().parse(new FileReader(graph_file)).getAsJsonObject());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         new Thread(() -> {
             try {
@@ -109,6 +130,8 @@ public class MainJFrame extends javax.swing.JFrame {
             public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
             }
         });
+
+        ToolTipManager.sharedInstance().registerComponent(stateJTree);
     }
 
     private void update_state(JsonObject j_state) {
@@ -186,7 +209,7 @@ public class MainJFrame extends javax.swing.JFrame {
             state.items.put(name, getItem(j_ref));
         }
 
-        stateTreeModel.setRoot(state);
+        SwingUtilities.invokeLater(() -> stateTreeModel.setRoot(state));
     }
 
     private void update_graph(JsonObject j_graph) {

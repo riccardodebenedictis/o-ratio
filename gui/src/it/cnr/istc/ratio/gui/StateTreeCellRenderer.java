@@ -79,6 +79,7 @@ public class StateTreeCellRenderer extends DefaultTreeCellRenderer {
                 setIcon(INACTIVE_FORMULA_ICON);
             }
             setText(atom.type);
+            setToolTipText(atom.type);
         }
         return this;
     }

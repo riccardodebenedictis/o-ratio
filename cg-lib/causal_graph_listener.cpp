@@ -83,6 +83,9 @@ namespace cg {
             }
             os << "\"resolvers\" : [";
             for (std::unordered_map<const resolver*, causal_graph_listener::resolver_listener*>::const_iterator rs_it = obj.resolver_listeners.begin(); rs_it != obj.resolver_listeners.end(); ++rs_it) {
+                if (rs_it != obj.resolver_listeners.begin()) {
+                    os << ", ";
+                }
                 os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (rs_it->first)) << "\", \"label\" : \"" << rs_it->first->get_label() << "\", \"chosen\" : ";
                 switch (obj.get_causal_graph().sat.value(rs_it->first->get_chosen())) {
                     case smt::True:
