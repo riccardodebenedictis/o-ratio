@@ -83,17 +83,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="causalGraphDisplay1" alignment="1" pref="363" max="32767" attributes="0"/>
+                  <Component id="causalGraphDisplay" alignment="1" pref="363" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="causalGraphDisplay1" alignment="1" pref="404" max="32767" attributes="0"/>
+                  <Component id="causalGraphDisplay" alignment="1" pref="404" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="it.cnr.istc.ratio.gui.CausalGraphDisplay" name="causalGraphDisplay1">
+            <Component class="it.cnr.istc.ratio.gui.CausalGraphDisplay" name="causalGraphDisplay">
             </Component>
           </SubComponents>
         </Container>

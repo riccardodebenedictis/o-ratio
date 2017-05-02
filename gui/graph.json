@@ -1,0 +1,5 @@
+{ "flaws" : [{ "id" : "48516832", "label" : "goal e3", "in_plan" : "True" },
+ { "id" : "48516432", "label" : "goal e5", "in_plan" : "True" },
+ { "id" : "48517200", "label" : "fact e1", "in_plan" : "True" },
+ { "id" : "48517220", "label" : "fact e1", "in_plan" : "False" }]
+}

@@ -89,6 +89,10 @@ public class MainJFrame extends javax.swing.JFrame {
                                 break;
                         }
                     }
+
+                    if (!key.reset()) {
+                        break;
+                    }
                 }
             } catch (JsonIOException | JsonSyntaxException | IOException | InterruptedException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,6 +185,8 @@ public class MainJFrame extends javax.swing.JFrame {
             String name = j_ref.get("name").getAsString();
             state.items.put(name, getItem(j_ref));
         }
+
+        stateTreeModel.setRoot(state);
     }
 
     private void update_graph(JsonObject j_graph) {
@@ -190,11 +196,12 @@ public class MainJFrame extends javax.swing.JFrame {
             for (int i = 0; i < flaws_array.size(); i++) {
                 JsonObject j_flaw = flaws_array.get(i).getAsJsonObject();
                 String id = j_flaw.get("id").getAsString();
-                Flaw flaw;
+                Flaw f;
                 if (!flaws.containsKey(id)) {
                     // we have a new flaw..
-                    flaw = new Flaw(j_flaw.get("label").getAsString());
-                    flaws.put(id, flaw);
+                    f = new Flaw(j_flaw.get("label").getAsString());
+                    flaws.put(id, f);
+                    causalGraphDisplay.new_flaw(f);
                 }
             }
         }
@@ -205,7 +212,7 @@ public class MainJFrame extends javax.swing.JFrame {
             for (int i = 0; i < resolvers_array.size(); i++) {
                 JsonObject j_resolver = resolvers_array.get(i).getAsJsonObject();
                 String id = j_resolver.get("id").getAsString();
-                Resolver resolver;
+                Resolver r;
                 if (!resolvers.containsKey(id)) {
                     // we have a new resolver..
                     Flaw sol = flaws.get(j_resolver.get("solves").getAsString());
@@ -216,8 +223,9 @@ public class MainJFrame extends javax.swing.JFrame {
                             pres.add(flaws.get(preconditions_array.get(j).getAsString()));
                         }
                     }
-                    resolver = new Resolver(j_resolver.get("label").getAsString(), sol, pres);
-                    resolvers.put(id, resolver);
+                    r = new Resolver(j_resolver.get("label").getAsString(), sol, pres);
+                    resolvers.put(id, r);
+                    causalGraphDisplay.new_resolver(r);
                 }
             }
         }
@@ -227,11 +235,12 @@ public class MainJFrame extends javax.swing.JFrame {
             for (int i = 0; i < flaws_array.size(); i++) {
                 JsonObject j_flaw = flaws_array.get(i).getAsJsonObject();
                 String id = j_flaw.get("id").getAsString();
-                Flaw flaw = flaws.get(id);
-                flaw.in_plan = LBool.valueOf(j_flaw.get("in_plan").getAsString());
+                Flaw f = flaws.get(id);
+                f.in_plan = LBool.valueOf(j_flaw.get("in_plan").getAsString());
                 if (j_flaw.has("cost")) {
-                    flaw.cost = j_flaw.get("cost").getAsDouble();
+                    f.cost = j_flaw.get("cost").getAsDouble();
                 }
+                causalGraphDisplay.flaw_changed(f);
             }
         }
         if (j_graph.has("resolvers")) {
@@ -239,11 +248,12 @@ public class MainJFrame extends javax.swing.JFrame {
             for (int i = 0; i < resolvers_array.size(); i++) {
                 JsonObject j_resolver = resolvers_array.get(i).getAsJsonObject();
                 String id = j_resolver.get("id").getAsString();
-                Resolver resolver = resolvers.get(id);
-                resolver.chosen = LBool.valueOf(j_resolver.get("chosen").getAsString());
+                Resolver r = resolvers.get(id);
+                r.chosen = LBool.valueOf(j_resolver.get("chosen").getAsString());
                 if (j_resolver.has("cost")) {
-                    resolver.cost = j_resolver.get("cost").getAsDouble();
+                    r.cost = j_resolver.get("cost").getAsDouble();
                 }
+                causalGraphDisplay.resolver_changed(r);
             }
         }
     }
@@ -282,7 +292,7 @@ public class MainJFrame extends javax.swing.JFrame {
         stateTreeCellRenderer = new it.cnr.istc.ratio.gui.StateTreeCellRenderer();
         jDesktopPane = new javax.swing.JDesktopPane();
         causalGraphJInternalFrame = new javax.swing.JInternalFrame();
-        causalGraphDisplay1 = new it.cnr.istc.ratio.gui.CausalGraphDisplay();
+        causalGraphDisplay = new it.cnr.istc.ratio.gui.CausalGraphDisplay();
         stateJInternalFrame = new javax.swing.JInternalFrame();
         stateJScrollPane = new javax.swing.JScrollPane();
         stateJTree = new javax.swing.JTree();
@@ -302,11 +312,11 @@ public class MainJFrame extends javax.swing.JFrame {
         causalGraphJInternalFrame.getContentPane().setLayout(causalGraphJInternalFrameLayout);
         causalGraphJInternalFrameLayout.setHorizontalGroup(
             causalGraphJInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(causalGraphDisplay1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+            .addComponent(causalGraphDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
         );
         causalGraphJInternalFrameLayout.setVerticalGroup(
             causalGraphJInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(causalGraphDisplay1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+            .addComponent(causalGraphDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
         );
 
         stateJInternalFrame.setIconifiable(true);
@@ -403,7 +413,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private it.cnr.istc.ratio.gui.CausalGraphDisplay causalGraphDisplay1;
+    private it.cnr.istc.ratio.gui.CausalGraphDisplay causalGraphDisplay;
     private javax.swing.JInternalFrame causalGraphJInternalFrame;
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JInternalFrame stateJInternalFrame;
