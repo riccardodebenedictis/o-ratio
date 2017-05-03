@@ -50,6 +50,16 @@ void test_heuristic_failure_1() {
     assert(!slvd);
 }
 
+void test_heuristic_failure_2() {
+    cg::causal_graph g;
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_heuristic_failure_2.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(!slvd);
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% heuristic_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;

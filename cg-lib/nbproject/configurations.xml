@@ -53,6 +53,7 @@
         <itemPath>tests/heuristic_test.cpp</itemPath>
         <itemPath>tests/test_heuristic_failure_0.rddl</itemPath>
         <itemPath>tests/test_heuristic_failure_1.rddl</itemPath>
+        <itemPath>tests/test_heuristic_failure_2.rddl</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -188,6 +189,11 @@
             flavor2="0">
       </item>
       <item path="tests/test_heuristic_failure_1.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/test_heuristic_failure_2.rddl"
             ex="false"
             tool="3"
             flavor2="0">
@@ -335,6 +341,11 @@
             flavor2="0">
       </item>
       <item path="tests/test_heuristic_failure_1.rddl"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="tests/test_heuristic_failure_2.rddl"
             ex="false"
             tool="3"
             flavor2="0">
