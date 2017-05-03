@@ -99,6 +99,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         if (kind == OVERFLOW) {
                             continue;
                         }
+                        @SuppressWarnings("unchecked")
                         WatchEvent<Path> ev = (WatchEvent<Path>) event;
                         Path filename = ev.context();
                         switch (filename.getFileName().toString()) {
