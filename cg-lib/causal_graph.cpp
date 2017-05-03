@@ -63,7 +63,7 @@ namespace cg {
     bool causal_graph::solve() {
 main_loop:
 #ifndef NDEBUG
-        write_state_file();
+        write_file();
 #endif
         // we update the planning graph..
         if (!build()) {
@@ -119,7 +119,7 @@ main_loop:
                 return false;
             }
 #ifndef NDEBUG
-            write_state_file();
+            write_file();
 #endif
 
             if (!ok) {
@@ -276,7 +276,7 @@ main_loop:
                         return false;
                     }
 #ifndef NDEBUG
-                    write_state_file();
+                    write_file();
 #endif
                     restore_var();
                     if (r->preconditions.empty()) {
@@ -314,7 +314,7 @@ main_loop:
                     return false;
                 }
 #ifndef NDEBUG
-                write_state_file();
+                write_file();
 #endif
                 restore_var();
                 if (r->preconditions.empty()) {

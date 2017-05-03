@@ -26,6 +26,9 @@
 #define CAUSAL_GRAPH_LISTENER_H
 
 #include "sat_value_listener.h"
+#ifndef NDEBUG
+#include <fstream>
+#endif
 
 namespace cg {
 
@@ -99,10 +102,10 @@ namespace cg {
         }
 
         inline void write_file() {
-            std::ofstream state_file;
-            state_file.open("graph.json");
-            state_file << *this;
-            state_file.close();
+            std::ofstream graph_file;
+            graph_file.open("graph.json");
+            graph_file << *this;
+            graph_file.close();
         }
 #endif
 

@@ -115,6 +115,20 @@ namespace ratio {
         void set_var(smt::var ctr_var);
         void restore_var();
 
+#ifndef NDEBUG
+
+        inline void delete_file() {
+            std::remove("state.json");
+        }
+
+        inline void write_file() {
+            std::ofstream state_file;
+            state_file.open("state.json");
+            state_file << *this;
+            state_file.close();
+        }
+#endif
+
     private:
         smt::var tmp_var;
         smt::var ctr_var = smt::TRUE;
