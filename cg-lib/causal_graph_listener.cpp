@@ -33,7 +33,7 @@ namespace cg {
     causal_graph_listener::causal_graph_listener(causal_graph& g) : g(g) {
         g.listeners.push_back(this);
 #ifndef NDEBUG
-        std::remove("graph.json");
+        delete_file();
 #endif
     }
 
@@ -48,37 +48,25 @@ namespace cg {
 
     void causal_graph_listener::flaw_created(const flaw& f) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 
     void causal_graph_listener::flaw_state_changed(const flaw& f) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 
     void causal_graph_listener::flaw_cost_changed(const flaw& f) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 
     void causal_graph_listener::current_flaw(const flaw& f) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 
@@ -89,28 +77,19 @@ namespace cg {
 
     void causal_graph_listener::resolver_created(const resolver& r) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 
     void causal_graph_listener::resolver_state_changed(const resolver& r) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 
     void causal_graph_listener::current_resolver(const resolver& r) {
 #ifndef NDEBUG
-        std::ofstream graph_file;
-        graph_file.open("graph.json");
-        graph_file << *this;
-        graph_file.close();
+        write_file();
 #endif
     }
 

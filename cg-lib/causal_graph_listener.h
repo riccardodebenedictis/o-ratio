@@ -92,6 +92,20 @@ namespace cg {
             const resolver& r;
         };
 
+#ifndef NDEBUG
+
+        inline void delete_file() {
+            std::remove("graph.json");
+        }
+
+        inline void write_file() {
+            std::ofstream state_file;
+            state_file.open("graph.json");
+            state_file << *this;
+            state_file.close();
+        }
+#endif
+
     protected:
         causal_graph& g;
 

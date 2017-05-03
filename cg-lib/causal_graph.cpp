@@ -40,7 +40,7 @@ namespace cg {
         assert(r);
         types.insert({STATE_VARIABLE_NAME, new state_variable(*this)});
 #ifndef NDEBUG
-        std::remove("state.json");
+        delete_file();
 #endif
     }
 
@@ -61,14 +61,9 @@ namespace cg {
     }
 
     bool causal_graph::solve() {
-#ifndef NDEBUG
-        std::ofstream state_file;
-#endif
 main_loop:
 #ifndef NDEBUG
-        state_file.open("state.json");
-        state_file << *this;
-        state_file.close();
+        write_state_file();
 #endif
         // we update the planning graph..
         if (!build()) {
@@ -124,9 +119,7 @@ main_loop:
                 return false;
             }
 #ifndef NDEBUG
-            state_file.open("state.json");
-            state_file << *this;
-            state_file.close();
+            write_state_file();
 #endif
 
             if (!ok) {
@@ -283,10 +276,7 @@ main_loop:
                         return false;
                     }
 #ifndef NDEBUG
-                    std::ofstream state_file;
-                    state_file.open("state.json");
-                    state_file << *this;
-                    state_file.close();
+                    write_state_file();
 #endif
                     restore_var();
                     if (r->preconditions.empty()) {
@@ -324,10 +314,7 @@ main_loop:
                     return false;
                 }
 #ifndef NDEBUG
-                std::ofstream state_file;
-                state_file.open("state.json");
-                state_file << *this;
-                state_file.close();
+                write_state_file();
 #endif
                 restore_var();
                 if (r->preconditions.empty()) {
