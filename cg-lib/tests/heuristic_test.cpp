@@ -67,11 +67,11 @@ int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTED%" << std::endl;
 
     std::cout << "%TEST_STARTED% test_heuristic_failure_0 (heuristic_test)" << std::endl;
-//    test_heuristic_failure_0();
+    test_heuristic_failure_0();
     std::cout << "%TEST_FINISHED% time=0 test_heuristic_failure_0 (heuristic_test)" << std::endl;
 
     std::cout << "%TEST_STARTED% test_heuristic_failure_1 (heuristic_test)" << std::endl;
-//    test_heuristic_failure_1();
+    test_heuristic_failure_1();
     std::cout << "%TEST_FINISHED% time=0 test_heuristic_failure_1 (heuristic_test)" << std::endl;
 
     std::cout << "%TEST_STARTED% test_heuristic_failure_2 (heuristic_test)" << std::endl;
