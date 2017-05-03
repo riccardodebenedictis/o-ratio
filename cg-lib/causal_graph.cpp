@@ -58,7 +58,15 @@ namespace cg {
     }
 
     bool causal_graph::solve() {
+#ifndef NDEBUG
+        std::ofstream state_file;
+#endif
 main_loop:
+#ifndef NDEBUG
+        state_file.open("state.json");
+        state_file << *this;
+        state_file.close();
+#endif
         // we update the planning graph..
         if (!build()) {
             // the problem is unsolvable..
@@ -112,6 +120,11 @@ main_loop:
             if (!sat.assume(smt::lit(r_next.chosen, true)) || !sat.check()) {
                 return false;
             }
+#ifndef NDEBUG
+            state_file.open("state.json");
+            state_file << *this;
+            state_file.close();
+#endif
 
             if (!ok) {
                 // the last assumption resulted in a backtracking..
@@ -266,6 +279,12 @@ main_loop:
                     if (!r->apply() || !sat.check()) {
                         return false;
                     }
+#ifndef NDEBUG
+                    std::ofstream state_file;
+                    state_file.open("state.json");
+                    state_file << *this;
+                    state_file.close();
+#endif
                     restore_var();
                     if (r->preconditions.empty()) {
                         // there are no requirements for this resolver..
@@ -301,6 +320,12 @@ main_loop:
                 if (!r->apply() || !sat.check()) {
                     return false;
                 }
+#ifndef NDEBUG
+                std::ofstream state_file;
+                state_file.open("state.json");
+                state_file << *this;
+                state_file.close();
+#endif
                 restore_var();
                 if (r->preconditions.empty()) {
                     // there are no requirements for this resolver..

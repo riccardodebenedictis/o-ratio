@@ -23,6 +23,7 @@
  */
 
 #include "causal_graph.h"
+#include "causal_graph_listener.h"
 #include <stdlib.h>
 #include <iostream>
 
@@ -52,6 +53,7 @@ void test_heuristic_failure_1() {
 
 void test_heuristic_failure_2() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_heuristic_failure_2.rddl"});
     assert(rd);
@@ -71,6 +73,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% test_heuristic_failure_1 (heuristic_test)" << std::endl;
     test_heuristic_failure_1();
     std::cout << "%TEST_FINISHED% time=0 test_heuristic_failure_1 (heuristic_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% test_heuristic_failure_2 (heuristic_test)" << std::endl;
+    test_heuristic_failure_2();
+    std::cout << "%TEST_FINISHED% time=0 test_heuristic_failure_2 (heuristic_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

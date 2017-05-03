@@ -43,9 +43,72 @@ namespace cg {
         flaw_created(f);
     }
 
+    void causal_graph_listener::flaw_created(const flaw& f) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
+    }
+
+    void causal_graph_listener::flaw_state_changed(const flaw& f) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
+    }
+
+    void causal_graph_listener::flaw_cost_changed(const flaw& f) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
+    }
+
+    void causal_graph_listener::current_flaw(const flaw& f) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
+    }
+
     void causal_graph_listener::new_resolver(const resolver& r) {
         resolver_listeners.insert({&r, new resolver_listener(*this, r)});
         resolver_created(r);
+    }
+
+    void causal_graph_listener::resolver_created(const resolver& r) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
+    }
+
+    void causal_graph_listener::resolver_state_changed(const resolver& r) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
+    }
+
+    void causal_graph_listener::current_resolver(const resolver& r) {
+#ifndef NDEBUG
+        std::ofstream graph_file;
+        graph_file.open("graph.json");
+        graph_file << *this;
+        graph_file.close();
+#endif
     }
 
     std::ostream& operator<<(std::ostream& os, const causal_graph_listener& obj) {
