@@ -27,7 +27,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
@@ -73,28 +72,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 new ImageIcon(getClass().getResource("resources/ratio32.png")).getImage())
         );
 
-        File state_file = new File("state.json");
-        if (state_file.exists()) {
-            try {
-                JsonElement element = new JsonParser().parse(new FileReader(state_file));
-                if (!element.isJsonNull()) {
-                    update_state(element.getAsJsonObject());
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        File graph_file = new File("graph.json");
-        if (graph_file.exists()) {
-            try {
-                JsonElement element = new JsonParser().parse(new FileReader(graph_file));
-                if (!element.isJsonNull()) {
-                    update_graph(element.getAsJsonObject());
-                }
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        load_state();
+        load_graph();
 
         new Thread(() -> {
             try {
@@ -102,12 +81,12 @@ public class MainJFrame extends javax.swing.JFrame {
                 Path path = FileSystems.getDefault().getPath(".");
                 path.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
                 for (;;) {
+                    boolean overflow = false;
                     WatchKey key = watcher.take();
                     for (WatchEvent<?> event : key.pollEvents()) {
                         WatchEvent.Kind<?> kind = event.kind();
                         if (kind == OVERFLOW) {
-                            clear_state();
-                            clear_graph();
+                            overflow = true;
                             continue;
                         }
                         @SuppressWarnings("unchecked")
@@ -124,33 +103,45 @@ public class MainJFrame extends javax.swing.JFrame {
                             }
                             continue;
                         }
-                        JsonElement element = new JsonParser().parse(new FileReader(filename.toFile()));
-                        if (element.isJsonNull()) {
-                            switch (filename.getFileName().toString()) {
-                                case "state.json":
-                                    clear_state();
-                                    break;
-                                case "graph.json":
-                                    clear_graph();
-                                    break;
+                        try {
+                            JsonElement element = new JsonParser().parse(new FileReader(filename.toFile()));
+                            if (element.isJsonNull()) {
+                                switch (filename.getFileName().toString()) {
+                                    case "state.json":
+                                        clear_state();
+                                        break;
+                                    case "graph.json":
+                                        clear_graph();
+                                        break;
+                                }
+                            } else {
+                                switch (filename.getFileName().toString()) {
+                                    case "state.json":
+                                        update_state(element.getAsJsonObject());
+                                        break;
+                                    case "graph.json":
+                                        update_graph(element.getAsJsonObject());
+                                        break;
+                                }
                             }
-                        } else {
-                            switch (filename.getFileName().toString()) {
-                                case "state.json":
-                                    update_state(element.getAsJsonObject());
-                                    break;
-                                case "graph.json":
-                                    update_graph(element.getAsJsonObject());
-                                    break;
-                            }
+                        } catch (JsonIOException | JsonSyntaxException ex) {
+                            clear_state();
+                            clear_graph();
                         }
                     }
 
                     if (!key.reset()) {
                         break;
                     }
+
+                    if (overflow) {
+                        clear_state();
+                        load_state();
+                        clear_graph();
+                        load_graph();
+                    }
                 }
-            } catch (JsonIOException | JsonSyntaxException | IOException | InterruptedException ex) {
+            } catch (IOException | InterruptedException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
@@ -167,6 +158,34 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         ToolTipManager.sharedInstance().registerComponent(stateJTree);
+    }
+
+    private void load_state() {
+        File state_file = new File("state.json");
+        if (state_file.exists()) {
+            try {
+                JsonElement element = new JsonParser().parse(new FileReader(state_file));
+                if (!element.isJsonNull()) {
+                    update_state(element.getAsJsonObject());
+                }
+            } catch (JsonIOException | JsonSyntaxException | FileNotFoundException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void load_graph() {
+        File graph_file = new File("graph.json");
+        if (graph_file.exists()) {
+            try {
+                JsonElement element = new JsonParser().parse(new FileReader(graph_file));
+                if (!element.isJsonNull()) {
+                    update_graph(element.getAsJsonObject());
+                }
+            } catch (JsonIOException | JsonSyntaxException | FileNotFoundException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     private void clear_state() {

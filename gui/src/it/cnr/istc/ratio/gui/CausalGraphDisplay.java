@@ -215,7 +215,9 @@ public class CausalGraphDisplay extends Display {
     void clear() {
         flaws.clear();
         resolvers.clear();
-        g.clear();
+        synchronized (m_vis) {
+            g.clear();
+        }
     }
 
     public void new_flaw(Flaw f) {
