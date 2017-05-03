@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
@@ -112,6 +113,17 @@ public class MainJFrame extends javax.swing.JFrame {
                         @SuppressWarnings("unchecked")
                         WatchEvent<Path> ev = (WatchEvent<Path>) event;
                         Path filename = ev.context();
+                        if (kind == ENTRY_DELETE) {
+                            switch (filename.getFileName().toString()) {
+                                case "state.json":
+                                    clear_state();
+                                    break;
+                                case "graph.json":
+                                    clear_graph();
+                                    break;
+                            }
+                            continue;
+                        }
                         JsonElement element = new JsonParser().parse(new FileReader(filename.toFile()));
                         if (element.isJsonNull()) {
                             switch (filename.getFileName().toString()) {
