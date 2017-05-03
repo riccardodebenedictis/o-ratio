@@ -212,6 +212,12 @@ public class CausalGraphDisplay extends Display {
         }
     }
 
+    void clear() {
+        flaws.clear();
+        resolvers.clear();
+        g.clear();
+    }
+
     public void new_flaw(Flaw f) {
         assert !flaws.containsKey(f);
         synchronized (m_vis) {

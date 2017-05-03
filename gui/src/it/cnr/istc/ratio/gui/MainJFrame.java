@@ -17,6 +17,7 @@
 package it.cnr.istc.ratio.gui;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
 import java.nio.file.WatchEvent;
@@ -73,7 +75,10 @@ public class MainJFrame extends javax.swing.JFrame {
         File state_file = new File("state.json");
         if (state_file.exists()) {
             try {
-                update_state(new JsonParser().parse(new FileReader(state_file)).getAsJsonObject());
+                JsonElement element = new JsonParser().parse(new FileReader(state_file));
+                if (!element.isJsonNull()) {
+                    update_state(element.getAsJsonObject());
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -81,7 +86,10 @@ public class MainJFrame extends javax.swing.JFrame {
         File graph_file = new File("graph.json");
         if (graph_file.exists()) {
             try {
-                update_graph(new JsonParser().parse(new FileReader(graph_file)).getAsJsonObject());
+                JsonElement element = new JsonParser().parse(new FileReader(graph_file));
+                if (!element.isJsonNull()) {
+                    update_graph(element.getAsJsonObject());
+                }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -91,24 +99,38 @@ public class MainJFrame extends javax.swing.JFrame {
             try {
                 WatchService watcher = FileSystems.getDefault().newWatchService();
                 Path path = FileSystems.getDefault().getPath(".");
-                path.register(watcher, ENTRY_CREATE, ENTRY_MODIFY);
+                path.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
                 for (;;) {
                     WatchKey key = watcher.take();
                     for (WatchEvent<?> event : key.pollEvents()) {
                         WatchEvent.Kind<?> kind = event.kind();
                         if (kind == OVERFLOW) {
+                            clear_state();
+                            clear_graph();
                             continue;
                         }
                         @SuppressWarnings("unchecked")
                         WatchEvent<Path> ev = (WatchEvent<Path>) event;
                         Path filename = ev.context();
-                        switch (filename.getFileName().toString()) {
-                            case "state.json":
-                                update_state(new JsonParser().parse(new FileReader(filename.toFile())).getAsJsonObject());
-                                break;
-                            case "graph.json":
-                                update_graph(new JsonParser().parse(new FileReader(filename.toFile())).getAsJsonObject());
-                                break;
+                        JsonElement element = new JsonParser().parse(new FileReader(filename.toFile()));
+                        if (element.isJsonNull()) {
+                            switch (filename.getFileName().toString()) {
+                                case "state.json":
+                                    clear_state();
+                                    break;
+                                case "graph.json":
+                                    clear_graph();
+                                    break;
+                            }
+                        } else {
+                            switch (filename.getFileName().toString()) {
+                                case "state.json":
+                                    update_state(element.getAsJsonObject());
+                                    break;
+                                case "graph.json":
+                                    update_graph(element.getAsJsonObject());
+                                    break;
+                            }
                         }
                     }
 
@@ -133,6 +155,19 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         ToolTipManager.sharedInstance().registerComponent(stateJTree);
+    }
+
+    private void clear_state() {
+        items.clear();
+        state.items.clear();
+        state.atoms.clear();
+        SwingUtilities.invokeLater(() -> stateTreeModel.setRoot(state));
+    }
+
+    private void clear_graph() {
+        flaws.clear();
+        resolvers.clear();
+        causalGraphDisplay.clear();
     }
 
     private void update_state(JsonObject j_state) {
