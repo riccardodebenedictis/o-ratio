@@ -32,6 +32,9 @@ namespace cg {
 
     causal_graph_listener::causal_graph_listener(causal_graph& g) : g(g) {
         g.listeners.push_back(this);
+#ifndef NDEBUG
+        std::remove("graph.json");
+#endif
     }
 
     causal_graph_listener::~causal_graph_listener() {

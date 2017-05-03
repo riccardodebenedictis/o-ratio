@@ -39,6 +39,9 @@ namespace cg {
         bool r = read(std::vector<std::string>({"init.rddl"}));
         assert(r);
         types.insert({STATE_VARIABLE_NAME, new state_variable(*this)});
+#ifndef NDEBUG
+        std::remove("state.json");
+#endif
     }
 
     causal_graph::~causal_graph() {
