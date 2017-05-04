@@ -105,6 +105,8 @@ namespace cg {
                     add_resolver(*u_res);
                     g.new_causal_link(*g.reason.at(c_a), *u_res);
                     g.set_cost(*this, g.reason.at(c_a)->get_cost());
+                    // making this resolver false might made the heuristic blind..
+                    g.bind(u_res->get_chosen());
                     solved = true;
                 }
             }

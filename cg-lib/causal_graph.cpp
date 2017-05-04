@@ -182,15 +182,25 @@ main_loop:
     }
 
     smt::constr* causal_graph::propagate(const smt::lit& p) {
-        flaw* f = in_plan.at(p.v);
-        if (p.sign) {
-            flaws.insert(f);
-            if (!trail.empty()) {
-                trail.back().new_flaws.insert(f);
+        if (in_plan.find(p.v) != in_plan.end()) {
+            // a flaw has been removed from the current partial solution..
+            flaw* f = in_plan.at(p.v);
+            if (p.sign) {
+                flaws.insert(f);
+                if (!trail.empty()) {
+                    trail.back().new_flaws.insert(f);
+                }
+            } else {
+                set_cost(*f, std::numeric_limits<double>::infinity());
             }
+#ifndef N_CAUSAL_GRAPH_LISTENERS
+            for (const auto& l : listeners) {
+                l->flaw_state_changed(*f);
+            }
+#endif
         } else {
-            set_cost(*f, std::numeric_limits<double>::infinity());
-            if (!has_solution()) {
+            // a resolver frontier might have made the heuristic blind..
+            if (!p.sign && !has_solution()) {
                 // we have made the heuristic blind..
                 std::vector<smt::lit> confl;
                 confl.push_back(p);
@@ -200,11 +210,6 @@ main_loop:
                 return new smt::constr(sat, confl);
             }
         }
-#ifndef N_CAUSAL_GRAPH_LISTENERS
-        for (const auto& l : listeners) {
-            l->flaw_state_changed(*f);
-        }
-#endif
         return nullptr;
     }
 
@@ -275,6 +280,8 @@ main_loop:
                     if (r->preconditions.empty()) {
                         // there are no requirements for this resolver..
                         set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
+                        // making this resolver false might made the heuristic blind..
+                        bind(r->chosen);
                     }
                     resolvers.pop_front();
                 }
@@ -313,6 +320,8 @@ main_loop:
                 if (r->preconditions.empty()) {
                     // there are no requirements for this resolver..
                     set_cost(*f, std::min(f->cost, la.value(r->cost)));
+                    // making this resolver false might made the heuristic blind..
+                    bind(r->chosen);
                 }
                 resolvers.pop_front();
             }
