@@ -282,6 +282,8 @@ main_loop:
                     if (r->preconditions.empty()) {
                         // there are no requirements for this resolver..
                         set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
+                        // this resolver is potentially required for a solution..
+                        fringe.insert(r);
                     }
                     resolvers.pop_front();
                 }
@@ -319,7 +321,9 @@ main_loop:
                 restore_var();
                 if (r->preconditions.empty()) {
                     // there are no requirements for this resolver..
-                    set_cost(*f, la.value(r->cost));
+                    set_cost(*f, std::min(f->cost, la.value(r->cost)));
+                    // this resolver is potentially required for a solution..
+                    fringe.insert(r);
                 }
                 resolvers.pop_front();
             }

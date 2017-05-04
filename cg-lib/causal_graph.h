@@ -99,6 +99,8 @@ namespace cg {
         std::queue<flaw*> flaw_q;
         // the current assumed resolvers..
         std::list<resolver*> resolvers;
+        // the solving fringe..
+        std::set<resolver*> fringe;
         // the current flaws..
         std::unordered_set<flaw*> flaws;
         // the in_plan variables (boolean variable to flaw) of the flaws..
