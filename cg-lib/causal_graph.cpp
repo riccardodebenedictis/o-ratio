@@ -206,6 +206,15 @@ main_loop:
             }
         } else {
             set_cost(*f, std::numeric_limits<double>::infinity());
+            if (!has_solution()) {
+                // we have made the heuristic blind..
+                std::vector<smt::lit> confl;
+                confl.push_back(p);
+                for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
+                    confl.push_back(smt::lit(trail_it->r->chosen, false));
+                }
+                return new smt::constr(sat, confl);
+            }
         }
 #ifndef N_CAUSAL_GRAPH_LISTENERS
         for (const auto& l : listeners) {
