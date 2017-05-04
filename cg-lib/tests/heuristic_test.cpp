@@ -33,6 +33,7 @@
 
 void test_heuristic_failure_0() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_heuristic_failure_0.rddl"});
     assert(rd);
@@ -43,6 +44,7 @@ void test_heuristic_failure_0() {
 
 void test_heuristic_failure_1() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_heuristic_failure_1.rddl"});
     assert(rd);

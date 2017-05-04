@@ -205,7 +205,10 @@ main_loop:
                 std::vector<smt::lit> confl;
                 confl.push_back(p);
                 for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
-                    confl.push_back(smt::lit(trail_it->r->chosen, false));
+                    if (trail_it->r) {
+                        // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
+                        confl.push_back(smt::lit(trail_it->r->chosen, false));
+                    }
                 }
                 return new smt::constr(sat, confl);
             }
