@@ -62,6 +62,7 @@ namespace cg {
 
     bool causal_graph::solve() {
 main_loop:
+        res = nullptr;
 #ifndef NDEBUG
         write_file();
 #endif
@@ -90,11 +91,9 @@ main_loop:
 
             // this is the next resolver to be chosen..
             resolver& r_next = select_resolver(*f_next);
+            res = &r_next;
             if (f_next->has_subgoals()) {
-                res = &r_next;
                 resolvers.push_back(&r_next);
-            } else {
-                res = nullptr;
             }
 
             ok = true;
