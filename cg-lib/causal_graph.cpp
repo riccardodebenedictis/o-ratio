@@ -74,22 +74,7 @@ main_loop:
         // this is the next flaw to be solved..
         flaw* f_next = select_flaw();
         while (f_next) {
-            if (f_next->cost == std::numeric_limits<double>::infinity()) {
-                // the heuristic has become blind! the chosen resolvers prevent this flaw to be solved with the previously estimated resolvers..
-                // we go back to root level..
-                while (!sat.root_level()) {
-                    sat.pop();
-                }
-                // we add a new layer to the planning graph..
-                if (!add_layer()) {
-                    // the problem is unsolvable..
-                    return false;
-                }
-                // we restart the search..
-                f_next = select_flaw();
-                continue;
-            }
-
+            assert(f_next->cost < std::numeric_limits<double>::infinity());
             if (f_next->has_subgoals()) {
                 // we run out of inconsistencies, thus, we renew them..
                 if (has_inconsistencies()) {
@@ -291,8 +276,6 @@ main_loop:
                     if (r->preconditions.empty()) {
                         // there are no requirements for this resolver..
                         set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
-                        // this resolver is potentially required for a solution..
-                        fringe.insert(r);
                     }
                     resolvers.pop_front();
                 }
@@ -331,8 +314,6 @@ main_loop:
                 if (r->preconditions.empty()) {
                     // there are no requirements for this resolver..
                     set_cost(*f, std::min(f->cost, la.value(r->cost)));
-                    // this resolver is potentially required for a solution..
-                    fringe.insert(r);
                 }
                 resolvers.pop_front();
             }
