@@ -72,6 +72,9 @@ main_loop:
             return false;
         }
 
+        graph_var = sat.new_var();
+        sat.assume(smt::lit(graph_var, true));
+
         // this is the next flaw to be solved..
         flaw* f_next = select_flaw();
         while (f_next) {
@@ -109,8 +112,23 @@ main_loop:
 #endif
 
             if (!has_solution()) {
-                assert(sat.root_level());
-                goto main_loop;
+                // we have to extend the graph, one way or another..
+                while (!has_solution()) {
+                    if (sat.root_level()) {
+                        // we are at root level and we do not have a solution..
+                        assert(sat.value(graph_var) == smt::False);
+                        goto main_loop;
+                    }
+                    sat.pop();
+                }
+                // we go back to root level..
+                while (!sat.root_level()) {
+                    sat.pop();
+                }
+                if (!add_layer()) {
+                    return false;
+                }
+                sat.assume(smt::lit(graph_var, true));
             }
 
             // we select a new flaw..
@@ -217,13 +235,14 @@ main_loop:
                 if (!has_solution()) {
                     // we have made the heuristic blind..
                     std::vector<smt::lit> confl;
-                    confl.push_back(!p);
+                    confl.push_back(p);
                     for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
                         if (trail_it->r) {
                             // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
                             confl.push_back(smt::lit(trail_it->r->chosen, false));
                         }
                     }
+                    confl.push_back(smt::lit(graph_var, false));
                     return new smt::constr(sat, confl);
                 }
             }

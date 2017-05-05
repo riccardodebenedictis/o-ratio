@@ -23,6 +23,7 @@
  */
 
 #include "causal_graph.h"
+#include "causal_graph_listener.h"
 #include <stdlib.h>
 #include <iostream>
 
@@ -32,6 +33,7 @@
 
 void testCG0() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_sv_0.rddl"});
     assert(rd);
@@ -60,6 +62,7 @@ void testCG0() {
 
 void testCG1() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_sv_1.rddl"});
     assert(rd);
@@ -70,6 +73,7 @@ void testCG1() {
 
 void testCG2() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_sv_2.rddl"});
     assert(rd);
@@ -98,6 +102,7 @@ void testCG2() {
 
 void testCG3() {
     cg::causal_graph g;
+    cg::causal_graph_listener l(g);
 
     bool rd = g.read(std::vector<std::string>{"tests/test_sv_3.rddl"});
     assert(rd);

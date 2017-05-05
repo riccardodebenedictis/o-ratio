@@ -107,6 +107,8 @@ namespace cg {
         std::unordered_map<smt::var, flaw*> in_plan;
         // the resolver frontier (boolean variable to resolver) contains those resolvers which, if removed, might make the heuristic blind..
         std::unordered_map<smt::var, resolver*> resolver_frontier;
+        // this variable represents the validity of the current graph..
+        smt::var graph_var;
         // the current resolver (will be into the trail)..
         resolver* res;
         // the list of resolvers in chronological order..
