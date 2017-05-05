@@ -76,7 +76,7 @@ public class StateTreeModel extends DefaultTreeModel {
     static class StateNode extends DefaultMutableTreeNode {
 
         public StateNode(State state) {
-            super(state, !state.items.isEmpty() && !state.atoms.isEmpty());
+            super(state, !state.items.isEmpty() || !state.atoms.isEmpty());
         }
 
         @Override
