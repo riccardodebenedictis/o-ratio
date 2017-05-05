@@ -93,7 +93,6 @@ namespace cg {
             std::unordered_set<flaw*> solved_flaws;
         };
 
-        bool ok = true;
         // the reason for having introduced a flaw..
         std::unordered_map<ratio::atom*, flaw*> reason;
         // the flaw queue..

@@ -79,6 +79,10 @@ main_loop:
             if (f_next->has_subgoals()) {
                 // we run out of inconsistencies, thus, we renew them..
                 if (has_inconsistencies()) {
+                    // we go back to root level..
+                    while (!sat.root_level()) {
+                        sat.pop();
+                    }
                     goto main_loop;
                 }
             }
@@ -96,8 +100,6 @@ main_loop:
                 resolvers.push_back(&r_next);
             }
 
-            ok = true;
-
             // we apply the resolver..
             if (!sat.assume(smt::lit(r_next.chosen, true)) || !sat.check()) {
                 return false;
@@ -106,8 +108,8 @@ main_loop:
             write_file();
 #endif
 
-            if (!ok) {
-                // the last assumption resulted in a backtracking..
+            if (!has_solution()) {
+                assert(sat.root_level());
                 goto main_loop;
             }
 
@@ -117,6 +119,10 @@ main_loop:
 
         // we run out of flaws, we check for inconsistencies one last time..
         if (has_inconsistencies()) {
+            // we go back to root level..
+            while (!sat.root_level()) {
+                sat.pop();
+            }
             goto main_loop;
         }
 
@@ -258,7 +264,6 @@ main_loop:
             resolvers.pop_back();
         }
         trail.pop_back();
-        ok = false;
     }
 
     bool causal_graph::build() {
@@ -498,15 +503,9 @@ main_loop:
             q.pop();
         }
 
-        if (!incs.empty()) {
-            // we go back to root level..
-            while (!sat.root_level()) {
-                sat.pop();
-            }
-            // we initialize the new flaws..
-            for (const auto& f : incs) {
-                new_flaw(*f);
-            }
+        // we initialize the new flaws..
+        for (const auto& f : incs) {
+            new_flaw(*f);
         }
 
         return !incs.empty();
