@@ -101,7 +101,7 @@ namespace cg {
                 if (fs_it != obj.flaw_listeners.begin()) {
                     os << ", ";
                 }
-                os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (fs_it->first)) << "\", \"label\" : \"" << fs_it->first->get_label() << "\", \"in_plan\" : ";
+                os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (fs_it->first)) << "\", \"label\" : \"" << fs_it->first->get_label() << "\", \"in_plan_var\" : \"b" << std::to_string(fs_it->first->get_in_plan()) << "\", \"in_plan_val\" : ";
                 switch (obj.get_causal_graph().sat.value(fs_it->first->get_in_plan())) {
                     case smt::True:
                         os << "\"True\"";
@@ -131,7 +131,7 @@ namespace cg {
                 if (rs_it != obj.resolver_listeners.begin()) {
                     os << ", ";
                 }
-                os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (rs_it->first)) << "\", \"label\" : \"" << rs_it->first->get_label() << "\", \"chosen\" : ";
+                os << "{ \"id\" : \"" << std::to_string(reinterpret_cast<uintptr_t> (rs_it->first)) << "\", \"label\" : \"" << rs_it->first->get_label() << "\", \"chosen_var\" : \"b" << std::to_string(fs_it->first->get_in_plan()) << "\", \"chosen_val\" : ";
                 switch (obj.get_causal_graph().sat.value(rs_it->first->get_chosen())) {
                     case smt::True:
                         os << "\"True\"";

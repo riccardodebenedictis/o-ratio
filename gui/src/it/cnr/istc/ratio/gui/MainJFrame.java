@@ -292,7 +292,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 Flaw f;
                 if (!flaws.containsKey(id)) {
                     // we have a new flaw..
-                    f = new Flaw(j_flaw.get("label").getAsString());
+                    f = new Flaw(j_flaw.get("label").getAsString(), j_flaw.get("in_plan_var").getAsString());
                     flaws.put(id, f);
                     causalGraphDisplay.new_flaw(f);
                 }
@@ -316,7 +316,7 @@ public class MainJFrame extends javax.swing.JFrame {
                             pres.add(flaws.get(preconditions_array.get(j).getAsString()));
                         }
                     }
-                    r = new Resolver(j_resolver.get("label").getAsString(), sol, pres);
+                    r = new Resolver(j_resolver.get("label").getAsString(), j_resolver.get("chosen_var").getAsString(), sol, pres);
                     resolvers.put(id, r);
                     causalGraphDisplay.new_resolver(r);
                 }
@@ -329,7 +329,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 JsonObject j_flaw = flaws_array.get(i).getAsJsonObject();
                 String id = j_flaw.get("id").getAsString();
                 Flaw f = flaws.get(id);
-                f.in_plan = LBool.valueOf(j_flaw.get("in_plan").getAsString());
+                f.in_plan_val = LBool.valueOf(j_flaw.get("in_plan_val").getAsString());
                 if (j_flaw.has("cost")) {
                     f.cost = j_flaw.get("cost").getAsDouble();
                 }
@@ -342,7 +342,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 JsonObject j_resolver = resolvers_array.get(i).getAsJsonObject();
                 String id = j_resolver.get("id").getAsString();
                 Resolver r = resolvers.get(id);
-                r.chosen = LBool.valueOf(j_resolver.get("chosen").getAsString());
+                r.chosen = LBool.valueOf(j_resolver.get("chosen_val").getAsString());
                 if (j_resolver.has("cost")) {
                     r.cost = j_resolver.get("cost").getAsDouble();
                 }

@@ -23,11 +23,13 @@ package it.cnr.istc.ratio.gui;
 public class Flaw {
 
     public final String label;
+    public final String in_plan_var;
     double cost = Double.POSITIVE_INFINITY;
-    LBool in_plan = LBool.Undefined;
+    LBool in_plan_val = LBool.Undefined;
 
-    Flaw(String label) {
+    Flaw(String label, String in_plan_var) {
         this.label = label;
+        this.in_plan_var = in_plan_var;
     }
 
     public double getCost() {
@@ -35,6 +37,6 @@ public class Flaw {
     }
 
     public LBool getInPlan() {
-        return in_plan;
+        return in_plan_val;
     }
 }

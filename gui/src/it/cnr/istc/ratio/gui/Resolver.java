@@ -26,13 +26,15 @@ import java.util.Collections;
 public class Resolver {
 
     public final String label;
+    public final String chosen_var;
     double cost = Double.POSITIVE_INFINITY;
     LBool chosen = LBool.Undefined;
     final Flaw solves;
     final Collection<Flaw> preconditions;
 
-    Resolver(String label, Flaw solves, Collection<Flaw> preconditions) {
+    Resolver(String label, String chosen_var, Flaw solves, Collection<Flaw> preconditions) {
         this.label = label;
+        this.chosen_var = chosen_var;
         this.solves = solves;
         this.preconditions = preconditions;
     }
