@@ -176,10 +176,10 @@ public class CausalGraphDisplay extends Display {
                     Object content = nodeData.get(NODE_CONTENT);
                     switch ((String) nodeData.get(NODE_TYPE)) {
                         case "flaw":
-                            d.setToolTipText("in-plan: (" + ((Flaw) content).in_plan_var + ")" + ((Flaw) content).getInPlan() + ", cost: " + ((Flaw) content).getCost());
+                            d.setToolTipText("in-plan: (" + ((Flaw) content).in_plan_var + ") " + ((Flaw) content).getInPlan() + ", cost: " + ((Flaw) content).getCost());
                             break;
                         case "resolver":
-                            d.setToolTipText("chosen: (" + ((Resolver) content).chosen_var + ")" + ((Resolver) content).getChosen() + ", cost: " + ((Resolver) content).getCost());
+                            d.setToolTipText("chosen: (" + ((Resolver) content).chosen_var + ") " + ((Resolver) content).getChosen() + ", cost: " + ((Resolver) content).getCost());
                             break;
                     }
                 }
