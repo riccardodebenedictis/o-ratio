@@ -207,7 +207,7 @@ main_loop:
             }
 #endif
         }
-        // notice that resolvers and flaws might share the decision variable..
+        // notice that resolvers and flaws might share their decision variable..
         if (resolver_frontier.find(p.v) != resolver_frontier.end()) {
             // a decision has been taken about the presence of this resolver within the current partial solution..
             // this decision might have made the heuristic blind!
