@@ -205,17 +205,21 @@ main_loop:
         if (resolver_frontier.find(p.v) != resolver_frontier.end()) {
             // a decision has been taken about the presence of this resolver within the current partial solution..
             // this decision might have made the heuristic blind!
-            if (!p.sign && !has_solution()) {
-                // we have made the heuristic blind..
-                std::vector<smt::lit> confl;
-                confl.push_back(p);
-                for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
-                    if (trail_it->r) {
-                        // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
-                        confl.push_back(smt::lit(trail_it->r->chosen, false));
+            if (!p.sign) {
+                flaw_costs_q.push(&resolver_frontier.at(p.v)->effect);
+                propagate_costs();
+                if (!has_solution()) {
+                    // we have made the heuristic blind..
+                    std::vector<smt::lit> confl;
+                    confl.push_back(p);
+                    for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
+                        if (trail_it->r) {
+                            // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
+                            confl.push_back(smt::lit(trail_it->r->chosen, false));
+                        }
                     }
+                    return new smt::constr(sat, confl);
                 }
-                return new smt::constr(sat, confl);
             }
         }
         return nullptr;
@@ -441,34 +445,37 @@ main_loop:
             }
 #endif
 
-            std::queue<flaw*> q;
             for (const auto& supp : f.supports) {
-                q.push(&supp->effect);
+                flaw_costs_q.push(&supp->effect);
             }
-            while (!q.empty()) {
-                double f_cost = std::numeric_limits<double>::infinity();
-                for (const auto& r : q.front()->resolvers) {
-                    double c = r->get_cost();
-                    if (c < f_cost) {
-                        f_cost = c;
-                    }
+            propagate_costs();
+        }
+    }
+
+    void causal_graph::propagate_costs() {
+        while (!flaw_costs_q.empty()) {
+            double f_cost = std::numeric_limits<double>::infinity();
+            for (const auto& r : flaw_costs_q.front()->resolvers) {
+                double c = r->get_cost();
+                if (c < f_cost) {
+                    f_cost = c;
                 }
-                if (q.front()->cost != f_cost) {
-                    if (!trail.empty()) {
-                        trail.back().old_costs.insert({q.front(), q.front()->cost});
-                    }
-                    q.front()->cost = f_cost;
+            }
+            if (flaw_costs_q.front()->cost != f_cost) {
+                if (!trail.empty()) {
+                    trail.back().old_costs.insert({flaw_costs_q.front(), flaw_costs_q.front()->cost});
+                }
+                flaw_costs_q.front()->cost = f_cost;
 #ifndef N_CAUSAL_GRAPH_LISTENERS
-                    for (const auto& l : listeners) {
-                        l->flaw_cost_changed(*q.front());
-                    }
-#endif
-                    for (const auto& supp : q.front()->supports) {
-                        q.push(&supp->effect);
-                    }
+                for (const auto& l : listeners) {
+                    l->flaw_cost_changed(*flaw_costs_q.front());
                 }
-                q.pop();
+#endif
+                for (const auto& supp : flaw_costs_q.front()->supports) {
+                    flaw_costs_q.push(&supp->effect);
+                }
             }
+            flaw_costs_q.pop();
         }
     }
 

@@ -72,6 +72,7 @@ namespace cg {
         bool has_solution();
         bool is_deferrable(flaw& f);
         void set_cost(flaw& f, double cost);
+        void propagate_costs();
         bool has_inconsistencies();
 
         flaw* select_flaw();
@@ -97,6 +98,8 @@ namespace cg {
         std::unordered_map<ratio::atom*, flaw*> reason;
         // the flaw queue..
         std::queue<flaw*> flaw_q;
+        // the flaw costs queue (for flaw cost propagation)..
+        std::queue<flaw*> flaw_costs_q;
         // the current assumed resolvers..
         std::list<resolver*> resolvers;
         // the current flaws..
