@@ -217,7 +217,7 @@ main_loop:
                 if (!has_solution()) {
                     // we have made the heuristic blind..
                     std::vector<smt::lit> confl;
-                    confl.push_back(p);
+                    confl.push_back(!p);
                     for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
                         if (trail_it->r) {
                             // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
