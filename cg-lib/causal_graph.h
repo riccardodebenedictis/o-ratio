@@ -103,6 +103,8 @@ namespace cg {
         std::unordered_set<flaw*> flaws;
         // the in_plan variables (boolean variable to flaw) of the flaws..
         std::unordered_map<smt::var, flaw*> in_plan;
+        // the resolver frontier (boolean variable to resolver) contains those resolvers which, if removed, might make the heuristic blind..
+        std::unordered_map<smt::var, resolver*> resolver_frontier;
         // the current resolver (will be into the trail)..
         resolver* res;
         // the list of resolvers in chronological order..
