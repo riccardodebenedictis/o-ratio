@@ -70,7 +70,14 @@ namespace ratio {
             return false;
         }
         p = nullptr;
-        return sat.check();
+        if (!sat.check()) {
+            return false;
+        } else {
+#ifndef NDEBUG
+            write_file();
+#endif
+            return true;
+        }
     }
 
     bool core::read(const std::vector<std::string>& files) {
@@ -98,7 +105,14 @@ namespace ratio {
             }
         }
         p = nullptr;
-        return sat.check();
+        if (!sat.check()) {
+            return false;
+        } else {
+#ifndef NDEBUG
+            write_file();
+#endif
+            return true;
+        }
     }
 
     bool_expr core::new_bool() {

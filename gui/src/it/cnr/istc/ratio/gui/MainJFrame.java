@@ -23,7 +23,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -164,11 +163,13 @@ public class MainJFrame extends javax.swing.JFrame {
         File state_file = new File("state.json");
         if (state_file.exists()) {
             try {
-                JsonElement element = new JsonParser().parse(new FileReader(state_file));
+                FileReader reader = new FileReader(state_file);
+                JsonElement element = new JsonParser().parse(reader);
+                reader.close();
                 if (!element.isJsonNull()) {
                     update_state(element.getAsJsonObject());
                 }
-            } catch (JsonIOException | JsonSyntaxException | FileNotFoundException ex) {
+            } catch (JsonIOException | JsonSyntaxException | IOException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -178,11 +179,13 @@ public class MainJFrame extends javax.swing.JFrame {
         File graph_file = new File("graph.json");
         if (graph_file.exists()) {
             try {
-                JsonElement element = new JsonParser().parse(new FileReader(graph_file));
+                FileReader reader = new FileReader(graph_file);
+                JsonElement element = new JsonParser().parse(reader);
+                reader.close();
                 if (!element.isJsonNull()) {
                     update_graph(element.getAsJsonObject());
                 }
-            } catch (JsonIOException | JsonSyntaxException | FileNotFoundException ex) {
+            } catch (JsonIOException | JsonSyntaxException | IOException ex) {
                 Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
