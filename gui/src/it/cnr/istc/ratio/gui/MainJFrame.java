@@ -53,6 +53,7 @@ import javax.swing.tree.ExpandVetoException;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
+    private final Path path;
     private final State state = new State();
     private final Map<String, Item> items = new HashMap<>();
     private final Map<String, Flaw> flaws = new HashMap<>();
@@ -69,6 +70,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 new ImageIcon(getClass().getResource("resources/ratio32.png")).getImage())
         );
 
+        path = FileSystems.getDefault().getPath(first);
+
         load_state();
         load_graph();
 
@@ -79,7 +82,6 @@ public class MainJFrame extends javax.swing.JFrame {
             } catch (IOException ex) {
                 return;
             }
-            Path path = FileSystems.getDefault().getPath(first);
             try {
                 path.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
             } catch (IOException ex) {
@@ -168,10 +170,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void load_state() {
-        File state_file = new File("state.json");
-        if (state_file.exists()) {
+        File file = path.resolve("state.json").toFile();
+        if (file.exists()) {
             try {
-                FileReader reader = new FileReader(state_file);
+                FileReader reader = new FileReader(file);
                 JsonElement element = new JsonParser().parse(reader);
                 reader.close();
                 if (!element.isJsonNull()) {
@@ -184,10 +186,10 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void load_graph() {
-        File graph_file = new File("graph.json");
-        if (graph_file.exists()) {
+        File file = path.resolve("state.json").toFile();
+        if (file.exists()) {
             try {
-                FileReader reader = new FileReader(graph_file);
+                FileReader reader = new FileReader(file);
                 JsonElement element = new JsonParser().parse(reader);
                 reader.close();
                 if (!element.isJsonNull()) {
