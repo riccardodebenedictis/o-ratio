@@ -64,6 +64,17 @@ void test_heuristic_failure_2() {
     assert(slvd);
 }
 
+void test_heuristic_failure_3() {
+    cg::causal_graph g;
+    cg::causal_graph_listener l(g);
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_heuristic_failure_3.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(slvd);
+}
+
 int main(int argc, char** argv) {
     std::cout << "%SUITE_STARTING% heuristic_test" << std::endl;
     std::cout << "%SUITE_STARTED%" << std::endl;
@@ -79,6 +90,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% test_heuristic_failure_2 (heuristic_test)" << std::endl;
     test_heuristic_failure_2();
     std::cout << "%TEST_FINISHED% time=0 test_heuristic_failure_2 (heuristic_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% test_heuristic_failure_3 (heuristic_test)" << std::endl;
+    test_heuristic_failure_3();
+    std::cout << "%TEST_FINISHED% time=0 test_heuristic_failure_3 (heuristic_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 
