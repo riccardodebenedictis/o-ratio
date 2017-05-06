@@ -186,7 +186,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     private void load_graph() {
-        File file = path.resolve("state.json").toFile();
+        File file = path.resolve("graph.json").toFile();
         if (file.exists()) {
             try {
                 FileReader reader = new FileReader(file);
