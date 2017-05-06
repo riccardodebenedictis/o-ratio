@@ -18,10 +18,8 @@ package it.cnr.istc.ratio.gui;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,7 +53,7 @@ import javax.swing.tree.ExpandVetoException;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
-    private State state = new State();
+    private final State state = new State();
     private final Map<String, Item> items = new HashMap<>();
     private final Map<String, Flaw> flaws = new HashMap<>();
     private final Map<String, Resolver> resolvers = new HashMap<>();
@@ -63,7 +61,7 @@ public class MainJFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainJFrame
      */
-    public MainJFrame() {
+    public MainJFrame(String first) {
         initComponents();
 
         setIconImages(Arrays.asList(
@@ -75,11 +73,20 @@ public class MainJFrame extends javax.swing.JFrame {
         load_graph();
 
         new Thread(() -> {
+            WatchService watcher;
             try {
-                WatchService watcher = FileSystems.getDefault().newWatchService();
-                Path path = FileSystems.getDefault().getPath(".");
+                watcher = FileSystems.getDefault().newWatchService();
+            } catch (IOException ex) {
+                return;
+            }
+            Path path = FileSystems.getDefault().getPath(first);
+            try {
                 path.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
-                for (;;) {
+            } catch (IOException ex) {
+                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (;;) {
+                try {
                     boolean overflow = false;
                     WatchKey key = watcher.take();
                     for (WatchEvent<?> event : key.pollEvents()) {
@@ -102,30 +109,31 @@ public class MainJFrame extends javax.swing.JFrame {
                             }
                             continue;
                         }
-                        try {
-                            JsonElement element = new JsonParser().parse(new FileReader(filename.toFile()));
-                            if (element.isJsonNull()) {
-                                switch (filename.getFileName().toString()) {
-                                    case "state.json":
+                        switch (filename.getFileName().toString()) {
+                            case "state.json":
+                                try {
+                                    JsonElement s_element = new JsonParser().parse(new FileReader(path.resolve(filename).toFile()));
+                                    if (s_element.isJsonNull()) {
                                         clear_state();
-                                        break;
-                                    case "graph.json":
+                                    } else {
+                                        update_state(s_element.getAsJsonObject());
+                                    }
+                                } catch (Exception ex) {
+                                    clear_state();
+                                }
+                                break;
+                            case "graph.json":
+                                try {
+                                    JsonElement g_element = new JsonParser().parse(new FileReader(path.resolve(filename).toFile()));
+                                    if (g_element.isJsonNull()) {
                                         clear_graph();
-                                        break;
+                                    } else {
+                                        update_graph(g_element.getAsJsonObject());
+                                    }
+                                } catch (Exception e) {
+                                    clear_graph();
                                 }
-                            } else {
-                                switch (filename.getFileName().toString()) {
-                                    case "state.json":
-                                        update_state(element.getAsJsonObject());
-                                        break;
-                                    case "graph.json":
-                                        update_graph(element.getAsJsonObject());
-                                        break;
-                                }
-                            }
-                        } catch (JsonIOException | JsonSyntaxException ex) {
-                            clear_state();
-                            clear_graph();
+                                break;
                         }
                     }
 
@@ -139,9 +147,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         clear_graph();
                         load_graph();
                     }
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException | InterruptedException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }).start();
 
@@ -169,8 +177,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 if (!element.isJsonNull()) {
                     update_state(element.getAsJsonObject());
                 }
-            } catch (JsonIOException | JsonSyntaxException | IOException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                clear_state();
             }
         }
     }
@@ -185,8 +193,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 if (!element.isJsonNull()) {
                     update_graph(element.getAsJsonObject());
                 }
-            } catch (JsonIOException | JsonSyntaxException | IOException ex) {
-                Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                clear_graph();
             }
         }
     }
@@ -389,6 +397,8 @@ public class MainJFrame extends javax.swing.JFrame {
         stateJInternalFrame = new javax.swing.JInternalFrame();
         stateJScrollPane = new javax.swing.JScrollPane();
         stateJTree = new javax.swing.JTree();
+        mainJToolBar = new javax.swing.JToolBar();
+        reloadJButton = new javax.swing.JButton();
 
         stateTreeCellRenderer.setText("stateTreeCellRenderer1");
 
@@ -409,7 +419,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         causalGraphJInternalFrameLayout.setVerticalGroup(
             causalGraphJInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(causalGraphDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+            .addComponent(causalGraphDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         stateJInternalFrame.setIconifiable(true);
@@ -436,7 +446,7 @@ public class MainJFrame extends javax.swing.JFrame {
             stateJInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(stateJInternalFrameLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(stateJScrollPane)
+                .addComponent(stateJScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -464,20 +474,45 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        mainJToolBar.setFloatable(false);
+        mainJToolBar.setRollover(true);
+
+        reloadJButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/it/cnr/istc/ratio/gui/resources/reload.png"))); // NOI18N
+        reloadJButton.setFocusable(false);
+        reloadJButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        reloadJButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        reloadJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reloadJButtonActionPerformed(evt);
+            }
+        });
+        mainJToolBar.add(reloadJButton);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane)
+            .addComponent(mainJToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(mainJToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDesktopPane))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void reloadJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reloadJButtonActionPerformed
+        clear_state();
+        load_state();
+        clear_graph();
+        load_graph();
+    }//GEN-LAST:event_reloadJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -502,13 +537,19 @@ public class MainJFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new MainJFrame().setVisible(true);
+            if (args.length == 0) {
+                new MainJFrame(".").setVisible(true);
+            } else {
+                new MainJFrame(args[0]).setVisible(true);
+            }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private it.cnr.istc.ratio.gui.CausalGraphDisplay causalGraphDisplay;
     private javax.swing.JInternalFrame causalGraphJInternalFrame;
     private javax.swing.JDesktopPane jDesktopPane;
+    private javax.swing.JToolBar mainJToolBar;
+    private javax.swing.JButton reloadJButton;
     private javax.swing.JInternalFrame stateJInternalFrame;
     private javax.swing.JScrollPane stateJScrollPane;
     private javax.swing.JTree stateJTree;
