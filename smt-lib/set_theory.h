@@ -57,8 +57,8 @@ namespace smt {
         std::unordered_set<set_item*> value(var v) const;
 
     private:
-        bool propagate(const lit& p, std::vector<lit>& confl) override;
-        bool check(std::vector<lit>& confl) override;
+        bool propagate(const lit& p, std::vector<lit>& cnfl) override;
+        bool check(std::vector<lit>& cnfl) override;
 
         void push() override;
 

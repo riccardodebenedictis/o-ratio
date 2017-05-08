@@ -124,7 +124,8 @@ namespace smt {
         return vals;
     }
 
-    bool set_theory::propagate(const lit& p, std::vector<lit>& confl) {
+    bool set_theory::propagate(const lit& p, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         var set_var = is_contained_in[p.v];
         if (listening.find(set_var) != listening.end()) {
             for (const auto& l : listening[set_var]) {
@@ -134,7 +135,8 @@ namespace smt {
         return true;
     }
 
-    bool set_theory::check(std::vector<lit>& confl) {
+    bool set_theory::check(std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         return true;
     }
 

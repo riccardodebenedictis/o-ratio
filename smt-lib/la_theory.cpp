@@ -151,6 +151,7 @@ namespace smt {
     }
 
     bool la_theory::propagate(const lit& p, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         assertion* a = v_asrts.at(p.v);
         switch (a->o) {
             case op::leq:
@@ -181,6 +182,7 @@ namespace smt {
     }
 
     bool la_theory::check(std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         while (true) {
             auto x_i_it = std::find_if(tableau.begin(), tableau.end(), [&](const std::pair<var, t_row*>& v) {
                 return vals[v.first] < assigns[v.first].lb || vals[v.first] > assigns[v.first].ub; });
@@ -247,6 +249,7 @@ namespace smt {
     }
 
     bool la_theory::assert_lower(var x_i, double val, const lit& p, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         if (val <= assigns[x_i].lb) {
             return true;
         } else if (val > assigns[x_i].ub) {
@@ -284,6 +287,7 @@ namespace smt {
     }
 
     bool la_theory::assert_upper(var x_i, double val, const lit& p, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         if (val >= assigns[x_i].ub) {
             return true;
         } else if (val < assigns[x_i].lb) {
@@ -445,6 +449,7 @@ namespace smt {
     assertion::~assertion() { }
 
     bool assertion::propagate_lb(var x, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         if (th.assigns[x].lb > v) {
             lit p = lit(th.s_asrts["x" + std::to_string(x) + " >= " + std::to_string(th.assigns[x].lb)], false);
             switch (o) {
@@ -491,6 +496,7 @@ namespace smt {
     }
 
     bool assertion::propagate_ub(var x, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         if (th.assigns[x].ub < v) {
             lit p = lit(th.s_asrts["x" + std::to_string(x) + " <= " + std::to_string(th.assigns[x].ub)], false);
             switch (o) {
@@ -571,6 +577,7 @@ namespace smt {
     t_row::~t_row() { }
 
     bool t_row::propagate_lb(var x, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         if (l.vars.at(x) > 0) {
             double lb;
             for (const auto& term : l.vars) {
@@ -704,6 +711,7 @@ namespace smt {
     }
 
     bool t_row::propagate_ub(var x, std::vector<lit>& cnfl) {
+        assert(cnfl.empty());
         if (l.vars.at(x) > 0) {
             double ub;
             for (const auto& term : l.vars) {

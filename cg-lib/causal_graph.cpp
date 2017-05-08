@@ -206,6 +206,7 @@ main_loop:
     }
 
     bool causal_graph::propagate(const smt::lit& p, std::vector<smt::lit>& cnfl) {
+        assert(cnfl.empty());
         if (in_plan.find(p.v) != in_plan.end()) {
             // a decision has been taken about the presence of this flaw within the current partial solution..
             flaw* f = in_plan.at(p.v);
@@ -251,6 +252,7 @@ main_loop:
     }
 
     bool causal_graph::check(std::vector<smt::lit>& cnfl) {
+        assert(cnfl.empty());
         return true;
     }
 
