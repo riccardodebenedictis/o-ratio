@@ -66,14 +66,18 @@ main_loop:
 #ifndef NDEBUG
         write_file();
 #endif
-        // we update the planning graph..
+
+        // we create a new graph var..
+        graph_var = sat.new_var();
+        // we build the planning graph..
         if (!build()) {
             // the problem is unsolvable..
             return false;
         }
 
-        graph_var = sat.new_var();
-        sat.assume(smt::lit(graph_var, true));
+        // we use the current graph var to allow search within the current graph..
+        bool a_gv = sat.assume(smt::lit(graph_var, true));
+        assert(a_gv);
 
         // this is the next flaw to be solved..
         flaw* f_next = select_flaw();
@@ -117,6 +121,12 @@ main_loop:
                     if (sat.root_level()) {
                         // we are at root level and we do not have a solution..
                         assert(sat.value(graph_var) == smt::False);
+                        // we add learned facts to the causal graph..
+                        for (const auto& lrnt : learned_facts) {
+                            bool nc = sat.new_clause(lrnt);
+                            assert(nc);
+                        }
+                        learned_facts.clear();
                         goto main_loop;
                     }
                     sat.pop();
@@ -125,10 +135,22 @@ main_loop:
                 while (!sat.root_level()) {
                     sat.pop();
                 }
+                // we add learned facts to the causal graph..
+                for (const auto& lrnt : learned_facts) {
+                    bool nc = sat.new_clause(lrnt);
+                    assert(nc);
+                }
+                learned_facts.clear();
+                // we create a new graph var..
+                graph_var = sat.new_var();
+                // we extend the graph..
                 if (!add_layer()) {
                     return false;
                 }
-                sat.assume(smt::lit(graph_var, true));
+
+                // we use the current graph var to allow search within the current graph..
+                a_gv = sat.assume(smt::lit(graph_var, true));
+                assert(a_gv);
             }
 
             // we select a new flaw..
@@ -242,6 +264,7 @@ main_loop:
                             cnfl.push_back(smt::lit(trail_it->r->chosen, false));
                         }
                     }
+                    learned_facts.push_back(cnfl);
                     cnfl.push_back(smt::lit(graph_var, false));
                     return false;
                 }
@@ -333,6 +356,7 @@ main_loop:
 
     bool causal_graph::add_layer() {
         assert(sat.root_level());
+
         std::vector<flaw*> fs;
         while (!flaw_q.empty()) {
             fs.push_back(flaw_q.front());
