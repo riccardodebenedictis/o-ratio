@@ -242,6 +242,7 @@ namespace smt {
             // we perform theory propagation..
             for (const auto& th : bounds[prop_q.front().v]) {
                 if (!th->propagate(prop_q.front(), cnfl)) {
+                    assert(!cnfl.empty());
                     constrs.push_back(new clause(*this, cnfl));
                     while (!prop_q.empty()) {
                         prop_q.pop();
@@ -257,6 +258,7 @@ namespace smt {
         // we check theories..
         for (const auto& th : theories) {
             if (!th->check(cnfl)) {
+                assert(!cnfl.empty());
                 constrs.push_back(new clause(*this, cnfl));
                 return false;
             }
@@ -287,7 +289,6 @@ namespace smt {
                 std::unexpected();
         }
     }
-#undef FirstUIP
 
     void sat_core::analyze(const std::vector<lit>& cnfl, std::vector<lit>& out_learnt, size_t& out_btlevel) {
 #ifdef FirstUIP
@@ -306,9 +307,10 @@ namespace smt {
             return;
         }
         std::set<var> seen;
+        std::vector<lit> p_reason = cnfl;
         int counter = 0;
         do {
-            for (const auto& q : cnfl) {
+            for (const auto& q : p_reason) {
                 if (p.v != q.v && seen.find(q.v) == seen.end()) {
                     seen.insert(q.v);
                     if (level[q.v] == trail_lim.size()) {
@@ -321,9 +323,8 @@ namespace smt {
             }
             do {
                 p = trail.back();
-                cnfl.clear();
                 if (reason[p.v]) {
-                    cnfl.insert(cnfl.begin(), reason[p.v]->lits.begin(), reason[p.v]->lits.end());
+                    p_reason = reason[p.v]->lits;
                 }
                 pop_one();
             } while (seen.find(p.v) == seen.end());
