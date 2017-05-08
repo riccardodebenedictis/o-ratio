@@ -211,7 +211,7 @@ namespace smt {
         }
     }
 
-    constr* sat_core::propagate() {
+    bool sat_core::propagate(std::vector<lit>& cnfl) {
         while (!prop_q.empty()) {
             // we propagate sat constraints..
             std::vector<constr*> tmp = std::move(watches[index(prop_q.front())]);
@@ -229,7 +229,8 @@ namespace smt {
                     while (!prop_q.empty()) {
                         prop_q.pop();
                     }
-                    return tmp[i];
+                    cnfl.insert(cnfl.begin(), tmp[i]->lits.begin(), tmp[i]->lits.end());
+                    return false;
                 }
 #ifndef NDEBUG
                 std::vector<lit> args = tmp[i]->args();
@@ -240,13 +241,12 @@ namespace smt {
 
             // we perform theory propagation..
             for (const auto& th : bounds[prop_q.front().v]) {
-                constr* cnfl = th->propagate(prop_q.front());
-                if (cnfl) {
-                    constrs.push_back(cnfl);
+                if (!th->propagate(prop_q.front(), cnfl)) {
+                    constrs.push_back(new clause(*this, cnfl));
                     while (!prop_q.empty()) {
                         prop_q.pop();
                     }
-                    return cnfl;
+                    return false;
                 }
             }
 
@@ -256,14 +256,13 @@ namespace smt {
 
         // we check theories..
         for (const auto& th : theories) {
-            constr* cnfl = th->check();
-            if (cnfl) {
-                constrs.push_back(cnfl);
-                return cnfl;
+            if (!th->check(cnfl)) {
+                constrs.push_back(new clause(*this, cnfl));
+                return false;
             }
         }
 
-        return nullptr;
+        return true;
     }
 
     bool sat_core::enqueue(const lit& p, constr * const c) {
@@ -288,15 +287,16 @@ namespace smt {
                 std::unexpected();
         }
     }
+#undef FirstUIP
 
-    void sat_core::analyze(const constr& confl, std::vector<lit>& out_learnt, size_t& out_btlevel) {
+    void sat_core::analyze(const std::vector<lit>& cnfl, std::vector<lit>& out_learnt, size_t& out_btlevel) {
 #ifdef FirstUIP
         out_learnt.push_back(lit(0, false));
         out_btlevel = 0;
         lit p = trail_lim.back();
         if (trail_lim.back() == trail.back()) {
             // a theory generated the conflict as a direct consequence of last decision..
-            for (const auto& q : confl.lits) {
+            for (const auto& q : cnfl) {
                 if (p.v != q.v) {
                     out_learnt.push_back(q);
                     out_btlevel = std::max(out_btlevel, level[q.v]);
@@ -307,9 +307,8 @@ namespace smt {
         }
         std::set<var> seen;
         int counter = 0;
-        const constr* p_reason = &confl;
         do {
-            for (const auto& q : p_reason->lits) {
+            for (const auto& q : cnfl) {
                 if (p.v != q.v && seen.find(q.v) == seen.end()) {
                     seen.insert(q.v);
                     if (level[q.v] == trail_lim.size()) {
@@ -322,7 +321,10 @@ namespace smt {
             }
             do {
                 p = trail.back();
-                p_reason = reason[p.v];
+                cnfl.clear();
+                if (reason[p.v]) {
+                    cnfl.insert(cnfl.begin(), reason[p.v]->lits.begin(), reason[p.v]->lits.end());
+                }
                 pop_one();
             } while (seen.find(p.v) == seen.end());
             counter--;
@@ -332,7 +334,7 @@ namespace smt {
         out_btlevel = 0;
         std::set<var> seen;
         std::queue<var> q;
-        for (const auto& lit : confl.lits) {
+        for (const auto& lit : cnfl) {
             q.push(lit.v);
         }
         out_learnt.push_back(!trail_lim.back());
@@ -365,14 +367,14 @@ namespace smt {
 
     bool sat_core::check() {
         while (true) {
-            constr* cnfl = propagate();
-            if (cnfl) {
+            std::vector<lit> cnfl;
+            if (!propagate(cnfl)) {
                 if (root_level()) {
                     return false;
                 }
                 std::vector<lit> no_good;
                 size_t bt_level;
-                analyze(*cnfl, no_good, bt_level);
+                analyze(cnfl, no_good, bt_level);
                 while (trail_lim.size() > bt_level) {
                     pop();
                 }
@@ -385,8 +387,9 @@ namespace smt {
 
     bool sat_core::check(const std::vector<lit>& lits) {
         size_t c_level = trail_lim.size();
+        std::vector<lit> cnfl;
         for (const auto& p : lits) {
-            if (!assume(p) || propagate() != nullptr) {
+            if (!assume(p) || !propagate(cnfl)) {
                 while (trail_lim.size() > c_level) {
                     pop();
                 }

@@ -124,14 +124,18 @@ namespace smt {
         return vals;
     }
 
-    constr* set_theory::propagate(const lit& p) {
+    bool set_theory::propagate(const lit& p, std::vector<lit>& confl) {
         var set_var = is_contained_in[p.v];
         if (listening.find(set_var) != listening.end()) {
             for (const auto& l : listening[set_var]) {
                 l->set_value_change(set_var);
             }
         }
-        return nullptr;
+        return true;
+    }
+
+    bool set_theory::check(std::vector<lit>& confl) {
+        return true;
     }
 
     void set_theory::push() {

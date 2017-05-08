@@ -109,8 +109,8 @@ namespace smt {
         bool check(const std::vector<lit>& lits);
 
     private:
-        constr* propagate();
-        void analyze(const constr& confl, std::vector<lit>& out_learnt, size_t& out_btlevel);
+        bool propagate(std::vector<lit>& cnfl);
+        void analyze(const std::vector<lit>& confl, std::vector<lit>& out_learnt, size_t& out_btlevel);
         void record(const std::vector<lit>& lits);
 
         bool enqueue(const lit& p, constr * const c = nullptr);

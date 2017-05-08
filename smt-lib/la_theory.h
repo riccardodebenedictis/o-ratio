@@ -78,13 +78,13 @@ namespace smt {
     private:
         var mk_slack(const lin& l);
 
-        constr* propagate(const lit& p) override;
-        constr* check() override;
+        bool propagate(const lit& p, std::vector<lit>& cnfl) override;
+        bool check(std::vector<lit>& cnfl) override;
         void push() override;
         void pop() override;
 
-        constr* assert_lower(var x_i, double val, const lit& p);
-        constr* assert_upper(var x_i, double val, const lit& p);
+        bool assert_lower(var x_i, double val, const lit& p, std::vector<lit>& cnfl);
+        bool assert_upper(var x_i, double val, const lit& p, std::vector<lit>& cnfl);
         void update(var x_i, double v);
         void pivot_and_update(var x_i, var x_j, double v);
         void pivot(var x_i, var x_j);
@@ -143,8 +143,8 @@ namespace smt {
         virtual ~assertion();
 
     private:
-        constr* propagate_lb(var x);
-        constr* propagate_ub(var x);
+        bool propagate_lb(var x, std::vector<lit>& cnfl);
+        bool propagate_ub(var x, std::vector<lit>& cnfl);
 
     public:
         friend std::ostream& operator<<(std::ostream& os, const assertion& obj);
@@ -165,8 +165,8 @@ namespace smt {
         virtual ~t_row();
 
     private:
-        constr* propagate_lb(var x);
-        constr* propagate_ub(var x);
+        bool propagate_lb(var x, std::vector<lit>& cnfl);
+        bool propagate_ub(var x, std::vector<lit>& cnfl);
 
     public:
         friend std::ostream& operator<<(std::ostream& os, const t_row& obj);

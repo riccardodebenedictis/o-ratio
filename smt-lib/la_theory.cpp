@@ -150,40 +150,42 @@ namespace smt {
         return slack;
     }
 
-    constr* la_theory::propagate(const lit& p) {
+    bool la_theory::propagate(const lit& p, std::vector<lit>& cnfl) {
         assertion* a = v_asrts.at(p.v);
-        constr* cnfl = nullptr;
         switch (a->o) {
             case op::leq:
                 if (p.sign) {
-                    cnfl = assert_upper(a->x, a->v, p);
-                    if (cnfl) return cnfl;
+                    if (!assert_upper(a->x, a->v, p, cnfl)) {
+                        return false;
+                    }
                 } else {
-                    cnfl = assert_lower(a->x, a->v, p);
-                    if (cnfl) return cnfl;
+                    if (!assert_lower(a->x, a->v, p, cnfl)) {
+                        return false;
+                    }
                 }
                 break;
             case op::geq:
                 if (p.sign) {
-                    cnfl = assert_lower(a->x, a->v, p);
-                    if (cnfl) return cnfl;
+                    if (!assert_lower(a->x, a->v, p, cnfl)) {
+                        return false;
+                    }
                 } else {
-                    cnfl = assert_upper(a->x, a->v, p);
-                    if (cnfl) return cnfl;
+                    if (!assert_upper(a->x, a->v, p, cnfl)) {
+                        return false;
+                    }
                 }
                 break;
-            default:
-                break;
         }
-        return cnfl;
+
+        return true;
     }
 
-    constr* la_theory::check() {
+    bool la_theory::check(std::vector<lit>& cnfl) {
         while (true) {
             auto x_i_it = std::find_if(tableau.begin(), tableau.end(), [&](const std::pair<var, t_row*>& v) {
                 return vals[v.first] < assigns[v.first].lb || vals[v.first] > assigns[v.first].ub; });
             if (x_i_it == tableau.end()) {
-                return nullptr;
+                return true;
             }
             // the current value of the x_i variable is out of its bounds..
             var x_i = (*x_i_it).first;
@@ -197,16 +199,15 @@ namespace smt {
                     pivot_and_update(x_i, (*x_j_it).first, assigns[x_i].lb);
                 } else {
                     // we generate an explanation for the conflict..
-                    std::vector<lit> expl;
                     for (auto& term : f_row->l.vars) {
                         if (term.second > 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), false));
+                            cnfl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), false));
                         } else if (term.second < 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), false));
+                            cnfl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), false));
                         }
                     }
-                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)), false));
-                    return new constr(c, expl);
+                    cnfl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)), false));
+                    return false;
                 }
             } else if (vals[x_i] > assigns[x_i].ub) {
                 auto x_j_it = std::find_if(f_row->l.vars.begin(), f_row->l.vars.end(), [&](const std::pair<var, double>& v) {
@@ -216,16 +217,15 @@ namespace smt {
                     pivot_and_update(x_i, (*x_j_it).first, assigns[x_i].ub);
                 } else {
                     // we generate an explanation for the conflict..
-                    std::vector<lit> expl;
                     for (auto& term : f_row->l.vars) {
                         if (term.second > 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), false));
+                            cnfl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(assigns[term.first].lb)), false));
                         } else if (term.second < 0) {
-                            expl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), false));
+                            cnfl.push_back(lit(s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(assigns[term.first].ub)), false));
                         }
                     }
-                    expl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)), false));
-                    return new constr(c, expl);
+                    cnfl.push_back(lit(s_asrts.at("x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)), false));
+                    return false;
                 }
             }
         }
@@ -246,11 +246,13 @@ namespace smt {
         layers.pop_back();
     }
 
-    constr* la_theory::assert_lower(var x_i, double val, const lit& p) {
+    bool la_theory::assert_lower(var x_i, double val, const lit& p, std::vector<lit>& cnfl) {
         if (val <= assigns[x_i].lb) {
-            return nullptr;
+            return true;
         } else if (val > assigns[x_i].ub) {
-            return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)], false)});
+            cnfl.push_back(!p);
+            cnfl.push_back(lit(s_asrts["x" + std::to_string(x_i) + " <= " + std::to_string(assigns[x_i].ub)], false));
+            return false;
         } else {
             if (!layers.empty()) {
                 if (layers.back().lbs.find(x_i) == layers.back().lbs.end()) {
@@ -264,27 +266,30 @@ namespace smt {
                 }
             }
 
-            constr* cnfl = nullptr;
             // unate propagation..
             for (const auto& c : a_watches[x_i]) {
-                cnfl = c->propagate_lb(x_i);
-                if (cnfl) return cnfl;
+                if (!c->propagate_lb(x_i, cnfl)) {
+                    return false;
+                }
             }
             // bound propagation..
             for (const auto& c : t_watches[x_i]) {
-                cnfl = c->propagate_lb(x_i);
-                if (cnfl) return cnfl;
+                if (!c->propagate_lb(x_i, cnfl)) {
+                    return false;
+                }
             }
 
-            return cnfl;
+            return true;
         }
     }
 
-    constr* la_theory::assert_upper(var x_i, double val, const lit& p) {
+    bool la_theory::assert_upper(var x_i, double val, const lit& p, std::vector<lit>& cnfl) {
         if (val >= assigns[x_i].ub) {
-            return nullptr;
+            return true;
         } else if (val < assigns[x_i].lb) {
-            return new constr(c,{!p, lit(s_asrts["x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)], false)});
+            cnfl.push_back(!p);
+            cnfl.push_back(lit(s_asrts["x" + std::to_string(x_i) + " >= " + std::to_string(assigns[x_i].lb)], false));
+            return false;
         } else {
             if (!layers.empty()) {
                 if (layers.back().ubs.find(x_i) == layers.back().ubs.end()) {
@@ -298,19 +303,20 @@ namespace smt {
                 }
             }
 
-            constr* cnfl = nullptr;
             // unate propagation..
             for (const auto& c : a_watches[x_i]) {
-                cnfl = c->propagate_ub(x_i);
-                if (cnfl) return cnfl;
+                if (!c->propagate_ub(x_i, cnfl)) {
+                    return false;
+                }
             }
             // bound propagation..
             for (const auto& c : t_watches[x_i]) {
-                cnfl = c->propagate_ub(x_i);
-                if (cnfl) return cnfl;
+                if (!c->propagate_ub(x_i, cnfl)) {
+                    return false;
+                }
             }
 
-            return cnfl;
+            return true;
         }
     }
 
@@ -438,7 +444,7 @@ namespace smt {
 
     assertion::~assertion() { }
 
-    constr* assertion::propagate_lb(var x) {
+    bool assertion::propagate_lb(var x, std::vector<lit>& cnfl) {
         if (th.assigns[x].lb > v) {
             lit p = lit(th.s_asrts["x" + std::to_string(x) + " >= " + std::to_string(th.assigns[x].lb)], false);
             switch (o) {
@@ -448,16 +454,16 @@ namespace smt {
                     switch (th.c.value(b)) {
                         case True:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{p, lit(b, false)});
+                            cnfl.push_back(p);
+                            cnfl.push_back(lit(b, false));
+                            return false;
                         case False:
                             // nothing to propagate..
-                            break;
+                            return true;
                         case Undefined:
                             // we propagate information to the sat core..
                             th.record({lit(b, false), p});
-                            break;
-                        default:
-                            break;
+                            return true;
                     }
                     break;
                 case geq:
@@ -466,26 +472,25 @@ namespace smt {
                     switch (th.c.value(b)) {
                         case True:
                             // nothing to propagate..
-                            break;
+                            return true;
                         case False:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{p, lit(b, true)});
+                            cnfl.push_back(p);
+                            cnfl.push_back(lit(b, true));
+                            return false;
                         case Undefined:
                             // we propagate information to the sat core..
                             th.record({lit(b, true), p});
-                            break;
-                        default:
-                            break;
+                            return true;
                     }
-                    break;
-                default:
                     break;
             }
         }
-        return nullptr;
+
+        return true;
     }
 
-    constr* assertion::propagate_ub(var x) {
+    bool assertion::propagate_ub(var x, std::vector<lit>& cnfl) {
         if (th.assigns[x].ub < v) {
             lit p = lit(th.s_asrts["x" + std::to_string(x) + " <= " + std::to_string(th.assigns[x].ub)], false);
             switch (o) {
@@ -495,17 +500,16 @@ namespace smt {
                     switch (th.c.value(b)) {
                         case True:
                             // nothing to propagate..
-                            break;
+                            return true;
                         case False:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{p, lit(b, true)});
-                            break;
+                            cnfl.push_back(p);
+                            cnfl.push_back(lit(b, true));
+                            return false;
                         case Undefined:
                             // we propagate information to the sat core..
                             th.record({lit(b, true), p});
-                            break;
-                        default:
-                            break;
+                            return true;
                     }
                     break;
                 case geq:
@@ -514,24 +518,22 @@ namespace smt {
                     switch (th.c.value(b)) {
                         case True:
                             // we have a propositional inconsistency..
-                            return new constr(th.c,{p, lit(b, false)});
-                            break;
+                            cnfl.push_back(p);
+                            cnfl.push_back(lit(b, false));
+                            return false;
                         case False:
                             // nothing to propagate..
-                            break;
+                            return true;
                         case Undefined:
                             // we propagate information to the sat core..
                             th.record({lit(b, false), p});
-                            break;
-                        default:
-                            break;
+                            return true;
                     }
-                    break;
-                default:
                     break;
             }
         }
-        return nullptr;
+
+        return true;
     }
 
     std::ostream& operator<<(std::ostream& os, const assertion& obj) {
@@ -568,73 +570,65 @@ namespace smt {
 
     t_row::~t_row() { }
 
-    constr* t_row::propagate_lb(var x) {
+    bool t_row::propagate_lb(var x, std::vector<lit>& cnfl) {
         if (l.vars.at(x) > 0) {
             double lb;
-            std::vector<lit> expl;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         lb += term.second * th.bounds(term.first).lb;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
                     }
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         lb += term.second * th.bounds(term.first).ub;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
                     }
                 }
             }
             if (lb > th.bounds(x).lb) {
                 for (const auto& c : th.a_watches[x]) {
                     if (lb > c->v) {
-                        std::vector<lit> c_expl = expl;
                         switch (c->o) {
                             case leq:
-                                c_expl.push_back(lit(c->b, false));
+                                cnfl.push_back(lit(c->b, false));
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case False:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        th.record(cnfl);
+                                        cnfl.clear();
+                                        return true;
                                 }
                                 break;
                             case geq:
-                                c_expl.push_back(lit(c->b, true));
+                                cnfl.push_back(lit(c->b, true));
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case False:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        th.record(cnfl);
+                                        cnfl.clear();
+                                        return true;
                                 }
-                                break;
-                            default:
                                 break;
                         }
                     }
@@ -642,143 +636,131 @@ namespace smt {
             }
         } else {
             double ub;
-            std::vector<lit> expl;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         ub += term.second * th.bounds(term.first).ub;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
                     }
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         ub += term.second * th.bounds(term.first).lb;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
                     }
                 }
             }
             if (ub < th.bounds(x).ub) {
                 for (const auto& c : th.a_watches[x]) {
                     if (ub > c->v) {
-                        std::vector<lit> c_expl = expl;
                         switch (c->o) {
                             case leq:
-                                c_expl.push_back(lit(c->b, false));
+                                cnfl.push_back(lit(c->b, false));
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case False:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        th.record(cnfl);
+                                        cnfl.clear();
+                                        return true;
                                 }
                                 break;
                             case geq:
-                                c_expl.push_back(lit(c->b, true));
+                                cnfl.push_back(lit(c->b, true));
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case False:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        th.record(cnfl);
+                                        cnfl.clear();
+                                        return true;
                                 }
-                                break;
-                            default:
                                 break;
                         }
                     }
                 }
             }
         }
-        return nullptr;
+
+        cnfl.clear();
+        return true;
     }
 
-    constr* t_row::propagate_ub(var x) {
+    bool t_row::propagate_ub(var x, std::vector<lit>& cnfl) {
         if (l.vars.at(x) > 0) {
             double ub;
-            std::vector<lit> expl;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         ub += term.second * th.bounds(term.first).ub;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
                     }
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         ub += term.second * th.bounds(term.first).lb;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
                     }
                 }
             }
             if (ub < th.bounds(x).ub) {
                 for (const auto& c : th.a_watches[x]) {
                     if (ub > c->v) {
-                        std::vector<lit> c_expl = expl;
                         switch (c->o) {
                             case leq:
-                                c_expl.push_back(lit(c->b, false));
+                                cnfl.push_back(lit(c->b, false));
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case False:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        th.record(cnfl);
+                                        cnfl.clear();
+                                        return true;
                                 }
                                 break;
                             case geq:
-                                c_expl.push_back(lit(c->b, true));
+                                cnfl.push_back(lit(c->b, true));
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case False:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        th.record(cnfl);
+                                        cnfl.clear();
+                                        return true;
                                 }
                                 break;
                             default:
@@ -794,7 +776,7 @@ namespace smt {
                 if (term.second > 0) {
                     if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         lb += term.second * th.bounds(term.first).lb;
                         expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
@@ -802,7 +784,7 @@ namespace smt {
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
-                        return nullptr;
+                        return true;
                     } else {
                         lb += term.second * th.bounds(term.first).ub;
                         expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
@@ -820,17 +802,15 @@ namespace smt {
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case False:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
                                         th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        cnfl.clear();
+                                        return true;
                                 }
                                 break;
                             case geq:
@@ -839,27 +819,25 @@ namespace smt {
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
-                                        break;
+                                        return true;
                                     case False:
                                         // we have a propositional inconsistency..
-                                        return new constr(th.c, c_expl);
-                                        break;
+                                        return false;
                                     case Undefined:
                                         // we propagate information to the sat core..
                                         th.record(c_expl);
-                                        break;
-                                    default:
-                                        break;
+                                        cnfl.clear();
+                                        return true;
                                 }
-                                break;
-                            default:
                                 break;
                         }
                     }
                 }
             }
         }
-        return nullptr;
+
+        cnfl.clear();
+        return true;
     }
 
     std::ostream& operator<<(std::ostream& os, const t_row& obj) {

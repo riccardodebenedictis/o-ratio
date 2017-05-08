@@ -51,18 +51,19 @@ namespace smt {
 
     private:
         /**
-         * Asks the theory to perform propagation after the given literal has been assigned. Returns nullptr if propagation succedes or the conflicting constraint if an inconsistency is found.
+         * Asks the theory to perform propagation after the given literal has been assigned. Returns true if the propagation succeeds or false if an inconsistency is found. In case of inconsistency, the confl vector is filled with the conflicting constraint.
          * 
          * @param p the literal that has been assigned.
-         * @return nullptr if propagation succeeds or the conflicting constraint if an inconsistency is found.
+         * @param confl the vector of literals representing the conflicting constraint.
+         * @return true if propagation succeeds or false if an inconsistency is found.
          */
-        virtual constr* propagate(const lit& p) = 0;
+        virtual bool propagate(const lit& p, std::vector<lit>& confl) = 0;
         /**
-         * Checks whether the theory is consistent with the given propositional assignments.
+         * Checks whether the theory is consistent with the given propositional assignments. Returns true if the theory is consistent or false if an inconsistency is found. In case of inconsistency, the confl vector is filled with the conflicting constraint.
          * 
-         * @return nullptr if the theory is consistent or the conflicting constraint if an inconsistency is found.
+         * @return true if the theory is consistent or false if an inconsistency is found.
          */
-        virtual constr* check() = 0;
+        virtual bool check(std::vector<lit>& confl) = 0;
         /**
          * Notifies the theory that some information for subsequent backtracking might need to be stored.
          */
