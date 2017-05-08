@@ -62,8 +62,8 @@ namespace cg {
         void new_resolver(resolver& r);
         void new_causal_link(flaw& f, resolver& r);
 
-        smt::constr* propagate(const smt::lit& p) override;
-        smt::constr* check() override;
+        bool propagate(const smt::lit& p, std::vector<smt::lit>& cnfl) override;
+        bool check(std::vector<smt::lit>& cnfl) override;
         void push() override;
         void pop() override;
 

@@ -205,7 +205,7 @@ main_loop:
 #endif
     }
 
-    smt::constr* causal_graph::propagate(const smt::lit& p) {
+    bool causal_graph::propagate(const smt::lit& p, std::vector<smt::lit>& cnfl) {
         if (in_plan.find(p.v) != in_plan.end()) {
             // a decision has been taken about the presence of this flaw within the current partial solution..
             flaw* f = in_plan.at(p.v);
@@ -234,24 +234,24 @@ main_loop:
                 propagate_costs();
                 if (!has_solution()) {
                     // we have made the heuristic blind..
-                    std::vector<smt::lit> confl;
-                    confl.push_back(p);
+                    cnfl.push_back(p);
                     for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
                         if (trail_it->r) {
                             // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
-                            confl.push_back(smt::lit(trail_it->r->chosen, false));
+                            cnfl.push_back(smt::lit(trail_it->r->chosen, false));
                         }
                     }
-                    confl.push_back(smt::lit(graph_var, false));
-                    return new smt::constr(sat, confl);
+                    cnfl.push_back(smt::lit(graph_var, false));
+                    return false;
                 }
             }
         }
-        return nullptr;
+
+        return true;
     }
 
-    smt::constr* causal_graph::check() {
-        return nullptr;
+    bool causal_graph::check(std::vector<smt::lit>& cnfl) {
+        return true;
     }
 
     void causal_graph::push() {
