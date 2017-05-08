@@ -243,7 +243,9 @@ namespace smt {
             for (const auto& th : bounds[prop_q.front().v]) {
                 if (!th->propagate(prop_q.front(), cnfl)) {
                     assert(!cnfl.empty());
-                    constrs.push_back(new clause(*this, cnfl));
+                    if (cnfl.size() > 1) {
+                        constrs.push_back(new clause(*this, cnfl));
+                    }
                     while (!prop_q.empty()) {
                         prop_q.pop();
                     }
@@ -259,7 +261,9 @@ namespace smt {
         for (const auto& th : theories) {
             if (!th->check(cnfl)) {
                 assert(!cnfl.empty());
-                constrs.push_back(new clause(*this, cnfl));
+                if (cnfl.size() > 1) {
+                    constrs.push_back(new clause(*this, cnfl));
+                }
                 return false;
             }
         }

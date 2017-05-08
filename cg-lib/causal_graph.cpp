@@ -257,7 +257,6 @@ main_loop:
                 propagate_costs();
                 if (!has_solution()) {
                     // we have made the heuristic blind..
-                    cnfl.push_back(p);
                     for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
                         if (trail_it->r) {
                             // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
