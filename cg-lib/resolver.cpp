@@ -29,7 +29,7 @@
 namespace cg {
 
     resolver::resolver(causal_graph& g, const smt::lin& cost, flaw& e) : g(g), chosen(g.sat.new_var()), cost(cost), effect(e) {
-        bool nc = g.sat.new_clause({smt::lit(chosen, false), e.in_plan});
+        bool nc = g.sat.new_clause({smt::lit(chosen, false), smt::lit(e.in_plan, true)});
         assert(nc);
     }
 

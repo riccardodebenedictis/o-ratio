@@ -371,6 +371,10 @@ namespace smt {
                 if (root_level()) {
                     return false;
                 }
+                // we sort literals according to descending order of variable assignment..
+                std::sort(cnfl.begin(), cnfl.end(), [&](lit& a, lit & b) {
+                    return level[a.v] > level[b.v];
+                });
                 std::vector<lit> no_good;
                 size_t bt_level;
                 analyze(cnfl, no_good, bt_level);

@@ -25,6 +25,7 @@
 #include "theory.h"
 #include "sat_core.h"
 #include <cassert>
+#include <algorithm>
 
 namespace smt {
 
@@ -53,7 +54,7 @@ namespace smt {
         c.unbind(var, *this);
     }
 
-    void theory::record(const std::vector<lit>& clause) {
-        c.record(clause);
+    void theory::record(const std::vector<lit>& cls) {
+        c.record(cls);
     }
 }
