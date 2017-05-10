@@ -250,7 +250,6 @@ namespace smt {
                 }
             }
 
-
             prop_q.pop();
         }
 
@@ -439,11 +438,13 @@ namespace smt {
         assert(value(lits[0]) == Undefined);
 #endif
         if (lits.size() == 1) {
+            std::cout << "recorded " << lits[0] << std::endl;
             assert(root_level());
             bool e = enqueue(lits[0]);
             assert(e);
         } else {
             constrs.push_back(new clause(*this, lits));
+            std::cout << "recorded " << *constrs.back() << std::endl;
             bool e = enqueue(lits[0]);
             assert(e);
         }
