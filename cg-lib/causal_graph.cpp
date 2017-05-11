@@ -67,14 +67,14 @@ main_loop:
         write_file();
 #endif
 
-        // we create a new graph var..
-        graph_var = sat.new_var();
         // we build the planning graph..
         if (!build()) {
             // the problem is unsolvable..
             return false;
         }
 
+        // we create a new graph var..
+        graph_var = sat.new_var();
         // we use the current graph var to allow search within the current graph..
         bool a_gv = sat.assume(smt::lit(graph_var, true));
         assert(a_gv);
@@ -115,30 +115,37 @@ main_loop:
             write_file();
 #endif
 
-            if (!has_solution()) {
-                // we have to extend the graph, one way or another..
-                while (!has_solution()) {
-                    if (sat.root_level()) {
-                        // we are at root level and we do not have a solution..
-                        assert(sat.value(graph_var) == smt::False);
-                        goto main_loop;
-                    }
+            while (!has_solution()) {
+                // we search within the graph..
+                std::vector<smt::lit> look_elsewhere;
+                for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
+                    look_elsewhere.push_back(smt::lit(trail_it->r->chosen, false));
+                }
+                look_elsewhere.push_back(smt::lit(graph_var, false));
+                while (sat.value(look_elsewhere[0].v) != smt::Undefined) {
+                    // we backtrack..
                     sat.pop();
                 }
-                // we go back to root level..
-                while (!sat.root_level()) {
-                    sat.pop();
-                }
-                // we create a new graph var..
-                graph_var = sat.new_var();
-                // we extend the graph..
-                if (!add_layer()) {
-                    return false;
-                }
+                if (sat.root_level()) {
+                    // we have exhausted the search within the graph..
+                    assert(sat.value(graph_var) == smt::False);
 
-                // we use the current graph var to allow search within the current graph..
-                a_gv = sat.assume(smt::lit(graph_var, true));
-                assert(a_gv);
+                    // we extend the graph..
+                    if (!add_layer()) {
+                        return false;
+                    }
+
+                    // we create a new graph var..
+                    graph_var = sat.new_var();
+                    // we use the current graph var to allow search within the current graph..
+                    a_gv = sat.assume(smt::lit(graph_var, true));
+                    assert(a_gv);
+                } else {
+                    record(look_elsewhere);
+                    if (!sat.check()) {
+                        return false;
+                    }
+                }
             }
 
             // we select a new flaw..
