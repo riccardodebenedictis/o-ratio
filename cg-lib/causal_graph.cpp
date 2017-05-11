@@ -242,11 +242,13 @@ main_loop:
                 l->flaw_state_changed(*f);
             }
 #endif
+        } else {
+            flaw_costs_q.push(&chosen.at(p.v)->effect);
+            propagate_costs();
         }
 
         if (flaw_q.empty()) {
             // we can use standard search techniques..
-            propagate_costs();
             if (!has_solution()) {
                 // we have made the heuristic blind..
                 cnfl.push_back(p);
@@ -331,6 +333,7 @@ main_loop:
                         // there are no requirements for this resolver..
                         set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
                         // making this resolver false might make the heuristic blind..
+                        chosen.insert({r->chosen, r});
                         bind(r->chosen);
                     }
                     resolvers.pop_front();
@@ -372,6 +375,7 @@ main_loop:
                     // there are no requirements for this resolver..
                     set_cost(*f, std::min(f->cost, la.value(r->cost)));
                     // making this resolver false might make the heuristic blind..
+                    chosen.insert({r->chosen, r});
                     bind(r->chosen);
                 }
                 resolvers.pop_front();

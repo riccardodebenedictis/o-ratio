@@ -105,6 +105,8 @@ namespace cg {
         std::unordered_set<flaw*> flaws;
         // the in_plan variables (boolean variable to flaw) of the flaws..
         std::unordered_map<smt::var, flaw*> in_plan;
+        // the chosen variables (boolean variable to resolver) of the resolvers..
+        std::unordered_map<smt::var, resolver*> chosen;
         // this variable represents the validity of the current graph..
         smt::var graph_var;
         // the current resolver (will be into the trail)..

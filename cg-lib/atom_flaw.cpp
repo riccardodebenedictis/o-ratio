@@ -106,6 +106,7 @@ namespace cg {
                     g.new_causal_link(*g.reason.at(c_a), *u_res);
                     g.set_cost(*this, g.reason.at(c_a)->get_cost());
                     // making this resolver false might make the heuristic blind..
+                    g.chosen.insert({u_res->get_chosen(), u_res});
                     g.bind(u_res->get_chosen());
                     solved = true;
                 }
