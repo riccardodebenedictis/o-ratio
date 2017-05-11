@@ -119,7 +119,9 @@ main_loop:
                 // we search within the graph..
                 std::vector<smt::lit> look_elsewhere;
                 for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
-                    look_elsewhere.push_back(smt::lit(trail_it->r->chosen, false));
+                    if (trail_it->r) {
+                        look_elsewhere.push_back(smt::lit(trail_it->r->chosen, false));
+                    }
                 }
                 look_elsewhere.push_back(smt::lit(graph_var, false));
                 while (sat.value(look_elsewhere[0].v) != smt::Undefined) {
@@ -127,10 +129,7 @@ main_loop:
                     sat.pop();
                 }
                 if (sat.root_level()) {
-                    // we have exhausted the search within the graph..
-                    assert(sat.value(graph_var) == smt::False);
-
-                    // we extend the graph..
+                    // we have exhausted the search within the graph: we extend the graph..
                     if (!add_layer()) {
                         return false;
                     }
