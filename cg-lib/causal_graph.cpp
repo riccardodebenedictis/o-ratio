@@ -121,12 +121,6 @@ main_loop:
                     if (sat.root_level()) {
                         // we are at root level and we do not have a solution..
                         assert(sat.value(graph_var) == smt::False);
-                        // we add learned facts to the causal graph..
-                        for (const auto& lrnt : learned_facts) {
-                            bool nc = sat.new_clause(lrnt);
-                            assert(nc);
-                        }
-                        learned_facts.clear();
                         goto main_loop;
                     }
                     sat.pop();
@@ -135,12 +129,6 @@ main_loop:
                 while (!sat.root_level()) {
                     sat.pop();
                 }
-                // we add learned facts to the causal graph..
-                for (const auto& lrnt : learned_facts) {
-                    bool nc = sat.new_clause(lrnt);
-                    assert(nc);
-                }
-                learned_facts.clear();
                 // we create a new graph var..
                 graph_var = sat.new_var();
                 // we extend the graph..
@@ -248,26 +236,20 @@ main_loop:
             }
 #endif
         }
-        // notice that resolvers and flaws might share their decision variable..
-        if (resolver_frontier.find(p.v) != resolver_frontier.end()) {
-            // a decision has been taken about the presence of this resolver within the current partial solution..
-            // this decision might have made the heuristic blind!
-            if (!p.sign) {
-                flaw_costs_q.push(&resolver_frontier.at(p.v)->effect);
-                propagate_costs();
-                if (!has_solution()) {
-                    // we have made the heuristic blind..
-                    cnfl.push_back(p);
-                    for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
-                        if (trail_it->r) {
-                            // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
-                            cnfl.push_back(smt::lit(trail_it->r->chosen, false));
-                        }
+
+        if (flaw_q.empty()) {
+            // we can use standard search techniques..
+            propagate_costs();
+            if (!has_solution()) {
+                // we have made the heuristic blind..
+                cnfl.push_back(p);
+                for (std::vector<layer>::reverse_iterator trail_it = trail.rbegin(); trail_it != trail.rend(); ++trail_it) {
+                    if (trail_it->r) {
+                        // this resolver is null if we are calling the check from the sat core! Not bad: shorter conflict..
+                        cnfl.push_back(smt::lit(trail_it->r->chosen, false));
                     }
-                    learned_facts.push_back(cnfl);
-                    cnfl.push_back(smt::lit(graph_var, false));
-                    return false;
                 }
+                return false;
             }
         }
 
@@ -343,7 +325,6 @@ main_loop:
                         set_cost(*flaw_q.front(), std::min(flaw_q.front()->cost, la.value(r->cost)));
                         // making this resolver false might make the heuristic blind..
                         bind(r->chosen);
-                        resolver_frontier.insert({r->chosen, r});
                     }
                     resolvers.pop_front();
                 }
@@ -385,7 +366,6 @@ main_loop:
                     set_cost(*f, std::min(f->cost, la.value(r->cost)));
                     // making this resolver false might make the heuristic blind..
                     bind(r->chosen);
-                    resolver_frontier.insert({r->chosen, r});
                 }
                 resolvers.pop_front();
             }
