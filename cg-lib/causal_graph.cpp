@@ -94,12 +94,6 @@ main_loop:
                 }
             }
 
-            // we solve the flaw..
-            if (!trail.empty()) {
-                trail.back().solved_flaws.insert(f_next);
-            }
-            flaws.erase(f_next);
-
             // this is the next resolver to be chosen..
             resolver& r_next = select_resolver(*f_next);
             res = &r_next;
@@ -271,6 +265,10 @@ main_loop:
 
     void causal_graph::push() {
         trail.push_back(layer(res));
+        if (res) {
+            trail.back().solved_flaws.insert(&res->effect);
+            flaws.erase(&res->effect);
+        }
     }
 
     void causal_graph::pop() {
