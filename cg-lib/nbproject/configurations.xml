@@ -64,6 +64,7 @@
                      kind="TEST">
         <itemPath>tests/reusable_resource_test.cpp</itemPath>
         <itemPath>tests/test_rr_0.rddl</itemPath>
+        <itemPath>tests/test_rr_1.rddl</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -235,6 +236,8 @@
             flavor2="0">
       </item>
       <item path="tests/test_rr_0.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_rr_1.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
@@ -415,6 +418,8 @@
             flavor2="0">
       </item>
       <item path="tests/test_rr_0.rddl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/test_rr_1.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>

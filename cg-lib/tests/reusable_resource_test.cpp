@@ -39,7 +39,18 @@ void rr_test_0() {
     assert(rd);
 
     bool slvd = g.solve();
-    assert(!slvd);
+    assert(slvd);
+}
+
+void rr_test_1() {
+    cg::causal_graph g;
+    cg::causal_graph_listener l(g);
+
+    bool rd = g.read(std::vector<std::string>{"tests/test_rr_1.rddl"});
+    assert(rd);
+
+    bool slvd = g.solve();
+    assert(slvd);
 }
 
 int main(int argc, char** argv) {
@@ -49,6 +60,10 @@ int main(int argc, char** argv) {
     std::cout << "%TEST_STARTED% rr_test_0 (reusable_resource_test)" << std::endl;
     rr_test_0();
     std::cout << "%TEST_FINISHED% time=0 rr_test_0 (reusable_resource_test)" << std::endl;
+
+    std::cout << "%TEST_STARTED% rr_test_1 (reusable_resource_test)" << std::endl;
+    rr_test_1();
+    std::cout << "%TEST_FINISHED% time=0 rr_test_1 (reusable_resource_test)" << std::endl;
 
     std::cout << "%SUITE_FINISHED% time=0" << std::endl;
 

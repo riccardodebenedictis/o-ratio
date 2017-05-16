@@ -91,8 +91,8 @@ namespace cg {
     }
 
     bool flaw::has_subgoals() {
-        return std::all_of(resolvers.begin(), resolvers.end(), [](const resolver * r) {
-            return r->preconditions.empty();
+        return std::any_of(resolvers.begin(), resolvers.end(), [](const resolver * r) {
+            return !r->preconditions.empty();
         });
     }
 

@@ -64,6 +64,8 @@ namespace cg {
         private:
 
             bool invoke(ratio::item& i, const std::vector<ratio::expr>& exprs) override {
+                assert(exprs.size() == 1);
+                set(i, REUSABLE_RESOURCE_CAPACITY, exprs[0]);
                 return true;
             }
         };
