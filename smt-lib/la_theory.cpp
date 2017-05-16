@@ -581,7 +581,7 @@ namespace smt {
         // we make room for the first literal..
         cnfl.push_back(lit(FALSE, true));
         if (l.vars.at(v) > 0) {
-            double lb;
+            double lb = 0;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
@@ -648,7 +648,7 @@ namespace smt {
                 }
             }
         } else {
-            double ub;
+            double ub = 0;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
@@ -725,7 +725,7 @@ namespace smt {
         // we make room for the first literal..
         cnfl.push_back(lit(FALSE, true));
         if (l.vars.at(v) > 0) {
-            double ub;
+            double ub = 0;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
@@ -794,7 +794,7 @@ namespace smt {
                 }
             }
         } else {
-            double lb;
+            double lb = 0;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
