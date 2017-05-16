@@ -145,7 +145,7 @@ namespace cg {
 
     private:
         std::set<ratio::item*> to_check;
-        std::vector<std::pair<ratio::atom*, atom_listener*>> atoms;
+        std::vector<std::pair<ratio::atom*, state_variable_atom_listener*>> atoms;
     };
 }
 

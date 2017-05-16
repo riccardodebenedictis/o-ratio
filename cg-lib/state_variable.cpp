@@ -115,7 +115,7 @@ namespace cg {
         }
         restore_var();
 
-        atoms.push_back({&a, new atom_listener(a)});
+        atoms.push_back({&a, new state_variable_atom_listener(a)});
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : _solver.set.value(c_scope->ev)) {
             to_check.insert(static_cast<ratio::item*> (val));
@@ -124,7 +124,7 @@ namespace cg {
     }
 
     bool state_variable::new_goal(ratio::atom& a) {
-        atoms.push_back({&a, new atom_listener(a)});
+        atoms.push_back({&a, new state_variable_atom_listener(a)});
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : _solver.set.value(c_scope->ev)) {
             to_check.insert(static_cast<ratio::item*> (val));
