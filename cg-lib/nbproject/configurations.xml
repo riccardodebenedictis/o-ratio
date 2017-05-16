@@ -58,6 +58,13 @@
         <itemPath>tests/test_heuristic_failure_2.rddl</itemPath>
         <itemPath>tests/test_heuristic_failure_3.rddl</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="Reusable-resource Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/reusable_resource_test.cpp</itemPath>
+        <itemPath>tests/test_rr_0.rddl</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -166,6 +173,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="flaw.h" ex="false" tool="3" flavor2="0">
@@ -190,6 +212,8 @@
       </item>
       <item path="tests/heuristic_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="tests/reusable_resource_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/test_heuristic_failure_0.rddl"
             ex="false"
             tool="3"
@@ -209,6 +233,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="tests/test_rr_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
@@ -327,6 +353,21 @@
           <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
       <item path="flaw.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="flaw.h" ex="false" tool="3" flavor2="0">
@@ -351,6 +392,8 @@
       </item>
       <item path="tests/heuristic_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="tests/reusable_resource_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="tests/test_heuristic_failure_0.rddl"
             ex="false"
             tool="3"
@@ -370,6 +413,8 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="tests/test_rr_0.rddl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/test_sv_0.rddl" ex="false" tool="3" flavor2="0">
       </item>

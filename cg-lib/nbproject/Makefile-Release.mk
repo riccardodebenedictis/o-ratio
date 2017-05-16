@@ -51,12 +51,14 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 # Test Files
 TESTFILES= \
 	${TESTDIR}/TestFiles/f1 \
-	${TESTDIR}/TestFiles/f2
+	${TESTDIR}/TestFiles/f2 \
+	${TESTDIR}/TestFiles/f3
 
 # Test Object Files
 TESTOBJECTFILES= \
 	${TESTDIR}/tests/cg_test.o \
-	${TESTDIR}/tests/heuristic_test.o
+	${TESTDIR}/tests/heuristic_test.o \
+	${TESTDIR}/tests/reusable_resource_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -148,6 +150,10 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/heuristic_test.o ${OBJECTFILES:%.o=%_n
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/reusable_resource_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS}   
+
 
 ${TESTDIR}/tests/cg_test.o: tests/cg_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
@@ -159,6 +165,12 @@ ${TESTDIR}/tests/heuristic_test.o: tests/heuristic_test.cpp
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/heuristic_test.o tests/heuristic_test.cpp
+
+
+${TESTDIR}/tests/reusable_resource_test.o: tests/reusable_resource_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/reusable_resource_test.o tests/reusable_resource_test.cpp
 
 
 ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp 
@@ -284,6 +296,7 @@ ${OBJECTDIR}/state_variable_nomain.o: ${OBJECTDIR}/state_variable.o state_variab
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
+	    ${TESTDIR}/TestFiles/f3 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

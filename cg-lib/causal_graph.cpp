@@ -29,6 +29,7 @@
 #include "resolver.h"
 #include "smart_type.h"
 #include "state_variable.h"
+#include "reusable_resource.h"
 #ifndef N_CAUSAL_GRAPH_LISTENERS
 #include "causal_graph_listener.h"
 #endif
@@ -39,6 +40,7 @@ namespace cg {
         bool r = read(std::vector<std::string>({"init.rddl"}));
         assert(r);
         types.insert({STATE_VARIABLE_NAME, new state_variable(*this)});
+        types.insert({REUSABLE_RESOURCE_NAME, new reusable_resource(*this)});
 #ifndef NDEBUG
         delete_file();
 #endif
