@@ -578,6 +578,8 @@ namespace smt {
 
     bool t_row::propagate_lb(var v, std::vector<lit>& cnfl) {
         assert(cnfl.empty());
+        // we make room for the first literal..
+        cnfl.push_back(lit(FALSE, true));
         if (l.vars.at(v) > 0) {
             double lb;
             for (const auto& term : l.vars) {
@@ -606,7 +608,7 @@ namespace smt {
                     if (lb > c->v) {
                         switch (c->o) {
                             case leq:
-                                cnfl.push_back(lit(c->b, false));
+                                cnfl[0] = lit(c->b, false);
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -624,7 +626,7 @@ namespace smt {
                                 }
                                 break;
                             case geq:
-                                cnfl.push_back(lit(c->b, true));
+                                cnfl[0] = lit(c->b, true);
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -673,7 +675,7 @@ namespace smt {
                     if (ub > c->v) {
                         switch (c->o) {
                             case leq:
-                                cnfl.push_back(lit(c->b, false));
+                                cnfl[0] = lit(c->b, false);
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -691,7 +693,7 @@ namespace smt {
                                 }
                                 break;
                             case geq:
-                                cnfl.push_back(lit(c->b, true));
+                                cnfl[0] = lit(c->b, true);
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -720,6 +722,8 @@ namespace smt {
 
     bool t_row::propagate_ub(var v, std::vector<lit>& cnfl) {
         assert(cnfl.empty());
+        // we make room for the first literal..
+        cnfl.push_back(lit(FALSE, true));
         if (l.vars.at(v) > 0) {
             double ub;
             for (const auto& term : l.vars) {
@@ -748,7 +752,7 @@ namespace smt {
                     if (ub > c->v) {
                         switch (c->o) {
                             case leq:
-                                cnfl.push_back(lit(c->b, false));
+                                cnfl[0] = lit(c->b, false);
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -766,7 +770,7 @@ namespace smt {
                                 }
                                 break;
                             case geq:
-                                cnfl.push_back(lit(c->b, true));
+                                cnfl[0] = lit(c->b, true);
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -817,7 +821,7 @@ namespace smt {
                     if (lb > c->v) {
                         switch (c->o) {
                             case leq:
-                                cnfl.push_back(lit(c->b, false));
+                                cnfl[0] = lit(c->b, false);
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -835,7 +839,7 @@ namespace smt {
                                 }
                                 break;
                             case geq:
-                                cnfl.push_back(lit(c->b, true));
+                                cnfl[0] = lit(c->b, true);
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
