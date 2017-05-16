@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/enum_flaw.o \
 	${OBJECTDIR}/flaw.o \
 	${OBJECTDIR}/resolver.o \
+	${OBJECTDIR}/reusable_resource.o \
 	${OBJECTDIR}/state_variable.o
 
 # Test Directory
@@ -119,6 +120,11 @@ ${OBJECTDIR}/resolver.o: resolver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver.o resolver.cpp
+
+${OBJECTDIR}/reusable_resource.o: reusable_resource.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/reusable_resource.o reusable_resource.cpp
 
 ${OBJECTDIR}/state_variable.o: state_variable.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -244,6 +250,19 @@ ${OBJECTDIR}/resolver_nomain.o: ${OBJECTDIR}/resolver.o resolver.cpp
 	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver_nomain.o resolver.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/resolver.o ${OBJECTDIR}/resolver_nomain.o;\
+	fi
+
+${OBJECTDIR}/reusable_resource_nomain.o: ${OBJECTDIR}/reusable_resource.o reusable_resource.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/reusable_resource.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/reusable_resource_nomain.o reusable_resource.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/reusable_resource.o ${OBJECTDIR}/reusable_resource_nomain.o;\
 	fi
 
 ${OBJECTDIR}/state_variable_nomain.o: ${OBJECTDIR}/state_variable.o state_variable.cpp 

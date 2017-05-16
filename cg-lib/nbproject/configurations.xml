@@ -14,6 +14,7 @@
       <itemPath>enum_flaw.h</itemPath>
       <itemPath>flaw.h</itemPath>
       <itemPath>resolver.h</itemPath>
+      <itemPath>reusable_resource.h</itemPath>
       <itemPath>smart_type.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -34,6 +35,7 @@
       <itemPath>enum_flaw.cpp</itemPath>
       <itemPath>flaw.cpp</itemPath>
       <itemPath>resolver.cpp</itemPath>
+      <itemPath>reusable_resource.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -173,6 +175,10 @@
       <item path="resolver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="resolver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="reusable_resource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="reusable_resource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="smart_type.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -330,6 +336,10 @@
       <item path="resolver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="resolver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="reusable_resource.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="reusable_resource.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="smart_type.h" ex="false" tool="3" flavor2="0">
       </item>
