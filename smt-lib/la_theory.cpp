@@ -576,9 +576,9 @@ namespace smt {
 
     t_row::~t_row() { }
 
-    bool t_row::propagate_lb(var x, std::vector<lit>& cnfl) {
+    bool t_row::propagate_lb(var v, std::vector<lit>& cnfl) {
         assert(cnfl.empty());
-        if (l.vars.at(x) > 0) {
+        if (l.vars.at(v) > 0) {
             double lb;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
@@ -718,9 +718,9 @@ namespace smt {
         return true;
     }
 
-    bool t_row::propagate_ub(var x, std::vector<lit>& cnfl) {
+    bool t_row::propagate_ub(var v, std::vector<lit>& cnfl) {
         assert(cnfl.empty());
-        if (l.vars.at(x) > 0) {
+        if (l.vars.at(v) > 0) {
             double ub;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
