@@ -25,6 +25,7 @@
 #ifndef SCOPE_H
 #define SCOPE_H
 
+#include "env_ptr.h"
 #include <unordered_map>
 #include <vector>
 
@@ -38,6 +39,7 @@ namespace ratio {
     class type;
     class method;
     class predicate;
+    class item;
 
     class scope {
         friend class type_refinement_listener;
@@ -65,6 +67,9 @@ namespace ratio {
 
         virtual predicate& get_predicate(const std::string& name) const;
         virtual std::unordered_map<std::string, predicate*> get_predicates() const noexcept;
+
+    protected:
+        void set(item& i, const std::string& name, expr e);
 
     protected:
         solver& _solver;

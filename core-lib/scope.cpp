@@ -24,6 +24,7 @@
 
 #include "scope.h"
 #include "field.h"
+#include "item.h"
 
 namespace ratio {
 
@@ -70,5 +71,9 @@ namespace ratio {
 
     std::unordered_map<std::string, predicate*> scope::get_predicates() const noexcept {
         return _scope.get_predicates();
+    }
+
+    void scope::set(item& i, const std::string& name, expr e) {
+        i.items.insert({name, e});
     }
 }
