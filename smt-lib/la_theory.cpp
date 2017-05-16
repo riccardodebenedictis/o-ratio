@@ -791,7 +791,6 @@ namespace smt {
             }
         } else {
             double lb;
-            std::vector<lit> expl;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
                     if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
@@ -800,7 +799,7 @@ namespace smt {
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).lb;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
                     }
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
@@ -809,17 +808,16 @@ namespace smt {
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).ub;
-                        expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
                     }
                 }
             }
             if (lb > th.bounds(x).lb) {
                 for (const auto& c : th.a_watches[x]) {
                     if (lb > c->v) {
-                        std::vector<lit> c_expl = expl;
                         switch (c->o) {
                             case leq:
-                                c_expl.push_back(lit(c->b, false));
+                                cnfl.push_back(lit(c->b, false));
                                 // the assertion is unsatisfable..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -831,13 +829,13 @@ namespace smt {
                                         return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
+                                        th.record(cnfl);
                                         cnfl.clear();
                                         return true;
                                 }
                                 break;
                             case geq:
-                                c_expl.push_back(lit(c->b, true));
+                                cnfl.push_back(lit(c->b, true));
                                 // the assertion is satisfied..
                                 switch (th.c.value(c->b)) {
                                     case True:
@@ -849,7 +847,7 @@ namespace smt {
                                         return false;
                                     case Undefined:
                                         // we propagate information to the sat core..
-                                        th.record(c_expl);
+                                        th.record(cnfl);
                                         cnfl.clear();
                                         return true;
                                 }
