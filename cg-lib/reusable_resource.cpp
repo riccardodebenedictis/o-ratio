@@ -23,11 +23,12 @@
  */
 
 #include "reusable_resource.h"
+#include "utils.h"
 
 namespace cg {
 
     reusable_resource::reusable_resource(cg::causal_graph& g) : smart_type(g, g, REUSABLE_RESOURCE_NAME) {
-        fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(REUSABLE_RESOURCE_CAPACITY, g.get_type("real"))});
+        fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)});
         predicates.insert({REUSABLE_RESOURCE_USE_PREDICATE_NAME, new use_predicate(*this)});
     }
 
@@ -116,7 +117,7 @@ namespace cg {
         }
         restore_var();
 
-        atoms.push_back({&a, new atom_listener(a)});
+        atoms.push_back({&a, new reusable_resource_atom_listener(*this, a)});
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : _solver.set.value(c_scope->ev)) {
             to_check.insert(static_cast<ratio::item*> (val));
@@ -126,6 +127,16 @@ namespace cg {
 
     bool reusable_resource::new_goal(ratio::atom& a) {
         throw std::logic_error("it is not possible to define goals on a reusable resource..");
+    }
+
+    reusable_resource::use_predicate::use_predicate(reusable_resource& rr) : ratio::predicate(rr._solver, rr, REUSABLE_RESOURCE_USE_PREDICATE_NAME,{new ratio::field(rr.g.get_type("real"), REUSABLE_RESOURCE_USE_AMOUNT_NAME)}) {
+        supertypes.push_back(&rr._solver.get_predicate("IntervalPredicate"));
+    }
+
+    reusable_resource::use_predicate::~use_predicate() { }
+
+    bool reusable_resource::use_predicate::apply_rule(ratio::atom& a) const {
+        return true;
     }
 
     reusable_resource::reusable_resource_atom_listener::reusable_resource_atom_listener(reusable_resource& rr, ratio::atom& a) : atom_listener(a), rr(rr) { }

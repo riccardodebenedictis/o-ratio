@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="types" projectFiles="true">
+        <itemPath>reusable_resource.h</itemPath>
         <itemPath>state_variable.h</itemPath>
       </logicalFolder>
       <itemPath>atom_flaw.h</itemPath>
@@ -14,7 +15,6 @@
       <itemPath>enum_flaw.h</itemPath>
       <itemPath>flaw.h</itemPath>
       <itemPath>resolver.h</itemPath>
-      <itemPath>reusable_resource.h</itemPath>
       <itemPath>smart_type.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -26,6 +26,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="types" projectFiles="true">
+        <itemPath>reusable_resource.cpp</itemPath>
         <itemPath>state_variable.cpp</itemPath>
       </logicalFolder>
       <itemPath>atom_flaw.cpp</itemPath>
@@ -35,7 +36,6 @@
       <itemPath>enum_flaw.cpp</itemPath>
       <itemPath>flaw.cpp</itemPath>
       <itemPath>resolver.cpp</itemPath>
-      <itemPath>reusable_resource.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

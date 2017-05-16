@@ -57,7 +57,7 @@ namespace cg {
         public:
 
             reusable_resource_constructor(reusable_resource& rr) : ratio::constructor(rr._solver, rr,{}) {
-                fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(REUSABLE_RESOURCE_CAPACITY, rr.g.get_type("real"))});
+                fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(rr.g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)});
             }
             reusable_resource_constructor(reusable_resource_constructor&&) = delete;
 
@@ -71,13 +71,15 @@ namespace cg {
         };
 
         class use_predicate : public ratio::predicate {
+        public:
 
-            use_predicate(reusable_resource& rr) : ratio::constructor(rr._solver, rr, REUSABLE_RESOURCE_USE_PREDICATE_NAME,{new ratio::field(REUSABLE_RESOURCE_USE_AMOUNT_NAME, rr.g.get_type("real"))}) {
-                supertypes.push_back(rr._solver.get_predicate("IntervalPredicate"));
-            }
+            use_predicate(reusable_resource& rr);
             use_predicate(use_predicate&&) = delete;
 
-            virtual ~use_predicate() { }
+            virtual ~use_predicate();
+
+        private:
+            bool apply_rule(ratio::atom& a) const override;
         };
 
         class reusable_resource_atom_listener : public atom_listener {
