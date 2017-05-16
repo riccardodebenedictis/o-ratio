@@ -45,7 +45,7 @@ namespace ratio {
         context ctx(&i);
         for (const auto& f : _scope.get_fields()) {
             if (!f.second->synthetic) {
-                i.items.insert({f.second->name, f.second->new_instance(ctx)});
+                set(i, f.second->name, f.second->new_instance(ctx));
             }
         }
         return true;

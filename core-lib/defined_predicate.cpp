@@ -40,7 +40,7 @@ namespace ratio {
         }
 
         context ctx(new env(_solver, a));
-        ctx->items.insert({THIS_KEYWORD, &a});
+        set(*ctx, THIS_KEYWORD, &a);
         return statement_visitor(_solver, ctx).visit(&block).as<bool>();
     }
 }

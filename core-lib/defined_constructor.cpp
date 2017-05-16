@@ -36,27 +36,27 @@ namespace ratio {
     defined_constructor::~defined_constructor() { }
 
     bool defined_constructor::invoke(item& i, const std::vector<expr>& exprs) {
+        context itm_ctx(&i);
         for (const auto& f : _scope.get_fields()) {
             if (instantiated_field * inst_f = dynamic_cast<instantiated_field*> (f.second)) {
-                context ctx(&i);
-                i.items.insert({f.second->name, expression_visitor(_solver, ctx).visit(&inst_f->expr_c).as<expr>()});
+                set(i, f.second->name, expression_visitor(_solver, itm_ctx).visit(&inst_f->expr_c).as<expr>());
             }
         }
 
-        context ctx(new env(_solver, i));
-        ctx->items.insert({THIS_KEYWORD, expr(&i)});
+        context cstrctr_ctx(new env(_solver, i));
+        set(*cstrctr_ctx, THIS_KEYWORD, expr(&i));
         for (unsigned int j = 0; j < args.size(); j++) {
-            ctx->items.insert({args[j]->name, exprs[j]});
+            set(*cstrctr_ctx, args[j]->name, exprs[j]);
         }
         for (const auto& el : init_els) {
             if (fields.find(el->name->getText()) != fields.end()) {
-                i.items.insert({el->name->getText(), expression_visitor(_solver, ctx).visit(el->expr_list()->expr(0)).as<expr>()});
+                set(i, el->name->getText(), expression_visitor(_solver, cstrctr_ctx).visit(el->expr_list()->expr(0)).as<expr>());
             } else {
                 std::vector<expr> exprs;
                 std::vector<const type*> par_types;
                 if (el->expr_list()) {
                     for (const auto& ex : el->expr_list()->expr()) {
-                        expr i = expression_visitor(_solver, ctx).visit(ex).as<expr>();
+                        expr i = expression_visitor(_solver, cstrctr_ctx).visit(ex).as<expr>();
                         exprs.push_back(i);
                         par_types.push_back(&i->t);
                     }
@@ -68,12 +68,11 @@ namespace ratio {
         }
 
         for (const auto& f : _scope.get_fields()) {
-            if (!f.second->synthetic && i.items.find(f.second->name) == i.items.end()) {
-                context c(&i);
-                i.items.insert({f.second->name, f.second->new_instance(c)});
+            if (!f.second->synthetic && !i.is_instantiated(f.second->name)) {
+                set(i, f.second->name, f.second->new_instance(itm_ctx));
             }
         }
 
-        return statement_visitor(_solver, ctx).visit(&block).as<bool>();
+        return statement_visitor(_solver, cstrctr_ctx).visit(&block).as<bool>();
     }
 }

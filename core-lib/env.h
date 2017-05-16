@@ -37,9 +37,6 @@ namespace ratio {
         template<typename T>
         friend class env_ptr;
         friend class scope;
-        friend class default_constructor;
-        friend class defined_constructor;
-        friend class defined_predicate;
         friend class statement_visitor;
         friend class expression_visitor;
     public:
@@ -57,6 +54,8 @@ namespace ratio {
 
         virtual expr get(const std::string& name) const;
         std::unordered_map<std::string, expr> get_items() const noexcept;
+
+        bool is_instantiated(const std::string& name) const;
 
     private:
         unsigned ref_count;

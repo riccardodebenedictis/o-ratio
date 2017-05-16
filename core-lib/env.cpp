@@ -47,4 +47,8 @@ namespace ratio {
     std::unordered_map<std::string, expr> env::get_items() const noexcept {
         return items;
     }
+
+    bool env::is_instantiated(const std::string& name) const {
+        return items.find(name) != items.end();
+    }
 }
