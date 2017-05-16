@@ -29,6 +29,7 @@ namespace cg {
 
     reusable_resource::reusable_resource(cg::causal_graph& g) : smart_type(g, g, REUSABLE_RESOURCE_NAME) {
         fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)});
+        constructors.push_back(new reusable_resource_constructor(*this));
         predicates.insert({REUSABLE_RESOURCE_USE_PREDICATE_NAME, new use_predicate(*this)});
     }
 
@@ -116,6 +117,11 @@ namespace cg {
             return false;
         }
         restore_var();
+
+        // reusable resource facts cannot unify..
+        if (!_solver.sat.new_clause({smt::lit(_solver.set.allows(a.state, *ratio::atom::unified), false)})) {
+            return false;
+        }
 
         atoms.push_back({&a, new reusable_resource_atom_listener(*this, a)});
         ratio::enum_expr c_scope = a.get("scope");

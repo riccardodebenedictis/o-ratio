@@ -56,9 +56,7 @@ namespace cg {
         class reusable_resource_constructor : public ratio::constructor {
         public:
 
-            reusable_resource_constructor(reusable_resource& rr) : ratio::constructor(rr._solver, rr,{}) {
-                fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(rr.g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)});
-            }
+            reusable_resource_constructor(reusable_resource& rr) : ratio::constructor(rr._solver, rr,{new ratio::field(rr.g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)}) { }
             reusable_resource_constructor(reusable_resource_constructor&&) = delete;
 
             virtual ~reusable_resource_constructor() { }
