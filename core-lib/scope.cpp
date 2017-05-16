@@ -73,7 +73,7 @@ namespace ratio {
         return _scope.get_predicates();
     }
 
-    void scope::set(item& i, const std::string& name, expr e) {
-        i.items.insert({name, e});
+    void scope::set(context ctx, const std::string& name, expr e) {
+        ctx->items.insert({name, e});
     }
 }

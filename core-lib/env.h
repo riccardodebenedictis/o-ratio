@@ -36,6 +36,7 @@ namespace ratio {
     class env {
         template<typename T>
         friend class env_ptr;
+        friend class scope;
         friend class default_constructor;
         friend class defined_constructor;
         friend class defined_predicate;

@@ -69,7 +69,7 @@ namespace ratio {
         virtual std::unordered_map<std::string, predicate*> get_predicates() const noexcept;
 
     protected:
-        void set(item& i, const std::string& name, expr e);
+        void set(context ctx, const std::string& name, expr e);
 
     protected:
         solver& _solver;
