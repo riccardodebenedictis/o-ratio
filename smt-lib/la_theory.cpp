@@ -582,16 +582,18 @@ namespace smt {
             double lb;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
-                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).lb;
                         cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
                     }
                 } else if (term.second < 0) {
-                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).ub;
@@ -612,6 +614,7 @@ namespace smt {
                                         return false;
                                     case False:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
@@ -626,6 +629,7 @@ namespace smt {
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case False:
                                         // we have a propositional inconsistency..
@@ -645,16 +649,18 @@ namespace smt {
             double ub;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
-                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         ub += term.second * th.bounds(term.first).ub;
                         cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
                     }
                 } else if (term.second < 0) {
-                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         ub += term.second * th.bounds(term.first).lb;
@@ -675,6 +681,7 @@ namespace smt {
                                         return false;
                                     case False:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
@@ -689,6 +696,7 @@ namespace smt {
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case False:
                                         // we have a propositional inconsistency..
@@ -716,16 +724,18 @@ namespace smt {
             double ub;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
-                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         ub += term.second * th.bounds(term.first).ub;
                         cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
                     }
                 } else if (term.second < 0) {
-                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         ub += term.second * th.bounds(term.first).lb;
@@ -746,6 +756,7 @@ namespace smt {
                                         return false;
                                     case False:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
@@ -760,6 +771,7 @@ namespace smt {
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case False:
                                         // we have a propositional inconsistency..
@@ -782,16 +794,18 @@ namespace smt {
             std::vector<lit> expl;
             for (const auto& term : l.vars) {
                 if (term.second > 0) {
-                    if (th.bounds(term.first).lb > -std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).lb;
                         expl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
                     }
                 } else if (term.second < 0) {
-                    if (th.bounds(term.first).ub < std::numeric_limits<double>::infinity()) {
+                    if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
                         // nothing to propagate..
+                        cnfl.clear();
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).ub;
@@ -813,6 +827,7 @@ namespace smt {
                                         return false;
                                     case False:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case Undefined:
                                         // we propagate information to the sat core..
@@ -827,6 +842,7 @@ namespace smt {
                                 switch (th.c.value(c->b)) {
                                     case True:
                                         // nothing to propagate..
+                                        cnfl.clear();
                                         return true;
                                     case False:
                                         // we have a propositional inconsistency..
