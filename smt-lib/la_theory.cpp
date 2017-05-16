@@ -588,7 +588,7 @@ namespace smt {
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).lb;
-                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                        cnfl.push_back(lit(th.s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)), false));
                     }
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).ub == std::numeric_limits<double>::infinity()) {
@@ -597,7 +597,7 @@ namespace smt {
                         return true;
                     } else {
                         lb += term.second * th.bounds(term.first).ub;
-                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                        cnfl.push_back(lit(th.s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)), false));
                     }
                 }
             }
@@ -655,7 +655,7 @@ namespace smt {
                         return true;
                     } else {
                         ub += term.second * th.bounds(term.first).ub;
-                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)], false));
+                        cnfl.push_back(lit(th.s_asrts.at("x" + std::to_string(term.first) + " <= " + std::to_string(th.assigns[term.first].ub)), false));
                     }
                 } else if (term.second < 0) {
                     if (th.bounds(term.first).lb == -std::numeric_limits<double>::infinity()) {
@@ -664,7 +664,7 @@ namespace smt {
                         return true;
                     } else {
                         ub += term.second * th.bounds(term.first).lb;
-                        cnfl.push_back(lit(th.s_asrts["x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)], false));
+                        cnfl.push_back(lit(th.s_asrts.at("x" + std::to_string(term.first) + " >= " + std::to_string(th.assigns[term.first].lb)), false));
                     }
                 }
             }
