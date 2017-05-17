@@ -23,6 +23,7 @@ import it.cnr.istc.translators.pddl2ratio.language.EitherType;
 import it.cnr.istc.translators.pddl2ratio.language.Function;
 import it.cnr.istc.translators.pddl2ratio.language.Predicate;
 import it.cnr.istc.translators.pddl2ratio.language.Problem;
+import it.cnr.istc.translators.pddl2ratio.language.Term;
 import it.cnr.istc.translators.pddl2ratio.language.Type;
 import it.cnr.istc.translators.pddl2ratio.language.Variable;
 import java.io.File;
@@ -36,6 +37,8 @@ import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroupFile;
 
 /**
  *
@@ -284,6 +287,23 @@ public class Translator {
         problem.setGoal(term_visitor.visit(problem_context.goal().pre_GD()));
 
         return new PDDLInstance(domain, problem);
+    }
+
+    public static String translate(File pddl_domain, File pddl_problem) throws IOException {
+        PDDLInstance instance = parse(pddl_domain, pddl_problem);
+
+        STGroupFile file = new STGroupFile(Translator.class.getResource("pddl2ratioTemplate.stg").getPath());
+        file.registerRenderer(Predicate.class, new PredicateRenderer(file, instance.getDomain()));
+        file.registerRenderer(Function.class, new FunctionRenderer(file, instance.getDomain()));
+        file.registerRenderer(Action.class, new ActionRenderer(file));
+        file.registerRenderer(DurativeAction.class, new DurativeActionRenderer(file));
+        file.registerRenderer(Term.class, new TermRenderer(file, instance.getDomain()));
+
+        ST translation = file.getInstanceOf("PDDL");
+        translation.add("domain", instance.getDomain());
+        translation.add("problem", instance.getProblem());
+
+        return translation.render().replace("?", "");
     }
 
     private Translator() {
