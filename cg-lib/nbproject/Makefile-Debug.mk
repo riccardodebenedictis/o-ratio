@@ -53,12 +53,14 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 # Test Files
 TESTFILES= \
 	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f4 \
 	${TESTDIR}/TestFiles/f2 \
 	${TESTDIR}/TestFiles/f3
 
 # Test Object Files
 TESTOBJECTFILES= \
 	${TESTDIR}/tests/cg_test.o \
+	${TESTDIR}/tests/classical_problems_test.o \
 	${TESTDIR}/tests/heuristic_test.o \
 	${TESTDIR}/tests/reusable_resource_test.o
 
@@ -158,6 +160,10 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/cg_test.o ${OBJECTFILES:%.o=%_nomain.o
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS}   
 
+${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/classical_problems_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS}   
+
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/heuristic_test.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS}   
@@ -171,6 +177,12 @@ ${TESTDIR}/tests/cg_test.o: tests/cg_test.cpp
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/cg_test.o tests/cg_test.cpp
+
+
+${TESTDIR}/tests/classical_problems_test.o: tests/classical_problems_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/classical_problems_test.o tests/classical_problems_test.cpp
 
 
 ${TESTDIR}/tests/heuristic_test.o: tests/heuristic_test.cpp 
@@ -333,6 +345,7 @@ ${OBJECTDIR}/state_variable_nomain.o: ${OBJECTDIR}/state_variable.o state_variab
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f4 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
 	    ${TESTDIR}/TestFiles/f3 || true; \
 	else  \
