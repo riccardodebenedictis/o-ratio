@@ -16,9 +16,9 @@ class Block : Object {
 
 class BlocksState : PropositionalState {
 
-    BlocksImpulsiveAgent agent;
+    BlocksAgent agent;
 
-    BlocksState(BlocksImpulsiveAgent agent) : agent[agent] {}
+    BlocksState(BlocksAgent agent) : agent(agent) {}
 
     predicate On(Block x, Block y) {
         duration >= 1;
@@ -115,8 +115,8 @@ Block a = new Block(1);
 Block b = new Block(2);
 Block c = new Block(3);
 
+BlocksAgent agent = new BlocksAgent();
 
-BlocksImpulsiveAgent agent = new BlocksImpulsiveAgent();
 fact clear_a = new agent.propositional_state.Clear(polarity:true, x:a, start:origin);  clear_a.duration >= 1;
 fact clear_b = new agent.propositional_state.Clear(polarity:true, x:b, start:origin);  clear_b.duration >= 1;
 fact clear_c = new agent.propositional_state.Clear(polarity:true, x:c, start:origin);  clear_c.duration >= 1;
@@ -125,7 +125,5 @@ fact ontable_b = new agent.propositional_state.Ontable(polarity:true, x:b, start
 fact ontable_c = new agent.propositional_state.Ontable(polarity:true, x:c, start:origin);  ontable_c.duration >= 1;
 fact handempty = new agent.propositional_state.Handempty(polarity:true, start:origin);  handempty.duration >= 1;
 
-
 goal on_c_b = new agent.propositional_state.On(polarity:true, x:c, y:b, end:horizon);
 goal on_b_a = new agent.propositional_state.On(polarity:true, x:b, y:a, end:horizon);
-

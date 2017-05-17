@@ -20,18 +20,10 @@ Domain(domain) ::= <<
 <endif>}>
 class <domain.name>State : PropositionalState {
 
-<if(domain.actions)>
-    <domain.name>ImpulsiveAgent agent;
-    <domain.constants.values : {constant |<constant.type.name> <constant.name>;}; separator="\n">
-
-    <domain.name>State(<domain.name>ImpulsiveAgent agent<if(domain.constants.values)>, <domain.constants.values : {constant |<constant.type.name> <constant.name>}; separator=", "><endif>) : agent[agent]<if(domain.constants.values)>, <domain.constants.values : {constant |<constant.name>[<constant.name>]}; separator=", "><endif> {\}
-<endif>
-<if(domain.durativeActions)>
     <domain.name>Agent agent;
     <domain.constants.values : {constant |<constant.type.name> <constant.name>;}; separator="\n">
 
-    <domain.name>State(<domain.name>Agent agent<if(domain.constants.values)>, <domain.constants.values : {constant |<constant.type.name> <constant.name>}; separator=", "><endif>) : agent[agent]<if(domain.constants.values)>, <domain.constants.values : {constant |<constant.name>[<constant.name>]}; separator=", "><endif> {\}
-<endif>
+    <domain.name>State(<domain.name>Agent agent<if(domain.constants.values)>, <domain.constants.values : {constant |<constant.type.name> <constant.name>}; separator=", "><endif>) : agent(agent)<if(domain.constants.values)>, <domain.constants.values : {constant |<constant.name>[<constant.name>]}; separator=", "><endif> {\}
 <domain.predicates.values : {predicate |
 
 
@@ -75,21 +67,12 @@ Problem(problem) ::= <<
 * Problem: <problem.name>
 */
 
-<[problem.domain.constants.values, problem.objects.values] : {object |
-<object.type.name> <object.name> = new <object.type.name>(<i>);
+<[problem.domain.constants.values, problem.objects.values] : {object |<object.type.name> <object.name> = new <object.type.name>(<i>);
 }>
-
-<if(problem.domain.actions)>
-<problem.domain.name>ImpulsiveAgent agent = new <problem.domain.name>ImpulsiveAgent(<problem.domain.constants.values : {constant | <constant.name>}; separator=", ">);
-<endif>
-<if(problem.domain.durativeActions)>
 <problem.domain.name>Agent agent = new <problem.domain.name>Agent(<problem.domain.constants.values : {constant | <constant.name>}; separator=", ">);
-<endif>
 
-<problem.initEls : {init |
-<init; format="init">
+<problem.initEls : {init |<init; format="init">
 }>
-
 <problem.goal; format="goal">
 >>
 
