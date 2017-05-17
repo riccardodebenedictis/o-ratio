@@ -29,7 +29,7 @@ namespace cg {
 
     reusable_resource::reusable_resource(cg::causal_graph& g) : smart_type(g, g, REUSABLE_RESOURCE_NAME) {
         fields.insert({REUSABLE_RESOURCE_CAPACITY, new ratio::field(g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)});
-        constructors.push_back(new reusable_resource_constructor(*this));
+        constructors.push_back(new rr_constructor(*this));
         predicates.insert({REUSABLE_RESOURCE_USE_PREDICATE_NAME, new use_predicate(*this)});
     }
 
@@ -96,7 +96,7 @@ namespace cg {
                     }
                     if (_solver.la.value(resource_usage) > _solver.la.value(capacity->l)) {
                         // we have a peak..
-                        flaws.push_back(new reusable_resource_flaw(g, overlapping_atoms));
+                        flaws.push_back(new rr_flaw(g, overlapping_atoms));
                     }
                 }
             }
@@ -123,7 +123,7 @@ namespace cg {
             return false;
         }
 
-        atoms.push_back({&a, new reusable_resource_atom_listener(*this, a)});
+        atoms.push_back({&a, new rr_atom_listener(*this, a)});
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : _solver.set.value(c_scope->ev)) {
             to_check.insert(static_cast<ratio::item*> (val));
@@ -145,26 +145,26 @@ namespace cg {
         return true;
     }
 
-    reusable_resource::reusable_resource_atom_listener::reusable_resource_atom_listener(reusable_resource& rr, ratio::atom& a) : atom_listener(a), rr(rr) { }
+    reusable_resource::rr_atom_listener::rr_atom_listener(reusable_resource& rr, ratio::atom& a) : atom_listener(a), rr(rr) { }
 
-    reusable_resource::reusable_resource_atom_listener::~reusable_resource_atom_listener() { }
+    reusable_resource::rr_atom_listener::~rr_atom_listener() { }
 
-    void reusable_resource::reusable_resource_atom_listener::something_changed() {
+    void reusable_resource::rr_atom_listener::something_changed() {
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : a.get_solver().set.value(c_scope->ev)) {
             rr.to_check.insert(static_cast<ratio::item*> (val));
         }
     }
 
-    reusable_resource::reusable_resource_flaw::reusable_resource_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms) : flaw(g), overlapping_atoms(overlapping_atoms) { }
+    reusable_resource::rr_flaw::rr_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms) : flaw(g), overlapping_atoms(overlapping_atoms) { }
 
-    reusable_resource::reusable_resource_flaw::~reusable_resource_flaw() { }
+    reusable_resource::rr_flaw::~rr_flaw() { }
 
-    std::string reusable_resource::reusable_resource_flaw::get_label() const {
+    std::string reusable_resource::rr_flaw::get_label() const {
         return "rr-flaw";
     }
 
-    void reusable_resource::reusable_resource_flaw::compute_resolvers() {
+    void reusable_resource::rr_flaw::compute_resolvers() {
         std::vector<std::vector < ratio::atom*>> cs = smt::combinations(std::vector<ratio::atom*>(overlapping_atoms.begin(), overlapping_atoms.end()), 2);
         for (const auto& as : cs) {
             ratio::arith_expr a0_start = as[0]->get("start");
@@ -199,7 +199,7 @@ namespace cg {
         }
     }
 
-    reusable_resource::rr_resolver::rr_resolver(causal_graph& g, const smt::lin& cost, reusable_resource_flaw& f, const smt::lit& to_do) : resolver(g, cost, f), to_do(to_do) { }
+    reusable_resource::rr_resolver::rr_resolver(causal_graph& g, const smt::lin& cost, rr_flaw& f, const smt::lit& to_do) : resolver(g, cost, f), to_do(to_do) { }
 
     reusable_resource::rr_resolver::~rr_resolver() { }
 
@@ -207,7 +207,7 @@ namespace cg {
         return g.sat.new_clause({smt::lit(chosen, false), to_do});
     }
 
-    reusable_resource::order_resolver::order_resolver(causal_graph& g, const smt::lin& cost, reusable_resource_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do) : rr_resolver(g, cost, f, to_do), before(before), after(after) { }
+    reusable_resource::order_resolver::order_resolver(causal_graph& g, const smt::lin& cost, rr_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do) : rr_resolver(g, cost, f, to_do), before(before), after(after) { }
 
     reusable_resource::order_resolver::~order_resolver() { }
 
@@ -215,12 +215,12 @@ namespace cg {
         return "e" + std::to_string(before.state) + " <= e" + std::to_string(after.state);
     }
 
-    reusable_resource::displace_resolver::displace_resolver(causal_graph& g, const smt::lin& cost, reusable_resource_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do) : rr_resolver(g, cost, f, to_do), a(a), i(i) { }
+    reusable_resource::displace_resolver::displace_resolver(causal_graph& g, const smt::lin& cost, rr_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do) : rr_resolver(g, cost, f, to_do), a(a), i(i) { }
 
     reusable_resource::displace_resolver::~displace_resolver() { }
 
     std::string reusable_resource::displace_resolver::get_label() const {
         ratio::enum_expr scp = a.get("scope");
-        return "e" + std::to_string(scp->ev) + " != " + std::to_string(reinterpret_cast<uintptr_t> (&i));
+        return "scope (e" + std::to_string(scp->ev) + ") != " + std::to_string(reinterpret_cast<uintptr_t> (&i));
     }
 }

@@ -16,14 +16,14 @@
  */
 
 /* 
- * File:   reusable_resource.h
+ * File:   propositional_state.h
  * Author: Riccardo De Benedictis <riccardo.debenedictis@istc.cnr.it>
  *
- * Created on May 16, 2017, 9:45 AM
+ * Created on May 17, 2017, 11:53 AM
  */
 
-#ifndef REUSABLE_RESOURCE_H
-#define REUSABLE_RESOURCE_H
+#ifndef PROPOSITIONAL_STATE_H
+#define PROPOSITIONAL_STATE_H
 
 #include "smart_type.h"
 #include "constructor.h"
@@ -31,20 +31,18 @@
 #include "flaw.h"
 #include "resolver.h"
 
-#define REUSABLE_RESOURCE_NAME "ReusableResource"
-#define REUSABLE_RESOURCE_CAPACITY "capacity"
-#define REUSABLE_RESOURCE_USE_PREDICATE_NAME "Use"
-#define REUSABLE_RESOURCE_USE_AMOUNT_NAME "amount"
+#define PROPOSITIONAL_STATE_NAME "PropositionalState"
+#define POLARITY "polarity"
 
 namespace cg {
 
     class causal_graph;
 
-    class reusable_resource : public smart_type {
+    class propositional_state : public smart_type {
     public:
-        reusable_resource(cg::causal_graph& g);
-        reusable_resource(const reusable_resource& orig) = delete;
-        virtual ~reusable_resource();
+        propositional_state(cg::causal_graph& g);
+        propositional_state(const propositional_state& orig) = delete;
+        virtual ~propositional_state();
 
     private:
         std::vector<flaw*> get_flaws() override;
@@ -53,40 +51,26 @@ namespace cg {
         bool new_fact(ratio::atom& a) override;
         bool new_goal(ratio::atom& a) override;
 
-        class rr_constructor : public ratio::constructor {
+        class ps_constructor : public ratio::constructor {
         public:
 
-            rr_constructor(reusable_resource& rr) : ratio::constructor(rr._solver, rr,{new ratio::field(rr.g.get_type("real"), REUSABLE_RESOURCE_CAPACITY)}) { }
-            rr_constructor(rr_constructor&&) = delete;
+            ps_constructor(propositional_state& ps) : ratio::constructor(ps._solver, ps,{}) { }
+            ps_constructor(ps_constructor&&) = delete;
 
-            virtual ~rr_constructor() { }
+            virtual ~ps_constructor() { }
 
         private:
 
             bool invoke(ratio::item& i, const std::vector<ratio::expr>& exprs) override {
-                assert(exprs.size() == 1);
-                set(i, REUSABLE_RESOURCE_CAPACITY, exprs[0]);
                 return true;
             }
         };
 
-        class use_predicate : public ratio::predicate {
+        class ps_atom_listener : public atom_listener {
         public:
-
-            use_predicate(reusable_resource& rr);
-            use_predicate(use_predicate&&) = delete;
-
-            virtual ~use_predicate();
-
-        private:
-            bool apply_rule(ratio::atom& a) const override;
-        };
-
-        class rr_atom_listener : public atom_listener {
-        public:
-            rr_atom_listener(reusable_resource& rr, ratio::atom& a);
-            rr_atom_listener(rr_atom_listener&&) = delete;
-            virtual ~rr_atom_listener();
+            ps_atom_listener(propositional_state& ps, ratio::atom& a);
+            ps_atom_listener(ps_atom_listener&&) = delete;
+            virtual ~ps_atom_listener();
 
         private:
             void something_changed();
@@ -104,14 +88,14 @@ namespace cg {
             }
 
         protected:
-            reusable_resource& rr;
+            propositional_state& ps;
         };
 
-        class rr_flaw : public flaw {
+        class ps_flaw : public flaw {
         public:
-            rr_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms);
-            rr_flaw(rr_flaw&&) = delete;
-            virtual ~rr_flaw();
+            ps_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms);
+            ps_flaw(ps_flaw&&) = delete;
+            virtual ~ps_flaw();
 
             std::string get_label() const override;
 
@@ -122,11 +106,11 @@ namespace cg {
             const std::set<ratio::atom*> overlapping_atoms;
         };
 
-        class rr_resolver : public resolver {
+        class ps_resolver : public resolver {
         public:
-            rr_resolver(causal_graph& g, const smt::lin& cost, rr_flaw& f, const smt::lit& to_do);
-            rr_resolver(const rr_resolver& that) = delete;
-            virtual ~rr_resolver();
+            ps_resolver(causal_graph& g, const smt::lin& cost, ps_flaw& f, const smt::lit& to_do);
+            ps_resolver(const ps_resolver& that) = delete;
+            virtual ~ps_resolver();
 
         private:
             bool apply() override;
@@ -135,9 +119,9 @@ namespace cg {
             const smt::lit to_do;
         };
 
-        class order_resolver : public rr_resolver {
+        class order_resolver : public ps_resolver {
         public:
-            order_resolver(causal_graph& g, const smt::lin& cost, rr_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do);
+            order_resolver(causal_graph& g, const smt::lin& cost, ps_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do);
             order_resolver(const order_resolver& that) = delete;
             virtual ~order_resolver();
 
@@ -148,9 +132,9 @@ namespace cg {
             const ratio::atom& after;
         };
 
-        class displace_resolver : public rr_resolver {
+        class displace_resolver : public ps_resolver {
         public:
-            displace_resolver(causal_graph& g, const smt::lin& cost, rr_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do);
+            displace_resolver(causal_graph& g, const smt::lin& cost, ps_flaw& f, const ratio::atom& a, const std::string& f_name, const ratio::item& i, const smt::lit& to_do);
             displace_resolver(const displace_resolver& that) = delete;
             virtual ~displace_resolver();
 
@@ -158,14 +142,15 @@ namespace cg {
 
         private:
             const ratio::atom& a;
+            const std::string f_name;
             const ratio::item& i;
         };
 
     private:
-        std::set<ratio::item*> to_check;
-        std::vector<std::pair<ratio::atom*, rr_atom_listener*>> atoms;
+        std::set<ratio::atom*> to_check;
+        std::vector<std::pair<ratio::atom*, ps_atom_listener*>> atoms;
     };
 }
 
-#endif /* REUSABLE_RESOURCE_H */
+#endif /* PROPOSITIONAL_STATE_H */
 

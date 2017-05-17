@@ -49,13 +49,13 @@ namespace cg {
         bool new_fact(ratio::atom& a) override;
         bool new_goal(ratio::atom& a) override;
 
-        class state_variable_constructor : public ratio::constructor {
+        class sv_constructor : public ratio::constructor {
         public:
 
-            state_variable_constructor(state_variable& sv) : ratio::constructor(sv._solver, sv,{}) { }
-            state_variable_constructor(state_variable_constructor&&) = delete;
+            sv_constructor(state_variable& sv) : ratio::constructor(sv._solver, sv,{}) { }
+            sv_constructor(sv_constructor&&) = delete;
 
-            virtual ~state_variable_constructor() { }
+            virtual ~sv_constructor() { }
 
         private:
 
@@ -64,11 +64,11 @@ namespace cg {
             }
         };
 
-        class state_variable_atom_listener : public atom_listener {
+        class sv_atom_listener : public atom_listener {
         public:
-            state_variable_atom_listener(state_variable& sv, ratio::atom& a);
-            state_variable_atom_listener(state_variable_atom_listener&&) = delete;
-            virtual ~state_variable_atom_listener();
+            sv_atom_listener(state_variable& sv, ratio::atom& a);
+            sv_atom_listener(sv_atom_listener&&) = delete;
+            virtual ~sv_atom_listener();
 
         private:
             void something_changed();
@@ -89,11 +89,11 @@ namespace cg {
             state_variable& sv;
         };
 
-        class state_variable_flaw : public flaw {
+        class sv_flaw : public flaw {
         public:
-            state_variable_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms);
-            state_variable_flaw(state_variable_flaw&&) = delete;
-            virtual ~state_variable_flaw();
+            sv_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms);
+            sv_flaw(sv_flaw&&) = delete;
+            virtual ~sv_flaw();
 
             std::string get_label() const override;
 
@@ -106,7 +106,7 @@ namespace cg {
 
         class sv_resolver : public resolver {
         public:
-            sv_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const smt::lit& to_do);
+            sv_resolver(causal_graph& g, const smt::lin& cost, sv_flaw& f, const smt::lit& to_do);
             sv_resolver(const sv_resolver& that) = delete;
             virtual ~sv_resolver();
 
@@ -119,7 +119,7 @@ namespace cg {
 
         class order_resolver : public sv_resolver {
         public:
-            order_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do);
+            order_resolver(causal_graph& g, const smt::lin& cost, sv_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do);
             order_resolver(const order_resolver& that) = delete;
             virtual ~order_resolver();
 
@@ -132,7 +132,7 @@ namespace cg {
 
         class displace_resolver : public sv_resolver {
         public:
-            displace_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do);
+            displace_resolver(causal_graph& g, const smt::lin& cost, sv_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do);
             displace_resolver(const displace_resolver& that) = delete;
             virtual ~displace_resolver();
 
@@ -145,7 +145,7 @@ namespace cg {
 
     private:
         std::set<ratio::item*> to_check;
-        std::vector<std::pair<ratio::atom*, state_variable_atom_listener*>> atoms;
+        std::vector<std::pair<ratio::atom*, sv_atom_listener*>> atoms;
     };
 }
 

@@ -29,7 +29,7 @@
 namespace cg {
 
     state_variable::state_variable(cg::causal_graph& g) : smart_type(g, g, STATE_VARIABLE_NAME) {
-        constructors.push_back(new state_variable_constructor(*this));
+        constructors.push_back(new sv_constructor(*this));
     }
 
     state_variable::~state_variable() {
@@ -93,7 +93,7 @@ namespace cg {
                     }
                     if (overlapping_atoms.size() > 1) {
                         // we have a peak..
-                        flaws.push_back(new state_variable_flaw(g, overlapping_atoms));
+                        flaws.push_back(new sv_flaw(g, overlapping_atoms));
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace cg {
         }
         restore_var();
 
-        atoms.push_back({&a, new state_variable_atom_listener(*this, a)});
+        atoms.push_back({&a, new sv_atom_listener(*this, a)});
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : _solver.set.value(c_scope->ev)) {
             to_check.insert(static_cast<ratio::item*> (val));
@@ -124,7 +124,7 @@ namespace cg {
     }
 
     bool state_variable::new_goal(ratio::atom& a) {
-        atoms.push_back({&a, new state_variable_atom_listener(*this, a)});
+        atoms.push_back({&a, new sv_atom_listener(*this, a)});
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : _solver.set.value(c_scope->ev)) {
             to_check.insert(static_cast<ratio::item*> (val));
@@ -132,26 +132,26 @@ namespace cg {
         return true;
     }
 
-    state_variable::state_variable_atom_listener::state_variable_atom_listener(state_variable& sv, ratio::atom& a) : atom_listener(a), sv(sv) { }
+    state_variable::sv_atom_listener::sv_atom_listener(state_variable& sv, ratio::atom& a) : atom_listener(a), sv(sv) { }
 
-    state_variable::state_variable_atom_listener::~state_variable_atom_listener() { }
+    state_variable::sv_atom_listener::~sv_atom_listener() { }
 
-    void state_variable::state_variable_atom_listener::something_changed() {
+    void state_variable::sv_atom_listener::something_changed() {
         ratio::enum_expr c_scope = a.get("scope");
         for (const auto& val : a.get_solver().set.value(c_scope->ev)) {
             sv.to_check.insert(static_cast<ratio::item*> (val));
         }
     }
 
-    state_variable::state_variable_flaw::state_variable_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms) : flaw(g), overlapping_atoms(overlapping_atoms) { }
+    state_variable::sv_flaw::sv_flaw(causal_graph& g, const std::set<ratio::atom*>& overlapping_atoms) : flaw(g), overlapping_atoms(overlapping_atoms) { }
 
-    state_variable::state_variable_flaw::~state_variable_flaw() { }
+    state_variable::sv_flaw::~sv_flaw() { }
 
-    std::string state_variable::state_variable_flaw::get_label() const {
+    std::string state_variable::sv_flaw::get_label() const {
         return "sv-flaw";
     }
 
-    void state_variable::state_variable_flaw::compute_resolvers() {
+    void state_variable::sv_flaw::compute_resolvers() {
         std::vector<std::vector < ratio::atom*>> cs = smt::combinations(std::vector<ratio::atom*>(overlapping_atoms.begin(), overlapping_atoms.end()), 2);
         for (const auto& as : cs) {
             ratio::arith_expr a0_start = as[0]->get("start");
@@ -186,7 +186,7 @@ namespace cg {
         }
     }
 
-    state_variable::sv_resolver::sv_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const smt::lit& to_do) : resolver(g, cost, f), to_do(to_do) { }
+    state_variable::sv_resolver::sv_resolver(causal_graph& g, const smt::lin& cost, sv_flaw& f, const smt::lit& to_do) : resolver(g, cost, f), to_do(to_do) { }
 
     state_variable::sv_resolver::~sv_resolver() { }
 
@@ -194,7 +194,7 @@ namespace cg {
         return g.sat.new_clause({smt::lit(chosen, false), to_do});
     }
 
-    state_variable::order_resolver::order_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do) : sv_resolver(g, cost, f, to_do), before(before), after(after) { }
+    state_variable::order_resolver::order_resolver(causal_graph& g, const smt::lin& cost, sv_flaw& f, const ratio::atom& before, const ratio::atom& after, const smt::lit& to_do) : sv_resolver(g, cost, f, to_do), before(before), after(after) { }
 
     state_variable::order_resolver::~order_resolver() { }
 
@@ -202,12 +202,12 @@ namespace cg {
         return "e" + std::to_string(before.state) + " <= e" + std::to_string(after.state);
     }
 
-    state_variable::displace_resolver::displace_resolver(causal_graph& g, const smt::lin& cost, state_variable_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do) : sv_resolver(g, cost, f, to_do), a(a), i(i) { }
+    state_variable::displace_resolver::displace_resolver(causal_graph& g, const smt::lin& cost, sv_flaw& f, const ratio::atom& a, const ratio::item& i, const smt::lit& to_do) : sv_resolver(g, cost, f, to_do), a(a), i(i) { }
 
     state_variable::displace_resolver::~displace_resolver() { }
 
     std::string state_variable::displace_resolver::get_label() const {
         ratio::enum_expr scp = a.get("scope");
-        return "e" + std::to_string(scp->ev) + " != " + std::to_string(reinterpret_cast<uintptr_t> (&i));
+        return "scope (e" + std::to_string(scp->ev) + ") != " + std::to_string(reinterpret_cast<uintptr_t> (&i));
     }
 }
