@@ -23,6 +23,7 @@
  */
 
 #include "propositional_state.h"
+#include "predicate.h"
 
 namespace cg {
 

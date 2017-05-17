@@ -31,6 +31,7 @@
 #include "state_variable.h"
 #include "reusable_resource.h"
 #include "propositional_state.h"
+#include "propositional_agent.h"
 #ifndef N_CAUSAL_GRAPH_LISTENERS
 #include "causal_graph_listener.h"
 #endif
@@ -43,6 +44,7 @@ namespace cg {
         types.insert({STATE_VARIABLE_NAME, new state_variable(*this)});
         types.insert({REUSABLE_RESOURCE_NAME, new reusable_resource(*this)});
         types.insert({PROPOSITIONAL_STATE_NAME, new propositional_state(*this)});
+        types.insert({PROPOSITIONAL_AGENT_NAME, new propositional_agent(*this)});
 #ifndef NDEBUG
         delete_file();
 #endif

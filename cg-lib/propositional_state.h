@@ -27,7 +27,6 @@
 
 #include "smart_type.h"
 #include "constructor.h"
-#include "predicate.h"
 #include "flaw.h"
 #include "resolver.h"
 

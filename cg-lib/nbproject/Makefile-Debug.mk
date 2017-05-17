@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/disjunction_flaw.o \
 	${OBJECTDIR}/enum_flaw.o \
 	${OBJECTDIR}/flaw.o \
+	${OBJECTDIR}/propositional_agent.o \
 	${OBJECTDIR}/propositional_state.o \
 	${OBJECTDIR}/resolver.o \
 	${OBJECTDIR}/reusable_resource.o \
@@ -118,6 +119,11 @@ ${OBJECTDIR}/flaw.o: flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw.o flaw.cpp
+
+${OBJECTDIR}/propositional_agent.o: propositional_agent.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_agent.o propositional_agent.cpp
 
 ${OBJECTDIR}/propositional_state.o: propositional_state.cpp
 	${MKDIR} -p ${OBJECTDIR}
@@ -255,6 +261,19 @@ ${OBJECTDIR}/flaw_nomain.o: ${OBJECTDIR}/flaw.o flaw.cpp
 	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw_nomain.o flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/flaw.o ${OBJECTDIR}/flaw_nomain.o;\
+	fi
+
+${OBJECTDIR}/propositional_agent_nomain.o: ${OBJECTDIR}/propositional_agent.o propositional_agent.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/propositional_agent.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_agent_nomain.o propositional_agent.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/propositional_agent.o ${OBJECTDIR}/propositional_agent_nomain.o;\
 	fi
 
 ${OBJECTDIR}/propositional_state_nomain.o: ${OBJECTDIR}/propositional_state.o propositional_state.cpp 
