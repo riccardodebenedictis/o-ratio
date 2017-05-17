@@ -16,9 +16,12 @@
  */
 package it.cnr.istc.translators.pddl2ratio.parser;
 
+import it.cnr.istc.translators.pddl2ratio.language.AlwaysTerm;
+import it.cnr.istc.translators.pddl2ratio.language.AlwaysWithinTerm;
 import it.cnr.istc.translators.pddl2ratio.language.AndTerm;
 import it.cnr.istc.translators.pddl2ratio.language.AssignOpTerm;
 import it.cnr.istc.translators.pddl2ratio.language.AtEndTerm;
+import it.cnr.istc.translators.pddl2ratio.language.AtMostOnceTerm;
 import it.cnr.istc.translators.pddl2ratio.language.AtStartTerm;
 import it.cnr.istc.translators.pddl2ratio.language.AtTerm;
 import it.cnr.istc.translators.pddl2ratio.language.ComparisonTerm;
@@ -29,17 +32,25 @@ import it.cnr.istc.translators.pddl2ratio.language.ExistsTerm;
 import it.cnr.istc.translators.pddl2ratio.language.ForAllTerm;
 import it.cnr.istc.translators.pddl2ratio.language.Function;
 import it.cnr.istc.translators.pddl2ratio.language.FunctionTerm;
+import it.cnr.istc.translators.pddl2ratio.language.HoldAfterTerm;
+import it.cnr.istc.translators.pddl2ratio.language.HoldDuringTerm;
+import it.cnr.istc.translators.pddl2ratio.language.MinusTerm;
 import it.cnr.istc.translators.pddl2ratio.language.NumberTerm;
 import it.cnr.istc.translators.pddl2ratio.language.OpTerm;
 import it.cnr.istc.translators.pddl2ratio.language.OrTerm;
 import it.cnr.istc.translators.pddl2ratio.language.OverAllTerm;
 import it.cnr.istc.translators.pddl2ratio.language.Predicate;
 import it.cnr.istc.translators.pddl2ratio.language.PredicateTerm;
+import it.cnr.istc.translators.pddl2ratio.language.PreferenceTerm;
 import it.cnr.istc.translators.pddl2ratio.language.Problem;
+import it.cnr.istc.translators.pddl2ratio.language.SometimeAfterTerm;
+import it.cnr.istc.translators.pddl2ratio.language.SometimeBeforeTerm;
+import it.cnr.istc.translators.pddl2ratio.language.SometimeTerm;
 import it.cnr.istc.translators.pddl2ratio.language.Term;
 import it.cnr.istc.translators.pddl2ratio.language.Variable;
 import it.cnr.istc.translators.pddl2ratio.language.VariableTerm;
 import it.cnr.istc.translators.pddl2ratio.language.WhenTerm;
+import it.cnr.istc.translators.pddl2ratio.language.WithinTerm;
 import java.math.BigDecimal;
 import java.util.Map;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -50,7 +61,6 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  */
 class TermVisitor extends PDDLBaseVisitor<Term> {
 
-    private static final ParseTreeWalker WALKER = new ParseTreeWalker();
     private final PDDLParser parser;
     private final Domain domain;
     private final Problem problem;
@@ -96,13 +106,14 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
     @Override
     public Term visitPre_GD_forall(PDDLParser.Pre_GD_forallContext ctx) {
         TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
-        WALKER.walk(typedListVariable, ctx.typed_list_variable());
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
         return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.pre_GD()));
     }
 
     @Override
     public Term visitPref_GD_preference_gD(PDDLParser.Pref_GD_preference_gDContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet: " + ctx.toStringTree(parser));
+        String text = (ctx.pref_name() != null ? ctx.pref_name().name().NAME().getText() : null);
+        return new PreferenceTerm(text, visit(ctx.gD()));
     }
 
     @Override
@@ -143,14 +154,14 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
     @Override
     public Term visitGd_exists(PDDLParser.Gd_existsContext ctx) {
         TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
-        WALKER.walk(typedListVariable, ctx.typed_list_variable());
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
         return new ExistsTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.gD()));
     }
 
     @Override
     public Term visitGd_forall(PDDLParser.Gd_forallContext ctx) {
         TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
-        WALKER.walk(typedListVariable, ctx.typed_list_variable());
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
         return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.gD()));
     }
 
@@ -324,7 +335,7 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
     @Override
     public Term visitC_effect_forall(PDDLParser.C_effect_forallContext ctx) {
         TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
-        WALKER.walk(typedListVariable, ctx.typed_list_variable());
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
         return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.effect()));
     }
 
@@ -399,7 +410,7 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
     @Override
     public Term visitDa_GD_forall(PDDLParser.Da_GD_forallContext ctx) {
         TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
-        WALKER.walk(typedListVariable, ctx.typed_list_variable());
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
         return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.da_GD()));
     }
 
@@ -410,7 +421,8 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
 
     @Override
     public Term visitPref_timed_GD_preference_timed_GD(PDDLParser.Pref_timed_GD_preference_timed_GDContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet: " + ctx.toStringTree(parser));
+        String text = (ctx.pref_name() != null ? ctx.pref_name().name().NAME().getText() : null);
+        return new PreferenceTerm(text, visit(ctx.timed_GD()));
     }
 
     @Override
@@ -466,7 +478,7 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
 
     @Override
     public Term visitD_value_number(PDDLParser.D_value_numberContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new NumberTerm(new BigDecimal(ctx.NUMBER().getText()));
     }
 
     @Override
@@ -487,7 +499,7 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
     @Override
     public Term visitDa_effect_forall(PDDLParser.Da_effect_forallContext ctx) {
         TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
-        WALKER.walk(typedListVariable, ctx.typed_list_variable());
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
         return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.da_effect()));
     }
 
@@ -522,7 +534,14 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
 
     @Override
     public Term visitTimed_effect_assign_op(PDDLParser.Timed_effect_assign_opContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet: " + ctx.toStringTree(parser));
+        switch (ctx.assign_op_t().getText()) {
+            case "increase":
+                return new AssignOpTerm(AssignOpTerm.AssignOp.Increase, (FunctionTerm) visit(ctx.f_head()), visit(ctx.f_exp_t()));
+            case "decrease":
+                return new AssignOpTerm(AssignOpTerm.AssignOp.Decrease, (FunctionTerm) visit(ctx.f_head()), visit(ctx.f_exp_t()));
+            default:
+                throw new AssertionError(ctx.assign_op_t().getText());
+        }
     }
 
     @Override
@@ -573,17 +592,17 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
 
     @Override
     public Term visitF_exp_da_minus(PDDLParser.F_exp_da_minusContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet: " + ctx.toStringTree(parser));
+        return new MinusTerm(visit(ctx.f_exp_da()));
     }
 
     @Override
     public Term visitF_exp_da_duration(PDDLParser.F_exp_da_durationContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new VariableTerm(variables.get("?duration"));
     }
 
     @Override
     public Term visitF_exp_da_f_exp(PDDLParser.F_exp_da_f_expContext ctx) {
-        throw new UnsupportedOperationException("Not supported yet: " + ctx.toStringTree(parser));
+        return visit(ctx.f_exp());
     }
 
     @Override
@@ -624,5 +643,90 @@ class TermVisitor extends PDDLBaseVisitor<Term> {
     @Override
     public Term visitBasic_function_term_function_symbol_names(PDDLParser.Basic_function_term_function_symbol_namesContext ctx) {
         return new FunctionTerm(domain.getFunction(Utils.capitalize(ctx.function_symbol().name().getText())), ctx.name().stream().map(name -> new ConstantTerm(domain.getConstants().containsKey(Utils.lowercase(name.getText())) ? domain.getConstant(Utils.lowercase(name.getText())) : problem.getObject(Utils.lowercase(name.getText())))).toArray(Term[]::new));
+    }
+
+    @Override
+    public Term visitPref_con_GD_and(PDDLParser.Pref_con_GD_andContext ctx) {
+        return new AndTerm(ctx.pref_con_GD().stream().map(pre_GD -> visit(pre_GD)).toArray(Term[]::new));
+    }
+
+    @Override
+    public Term visitPref_con_GD_forall(PDDLParser.Pref_con_GD_forallContext ctx) {
+        TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
+        return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.pref_con_GD()));
+    }
+
+    @Override
+    public Term visitPref_con_GD_preference(PDDLParser.Pref_con_GD_preferenceContext ctx) {
+        String text = (ctx.pref_name() != null ? ctx.pref_name().name().NAME().getText() : null);
+        return new PreferenceTerm(text, visit(ctx.con_GD()));
+    }
+
+    @Override
+    public Term visitPref_con_GD_con_GD(PDDLParser.Pref_con_GD_con_GDContext ctx) {
+        return visit(ctx.con_GD());
+    }
+
+    @Override
+    public Term visitCon_GD_and(PDDLParser.Con_GD_andContext ctx) {
+        return new AndTerm(ctx.con_GD().stream().map(pre_GD -> visit(pre_GD)).toArray(Term[]::new));
+    }
+
+    @Override
+    public Term visitCon_GD_forall(PDDLParser.Con_GD_forallContext ctx) {
+        TypedListVariableListener typedListVariable = new TypedListVariableListener(domain);
+        ParseTreeWalker.DEFAULT.walk(typedListVariable, ctx.typed_list_variable());
+        return new ForAllTerm(typedListVariable.variables.stream().toArray(Variable[]::new), visit(ctx.con_GD()));
+    }
+
+    @Override
+    public Term visitCon_GD_at_end(PDDLParser.Con_GD_at_endContext ctx) {
+        return new AtEndTerm(visit(ctx.gD()));
+    }
+
+    @Override
+    public Term visitCon_GD_always(PDDLParser.Con_GD_alwaysContext ctx) {
+        return new AlwaysTerm(visit(ctx.gD()));
+    }
+
+    @Override
+    public Term visitCon_GD_sometime(PDDLParser.Con_GD_sometimeContext ctx) {
+        return new SometimeTerm(visit(ctx.gD()));
+    }
+
+    @Override
+    public Term visitCon_GD_within(PDDLParser.Con_GD_withinContext ctx) {
+        return new WithinTerm(new BigDecimal(ctx.NUMBER().getText()), visit(ctx.gD()));
+    }
+
+    @Override
+    public Term visitCon_GD_at_most_once(PDDLParser.Con_GD_at_most_onceContext ctx) {
+        return new AtMostOnceTerm(visit(ctx.gD()));
+    }
+
+    @Override
+    public Term visitCon_GD_sometime_after(PDDLParser.Con_GD_sometime_afterContext ctx) {
+        return new SometimeAfterTerm(visit(ctx.gD(0)), visit(ctx.gD(1)));
+    }
+
+    @Override
+    public Term visitCon_GD_sometime_before(PDDLParser.Con_GD_sometime_beforeContext ctx) {
+        return new SometimeBeforeTerm(visit(ctx.gD(0)), visit(ctx.gD(1)));
+    }
+
+    @Override
+    public Term visitCon_GD_always_within(PDDLParser.Con_GD_always_withinContext ctx) {
+        return new AlwaysWithinTerm(new BigDecimal(ctx.NUMBER().getText()), visit(ctx.gD(0)), visit(ctx.gD(1)));
+    }
+
+    @Override
+    public Term visitCon_GD_hold_during(PDDLParser.Con_GD_hold_duringContext ctx) {
+        return new HoldDuringTerm(new BigDecimal(ctx.NUMBER(0).getText()), new BigDecimal(ctx.NUMBER(1).getText()), visit(ctx.gD()));
+    }
+
+    @Override
+    public Term visitCon_GD_hold_after(PDDLParser.Con_GD_hold_afterContext ctx) {
+        return new HoldAfterTerm(new BigDecimal(ctx.NUMBER().getText()), visit(ctx.gD()));
     }
 }
