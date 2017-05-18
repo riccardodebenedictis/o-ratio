@@ -37,7 +37,8 @@ namespace ratio {
 
     bool defined_constructor::invoke(item& i, const std::vector<expr>& exprs) {
         context itm_ctx(&i);
-        for (const auto& f : _scope.get_fields()) {
+        std::unordered_map<std::string, field*> scope_fields = _scope.get_fields();
+        for (const auto& f : scope_fields) {
             if (instantiated_field * inst_f = dynamic_cast<instantiated_field*> (f.second)) {
                 set(i, f.second->name, expression_visitor(_solver, itm_ctx).visit(&inst_f->expr_c).as<expr>());
             }
@@ -49,9 +50,17 @@ namespace ratio {
             set(*cstrctr_ctx, args[j]->name, exprs[j]);
         }
         for (const auto& el : init_els) {
-            if (fields.find(el->name->getText()) != fields.end()) {
+            if (scope_fields.find(el->name->getText()) != scope_fields.end()) {
+                // we are assigning a value to a field..
                 set(i, el->name->getText(), expression_visitor(_solver, cstrctr_ctx).visit(el->expr_list()->expr(0)).as<expr>());
             } else {
+                // we are calling the constructor of a base-class..
+#ifndef NDEBUG
+                std::vector<type*> sts = static_cast<type&> (_scope).get_supertypes();
+                assert(std::any_of(sts.begin(), sts.end(), [el](type * t) {
+                    return t->name.compare(el->name->getText()) == 0;
+                }));
+#endif
                 std::vector<expr> exprs;
                 std::vector<const type*> par_types;
                 if (el->expr_list()) {
@@ -67,7 +76,8 @@ namespace ratio {
             }
         }
 
-        for (const auto& f : _scope.get_fields()) {
+        // we instantiate uninstantiated fields..
+        for (const auto& f : scope_fields) {
             if (!f.second->synthetic && !i.is_instantiated(f.second->name)) {
                 set(i, f.second->name, f.second->new_instance(itm_ctx));
             }
