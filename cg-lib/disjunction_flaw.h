@@ -33,7 +33,7 @@ namespace cg {
 
     class disjunction_flaw : public flaw {
     public:
-        disjunction_flaw(causal_graph& g, ratio::context& e, ratio::disjunction& d);
+        disjunction_flaw(causal_graph& g, const ratio::context& ctx, ratio::disjunction& d);
         disjunction_flaw(const disjunction_flaw& orig) = delete;
         virtual ~disjunction_flaw();
 
@@ -44,7 +44,7 @@ namespace cg {
 
         class choose_conjunction : public resolver {
         public:
-            choose_conjunction(causal_graph& g, disjunction_flaw& f, ratio::context& e, ratio::conjunction& c);
+            choose_conjunction(causal_graph& g, disjunction_flaw& f, const ratio::context& e, ratio::conjunction& c);
             choose_conjunction(const choose_conjunction& that) = delete;
             virtual ~choose_conjunction();
 
@@ -54,12 +54,12 @@ namespace cg {
             bool apply() override;
 
         private:
-            ratio::context e;
+            ratio::context ctx;
             ratio::conjunction& conj;
         };
 
     private:
-        ratio::context e;
+        ratio::context ctx;
         ratio::disjunction& disj;
     };
 }

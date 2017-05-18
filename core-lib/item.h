@@ -37,7 +37,7 @@ namespace ratio {
     class item : public env, public smt::set_item {
         friend class scope;
     public:
-        item(solver& slv, env& e, const type& t);
+        item(solver& slv, const context& ctx, const type& t);
         item(const item& orig) = delete;
         virtual ~item();
 

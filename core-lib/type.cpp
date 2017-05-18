@@ -74,7 +74,7 @@ namespace ratio {
     }
 
     expr type::new_instance(context& ctx) {
-        expr i = new item(_solver, *ctx, *this);
+        expr i = new item(_solver, ctx, *this);
         std::queue<type*> q;
         q.push(this);
         while (!q.empty()) {

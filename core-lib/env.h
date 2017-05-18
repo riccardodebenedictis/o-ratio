@@ -40,7 +40,7 @@ namespace ratio {
         friend class statement_visitor;
         friend class expression_visitor;
     public:
-        env(solver& slv, env& e);
+        env(solver& slv, const context& ctx);
         env(const env& orig) = delete;
         virtual ~env();
 
@@ -48,8 +48,8 @@ namespace ratio {
             return _solver;
         }
 
-        env& get_env() const {
-            return _env;
+        context get_ctx() const {
+            return ctx;
         }
 
         virtual expr get(const std::string& name) const;
@@ -62,7 +62,7 @@ namespace ratio {
 
     protected:
         solver& _solver;
-        env& _env;
+        const context ctx;
         std::unordered_map<std::string, expr> items;
     };
 }

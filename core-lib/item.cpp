@@ -30,7 +30,7 @@
 
 namespace ratio {
 
-    item::item(solver& slv, env& e, const type& t) : env(slv, e), t(t) { }
+    item::item(solver& slv, const context& ctx, const type& t) : env(slv, ctx), t(t) { }
 
     item::~item() { }
 
@@ -90,7 +90,7 @@ namespace ratio {
         }
     }
 
-    bool_item::bool_item(solver& slv, const smt::lit& l) : item(slv, slv, slv.get_type(BOOL_KEYWORD)), l(l) { }
+    bool_item::bool_item(solver& slv, const smt::lit& l) : item(slv, &slv, slv.get_type(BOOL_KEYWORD)), l(l) { }
 
     bool_item::~bool_item() { }
 
@@ -116,7 +116,7 @@ namespace ratio {
         }
     }
 
-    arith_item::arith_item(solver& slv, const type& t, const smt::lin& l) : item(slv, slv, t), l(l) {
+    arith_item::arith_item(solver& slv, const type& t, const smt::lin& l) : item(slv, &slv, t), l(l) {
         assert(&t == &slv.get_type(INT_KEYWORD) || &t == &slv.get_type(REAL_KEYWORD));
     }
 
@@ -144,7 +144,7 @@ namespace ratio {
         }
     }
 
-    string_item::string_item(solver& slv, const std::string& l) : item(slv, slv, slv.get_type(STRING_KEYWORD)), l(l) { }
+    string_item::string_item(solver& slv, const std::string& l) : item(slv, &slv, slv.get_type(STRING_KEYWORD)), l(l) { }
 
     string_item::~string_item() { }
 
@@ -172,7 +172,7 @@ namespace ratio {
         }
     }
 
-    enum_item::enum_item(solver& slv, const type& t, smt::var ev) : item(slv, slv, t), ev(ev) { }
+    enum_item::enum_item(solver& slv, const type& t, smt::var ev) : item(slv, &slv, t), ev(ev) { }
 
     enum_item::~enum_item() { }
 

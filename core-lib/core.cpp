@@ -33,7 +33,7 @@
 
 namespace ratio {
 
-    core::core(solver& slv) : scope(slv, *this), env(slv, *this), sat(), la(sat), set(sat) {
+    core::core(solver& slv) : scope(slv, *this), env(slv, this), sat(), la(sat), set(sat) {
         types.insert({BOOL_KEYWORD, new bool_type(slv)});
         types.insert({INT_KEYWORD, new int_type(slv)});
         types.insert({REAL_KEYWORD, new real_type(slv)});

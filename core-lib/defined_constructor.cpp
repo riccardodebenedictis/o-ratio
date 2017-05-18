@@ -44,7 +44,7 @@ namespace ratio {
             }
         }
 
-        context cstrctr_ctx(new env(_solver, i));
+        context cstrctr_ctx(new env(_solver, &i));
         set(*cstrctr_ctx, THIS_KEYWORD, expr(&i));
         for (unsigned int j = 0; j < args.size(); j++) {
             set(*cstrctr_ctx, args[j]->name, exprs[j]);

@@ -32,7 +32,7 @@ namespace ratio {
     atom_state * const atom::inactive = new atom_state();
     atom_state * const atom::unified = new atom_state();
 
-    atom::atom(solver& slv, env& e, predicate& p) : item(slv, e, p), state(slv.set.new_var({atom::active, atom::inactive, atom::unified})) { }
+    atom::atom(solver& slv, const context& ctx, predicate& p) : item(slv, ctx, p), state(slv.set.new_var({atom::active, atom::inactive, atom::unified})) { }
 
     atom::~atom() { }
 }

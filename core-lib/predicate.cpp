@@ -40,7 +40,7 @@ namespace ratio {
     predicate::~predicate() { }
 
     expr predicate::new_instance(context& ctx) {
-        atom * a = new atom(_solver, *ctx, *this);
+        atom * a = new atom(_solver, ctx, *this);
         std::queue<predicate*> q;
         q.push(this);
         while (!q.empty()) {

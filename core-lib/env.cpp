@@ -29,10 +29,10 @@
 
 namespace ratio {
 
-    env::env(solver& slv, env& e) : ref_count(this == &slv), _solver(slv), _env(e) { }
+    env::env(solver& slv, const context& ctx) : ref_count(this == &slv), _solver(slv), ctx(ctx) { }
 
     env::~env() {
-        assert(!ref_count || (this == &_env && ref_count));
+        assert(!ref_count || (this == &*ctx && ref_count));
     }
 
     expr env::get(const std::string& name) const {
@@ -41,7 +41,7 @@ namespace ratio {
         }
 
         // if not here, check any enclosing environment
-        return _env.get(name);
+        return ctx->get(name);
     }
 
     std::unordered_map<std::string, expr> env::get_items() const noexcept {

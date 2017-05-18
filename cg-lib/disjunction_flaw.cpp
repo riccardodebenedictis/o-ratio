@@ -27,7 +27,7 @@
 
 namespace cg {
 
-    disjunction_flaw::disjunction_flaw(causal_graph& g, ratio::context& e, ratio::disjunction& d) : flaw(g, true), e(e), disj(d) { }
+    disjunction_flaw::disjunction_flaw(causal_graph& g, const ratio::context& ctx, ratio::disjunction& d) : flaw(g, true), ctx(ctx), disj(d) { }
 
     disjunction_flaw::~disjunction_flaw() { }
 
@@ -37,12 +37,12 @@ namespace cg {
 
     void disjunction_flaw::compute_resolvers() {
         for (const auto& cnj : disj.get_conjunctions()) {
-            ratio::context ctx(new ratio::env(g, *e));
-            add_resolver(*new choose_conjunction(g, *this, ctx, *cnj));
+            ratio::context cnj_ctx(new ratio::env(g, ctx));
+            add_resolver(*new choose_conjunction(g, *this, cnj_ctx, *cnj));
         }
     }
 
-    disjunction_flaw::choose_conjunction::choose_conjunction(causal_graph& cg, disjunction_flaw& f, ratio::context& e, ratio::conjunction& c) : resolver(cg, c.get_cost(), f), e(e), conj(c) { }
+    disjunction_flaw::choose_conjunction::choose_conjunction(causal_graph& cg, disjunction_flaw& f, const ratio::context& ctx, ratio::conjunction& c) : resolver(cg, c.get_cost(), f), ctx(ctx), conj(c) { }
 
     disjunction_flaw::choose_conjunction::~choose_conjunction() { }
 
@@ -51,6 +51,6 @@ namespace cg {
     }
 
     bool disjunction_flaw::choose_conjunction::apply() {
-        return conj.apply(e);
+        return conj.apply(ctx);
     }
 }

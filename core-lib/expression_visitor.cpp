@@ -136,8 +136,8 @@ namespace ratio {
                 m = &_solver.scopes.at(ctx)->get_method(ctx->function_name->getText(), par_types);
             }
 
-            context c_e(new env(_solver, *cntx));
-            if (item * i = dynamic_cast<item*> (&cntx->get_env())) {
+            context c_e(new env(_solver, cntx));
+            if (item * i = dynamic_cast<item*> (&*cntx->get_ctx())) {
                 c_e->items.insert({THIS_KEYWORD, expr(i)});
             }
             for (unsigned int j = 0; j < m->args.size(); j++) {

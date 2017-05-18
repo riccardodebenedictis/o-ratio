@@ -33,7 +33,7 @@ namespace ratio {
     defined_conjunction::~defined_conjunction() { }
 
     bool defined_conjunction::apply(context& ctx) const {
-        context c(new env(_solver, *ctx));
+        context c(new env(_solver, ctx));
         return statement_visitor(_solver, c).visit(&block).as<bool>();
     }
 }
