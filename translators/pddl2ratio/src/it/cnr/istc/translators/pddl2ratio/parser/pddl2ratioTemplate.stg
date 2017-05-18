@@ -28,14 +28,14 @@ class <domain.name>State : PropositionalState {
 
 
     predicate <predicate.name>(<predicate.variables : {variable |<variable.type.name> <variable.name>}; separator=", ">) {
-        duration >= 1;
+        duration >= 1.0;
         <predicate>
     \}}>
 <domain.functions.values : {function |
 
 
     predicate <function.name>(<function.variables : {variable |<variable.type.name> <variable.name>}; separator=", "><if(function.variables)>, <endif><function.type.name> value) {
-        duration >= 1;
+        duration >= 1.0;
         <function>
     \}}>
 \}
@@ -67,7 +67,7 @@ Problem(problem) ::= <<
 * Problem: <problem.name>
 */
 
-<[problem.domain.constants.values, problem.objects.values] : {object |<object.type.name> <object.name> = new <object.type.name>(<i>);
+<[problem.domain.constants.values, problem.objects.values] : {object |<object.type.name> <object.name> = new <object.type.name>(<i>.0);
 }>
 <problem.domain.name>Agent agent = new <problem.domain.name>Agent(<problem.domain.constants.values : {constant | <constant.name>}; separator=", ">);
 

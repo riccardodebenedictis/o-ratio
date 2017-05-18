@@ -111,17 +111,17 @@ class TermRenderer implements AttributeRenderer {
             switch (formatString) {
                 case "precondition":
                     sb.append("goal ").append(formula_name).append(" = new propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".start <= at - 1;");
+                    sb.append("  ").append(formula_name).append(".start <= at - 1.0;");
                     sb.append("  ").append(formula_name).append(".end >= at;");
                     break;
                 case "effect":
                     assignments.add("start:at");
                     sb.append("fact ").append(formula_name).append(" = new propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".duration >= 1;");
+                    sb.append("  ").append(formula_name).append(".duration >= 1.0;");
                     break;
                 case "at-start-condition":
                     sb.append("goal ").append(formula_name).append(" = new propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".start <= start - 1;");
+                    sb.append("  ").append(formula_name).append(".start <= start - 1.0;");
                     sb.append("  ").append(formula_name).append(".end >= start;");
                     break;
                 case "over-all-condition":
@@ -131,23 +131,23 @@ class TermRenderer implements AttributeRenderer {
                     break;
                 case "at-end-condition":
                     sb.append("goal ").append(formula_name).append(" = new propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".start <= end - 1;");
+                    sb.append("  ").append(formula_name).append(".start <= end - 1.0;");
                     sb.append("  ").append(formula_name).append(".end >= end;");
                     break;
                 case "at-start-effect":
                     assignments.add("start:start");
                     sb.append("fact ").append(formula_name).append(" = new propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".duration >= 1;");
+                    sb.append("  ").append(formula_name).append(".duration >= 1.0;");
                     break;
                 case "at-end-effect":
                     assignments.add("start:end");
                     sb.append("fact ").append(formula_name).append(" = new propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".duration >= 1;");
+                    sb.append("  ").append(formula_name).append(".duration >= 1.0;");
                     break;
                 case "init":
                     assignments.add("start:origin");
                     sb.append("fact ").append(formula_name).append(" = new agent.propositional_state.").append(predicate_name).append("(").append(assignments.stream().collect(Collectors.joining(", "))).append(");");
-                    sb.append("  ").append(formula_name).append(".duration >= 1;");
+                    sb.append("  ").append(formula_name).append(".duration >= 1.0;");
                     break;
                 case "goal":
                     assignments.add("end:horizon");
