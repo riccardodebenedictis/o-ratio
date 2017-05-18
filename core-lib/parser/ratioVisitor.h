@@ -134,6 +134,10 @@ namespace ratio {
 
         virtual antlrcpp::Any visitTyped_list(ratioParser::Typed_listContext *context) = 0;
 
+        virtual antlrcpp::Any visitQualified_predicate(ratioParser::Qualified_predicateContext *context) = 0;
+
+        virtual antlrcpp::Any visitPredicate_list(ratioParser::Predicate_listContext *context) = 0;
+
 
     };
 

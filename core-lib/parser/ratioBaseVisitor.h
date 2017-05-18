@@ -245,6 +245,14 @@ namespace ratio {
             return visitChildren(ctx);
         }
 
+        virtual antlrcpp::Any visitQualified_predicate(ratioParser::Qualified_predicateContext *ctx) override {
+            return visitChildren(ctx);
+        }
+
+        virtual antlrcpp::Any visitPredicate_list(ratioParser::Predicate_listContext *ctx) override {
+            return visitChildren(ctx);
+        }
+
 
     };
 

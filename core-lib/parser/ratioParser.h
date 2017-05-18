@@ -33,7 +33,8 @@ namespace ratio {
             RuleFormula_statement = 20, RuleReturn_statement = 21, RuleAssignment_list = 22,
             RuleAssignment = 23, RuleExpr = 24, RuleExpr_list = 25, RuleLiteral = 26,
             RuleQualified_id = 27, RuleType = 28, RuleClass_type = 29, RulePrimitive_type = 30,
-            RuleType_list = 31, RuleTyped_list = 32
+            RuleType_list = 31, RuleTyped_list = 32, RuleQualified_predicate = 33,
+            RulePredicate_list = 34
         };
 
         ratioParser(antlr4::TokenStream *input);
@@ -85,6 +86,8 @@ namespace ratio {
         class Primitive_typeContext;
         class Type_listContext;
         class Typed_listContext;
+        class Qualified_predicateContext;
+        class Predicate_listContext;
 
         class Compilation_unitContext : public antlr4::ParserRuleContext {
         public:
@@ -347,7 +350,7 @@ namespace ratio {
             BlockContext *block();
             antlr4::tree::TerminalNode *ID();
             Typed_listContext *typed_list();
-            Type_listContext *type_list();
+            Predicate_listContext *predicate_list();
 
             virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
             virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1003,6 +1006,38 @@ namespace ratio {
         };
 
         Typed_listContext* typed_list();
+
+        class Qualified_predicateContext : public antlr4::ParserRuleContext {
+        public:
+            Qualified_predicateContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+            virtual size_t getRuleIndex() const override;
+            antlr4::tree::TerminalNode *ID();
+            Class_typeContext *class_type();
+
+            virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+            virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+            virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+
+        };
+
+        Qualified_predicateContext* qualified_predicate();
+
+        class Predicate_listContext : public antlr4::ParserRuleContext {
+        public:
+            Predicate_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+            virtual size_t getRuleIndex() const override;
+            std::vector<Qualified_predicateContext *> qualified_predicate();
+            Qualified_predicateContext* qualified_predicate(size_t i);
+
+            virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+            virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+            virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+
+        };
+
+        Predicate_listContext* predicate_list();
 
 
         virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;

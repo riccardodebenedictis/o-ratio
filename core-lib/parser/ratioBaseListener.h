@@ -246,6 +246,14 @@ namespace ratio {
 
         virtual void exitTyped_list(ratioParser::Typed_listContext * /*ctx*/) override { }
 
+        virtual void enterQualified_predicate(ratioParser::Qualified_predicateContext * /*ctx*/) override { }
+
+        virtual void exitQualified_predicate(ratioParser::Qualified_predicateContext * /*ctx*/) override { }
+
+        virtual void enterPredicate_list(ratioParser::Predicate_listContext * /*ctx*/) override { }
+
+        virtual void exitPredicate_list(ratioParser::Predicate_listContext * /*ctx*/) override { }
+
         virtual void enterEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }
 
         virtual void exitEveryRule(antlr4::ParserRuleContext * /*ctx*/) override { }

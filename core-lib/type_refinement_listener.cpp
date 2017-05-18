@@ -191,9 +191,13 @@ namespace ratio {
         }
         defined_predicate* p = new defined_predicate(_solver, *_scope, ctx->name->getText(), args, *ctx->block());
 
-        if (ctx->type_list()) {
-            for (const auto& t : ctx->type_list()->type()) {
-                p->supertypes.push_back(type_visitor(_solver).visit(t).as<type*>());
+        if (ctx->predicate_list()) {
+            for (const auto& qp : ctx->predicate_list()->qualified_predicate()) {
+                if (qp->class_type()) {
+                    p->supertypes.push_back(&type_visitor(_solver).visit(qp->class_type()).as<type*>()->get_predicate(qp->ID()->getText()));
+                } else {
+                    p->supertypes.push_back(&_scope->get_predicate(qp->ID()->getText()));
+                }
             }
         }
 

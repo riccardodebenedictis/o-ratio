@@ -45,7 +45,7 @@ initializer_element
     :   name=ID '(' expr_list? ')';
 
 predicate_declaration
-    :   'predicate' name=ID '(' typed_list? ')' (':' type_list)? '{' block '}';
+    :   'predicate' name=ID '(' typed_list? ')' (':' predicate_list)? '{' block '}';
 
 statement
     :   assignment_statement
@@ -141,6 +141,12 @@ type_list
 
 typed_list
     :   type ID (',' type ID)*;
+
+qualified_predicate
+    :   (class_type '.')? ID;
+
+predicate_list
+    :   qualified_predicate (',' qualified_predicate)*;
 
 TYPE_DEF
     :   'typedef';

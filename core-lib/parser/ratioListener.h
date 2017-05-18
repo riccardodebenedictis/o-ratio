@@ -187,6 +187,12 @@ namespace ratio {
         virtual void enterTyped_list(ratioParser::Typed_listContext *ctx) = 0;
         virtual void exitTyped_list(ratioParser::Typed_listContext *ctx) = 0;
 
+        virtual void enterQualified_predicate(ratioParser::Qualified_predicateContext *ctx) = 0;
+        virtual void exitQualified_predicate(ratioParser::Qualified_predicateContext *ctx) = 0;
+
+        virtual void enterPredicate_list(ratioParser::Predicate_listContext *ctx) = 0;
+        virtual void exitPredicate_list(ratioParser::Predicate_listContext *ctx) = 0;
+
 
     };
 
