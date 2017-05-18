@@ -66,7 +66,7 @@ namespace ratio {
             c_e = &*ex;
         }
 
-        c_e->items.insert({ctx->field->getText(), expression_visitor(_solver, cntx).visit(ctx->expr())});
+        c_e->items.insert({ctx->field->getText(), expression_visitor(_solver, cntx).visit(ctx->expr()).as<expr>()});
         return true;
     }
 
@@ -157,7 +157,7 @@ namespace ratio {
     }
 
     antlrcpp::Any statement_visitor::visitReturn_statement(ratioParser::Return_statementContext* ctx) {
-        cntx->items.insert({RETURN_KEYWORD, expression_visitor(_solver, cntx).visit(ctx->expr())});
+        cntx->items.insert({RETURN_KEYWORD, expression_visitor(_solver, cntx).visit(ctx->expr()).as<expr>()});
         return true;
     }
 
