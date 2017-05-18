@@ -116,9 +116,9 @@ namespace smt {
 
     std::unordered_set<set_item*> set_theory::value(var v) const {
         std::unordered_set<set_item*> vals;
-        for (const auto& v : assigns[v]) {
-            if (c.value(v.second) != False) {
-                vals.insert(v.first);
+        for (const auto& val : assigns[v]) {
+            if (c.value(val.second) != False) {
+                vals.insert(val.first);
             }
         }
         return vals;
