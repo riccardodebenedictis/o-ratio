@@ -101,12 +101,14 @@
             <pElem>../smt-lib</pElem>
             <pElem>../core-lib</pElem>
             <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+            <pElem>/usr/local/include/antlr4-runtime</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <linkerAddLib>
             <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+            <pElem>/usr/local/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -308,6 +310,7 @@
             <pElem>../smt-lib</pElem>
             <pElem>../core-lib</pElem>
             <pElem>C:/Program Files (x86)/LIBANTLR4/include/antlr4-runtime</pElem>
+            <pElem>/usr/local/include/antlr4-runtime</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -320,6 +323,7 @@
         <linkerTool>
           <linkerAddLib>
             <pElem>C:/Program Files (x86)/LIBANTLR4/lib</pElem>
+            <pElem>/usr/local/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>

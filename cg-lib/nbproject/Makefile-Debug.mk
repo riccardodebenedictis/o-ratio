@@ -78,7 +78,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/C/Program\ Files\ \(x86\)/LIBANTLR4/lib -L../smt-lib/dist/Debug/MinGW-Windows -lsmt-lib -L../core-lib/dist/Debug/MinGW-Windows -lcore-lib -lantlr4-runtime
+LDLIBSOPTIONS=-L/C/Program\ Files\ \(x86\)/LIBANTLR4/lib -L/usr/local/lib -L../smt-lib/dist/Debug/MinGW-Windows -lsmt-lib -L../core-lib/dist/Debug/MinGW-Windows -lcore-lib -lantlr4-runtime
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -95,57 +95,57 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcg-lib.${CND_DLIB_EXT}: ${OBJECTFI
 ${OBJECTDIR}/atom_flaw.o: atom_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp
 
 ${OBJECTDIR}/causal_graph.o: causal_graph.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph.o causal_graph.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph.o causal_graph.cpp
 
 ${OBJECTDIR}/causal_graph_listener.o: causal_graph_listener.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_listener.o causal_graph_listener.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_listener.o causal_graph_listener.cpp
 
 ${OBJECTDIR}/disjunction_flaw.o: disjunction_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_flaw.o disjunction_flaw.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_flaw.o disjunction_flaw.cpp
 
 ${OBJECTDIR}/enum_flaw.o: enum_flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw.o enum_flaw.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw.o enum_flaw.cpp
 
 ${OBJECTDIR}/flaw.o: flaw.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw.o flaw.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw.o flaw.cpp
 
 ${OBJECTDIR}/propositional_agent.o: propositional_agent.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_agent.o propositional_agent.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_agent.o propositional_agent.cpp
 
 ${OBJECTDIR}/propositional_state.o: propositional_state.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_state.o propositional_state.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_state.o propositional_state.cpp
 
 ${OBJECTDIR}/resolver.o: resolver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver.o resolver.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver.o resolver.cpp
 
 ${OBJECTDIR}/reusable_resource.o: reusable_resource.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/reusable_resource.o reusable_resource.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/reusable_resource.o reusable_resource.cpp
 
 ${OBJECTDIR}/state_variable.o: state_variable.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/state_variable.o state_variable.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/state_variable.o state_variable.cpp
 
 # Subprojects
 .build-subprojects:
@@ -176,25 +176,25 @@ ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/reusable_resource_test.o ${OBJECTFILES
 ${TESTDIR}/tests/cg_test.o: tests/cg_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/cg_test.o tests/cg_test.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/cg_test.o tests/cg_test.cpp
 
 
 ${TESTDIR}/tests/classical_problems_test.o: tests/classical_problems_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/classical_problems_test.o tests/classical_problems_test.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/classical_problems_test.o tests/classical_problems_test.cpp
 
 
 ${TESTDIR}/tests/heuristic_test.o: tests/heuristic_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/heuristic_test.o tests/heuristic_test.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/heuristic_test.o tests/heuristic_test.cpp
 
 
 ${TESTDIR}/tests/reusable_resource_test.o: tests/reusable_resource_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/reusable_resource_test.o tests/reusable_resource_test.cpp
+	$(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/reusable_resource_test.o tests/reusable_resource_test.cpp
 
 
 ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp 
@@ -205,7 +205,7 @@ ${OBJECTDIR}/atom_flaw_nomain.o: ${OBJECTDIR}/atom_flaw.o atom_flaw.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw_nomain.o atom_flaw.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/atom_flaw_nomain.o atom_flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/atom_flaw.o ${OBJECTDIR}/atom_flaw_nomain.o;\
 	fi
@@ -218,7 +218,7 @@ ${OBJECTDIR}/causal_graph_nomain.o: ${OBJECTDIR}/causal_graph.o causal_graph.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_nomain.o causal_graph.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_nomain.o causal_graph.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/causal_graph.o ${OBJECTDIR}/causal_graph_nomain.o;\
 	fi
@@ -231,7 +231,7 @@ ${OBJECTDIR}/causal_graph_listener_nomain.o: ${OBJECTDIR}/causal_graph_listener.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_listener_nomain.o causal_graph_listener.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/causal_graph_listener_nomain.o causal_graph_listener.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/causal_graph_listener.o ${OBJECTDIR}/causal_graph_listener_nomain.o;\
 	fi
@@ -244,7 +244,7 @@ ${OBJECTDIR}/disjunction_flaw_nomain.o: ${OBJECTDIR}/disjunction_flaw.o disjunct
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_flaw_nomain.o disjunction_flaw.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/disjunction_flaw_nomain.o disjunction_flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/disjunction_flaw.o ${OBJECTDIR}/disjunction_flaw_nomain.o;\
 	fi
@@ -257,7 +257,7 @@ ${OBJECTDIR}/enum_flaw_nomain.o: ${OBJECTDIR}/enum_flaw.o enum_flaw.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw_nomain.o enum_flaw.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/enum_flaw_nomain.o enum_flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/enum_flaw.o ${OBJECTDIR}/enum_flaw_nomain.o;\
 	fi
@@ -270,7 +270,7 @@ ${OBJECTDIR}/flaw_nomain.o: ${OBJECTDIR}/flaw.o flaw.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw_nomain.o flaw.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/flaw_nomain.o flaw.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/flaw.o ${OBJECTDIR}/flaw_nomain.o;\
 	fi
@@ -283,7 +283,7 @@ ${OBJECTDIR}/propositional_agent_nomain.o: ${OBJECTDIR}/propositional_agent.o pr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_agent_nomain.o propositional_agent.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_agent_nomain.o propositional_agent.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/propositional_agent.o ${OBJECTDIR}/propositional_agent_nomain.o;\
 	fi
@@ -296,7 +296,7 @@ ${OBJECTDIR}/propositional_state_nomain.o: ${OBJECTDIR}/propositional_state.o pr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_state_nomain.o propositional_state.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/propositional_state_nomain.o propositional_state.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/propositional_state.o ${OBJECTDIR}/propositional_state_nomain.o;\
 	fi
@@ -309,7 +309,7 @@ ${OBJECTDIR}/resolver_nomain.o: ${OBJECTDIR}/resolver.o resolver.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver_nomain.o resolver.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/resolver_nomain.o resolver.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/resolver.o ${OBJECTDIR}/resolver_nomain.o;\
 	fi
@@ -322,7 +322,7 @@ ${OBJECTDIR}/reusable_resource_nomain.o: ${OBJECTDIR}/reusable_resource.o reusab
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/reusable_resource_nomain.o reusable_resource.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/reusable_resource_nomain.o reusable_resource.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/reusable_resource.o ${OBJECTDIR}/reusable_resource_nomain.o;\
 	fi
@@ -335,7 +335,7 @@ ${OBJECTDIR}/state_variable_nomain.o: ${OBJECTDIR}/state_variable.o state_variab
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/state_variable_nomain.o state_variable.cpp;\
+	    $(COMPILE.cc) -g -Wall -I../smt-lib -I../core-lib -I/C/Program\ Files\ \(x86\)/LIBANTLR4/include/antlr4-runtime -I/usr/local/include/antlr4-runtime  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/state_variable_nomain.o state_variable.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/state_variable.o ${OBJECTDIR}/state_variable_nomain.o;\
 	fi
